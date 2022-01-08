@@ -238,7 +238,6 @@
 											"unwrapMode": 4,
 											"uv": [ 4.5, 6.0 ],
 											"rotationOrigin": [ 2.5, 0.0, 2.5 ],
-											"rotationZ": 0.0,
 											"faces": {
 												"north": { "texture": "#face", "uv": [ 4.5, 6.5, 5.0, 11.5 ] },
 												"east": { "texture": "#face", "uv": [ 10.5, 6.5, 15.5, 11.5 ] },
@@ -258,6 +257,24 @@
 									]
 								}
 							]
+						},
+						{
+							"name": "UpperTorsoSkin",
+							"from": [ 0.05, 0.05, 0.05 ], 
+							"to": [ 4.95, 4.95, 6.15 ], 
+							"unwrapMode": 4,
+							"autoUnwrap": false,
+							"uv": [ 41.5, 0.5 ],
+							"rotationOrigin": [ 2.0, 1.0, 3.0 ],
+							"rotationZ": 0.0,
+							"faces": {
+								"north": { "texture": "#skin", "uv": [ 40.0, 5.0, 44.5, 9.5 ] },
+								"east": { "texture": "#skin", "uv": [ 56.0, 5.0, 62.0, 9.5 ] },
+								"south": { "texture": "#skin", "uv": [ 51.0, 5.0, 55.5, 9.5 ] },
+								"west": { "texture": "#skin", "uv": [ 45.0, 5.0, 51.0, 9.5 ] },
+								"up": { "texture": "#skin", "uv": [ 45.0, 0.0, 51.0, 4.5 ], "rotation": 90 },
+								"down": { "texture": "#skin", "uv": [ 32.5, 5.0, 38.5, 9.5 ], "rotation": 90 }
+							}
 						}
 					]
 				},
