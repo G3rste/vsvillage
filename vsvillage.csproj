@@ -1,0 +1,35 @@
+<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<TargetFramework>net461</TargetFramework>
+	</PropertyGroup>
+	
+	<ItemGroup>
+		<Reference Include="VintagestoryAPI">
+			<HintPath>$(VINTAGE_STORY)/VintagestoryAPI.dll</HintPath>
+			<Private>false</Private>
+		</Reference>
+		<Reference Include="Newtonsoft">
+			<HintPath>lib/Newtonsoft.Json.dll</HintPath>
+			<Private>false</Private>
+		</Reference>
+		<Reference Include="VSEssentials">
+			<HintPath>$(VINTAGE_STORY)/Mods/VSEssentials.dll</HintPath>
+			<Private>false</Private>
+		</Reference>
+		<Reference Include="VSSurvivalMod">
+			<HintPath>$(VINTAGE_STORY)/Mods/VSSurvivalMod.dll</HintPath>
+			<Private>false</Private>
+		</Reference>
+	</ItemGroup>
+	
+	<ItemGroup Condition="'$(Configuration)' == 'Release'">
+		<None Include="resources/**">
+			<Link>%(RecursiveDir)%(Filename)%(Extension)</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+	</ItemGroup>
+	
+	<Target Name="Package" AfterTargets="PostBuildEvent" Condition="'$(Configuration)' == 'Release'">
+		<ZipDirectory DestinationFile="bin/$(TargetName).zip" SourceDirectory="$(TargetDir)" Overwrite="true" />
+	</Target>
+</Project>
