@@ -6,10 +6,15 @@
 	"deadHitboxSize": { "x": 0.75, "y": 0.5 },
 	"client": {
 		"renderer": "Shape",
-		"shape": { "base": "game:entity/humanoid/trader" },
-		"texture": { "base": "game:entity/humanoid/trader", "alternates": [ { "base": "game:entity/humanoid/traderclothes/set1" }, { "base": "game:entity/humanoid/traderclothes/set2" },
-                                                             { "base": "game:entity/humanoid/traderclothes/set3" }, { "base": "game:entity/humanoid/traderclothes/set4" },
-                                                             { "base": "game:entity/humanoid/traderclothes/set5" }  ] },
+		"shape": { "base": "villager" },
+		"textures": { 
+			"skin": { "base": "body/skin1", "alternates": [ { "base": "body/skin2" }, { "base": "body/skin3" }, { "base": "body/skin-old" }  ] },
+			"shirt": { "base": "clothes/upperbody/shirt1", "alternates": [ { "base": "clothes/upperbody/shirt2" }, { "base": "clothes/upperbody/shirt3" } ] },
+			"hair": { "base": "body/hair1", "alternates": [ { "base": "body/hair2" }, { "base": "body/hair3" }, { "base": "body/hair-old-woman" }, { "base": "body/hair-young-woman" }  ] },
+			"boots": { "base": "clothes/foot/boots1", "alternates": [ { "base": "clothes/foot/boots2" }, { "base": "clothes/foot/boots3" } ] },
+			"pants": { "base": "clothes/lowerbody/pants1", "alternates": [ { "base": "clothes/lowerbody/pants2" }, { "base": "clothes/lowerbody/pants3" } ] },
+			"face": { "base": "body/face1", "alternates": [ { "base": "body/face2" }, { "base": "body/face3" }, { "base": "body/face-old-woman" }, { "base": "body/face-young-woman" }  ] }
+		},
 		"behaviors": [
 			{ "code": "nametag", "showtagonlywhentargeted": true },
 			{ "code": "repulseagents" },
