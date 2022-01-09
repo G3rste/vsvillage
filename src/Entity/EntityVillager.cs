@@ -40,6 +40,13 @@ namespace VsVillage
             (AnimManager as TraderAnimationManager).Personality = Personality;
         }
 
+        public override void OnEntitySpawn()
+        {
+            base.OnEntitySpawn();
+            var slot = new DummySlot(new ItemStack(Api.World.GetItem(new AssetLocation("vsvillage", "villagergear-head-armor"))));
+            slot.TryPutInto(World, GearInventory.GetBestSuitedSlot(slot).slot);
+        }
+
         public override void OnTesselation(ref Shape entityShape, string shapePathForLogging)
         {
             base.OnTesselation(ref entityShape, shapePathForLogging);

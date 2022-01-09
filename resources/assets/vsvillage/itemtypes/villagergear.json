@@ -1,0 +1,66 @@
+{
+    "code": "villagergear",
+    "class": "ItemVillagerGear",
+    "maxstacksize": 1,
+    "attributes": {
+		"wearableAttachment": true,
+        "handbook": {
+            "exclude": true
+        }
+    },
+    "variantgroups": [
+        {
+            "code": "type",
+            "states": [
+                "head"
+            ]
+        },
+        {
+            "code": "name",
+            "states": [
+                "armor",
+                "bandage",
+                "bandage-eye",
+                "jewelry-monocle",
+                "beret",
+                "chaperon",
+                "fez",
+                "miner-hat",
+                "hood",
+                "keffiyeh"
+            ]
+        }
+    ],
+    "shapeByType": {
+        "*-armor": {
+            "base": "game:entity/humanoid/traderaccessories/armor/head"
+        },
+        "*-bandage": {
+            "base": "game:entity/humanoid/traderaccessories/bandages/head"
+        },
+        "*-bandage-eye": {
+            "base": "game:entity/humanoid/traderaccessories/bandages/eye"
+        },
+        "*-jewelry-monocle": {
+            "base": "game:entity/humanoid/traderaccessories/jewelry/monocle"
+        },
+        "*-beret": {
+            "base": "game:entity/humanoid/traderaccessories/beret"
+        },
+        "*-chaperon": {
+            "base": "game:entity/humanoid/traderaccessories/chaperon"
+        },
+        "*-fez": {
+            "base": "game:entity/humanoid/traderaccessories/fez"
+        },
+        "*-miner-hat": {
+            "base": "game:entity/humanoid/traderaccessories/miner-hat"
+        },
+        "*-hood": {
+            "base": "game:entity/humanoid/traderaccessories/hood"
+        },
+        "*-keffiyeh": {
+            "base": "game:entity/humanoid/traderaccessories/keffiyeh"
+        }
+    }
+}

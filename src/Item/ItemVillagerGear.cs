@@ -17,7 +17,7 @@ namespace VsVillage
                 }
                 else
                 {
-                    return VillagerGearType.TORSO;
+                    return VillagerGearType.HEAD;
                 }
             }
         }
@@ -25,6 +25,6 @@ namespace VsVillage
     }
     public enum VillagerGearType
     {
-        FACE, HEAD, TORSO, ARMS, HANDS, LEGS, FEET, BACK, WEAPON 
+        HEAD, BACK, CHEST, SHOULDERS, BELT, BELTSLOT, ARMS, THIGH, FEET 
     }
 }

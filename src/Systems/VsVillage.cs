@@ -10,7 +10,7 @@ namespace VsVillage
 
             api.RegisterEntity("EntityVillager", typeof(EntityVillager));
 
-            api.RegisterItemClass("ItemVillagerEquipment", typeof(ItemVillagerGear));
+            api.RegisterItemClass("ItemVillagerGear", typeof(ItemVillagerGear));
         }
     }
 }

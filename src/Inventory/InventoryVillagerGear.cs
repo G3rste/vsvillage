@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Vintagestory.API.Common;
 using Vintagestory.API.Datastructures;
@@ -17,16 +18,12 @@ namespace VsVillage
         public InventoryVillagerGear(string owningEntity, string inventoryID, ICoreAPI api) : base(inventoryID, api)
         {
             this.owningEntity = owningEntity;
-            slots = new ItemSlotVillagerGear[8] {
-                new ItemSlotVillagerGear(VillagerGearType.FACE, owningEntity, this),
-                new ItemSlotVillagerGear(VillagerGearType.HEAD, owningEntity, this),
-                new ItemSlotVillagerGear(VillagerGearType.TORSO, owningEntity, this),
-                new ItemSlotVillagerGear(VillagerGearType.ARMS, owningEntity, this),
-                new ItemSlotVillagerGear(VillagerGearType.HANDS, owningEntity, this),
-                new ItemSlotVillagerGear(VillagerGearType.LEGS, owningEntity, this),
-                new ItemSlotVillagerGear(VillagerGearType.FEET, owningEntity, this),
-                new ItemSlotVillagerGear(VillagerGearType.WEAPON, owningEntity, this)
-            };
+            var gearTypes = Enum.GetNames(typeof(VillagerGearType));
+            slots = new List<string>(gearTypes)
+                .ConvertAll<ItemSlotVillagerGear>(
+                    gearType => new ItemSlotVillagerGear(
+                        (VillagerGearType)Enum.Parse(typeof(VillagerGearType), gearType), owningEntity, this))
+                .ToArray();
         }
         public override void FromTreeAttributes(ITreeAttribute tree)
         {
