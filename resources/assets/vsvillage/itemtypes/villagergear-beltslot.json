@@ -1,0 +1,62 @@
+{
+    "code": "villagergear",
+    "class": "ItemVillagerGear",
+    "maxstacksize": 1,
+    "attributes": {
+        "wearableAttachment": true,
+        "handbook": {
+            "exclude": true
+        }
+    },
+    "variantgroups": [
+        {
+            "code": "type",
+            "states": [
+                "beltslot"
+            ]
+        },
+        {
+            "code": "name",
+            "states": [
+                "jewelry-pouch",
+                "magnifying-glass",
+                "sack",
+                "spyglass",
+                "chisel",
+                "dagger",
+                "hammer",
+                "handsaw",
+                "sword"
+            ]
+        }
+    ],
+    "shapeByType": {
+        "*-jewelry-pouch": {
+            "base": "game:entity/humanoid/traderaccessories/jewelry/pouch"
+        },
+        "*-magnifying-glass": {
+            "base": "game:entity/humanoid/traderaccessories/navigation/magnifying-glass"
+        },
+        "*-sack": {
+            "base": "game:entity/humanoid/traderaccessories/navigation/sack"
+        },
+        "*-spyglass": {
+            "base": "game:entity/humanoid/traderaccessories/navigation/spyglass"
+        },
+        "*-chisel": {
+            "base": "game:entity/humanoid/traderaccessories/tools/chisel"
+        },
+        "*-dagger": {
+            "base": "game:entity/humanoid/traderaccessories/tools/dagger"
+        },
+        "*-hammer": {
+            "base": "game:entity/humanoid/traderaccessories/tools/hammer"
+        },
+        "*-handsaw": {
+            "base": "game:entity/humanoid/traderaccessories/tools/handsaw"
+        },
+        "*-sword": {
+            "base": "game:entity/humanoid/traderaccessories/tools/sword"
+        }
+    }
+}

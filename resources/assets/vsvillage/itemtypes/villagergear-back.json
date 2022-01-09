@@ -1,0 +1,46 @@
+{
+    "code": "villagergear",
+    "class": "ItemVillagerGear",
+    "maxstacksize": 1,
+    "attributes": {
+        "wearableAttachment": true,
+        "handbook": {
+            "exclude": true
+        }
+    },
+    "variantgroups": [
+        {
+            "code": "type",
+            "states": [
+                "back"
+            ]
+        },
+        {
+            "code": "name",
+            "states": [
+                "bow",
+                "dagger",
+                "pickaxe",
+                "spear",
+                "backpack"
+            ]
+        }
+    ],
+    "shapeByType": {
+        "*-bow": {
+            "base": "game:entity/humanoid/traderaccessories/tools/bow"
+        },
+        "*-dagger": {
+            "base": "game:entity/humanoid/traderaccessories/tools/dagger"
+        },
+        "*-pickaxe": {
+            "base": "game:entity/humanoid/traderaccessories/tools/pickaxe"
+        },
+        "*-spear": {
+            "base": "game:entity/humanoid/traderaccessories/tools/spear"
+        },
+        "*-backpack": {
+            "base": "game:entity/humanoid/traderaccessories/backpack"
+        }
+    }
+}

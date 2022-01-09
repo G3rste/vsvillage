@@ -11,7 +11,7 @@ namespace VsVillage
             get
             {
                 VillagerGearType type;
-                if (Enum.TryParse<VillagerGearType>(Attributes["cothingType"].AsString(), out type))
+                if (Enum.TryParse<VillagerGearType>(Variant["type"].ToUpper(), out type))
                 {
                     return type;
                 }

@@ -1,0 +1,61 @@
+{
+    "code": "villagergear",
+    "class": "ItemVillagerGear",
+    "maxstacksize": 1,
+    "attributes": {
+        "wearableAttachment": true,
+        "handbook": {
+            "exclude": true
+        }
+    },
+    "variantgroups": [
+        {
+            "code": "type",
+            "states": [
+                "shoulders"
+            ]
+        },
+        {
+            "code": "name",
+            "states": [
+                "armor",
+                "armor-hallowcroft",
+                "bandage-left",
+                "bandage-right",
+                "jewelry-necklace",
+                "sash",
+                "scarf"
+            ]
+        }
+    ],
+    "shapeByType": {
+        "*-armor": {
+            "base": "game:entity/humanoid/traderaccessories/armor/shoulders"
+        },
+        "*-armor-hallowcroft": {
+            "base": "game:entity/humanoid/traderaccessories/armor/shoulders"
+        },
+        "*-bandage-left": {
+            "base": "game:entity/humanoid/traderaccessories/bandages/left-shoulder"
+        },
+        "*-bandage-right": {
+            "base": "game:entity/humanoid/traderaccessories/bandages/right-shoulder"
+        },
+        "*-jewelry-necklace": {
+            "base": "game:entity/humanoid/traderaccessories/jewelry/necklace"
+        },
+        "*-sash": {
+            "base": "game:entity/humanoid/traderaccessories/sash"
+        },
+        "*-scarf": {
+            "base": "game:entity/humanoid/traderaccessories/scarf"
+        }
+    },
+    "texturesByType": {
+        "*-armor-hallowcroft": {
+            "material": {
+                "base": "game:entity/humanoid/traderaccessories/armor/hallowcroft"
+            }
+        }
+    }
+}

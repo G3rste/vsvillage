@@ -1,0 +1,49 @@
+{
+    "code": "villagergear",
+    "class": "ItemVillagerGear",
+    "maxstacksize": 1,
+    "attributes": {
+        "wearableAttachment": true,
+        "handbook": {
+            "exclude": true
+        }
+    },
+    "variantgroups": [
+        {
+            "code": "type",
+            "states": [
+                "thigh"
+            ]
+        },
+        {
+            "code": "name",
+            "states": [
+                "armor",
+                "armor-hallowcroft",
+                "bandage-left-thigh",
+                "bandage-right-thigh"
+            ]
+        }
+    ],
+    "shapeByType": {
+        "*-armor": {
+            "base": "game:entity/humanoid/traderaccessories/armor/thighs"
+        },
+        "*-armor-hallowcroft": {
+            "base": "game:entity/humanoid/traderaccessories/armor/thighs"
+        },
+        "*-bandage-left-thigh": {
+            "base": "game:entity/humanoid/traderaccessories/bandages/left-thigh"
+        },
+        "*-bandage-right-thigh": {
+            "base": "game:entity/humanoid/traderaccessories/bandages/right-thigh"
+        }
+    },
+    "texturesByType": {
+        "*-armor-hallowcroft": {
+            "material": {
+                "base": "game:entity/humanoid/traderaccessories/armor/hallowcroft"
+            }
+        }
+    }
+}

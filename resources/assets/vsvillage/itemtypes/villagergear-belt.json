@@ -1,0 +1,34 @@
+{
+    "code": "villagergear",
+    "class": "ItemVillagerGear",
+    "maxstacksize": 1,
+    "attributes": {
+        "wearableAttachment": true,
+        "handbook": {
+            "exclude": true
+        }
+    },
+    "variantgroups": [
+        {
+            "code": "type",
+            "states": [
+                "belt"
+            ]
+        },
+        {
+            "code": "name",
+            "states": [
+                "jewelry-girdle",
+                "kit"
+            ]
+        }
+    ],
+    "shapeByType": {
+        "*-jewelry-girdle": {
+            "base": "game:entity/humanoid/traderaccessories/jewelry/girdle"
+        },
+        "*-kit": {
+            "base": "game:entity/humanoid/traderaccessories/belt-kit"
+        }
+    }
+}

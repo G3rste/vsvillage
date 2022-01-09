@@ -1,0 +1,57 @@
+{
+    "code": "villagergear",
+    "class": "ItemVillagerGear",
+    "maxstacksize": 1,
+    "attributes": {
+        "wearableAttachment": true,
+        "handbook": {
+            "exclude": true
+        }
+    },
+    "variantgroups": [
+        {
+            "code": "type",
+            "states": [
+                "chest"
+            ]
+        },
+        {
+            "code": "name",
+            "states": [
+                "armor",
+                "armor-hallowcroft",
+                "bandage",
+                "jewelry-pin",
+                "waterskin",
+                "apron"
+            ]
+        }
+    ],
+    "shapeByType": {
+        "*-armor": {
+            "base": "game:entity/humanoid/traderaccessories/armor/chest"
+        },
+        "*-armor-hallowcroft": {
+            "base": "game:entity/humanoid/traderaccessories/armor/chest"
+        },
+        "*-bandage": {
+            "base": "game:entity/humanoid/traderaccessories/bandages/chest"
+        },
+        "*-jewelry-pin": {
+            "base": "game:entity/humanoid/traderaccessories/jewelry/chestpin"
+        },
+        "*-waterskin": {
+            "base": "game:entity/humanoid/traderaccessories/navigation/waterskin"
+        },
+        "*-apron": {
+            "base": "game:entity/humanoid/traderaccessories/apron"
+        }
+    },
+    "texturesByType": {
+        "*-armor-hallowcroft": {
+            "material": {
+                "base": "game:entity/humanoid/traderaccessories/armor/hallowcroft"
+            }
+        }
+    }
+}

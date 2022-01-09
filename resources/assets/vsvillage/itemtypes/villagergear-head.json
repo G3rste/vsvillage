@@ -19,6 +19,7 @@
             "code": "name",
             "states": [
                 "armor",
+                "armor-hallowcroft",
                 "bandage",
                 "bandage-eye",
                 "jewelry-monocle",
@@ -33,6 +34,9 @@
     ],
     "shapeByType": {
         "*-armor": {
+            "base": "game:entity/humanoid/traderaccessories/armor/head"
+        },
+        "*-armor-hallowcroft": {
             "base": "game:entity/humanoid/traderaccessories/armor/head"
         },
         "*-bandage": {
@@ -61,6 +65,13 @@
         },
         "*-keffiyeh": {
             "base": "game:entity/humanoid/traderaccessories/keffiyeh"
+        }
+    },
+    "texturesByType": {
+        "*-armor-hallowcroft": {
+            "material": {
+                "base": "game:entity/humanoid/traderaccessories/armor/hallowcroft"
+            }
         }
     }
 }
