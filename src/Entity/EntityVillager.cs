@@ -43,7 +43,23 @@ namespace VsVillage
         public override void OnEntitySpawn()
         {
             base.OnEntitySpawn();
-            var slot = new DummySlot(new ItemStack(Api.World.GetItem(new AssetLocation("vsvillage", "villagergear-head-armor"))));
+            var slot = new DummySlot(new ItemStack(Api.World.GetItem(new AssetLocation("vsvillage", "villagergear-head-armor-hallowcroft"))));
+            slot.TryPutInto(World, GearInventory.GetBestSuitedSlot(slot).slot);
+            slot = new DummySlot(new ItemStack(Api.World.GetItem(new AssetLocation("vsvillage", "villagergear-back-dagger"))));
+            slot.TryPutInto(World, GearInventory.GetBestSuitedSlot(slot).slot);
+            slot = new DummySlot(new ItemStack(Api.World.GetItem(new AssetLocation("vsvillage", "villagergear-chest-armor-hallowcroft"))));
+            slot.TryPutInto(World, GearInventory.GetBestSuitedSlot(slot).slot);
+            slot = new DummySlot(new ItemStack(Api.World.GetItem(new AssetLocation("vsvillage", "villagergear-shoulders-armor-hallowcroft"))));
+            slot.TryPutInto(World, GearInventory.GetBestSuitedSlot(slot).slot);
+            slot = new DummySlot(new ItemStack(Api.World.GetItem(new AssetLocation("vsvillage", "villagergear-belt-kit"))));
+            slot.TryPutInto(World, GearInventory.GetBestSuitedSlot(slot).slot);
+            slot = new DummySlot(new ItemStack(Api.World.GetItem(new AssetLocation("vsvillage", "villagergear-beltslot-sword"))));
+            slot.TryPutInto(World, GearInventory.GetBestSuitedSlot(slot).slot);
+            slot = new DummySlot(new ItemStack(Api.World.GetItem(new AssetLocation("vsvillage", "villagergear-arms-armor-hallowcroft"))));
+            slot.TryPutInto(World, GearInventory.GetBestSuitedSlot(slot).slot);
+            slot = new DummySlot(new ItemStack(Api.World.GetItem(new AssetLocation("vsvillage", "villagergear-thigh-armor-hallowcroft"))));
+            slot.TryPutInto(World, GearInventory.GetBestSuitedSlot(slot).slot);
+            slot = new DummySlot(new ItemStack(Api.World.GetItem(new AssetLocation("vsvillage", "villagergear-feet-armor-hallowcroft"))));
             slot.TryPutInto(World, GearInventory.GetBestSuitedSlot(slot).slot);
         }
 
