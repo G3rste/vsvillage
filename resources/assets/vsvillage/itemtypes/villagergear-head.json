@@ -23,6 +23,8 @@
                 "bandage",
                 "bandage-eye",
                 "jewelry-monocle",
+                "jewelry-monocle-copper",
+                "jewelry-monocle-gold",
                 "beret",
                 "chaperon",
                 "fez",
@@ -48,6 +50,9 @@
         "*-jewelry-monocle": {
             "base": "game:entity/humanoid/traderaccessories/jewelry/monocle"
         },
+        "*-jewelry-monocle-*": {
+            "base": "game:entity/humanoid/traderaccessories/jewelry/monocle"
+        },
         "*-beret": {
             "base": "game:entity/humanoid/traderaccessories/beret"
         },
@@ -71,6 +76,16 @@
         "*-armor-hallowcroft": {
             "material": {
                 "base": "game:entity/humanoid/traderaccessories/armor/hallowcroft"
+            }
+        },
+        "*-copper": {
+            "material": {
+                "base": "game:entity/humanoid/traderaccessories/jewelry/copper"
+            }
+        },
+        "*-gold": {
+            "material": {
+                "base": "game:entity/humanoid/traderaccessories/jewelry/gold"
             }
         }
     }

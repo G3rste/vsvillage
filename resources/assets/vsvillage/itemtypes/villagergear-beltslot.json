@@ -19,6 +19,8 @@
             "code": "name",
             "states": [
                 "jewelry-pouch",
+                "jewelry-pouch-copper",
+                "jewelry-pouch-gold",
                 "magnifying-glass",
                 "sack",
                 "spyglass",
@@ -32,6 +34,9 @@
     ],
     "shapeByType": {
         "*-jewelry-pouch": {
+            "base": "game:entity/humanoid/traderaccessories/jewelry/pouch"
+        },
+        "*-jewelry-pouch-*": {
             "base": "game:entity/humanoid/traderaccessories/jewelry/pouch"
         },
         "*-magnifying-glass": {
@@ -57,6 +62,18 @@
         },
         "*-sword": {
             "base": "game:entity/humanoid/traderaccessories/tools/sword"
+        }
+    },
+    "texturesByType": {
+        "*-copper": {
+            "material": {
+                "base": "game:entity/humanoid/traderaccessories/jewelry/copper"
+            }
+        },
+        "*-gold": {
+            "material": {
+                "base": "game:entity/humanoid/traderaccessories/jewelry/gold"
+            }
         }
     }
 }

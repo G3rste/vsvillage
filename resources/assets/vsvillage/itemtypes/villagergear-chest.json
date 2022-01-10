@@ -22,8 +22,12 @@
                 "armor-hallowcroft",
                 "bandage",
                 "jewelry-pin",
+                "jewelry-pin-copper",
+                "jewelry-pin-gold",
                 "waterskin",
-                "apron"
+                "apron",
+                "apron-cloth",
+                "apron-fancy"
             ]
         }
     ],
@@ -40,10 +44,16 @@
         "*-jewelry-pin": {
             "base": "game:entity/humanoid/traderaccessories/jewelry/chestpin"
         },
+        "*-jewelry-pin-*": {
+            "base": "game:entity/humanoid/traderaccessories/jewelry/chestpin"
+        },
         "*-waterskin": {
             "base": "game:entity/humanoid/traderaccessories/navigation/waterskin"
         },
         "*-apron": {
+            "base": "game:entity/humanoid/traderaccessories/apron"
+        },
+        "*-apron-*": {
             "base": "game:entity/humanoid/traderaccessories/apron"
         }
     },
@@ -51,6 +61,26 @@
         "*-armor-hallowcroft": {
             "material": {
                 "base": "game:entity/humanoid/traderaccessories/armor/hallowcroft"
+            }
+        },
+        "*-copper": {
+            "material": {
+                "base": "game:entity/humanoid/traderaccessories/jewelry/copper"
+            }
+        },
+        "*-gold": {
+            "material": {
+                "base": "game:entity/humanoid/traderaccessories/jewelry/gold"
+            }
+        },
+        "*-fancy": {
+            "material": {
+                "base": "game:entity/humanoid/traderaccessories/apron/fancy"
+            }
+        },
+        "*-cloth": {
+            "material": {
+                "base": "game:entity/humanoid/traderaccessories/apron/cloth"
             }
         }
     }

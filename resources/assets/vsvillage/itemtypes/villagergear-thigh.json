@@ -20,8 +20,8 @@
             "states": [
                 "armor",
                 "armor-hallowcroft",
-                "bandage-left-thigh",
-                "bandage-right-thigh"
+                "bandage-left",
+                "bandage-right"
             ]
         }
     ],
@@ -32,10 +32,10 @@
         "*-armor-hallowcroft": {
             "base": "game:entity/humanoid/traderaccessories/armor/thighs"
         },
-        "*-bandage-left-thigh": {
+        "*-bandage-left": {
             "base": "game:entity/humanoid/traderaccessories/bandages/left-thigh"
         },
-        "*-bandage-right-thigh": {
+        "*-bandage-right": {
             "base": "game:entity/humanoid/traderaccessories/bandages/right-thigh"
         }
     },

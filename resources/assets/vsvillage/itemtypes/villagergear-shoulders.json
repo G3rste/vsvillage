@@ -23,6 +23,8 @@
                 "bandage-left",
                 "bandage-right",
                 "jewelry-necklace",
+                "jewelry-necklace-copper",
+                "jewelry-necklace-gold",
                 "sash",
                 "scarf"
             ]
@@ -44,6 +46,9 @@
         "*-jewelry-necklace": {
             "base": "game:entity/humanoid/traderaccessories/jewelry/necklace"
         },
+        "*-jewelry-necklace-*": {
+            "base": "game:entity/humanoid/traderaccessories/jewelry/necklace"
+        },
         "*-sash": {
             "base": "game:entity/humanoid/traderaccessories/sash"
         },
@@ -55,6 +60,16 @@
         "*-armor-hallowcroft": {
             "material": {
                 "base": "game:entity/humanoid/traderaccessories/armor/hallowcroft"
+            }
+        },
+        "*-copper": {
+            "material": {
+                "base": "game:entity/humanoid/traderaccessories/jewelry/copper"
+            }
+        },
+        "*-gold": {
+            "material": {
+                "base": "game:entity/humanoid/traderaccessories/jewelry/gold"
             }
         }
     }

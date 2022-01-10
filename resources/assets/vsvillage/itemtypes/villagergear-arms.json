@@ -24,8 +24,16 @@
                 "bandage-right",
                 "jewelry-left-bracelet",
                 "jewelry-right-bracelet",
+                "jewelry-left-bracelet-copper",
+                "jewelry-right-bracelet-copper",
+                "jewelry-left-bracelet-gold",
+                "jewelry-right-bracelet-gold",
                 "jewelry-left-rings",
                 "jewelry-right-rings",
+                "jewelry-left-rings-copper",
+                "jewelry-right-rings-copper",
+                "jewelry-left-rings-gold",
+                "jewelry-right-rings-gold",
                 "abacus",
                 "gloves"
             ]
@@ -56,6 +64,18 @@
         "*-jewelry-right-rings": {
             "base": "game:entity/humanoid/traderaccessories/jewelry/right-rings"
         },
+        "*-jewelry-left-bracelet-*": {
+            "base": "game:entity/humanoid/traderaccessories/jewelry/left-bracelet"
+        },
+        "*-jewelry-right-bracelet-*": {
+            "base": "game:entity/humanoid/traderaccessories/jewelry/right-bracelet"
+        },
+        "*-jewelry-left-rings-*": {
+            "base": "game:entity/humanoid/traderaccessories/jewelry/left-rings"
+        },
+        "*-jewelry-right-rings-*": {
+            "base": "game:entity/humanoid/traderaccessories/jewelry/right-rings"
+        },
         "*-abacus": {
             "base": "game:entity/humanoid/traderaccessories/navigation/abacus"
         },
@@ -67,6 +87,16 @@
         "*-armor-hallowcroft": {
             "material": {
                 "base": "game:entity/humanoid/traderaccessories/armor/hallowcroft"
+            }
+        },
+        "*-copper": {
+            "material": {
+                "base": "game:entity/humanoid/traderaccessories/jewelry/copper"
+            }
+        },
+        "*-gold": {
+            "material": {
+                "base": "game:entity/humanoid/traderaccessories/jewelry/gold"
             }
         }
     }

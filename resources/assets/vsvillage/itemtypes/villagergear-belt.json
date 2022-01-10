@@ -19,6 +19,8 @@
             "code": "name",
             "states": [
                 "jewelry-girdle",
+                "jewelry-girdle-copper",
+                "jewelry-girdle-gold",
                 "kit"
             ]
         }
@@ -27,8 +29,23 @@
         "*-jewelry-girdle": {
             "base": "game:entity/humanoid/traderaccessories/jewelry/girdle"
         },
+        "*-jewelry-girdle-*": {
+            "base": "game:entity/humanoid/traderaccessories/jewelry/girdle"
+        },
         "*-kit": {
             "base": "game:entity/humanoid/traderaccessories/belt-kit"
+        }
+    },
+    "texturesByType": {
+        "*-copper": {
+            "material": {
+                "base": "game:entity/humanoid/traderaccessories/jewelry/copper"
+            }
+        },
+        "*-gold": {
+            "material": {
+                "base": "game:entity/humanoid/traderaccessories/jewelry/gold"
+            }
         }
     }
 }
