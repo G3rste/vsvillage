@@ -4,6 +4,54 @@
 	"canClimb": true,
 	"hitboxSize": { "x": 0.6, "y": 1.75 },
 	"deadHitboxSize": { "x": 0.75, "y": 0.5 },
+	"attributes": {
+		"validGear": {
+			"arms": [
+				"armor",
+				"armor-hallowcroft",
+				"bandage-left",
+				"bandage-right"
+			],
+			"back": [
+				"dagger",
+				"spear"
+			],
+			"belt": [],
+			"beltslot": [
+				"sword"
+			],
+			"chest": [
+				"armor",
+				"armor-hallowcroft",
+				"bandage"
+			],
+			"feet": [
+				"armor",
+				"armor-hallowcroft",
+				"bandage-left",
+				"bandage-right",
+				"knife"
+			],
+			"head": [
+				"armor",
+				"armor-hallowcroft",
+				"bandage",
+				"bandage-eye"
+			],
+			"shoulders": [
+				"armor",
+				"armor-hallowcroft",
+				"bandage-left",
+				"bandage-right"
+			],
+			"thigh": [
+				"armor",
+				"armor-hallowcroft",
+				"bandage-left",
+				"bandage-right"
+			]
+		}
+	},
 	"client": {
 		"renderer": "Shape",
 		"shape": { "base": "villager" },

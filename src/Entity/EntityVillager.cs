@@ -3,6 +3,7 @@ using Vintagestory.API.Common.Entities;
 using Vintagestory.API.Datastructures;
 using Vintagestory.GameContent;
 using System.IO;
+using System;
 
 namespace VsVillage
 {
@@ -43,24 +44,15 @@ namespace VsVillage
         public override void OnEntitySpawn()
         {
             base.OnEntitySpawn();
-            var slot = new DummySlot(new ItemStack(Api.World.GetItem(new AssetLocation("vsvillage", "villagergear-head-armor-hallowcroft"))));
-            slot.TryPutInto(World, GearInventory.GetBestSuitedSlot(slot).slot);
-            slot = new DummySlot(new ItemStack(Api.World.GetItem(new AssetLocation("vsvillage", "villagergear-back-dagger"))));
-            slot.TryPutInto(World, GearInventory.GetBestSuitedSlot(slot).slot);
-            slot = new DummySlot(new ItemStack(Api.World.GetItem(new AssetLocation("vsvillage", "villagergear-chest-armor-hallowcroft"))));
-            slot.TryPutInto(World, GearInventory.GetBestSuitedSlot(slot).slot);
-            slot = new DummySlot(new ItemStack(Api.World.GetItem(new AssetLocation("vsvillage", "villagergear-shoulders-armor-hallowcroft"))));
-            slot.TryPutInto(World, GearInventory.GetBestSuitedSlot(slot).slot);
-            slot = new DummySlot(new ItemStack(Api.World.GetItem(new AssetLocation("vsvillage", "villagergear-belt-kit"))));
-            slot.TryPutInto(World, GearInventory.GetBestSuitedSlot(slot).slot);
-            slot = new DummySlot(new ItemStack(Api.World.GetItem(new AssetLocation("vsvillage", "villagergear-beltslot-sword"))));
-            slot.TryPutInto(World, GearInventory.GetBestSuitedSlot(slot).slot);
-            slot = new DummySlot(new ItemStack(Api.World.GetItem(new AssetLocation("vsvillage", "villagergear-arms-armor-hallowcroft"))));
-            slot.TryPutInto(World, GearInventory.GetBestSuitedSlot(slot).slot);
-            slot = new DummySlot(new ItemStack(Api.World.GetItem(new AssetLocation("vsvillage", "villagergear-thigh-armor-hallowcroft"))));
-            slot.TryPutInto(World, GearInventory.GetBestSuitedSlot(slot).slot);
-            slot = new DummySlot(new ItemStack(Api.World.GetItem(new AssetLocation("vsvillage", "villagergear-feet-armor-hallowcroft"))));
-            slot.TryPutInto(World, GearInventory.GetBestSuitedSlot(slot).slot);
+            foreach (var gear in Enum.GetNames(typeof(VillagerGearType)))
+            {
+                var possibleGear = Properties.Attributes["validGear"][gear.ToLower()].AsArray<string>();
+                if (possibleGear.Length > 0)
+                {
+                    var slot = new DummySlot(new ItemStack(Api.World.GetItem(new AssetLocation("vsvillage", String.Format("villagergear-{0}-{1}", gear.ToLower(), possibleGear[World.Rand.Next(0, possibleGear.Length)])))));
+                    slot.TryPutInto(World, GearInventory.GetBestSuitedSlot(slot).slot);
+                }
+            }
         }
 
         public override void OnTesselation(ref Shape entityShape, string shapePathForLogging)
