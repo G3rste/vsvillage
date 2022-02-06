@@ -97,7 +97,7 @@
 			{ "code": "repulseagents" },
 			{ "code": "controlledphysics", "stepHeight": 1.01 },
 			{ "code": "reviveondeath", "minHours": 24, "maxHours": 72 },
-			{ "code": "health", "currenthealth": 25, "maxhealth": 25 },
+			{ "code": "health", "currenthealthByType": {"*-farmer": 20, "*-smith": 30, "*-soldier": 40}, "maxhealthByType": {"*-farmer": 20, "*-smith": 30, "*-soldier": 40}},
 			{
 				"code": "emotionstates",
 				"states": [
