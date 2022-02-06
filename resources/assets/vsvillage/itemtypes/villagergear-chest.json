@@ -51,10 +51,10 @@
             "base": "game:entity/humanoid/traderaccessories/navigation/waterskin"
         },
         "*-apron": {
-            "base": "game:entity/humanoid/traderaccessories/apron"
+            "base": "apron"
         },
         "*-apron-*": {
-            "base": "game:entity/humanoid/traderaccessories/apron"
+            "base": "apron"
         }
     },
     "texturesByType": {
@@ -81,6 +81,11 @@
         "*-cloth": {
             "material": {
                 "base": "game:entity/humanoid/traderaccessories/apron/cloth"
+            }
+        },
+        "*-apron": {
+            "material":{
+                "base": "game:entity/humanoid/traderaccessories/apron/leather"
             }
         }
     }

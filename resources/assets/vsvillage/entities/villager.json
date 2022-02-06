@@ -39,7 +39,7 @@
 				"beltslot": ["jewelry-pouch", "jewelry-pouch-copper", "jewelry-pouch-gold", "magnifying-glass", "sack", "spyglass", "chisel", "handsaw"],
 				"chest": ["jewelry-pin", "jewelry-pin-copper", "jewelry-pin-gold", "waterskin"],
 				"feet": ["knife", "boots"],
-				"head": ["beret", "chaperon", "fez", "keffiyeh"],
+				"head": ["beret", "chaperon", "fez", "keffiyeh", "hood", "hood-red"],
 				"shoulders": [],
 				"thigh": []
 			}

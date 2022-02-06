@@ -3,7 +3,7 @@
     "class": "ItemVillagerGear",
     "maxstacksize": 1,
     "attributes": {
-		"wearableAttachment": true,
+        "wearableAttachment": true,
         "handbook": {
             "exclude": true
         }
@@ -30,6 +30,7 @@
                 "fez",
                 "miner-hat",
                 "hood",
+                "hood-red",
                 "keffiyeh"
             ]
         }
@@ -66,7 +67,10 @@
             "base": "game:entity/humanoid/traderaccessories/miner-hat"
         },
         "*-hood": {
-            "base": "game:entity/humanoid/traderaccessories/hood"
+            "base": "hood"
+        },
+        "*-hood-*": {
+            "base": "hood"
         },
         "*-keffiyeh": {
             "base": "game:entity/humanoid/traderaccessories/keffiyeh"
@@ -86,6 +90,16 @@
         "*-gold": {
             "material": {
                 "base": "game:entity/humanoid/traderaccessories/jewelry/gold"
+            }
+        },
+        "*-hood": {
+            "material": {
+                "base": "game:entity/humanoid/traderaccessories/hood/plain"
+            }
+        },
+        "*-red": {
+            "material": {
+                "base": "game:entity/humanoid/traderaccessories/hood/red"
             }
         }
     }

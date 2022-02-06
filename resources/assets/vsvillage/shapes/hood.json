@@ -1,0 +1,106 @@
+{
+	"editor": {
+		"allAngles": true,
+		"entityTextureMode": true
+	},
+	"textureWidth": 24,
+	"textureHeight": 24,
+	"textureSizes": {
+	},
+	"textures": {
+		"material": "game:entity/humanoid/traderaccessories/hood/plain"
+	},
+	"elements": [
+		{
+			"name": "HoodMain",
+			"stepParentName": "Head",
+			"from": [ -0.4, -1.2, -0.8 ], 
+			"to": [ 6.9, 5.7, 5.7 ], 
+			"autoUnwrap": false,
+			"uv": [ 0.0, 11.0 ],
+			"rotationOrigin": [ -0.4, -1.2, -0.8 ],
+			"faces": {
+				"north": { "texture": "#material", "uv": [ 13.5, 17.5, 20.5, 24.0 ] },
+				"east": { "texture": "#material", "uv": [ 7.0, 17.5, 13.5, 24.0 ] },
+				"south": { "texture": "#material", "uv": [ 0.0, 17.5, 7.0, 24.0 ] },
+				"west": { "texture": "#material", "uv": [ 6.0, 11.0, 12.5, 17.5 ] },
+				"up": { "texture": "#material", "uv": [ 0.0, 11.0, 7.0, 17.5 ] },
+				"down": { "texture": "#material", "uv": [ 6.0, 11.0, 13.0, 17.5 ], "enabled": false }
+			},
+			"children": [
+				{
+					"name": "Hood1",
+					"from": [ 5.8, 1.0, 1.3 ], 
+					"to": [ 7.3, 6.0, 5.3 ], 
+					"autoUnwrap": false,
+					"uv": [ 18.5, 15.0 ],
+					"rotationOrigin": [ 5.8, 3.0, 3.3 ],
+					"rotationZ": -7.0,
+					"faces": {
+						"north": { "texture": "#material", "uv": [ 22.0, 19.0, 23.5, 24.0 ] },
+						"east": { "texture": "#material", "uv": [ 15.0, 0.5, 20.0, 4.5 ], "rotation": 90 },
+						"south": { "texture": "#material", "uv": [ 20.5, 19.0, 22.0, 24.0 ] },
+						"west": { "texture": "#material", "uv": [ 6.0, 4.0, 10.0, 9.0 ], "enabled": false },
+						"up": { "texture": "#material", "uv": [ 12.5, 13.5, 14.0, 17.5 ] },
+						"down": { "texture": "#material", "uv": [ 14.0, 13.5, 15.5, 17.5 ] }
+					},
+					"children": [
+						{
+							"name": "Hood2",
+							"from": [ -0.5, -3.0, 1.0 ], 
+							"to": [ 1.5, 4.0, 3.0 ], 
+							"autoUnwrap": false,
+							"uv": [ 0.0, 2.0 ],
+							"rotationOrigin": [ 0.5, 4.0, 2.0 ],
+							"rotationZ": 14.0,
+							"faces": {
+								"north": { "texture": "#material", "uv": [ 0.0, 4.0, 2.0, 11.0 ] },
+								"east": { "texture": "#material", "uv": [ 2.0, 4.0, 4.0, 11.0 ] },
+								"south": { "texture": "#material", "uv": [ 4.0, 4.0, 6.0, 11.0 ] },
+								"west": { "texture": "#material", "uv": [ 6.0, 4.0, 8.0, 11.0 ] },
+								"up": { "texture": "#material", "uv": [ 0.0, 0.0, 2.0, 2.0 ], "enabled": false },
+								"down": { "texture": "#material", "uv": [ 12.5, 11.5, 14.5, 13.5 ] }
+							}
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "HoodShoulder",
+			"stepParentName": "UpperTorso",
+			"from": [ -1.0, 3.4, -0.6 ], 
+			"to": [ 6.3, 5.9, 6.7 ], 
+			"autoUnwrap": false,
+			"uv": [ 8.0, 0.5 ],
+			"rotationOrigin": [ 3.0, 4.4, 3.2 ],
+			"rotationZ": 17.0,
+			"faces": {
+				"north": { "texture": "#material", "uv": [ 8.0, 8.5, 15.0, 11.0 ] },
+				"east": { "texture": "#material", "uv": [ 15.0, 4.5, 22.0, 7.0 ] },
+				"south": { "texture": "#material", "uv": [ 15.0, 7.0, 22.0, 9.5 ] },
+				"west": { "texture": "#material", "uv": [ 0.0, 1.5, 7.0, 4.0 ] },
+				"up": { "texture": "#material", "uv": [ 8.0, 1.5, 15.0, 8.5 ] },
+				"down": { "texture": "#material", "uv": [ 14.0, 1.5, 21.0, 8.5 ], "enabled": false }
+			},
+			"children": [
+				{
+					"name": "HoodCape",
+					"from": [ 6.2, -7.0, 0.3 ], 
+					"to": [ 6.7, 1.0, 7.1 ], 
+					"autoUnwrap": false,
+					"uv": [ 8.0, -2.0 ],
+					"rotationOrigin": [ 6.2, 1.0, 3.4 ],
+					"rotationZ": -6.0,
+					"faces": {
+						"north": { "texture": "#material", "uv": [ 23.5, 4.5, 24.0, 12.5 ] },
+						"east": { "texture": "#material", "uv": [ 16.5, 9.5, 23.0, 17.5 ] },
+						"south": { "texture": "#material", "uv": [ 23.0, 3.0, 23.5, 11.0 ] },
+						"west": { "texture": "#material", "uv": [ 16.5, 9.5, 23.0, 17.5 ] },
+						"up": { "texture": "#material", "uv": [ 23.0, 11.0, 23.5, 17.5 ] },
+						"down": { "texture": "#material", "uv": [ 23.5, 12.5, 24.0, 19.0 ] }
+					}
+				}
+			]
+		}
+	]}
