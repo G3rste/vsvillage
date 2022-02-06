@@ -43,7 +43,7 @@
             "base": "game:entity/humanoid/traderaccessories/armor/head"
         },
         "*-bandage": {
-            "base": "game:entity/humanoid/traderaccessories/bandages/head"
+            "base": "villagergear/bandage-head"
         },
         "*-bandage-eye": {
             "base": "game:entity/humanoid/traderaccessories/bandages/eye"
