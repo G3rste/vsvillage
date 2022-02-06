@@ -44,10 +44,10 @@
             "base": "game:entity/humanoid/traderaccessories/bandages/right-shoulder"
         },
         "*-jewelry-necklace": {
-            "base": "game:entity/humanoid/traderaccessories/jewelry/necklace"
+            "base": "necklace"
         },
         "*-jewelry-necklace-*": {
-            "base": "game:entity/humanoid/traderaccessories/jewelry/necklace"
+            "base": "necklace"
         },
         "*-sash": {
             "base": "game:entity/humanoid/traderaccessories/sash"
