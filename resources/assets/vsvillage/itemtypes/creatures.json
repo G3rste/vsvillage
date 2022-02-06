@@ -8,15 +8,23 @@
             "states": [
                 "humanoid-villager"
             ]
+        },
+        {
+            "code": "profession",
+            "states": [
+                "soldier",
+                "smith",
+                "farmer"
+            ]
         }
     ],
     "shapeByType": {
-        "*-villager": {
+        "*-villager-*": {
             "base": "game:entity/humanoid/trader"
         }
     },
     "texturesByType": {
-        "*-villager": {
+        "*-villager-*": {
             "skin": {
                 "base": "game:entity/humanoid/trader"
             }
@@ -35,7 +43,7 @@
     },
     "materialDensity": 600,
     "guiTransformByType": {
-        "*-villager": {
+        "*-villager-*": {
             "rotate": true,
             "rotation": {
                 "x": 0,
@@ -50,7 +58,7 @@
         }
     },
     "tpHandTransformByType": {
-        "*-villager": {
+        "*-villager-*": {
             "translation": {
                 "x": -0.6,
                 "y": -1.1,
@@ -70,7 +78,7 @@
         }
     },
     "fpHandTransformByType": {
-        "*-villager": {
+        "*-villager-*": {
             "translation": {
                 "x": 0.05,
                 "y": -0.3,

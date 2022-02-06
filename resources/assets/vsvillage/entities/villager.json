@@ -4,54 +4,48 @@
 	"canClimb": true,
 	"hitboxSize": { "x": 0.6, "y": 1.75 },
 	"deadHitboxSize": { "x": 0.75, "y": 0.5 },
-	"attributes": {
-		"validGear": {
-			"arms": [
-				"armor",
-				"armor-hallowcroft",
-				"bandage-left",
-				"bandage-right"
-			],
-			"back": [
-				"dagger",
-				"spear"
-			],
-			"belt": [],
-			"beltslot": [
-				"sword"
-			],
-			"chest": [
-				"armor",
-				"armor-hallowcroft",
-				"bandage"
-			],
-			"feet": [
-				"armor",
-				"armor-hallowcroft",
-				"bandage-left",
-				"bandage-right",
-				"knife"
-			],
-			"head": [
-				"armor",
-				"armor-hallowcroft",
-				"bandage",
-				"bandage-eye"
-			],
-			"shoulders": [
-				"armor",
-				"armor-hallowcroft",
-				"bandage-left",
-				"bandage-right"
-			],
-			"thigh": [
-				"armor",
-				"armor-hallowcroft",
-				"bandage-left",
-				"bandage-right"
-			]
+	"attributesByType": {
+		"*-soldier": {
+			"validGear": {
+				"arms": ["armor", "armor-hallowcroft", "bandage-left", "bandage-right"],
+				"back": ["dagger", "spear"],
+				"belt": [],
+				"beltslot": ["sword", "sack", "spyglass"],
+				"chest": ["armor", "armor-hallowcroft", "bandage"],
+				"feet": ["armor", "armor-hallowcroft", "bandage-left", "bandage-right", "knife"],
+				"head": ["armor", "armor-hallowcroft", "bandage", "bandage-eye"],
+				"shoulders": ["armor", "armor-hallowcroft", "bandage-left", "bandage-right"],
+				"thigh": ["armor", "armor-hallowcroft", "bandage-left", "bandage-right"]
+			}
+		},
+		"*-smith": {
+			"validGear": {
+				"arms": ["jewelry-left-bracelet", "jewelry-right-bracelet", "jewelry-left-bracelet-copper", "jewelry-right-bracelet-copper", "jewelry-left-bracelet-gold", "jewelry-right-bracelet-gold", "jewelry-left-rings", "jewelry-right-rings", "jewelry-left-rings-copper", "jewelry-right-rings-copper", "jewelry-left-rings-gold", "jewelry-right-rings-gold","gloves"],
+				"back": ["pickaxe", "backpack"],
+				"belt": ["jewelry-girdle", "jewelry-girdle-copper", "jewelry-girdle-gold", "kit"],
+				"beltslot": ["hammer"],
+				"chest": ["apron", "apron-cloth", "apron-fancy"],
+				"feet": ["knife", "boots"],
+				"head": ["beret", "chaperon", "fez", "miner-hat", "keffiyeh"],
+				"shoulders": ["jewelry-necklace", "jewelry-necklace-copper", "jewelry-necklace-gold", "sash", "scarf"],
+				"thigh": []
+			}
+		},
+		"*-farmer": {
+			"validGear": {
+				"arms": ["jewelry-left-bracelet", "jewelry-right-bracelet", "jewelry-left-bracelet-copper", "jewelry-right-bracelet-copper", "jewelry-left-bracelet-gold", "jewelry-right-bracelet-gold", "jewelry-left-rings", "jewelry-right-rings", "jewelry-left-rings-copper", "jewelry-right-rings-copper", "jewelry-left-rings-gold", "jewelry-right-rings-gold","gloves"],
+				"back": ["dagger", "backpack"],
+				"belt": ["jewelry-girdle", "jewelry-girdle-copper", "jewelry-girdle-gold", "kit"],
+				"beltslot": ["jewelry-pouch", "jewelry-pouch-copper", "jewelry-pouch-gold", "magnifying-glass", "sack", "spyglass", "chisel", "handsaw"],
+				"chest": ["jewelry-pin", "jewelry-pin-copper", "jewelry-pin-gold", "waterskin"],
+				"feet": ["knife", "boots"],
+				"head": ["beret", "chaperon", "fez", "keffiyeh"],
+				"shoulders": [],
+				"thigh": []
+			}
 		}
 	},
+	"variantGroups": [{"code": "profession", "states": ["soldier", "smith", "farmer"]}],
 	"client": {
 		"renderer": "Shape",
 		"shape": { "base": "villager" },
