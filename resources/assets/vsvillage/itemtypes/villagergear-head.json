@@ -67,10 +67,10 @@
             "base": "game:entity/humanoid/traderaccessories/miner-hat"
         },
         "*-hood": {
-            "base": "hood"
+            "base": "villagergear/hood"
         },
         "*-hood-*": {
-            "base": "hood"
+            "base": "villagergear/hood"
         },
         "*-keffiyeh": {
             "base": "game:entity/humanoid/traderaccessories/keffiyeh"

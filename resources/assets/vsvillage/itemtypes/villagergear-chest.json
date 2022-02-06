@@ -51,10 +51,10 @@
             "base": "game:entity/humanoid/traderaccessories/navigation/waterskin"
         },
         "*-apron": {
-            "base": "apron"
+            "base": "villagergear/apron"
         },
         "*-apron-*": {
-            "base": "apron"
+            "base": "villagergear/apron"
         }
     },
     "texturesByType": {
