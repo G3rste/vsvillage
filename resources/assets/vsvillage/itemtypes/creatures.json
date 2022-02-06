@@ -10,6 +10,13 @@
             ]
         },
         {
+            "code": "sex",
+            "states": [
+                "male",
+                "female"
+            ]
+        },
+        {
             "code": "profession",
             "states": [
                 "soldier",
