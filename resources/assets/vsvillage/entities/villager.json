@@ -27,7 +27,7 @@
 				"chest": ["apron", "apron-cloth", "apron-fancy"],
 				"feet": ["knife", "boots"],
 				"head": ["beret", "chaperon", "fez", "miner-hat", "keffiyeh"],
-				"shoulders": ["jewelry-necklace", "jewelry-necklace-copper", "jewelry-necklace-gold", "sash", "scarf"],
+				"shoulders": ["jewelry-necklace", "jewelry-necklace-copper", "jewelry-necklace-gold", "scarf"],
 				"thigh": []
 			}
 		},
@@ -40,7 +40,7 @@
 				"chest": ["jewelry-pin", "jewelry-pin-copper", "jewelry-pin-gold", "waterskin"],
 				"feet": ["knife", "boots"],
 				"head": ["beret", "chaperon", "fez", "keffiyeh", "hood", "hood-red"],
-				"shoulders": [],
+				"shoulders": ["jewelry-necklace", "jewelry-necklace-copper", "jewelry-necklace-gold", "scarf"],
 				"thigh": []
 			}
 		}
