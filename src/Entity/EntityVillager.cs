@@ -81,6 +81,28 @@ namespace VsVillage
             base.ToBytes(writer, forClient);
         }
 
+        public override void OnHurt(DamageSource dmgSource, float damage)
+        {
+            base.OnHurt(dmgSource, damage);
+            Draw();
+        }
+        public void Draw()
+        {
+            foreach (var gear in gearInv)
+            {
+                var assetString = (gear?.Itemstack?.Item as ItemVillagerGear)?.toolAssetLocation;
+                if (!String.IsNullOrEmpty(assetString))
+                {
+                    var slot = new DummySlot(new ItemStack(Api.World.GetItem(new AssetLocation(assetString))));
+                    if (slot.TryPutInto(World, RightHandItemSlot) > 0)
+                    {
+                        gear.TakeOutWhole();
+                        break;
+                    }
+                }
+            }
+        }
+
         public void DropInventoryOnGround()
         {
             for (int i = gearInv.Count - 1; i >= 0; i--)

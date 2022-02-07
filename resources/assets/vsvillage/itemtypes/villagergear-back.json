@@ -2,10 +2,26 @@
     "code": "villagergear",
     "class": "ItemVillagerGear",
     "maxstacksize": 1,
-    "attributes": {
-        "wearableAttachment": true,
-        "handbook": {
-            "exclude": true
+    "attributesByType": {
+        "*-spear": {
+            "toolAssetLocation": "spear-ornate-silver",
+            "wearableAttachment": true,
+            "handbook": {
+                "exclude": true
+            }
+        },
+        "*-dagger": {
+            "toolAssetLocation": "knife-meteoriciron",
+            "wearableAttachment": true,
+            "handbook": {
+                "exclude": true
+            }
+        },
+        "*": {
+            "wearableAttachment": true,
+            "handbook": {
+                "exclude": true
+            }
         }
     },
     "variantgroups": [

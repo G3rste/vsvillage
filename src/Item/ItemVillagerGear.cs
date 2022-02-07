@@ -20,10 +20,11 @@ namespace VsVillage
                 }
             }
         }
-        public int backpackSlots { get { return Attributes["backpackslots"].AsInt(0); } }
+        public string toolAssetLocation => Attributes["toolAssetLocation"].AsString();
+        public int backpackSlots => Attributes["backpackslots"].AsInt(0);
     }
     public enum VillagerGearType
     {
-        HEAD, BACK, CHEST, SHOULDERS, BELT, BELTSLOT, ARMS, THIGH, FEET 
+        HEAD, BACK, CHEST, SHOULDERS, BELT, BELTSLOT, ARMS, THIGH, FEET
     }
 }
