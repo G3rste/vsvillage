@@ -9,9 +9,11 @@ namespace VsVillage
 {
     public class EntityVillager : EntityAgent
     {
-        protected InventoryBase gearInv;
+        protected InventoryVillagerGear gearInv;
         public override IInventory GearInventory => gearInv;
 
+        public override ItemSlot LeftHandItemSlot { get => gearInv.leftHandSlot; set => gearInv.leftHandSlot = value; }
+        public override ItemSlot RightHandItemSlot { get => gearInv.rightHandSlot; set => gearInv.rightHandSlot = value; }
         public string Personality
         {
             get { return WatchedAttributes.GetString("personality", "formal"); }

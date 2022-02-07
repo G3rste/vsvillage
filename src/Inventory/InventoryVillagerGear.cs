@@ -9,6 +9,10 @@ namespace VsVillage
     {
 
         ItemSlot[] slots;
+
+        public ItemSlot leftHandSlot { get; set; }
+
+        public ItemSlot rightHandSlot { get; set; }
         string owningEntity;
 
 
@@ -18,12 +22,17 @@ namespace VsVillage
         public InventoryVillagerGear(string owningEntity, string inventoryID, ICoreAPI api) : base(inventoryID, api)
         {
             this.owningEntity = owningEntity;
+            leftHandSlot = new ItemSlotUniversal(this);
+            rightHandSlot = new ItemSlotUniversal(this);
+
             var gearTypes = Enum.GetNames(typeof(VillagerGearType));
-            slots = new List<string>(gearTypes)
-                .ConvertAll<ItemSlotVillagerGear>(
+            var slotsAsList = new List<string>(gearTypes)
+                .ConvertAll<ItemSlot>(
                     gearType => new ItemSlotVillagerGear(
-                        (VillagerGearType)Enum.Parse(typeof(VillagerGearType), gearType), owningEntity, this))
-                .ToArray();
+                        (VillagerGearType)Enum.Parse(typeof(VillagerGearType), gearType), owningEntity, this));
+            slotsAsList.Add(rightHandSlot);
+            slotsAsList.Add(leftHandSlot);
+            slots = slotsAsList.ToArray();
         }
         public override void FromTreeAttributes(ITreeAttribute tree)
         {
@@ -51,6 +60,20 @@ namespace VsVillage
                 var weightedSlot = new WeightedSlot();
                 weightedSlot.weight = 1;
                 weightedSlot.slot = slots[(int)accessory.type];
+                return weightedSlot;
+            }
+            if (rightHandSlot.Empty)
+            {
+                var weightedSlot = new WeightedSlot();
+                weightedSlot.weight = 1;
+                weightedSlot.slot = rightHandSlot;
+                return weightedSlot;
+            }
+            if (leftHandSlot.Empty)
+            {
+                var weightedSlot = new WeightedSlot();
+                weightedSlot.weight = 0.5f;
+                weightedSlot.slot = leftHandSlot;
                 return weightedSlot;
             }
             return base.GetBestSuitedSlot(sourceSlot, skipSlots);
