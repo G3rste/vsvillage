@@ -20,7 +20,7 @@ namespace VsVillage
                 }
             }
         }
-        public string toolAssetLocation => Attributes["toolAssetLocation"].AsString();
+        public string weaponAssetLocation => Attributes["weaponAssetLocation"].AsString();
         public int backpackSlots => Attributes["backpackslots"].AsInt(0);
     }
     public enum VillagerGearType

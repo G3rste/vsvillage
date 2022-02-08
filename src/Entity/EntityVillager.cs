@@ -4,6 +4,7 @@ using Vintagestory.API.Datastructures;
 using Vintagestory.GameContent;
 using System.IO;
 using System;
+using System.Collections.Generic;
 
 namespace VsVillage
 {
@@ -84,22 +85,32 @@ namespace VsVillage
         public override void OnHurt(DamageSource dmgSource, float damage)
         {
             base.OnHurt(dmgSource, damage);
-            Draw();
+            DrawWeapon();
         }
-        public void Draw()
+        public void DrawWeapon()
         {
+            var availableWeapons = new List<ItemSlot>();
+            System.Func<ItemSlot, string> assetStringFromSlot = slot => (slot?.Itemstack?.Item as ItemVillagerGear)?.weaponAssetLocation;
+
+            // get all slots containing weapons
             foreach (var gear in gearInv)
             {
-                var assetString = (gear?.Itemstack?.Item as ItemVillagerGear)?.toolAssetLocation;
-                if (!String.IsNullOrEmpty(assetString))
+                string weaponAssetLocation = (gear?.Itemstack?.Item as ItemVillagerGear)?.weaponAssetLocation;
+                var assetString = weaponAssetLocation;
+                if (!String.IsNullOrEmpty(assetStringFromSlot.Invoke(gear)))
                 {
-                    var slot = new DummySlot(new ItemStack(Api.World.GetItem(new AssetLocation(assetString))));
-                    if (slot.TryPutInto(World, RightHandItemSlot) > 0)
-                    {
-                        gear.TakeOutWhole();
-                        break;
-                    }
+                    availableWeapons.Add(gear);
                 }
+            }
+
+            if (availableWeapons.Count < 1) { return; }
+
+            // pick random weapon
+            var chosenSlot = availableWeapons[World.Rand.Next(0, availableWeapons.Count)];
+            var dummySlot = new DummySlot(new ItemStack(Api.World.GetItem(new AssetLocation(assetStringFromSlot.Invoke(chosenSlot)))));
+            if (dummySlot.TryPutInto(World, RightHandItemSlot) > 0)
+            {
+                chosenSlot.TakeOutWhole();
             }
         }
 

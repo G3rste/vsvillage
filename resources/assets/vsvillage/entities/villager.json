@@ -22,7 +22,7 @@
 			"validGear": {
 				"arms": ["jewelry-left-bracelet", "jewelry-right-bracelet", "jewelry-left-bracelet-copper", "jewelry-right-bracelet-copper", "jewelry-left-bracelet-gold", "jewelry-right-bracelet-gold", "jewelry-left-rings", "jewelry-right-rings", "jewelry-left-rings-copper", "jewelry-right-rings-copper", "jewelry-left-rings-gold", "jewelry-right-rings-gold","gloves"],
 				"back": ["pickaxe", "backpack"],
-				"belt": ["jewelry-girdle", "jewelry-girdle-copper", "jewelry-girdle-gold", "kit"],
+				"belt": ["jewelry-girdle", "jewelry-girdle-copper", "jewelry-girdle-gold"],
 				"beltslot": ["hammer"],
 				"chest": ["apron", "apron-cloth", "apron-fancy"],
 				"feet": ["knife", "boots"],
@@ -35,7 +35,7 @@
 			"validGear": {
 				"arms": ["jewelry-left-bracelet", "jewelry-right-bracelet", "jewelry-left-bracelet-copper", "jewelry-right-bracelet-copper", "jewelry-left-bracelet-gold", "jewelry-right-bracelet-gold", "jewelry-left-rings", "jewelry-right-rings", "jewelry-left-rings-copper", "jewelry-right-rings-copper", "jewelry-left-rings-gold", "jewelry-right-rings-gold","gloves"],
 				"back": ["dagger", "backpack"],
-				"belt": ["jewelry-girdle", "jewelry-girdle-copper", "jewelry-girdle-gold", "kit"],
+				"belt": ["jewelry-girdle", "jewelry-girdle-copper", "jewelry-girdle-gold"],
 				"beltslot": ["jewelry-pouch", "jewelry-pouch-copper", "jewelry-pouch-gold", "magnifying-glass", "sack", "spyglass", "chisel", "handsaw"],
 				"chest": ["jewelry-pin", "jewelry-pin-copper", "jewelry-pin-gold", "waterskin"],
 				"feet": ["knife", "boots"],

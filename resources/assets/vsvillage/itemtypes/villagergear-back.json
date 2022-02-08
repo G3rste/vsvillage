@@ -4,14 +4,14 @@
     "maxstacksize": 1,
     "attributesByType": {
         "*-spear": {
-            "toolAssetLocation": "spear-ornate-silver",
+            "weaponAssetLocation": "spear-ornate-silver",
             "wearableAttachment": true,
             "handbook": {
                 "exclude": true
             }
         },
         "*-dagger": {
-            "toolAssetLocation": "knife-meteoriciron",
+            "weaponAssetLocation": "knife-meteoriciron",
             "wearableAttachment": true,
             "handbook": {
                 "exclude": true

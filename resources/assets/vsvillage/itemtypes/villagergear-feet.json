@@ -2,10 +2,19 @@
     "code": "villagergear",
     "class": "ItemVillagerGear",
     "maxstacksize": 1,
-    "attributes": {
-        "wearableAttachment": true,
-        "handbook": {
-            "exclude": true
+    "attributesByType": {
+        "*-knife": {
+            "weaponAssetLocation": "knife-tinbronze",
+            "wearableAttachment": true,
+            "handbook": {
+                "exclude": true
+            }
+        },
+        "*": {
+            "wearableAttachment": true,
+            "handbook": {
+                "exclude": true
+            }
         }
     },
     "variantgroups": [

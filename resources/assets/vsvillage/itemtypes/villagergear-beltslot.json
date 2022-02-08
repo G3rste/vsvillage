@@ -2,10 +2,26 @@
     "code": "villagergear",
     "class": "ItemVillagerGear",
     "maxstacksize": 1,
-    "attributes": {
-        "wearableAttachment": true,
-        "handbook": {
-            "exclude": true
+    "attributesByType": {
+        "*-sword": {
+            "weaponAssetLocation": "longblade-blackguard",
+            "wearableAttachment": true,
+            "handbook": {
+                "exclude": true
+            }
+        },
+        "*-dagger": {
+            "weaponAssetLocation": "knife-blackbronze",
+            "wearableAttachment": true,
+            "handbook": {
+                "exclude": true
+            }
+        },
+        "*": {
+            "wearableAttachment": true,
+            "handbook": {
+                "exclude": true
+            }
         }
     },
     "variantgroups": [
