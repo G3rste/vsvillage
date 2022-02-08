@@ -1,4 +1,5 @@
 ﻿using Vintagestory.API.Common;
+using Vintagestory.GameContent;
 
 namespace VsVillage
 {
@@ -11,6 +12,8 @@ namespace VsVillage
             api.RegisterEntity("EntityVillager", typeof(EntityVillager));
 
             api.RegisterItemClass("ItemVillagerGear", typeof(ItemVillagerGear));
+
+            AiTaskRegistry.Register<AiTaskVillagerMeleeAttack>("villagermeleeattack");
         }
     }
 }

@@ -109,7 +109,7 @@
 				"code": "taskai",
 				"aitasks": [
 					{
-						"code": "meleeattack",
+						"code": "villagermeleeattack",
 						"entityCodes": ["player"],
 						"priority": 2,
 						"damage": 5,
@@ -118,6 +118,10 @@
 						"attackDurationMs": 900,
 						"damagePlayerAtMs": 300,
 						"animation": "Attack",
+						"stabanimation": "SpearStab",
+						"stabanimationspeed": 0.7,
+						"slashanimation": "SwordHit",
+						"slashanimationspeed": 0.7,
 						"animationSpeed": 2,
 						"whenInEmotionState": "aggressiveondamage"
 					},
