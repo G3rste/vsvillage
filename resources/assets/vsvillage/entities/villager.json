@@ -102,7 +102,7 @@
 				"code": "emotionstates",
 				"states": [
 					{ "code": "aggressiveondamage", "duration": 6, "chance": 0.6, "slot": 0, "priority": 2, "accumType": "noaccum" },
-					{ "code": "fleeondamage", "duration": 10, "chance": 0.4, "slot": 0, "priority": 1, "accumType": "max" }
+					{ "code": "fleeondamage", "duration": 10, "chance": 0.4, "slot": 0, "priority": 1, "whenHealthRelBelow": 0.3, "accumType": "max" }
 				]
 			},
 			{
@@ -112,7 +112,8 @@
 						"code": "villagermeleeattack",
 						"entityCodes": ["player"],
 						"priority": 2,
-						"damage": 5,
+						"damage": 0.5,
+						"damageTier": 3,
 						"mincooldown": 2500,
 						"maxcooldown": 3500,
 						"attackDurationMs": 900,

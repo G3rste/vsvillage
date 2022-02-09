@@ -1,3 +1,4 @@
+using System;
 using Vintagestory.API.Common;
 using Vintagestory.API.Datastructures;
 using Vintagestory.GameContent;
@@ -10,6 +11,7 @@ namespace VsVillage
         public AnimationMetaData baseAnimMeta { get; set; }
         public AnimationMetaData stabAnimMeta { get; set; }
         public AnimationMetaData slashAnimMeta { get; set; }
+        public float unarmedDamage { get; set; }
         public AiTaskVillagerMeleeAttack(EntityAgent entity) : base(entity)
         {
         }
@@ -19,6 +21,7 @@ namespace VsVillage
             base.LoadConfig(taskConfig, aiConfig);
 
             baseAnimMeta = animMeta;
+            unarmedDamage = damage;
 
             if (taskConfig["stabanimation"].Exists)
             {
@@ -45,6 +48,7 @@ namespace VsVillage
         {
             if (entity.RightHandItemSlot != null && !entity.RightHandItemSlot.Empty)
             {
+                damage = Math.Max(entity.RightHandItemSlot.Itemstack.Item.AttackPower, unarmedDamage);
                 if (entity.RightHandItemSlot.Itemstack.Item.Code.Path.Contains("spear"))
                 {
                     animMeta = stabAnimMeta;
@@ -56,6 +60,7 @@ namespace VsVillage
             }
             else
             {
+                damage = unarmedDamage;
                 animMeta = baseAnimMeta;
             }
             base.StartExecute();
