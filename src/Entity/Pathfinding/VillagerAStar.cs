@@ -12,6 +12,8 @@ namespace VsVillage
         protected ICoreServerAPI api;
         protected ICachingBlockAccessor blockAccess;
 
+        public List<string> traversableCodes { get; set; } = new List<string>() { "door", "gate" };
+
         public int NodesChecked;
 
         public double centerOffsetX = 0.5;
@@ -124,7 +126,7 @@ namespace VsVillage
                 for (; 1f < stepHeight; stepHeight--)
                 {
                     node.Y++;
-                    if (canStep(blockAccess.GetBlock(node.X, node.Y-1, node.Z)) && traversable(blockAccess.GetBlock(node.X, node.Y, node.Z)) && traversable(blockAccess.GetBlock(node.X, node.Y + 1, node.Z)))
+                    if (canStep(blockAccess.GetBlock(node.X, node.Y - 1, node.Z)) && traversable(blockAccess.GetBlock(node.X, node.Y, node.Z)) && traversable(blockAccess.GetBlock(node.X, node.Y + 1, node.Z)))
                     {
                         return true;
                     }
@@ -140,7 +142,7 @@ namespace VsVillage
 
         protected virtual bool traversable(Block block)
         {
-            return block == null || block.CollisionBoxes == null || block.CollisionBoxes.Length == 0;
+            return block == null || block.CollisionBoxes == null || block.CollisionBoxes.Length == 0 || traversableCodes.Exists(code => block.Code.Path.Contains(code));
         }
 
         List<PathNode> retracePath(PathNode startNode, PathNode endNode)
