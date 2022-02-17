@@ -12,7 +12,9 @@ namespace VsVillage
         protected ICoreServerAPI api;
         protected ICachingBlockAccessor blockAccess;
 
-        public List<string> traversableCodes { get; set; } = new List<string>() { "door", "gate" };
+        public List<string> traversableCodes { get; set; } = new List<string>() { "door", "gate", "ladder" };
+
+        public List<string> climbableCodes { get; set; } = new List<string>() { "ladder" };
 
         public int NodesChecked;
 
@@ -61,12 +63,8 @@ namespace VsVillage
                 }
 
                 //PathNode[] validNextNodes = getValidNextNodes(nearestNode)
-                for (int i = 0; i < Cardinal.ALL.Length; i++)
+                foreach (var neighbourNode in findValidNeighbourNodes(nearestNode))
                 {
-                    Cardinal card = Cardinal.ALL[i];
-
-                    PathNode neighbourNode = new PathNode(nearestNode, card);
-
                     float extraCost = 0;
                     PathNode existingNeighbourNode = openSet.TryFindValue(neighbourNode);
                     if (!(existingNeighbourNode is null))   // we have to do a null check using "is null" due to foibles in PathNode.Equals()
@@ -75,7 +73,7 @@ namespace VsVillage
                         float baseCostToNeighbour = nearestNode.gCost + nearestNode.distanceTo(neighbourNode);
                         if (existingNeighbourNode.gCost > baseCostToNeighbour + 0.0001f)
                         {
-                            if (traversable(neighbourNode, stepHeight, maxFallHeight, entityCollBox, card.IsDiagnoal, ref extraCost) && existingNeighbourNode.gCost > baseCostToNeighbour + extraCost + 0.0001f)
+                            if (traversable(neighbourNode, stepHeight, maxFallHeight, entityCollBox, false, ref extraCost) && existingNeighbourNode.gCost > baseCostToNeighbour + extraCost + 0.0001f)
                             {
                                 UpdateNode(nearestNode, existingNeighbourNode, extraCost);
                             }
@@ -83,7 +81,7 @@ namespace VsVillage
                     }
                     else if (!closedSet.Contains(neighbourNode))
                     {
-                        if (traversable(neighbourNode, stepHeight, maxFallHeight, entityCollBox, card.IsDiagnoal, ref extraCost))
+                        if (traversable(neighbourNode, stepHeight, maxFallHeight, entityCollBox, false, ref extraCost))
                         {
                             UpdateNode(nearestNode, neighbourNode, extraCost);
                             neighbourNode.hCost = neighbourNode.distanceTo(targetNode);
@@ -94,6 +92,47 @@ namespace VsVillage
             }
 
             return null;
+        }
+
+        private IEnumerable<PathNode> findValidNeighbourNodes(PathNode nearestNode)
+        {
+            Block current = blockAccess.GetBlock(nearestNode.X, nearestNode.Y, nearestNode.Z);
+            if (traversableCodes.Exists(code => current.Code.Path.Contains(code)))
+            {
+                Cardinal climbableCard;
+                List<PathNode> neighbourNodes;
+                switch (current.Variant["side"])
+                {
+                    case "east":
+                        climbableCard = Cardinal.East;
+                        neighbourNodes = new List<PathNode>(new PathNode[] { new PathNode(nearestNode, Cardinal.North), new PathNode(nearestNode, Cardinal.South), new PathNode(nearestNode, Cardinal.West) });
+                        break;
+                    case "west":
+                        climbableCard = Cardinal.West;
+                        neighbourNodes = new List<PathNode>(new PathNode[] { new PathNode(nearestNode, Cardinal.North), new PathNode(nearestNode, Cardinal.East), new PathNode(nearestNode, Cardinal.South) });
+                        break;
+                    case "south":
+                        climbableCard = Cardinal.South;
+                        neighbourNodes = new List<PathNode>(new PathNode[] { new PathNode(nearestNode, Cardinal.North), new PathNode(nearestNode, Cardinal.East), new PathNode(nearestNode, Cardinal.West) });
+                        break;
+                    default:
+                        climbableCard = Cardinal.North;
+                        neighbourNodes = new List<PathNode>(new PathNode[] { new PathNode(nearestNode, Cardinal.East), new PathNode(nearestNode, Cardinal.South), new PathNode(nearestNode, Cardinal.West) });
+                        break;
+                }
+                int i = 1;
+                while (traversableCodes.Exists(code => blockAccess.GetBlock(nearestNode.X, nearestNode.Y+i, nearestNode.Z).Code.Path.Contains(code))){
+                    i++;
+                }
+                var climbableNode = new PathNode(nearestNode, climbableCard);
+                climbableNode.Y += i;
+                neighbourNodes.Add(climbableNode);
+                return neighbourNodes;
+            }
+            else
+            {
+                return new PathNode[] { new PathNode(nearestNode, Cardinal.North), new PathNode(nearestNode, Cardinal.East), new PathNode(nearestNode, Cardinal.South), new PathNode(nearestNode, Cardinal.West) };
+            }
         }
 
 
