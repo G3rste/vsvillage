@@ -15,6 +15,7 @@ namespace VsVillage
         public List<string> traversableCodes { get; set; } = new List<string>() { "door", "gate", "ladder" };
 
         public List<string> climbableCodes { get; set; } = new List<string>() { "ladder" };
+        public List<string> steppableCodes { get; set; } = new List<string>() { "stair", "path" };
 
         public int NodesChecked;
 
@@ -94,7 +95,7 @@ namespace VsVillage
             return null;
         }
 
-        private IEnumerable<PathNode> findValidNeighbourNodes(PathNode nearestNode)
+        protected virtual IEnumerable<PathNode> findValidNeighbourNodes(PathNode nearestNode)
         {
             Block current = blockAccess.GetBlock(nearestNode.X, nearestNode.Y, nearestNode.Z);
             if (traversableCodes.Exists(code => current.Code.Path.Contains(code)))
@@ -121,7 +122,8 @@ namespace VsVillage
                         break;
                 }
                 int i = 1;
-                while (traversableCodes.Exists(code => blockAccess.GetBlock(nearestNode.X, nearestNode.Y+i, nearestNode.Z).Code.Path.Contains(code))){
+                while (traversableCodes.Exists(code => blockAccess.GetBlock(nearestNode.X, nearestNode.Y + i, nearestNode.Z).Code.Path.Contains(code)))
+                {
                     i++;
                 }
                 var climbableNode = new PathNode(nearestNode, climbableCard);
@@ -176,12 +178,12 @@ namespace VsVillage
 
         protected virtual bool canStep(Block belowBlock)
         {
-            return belowBlock != null && belowBlock.SideSolid[BlockFacing.UP.Index];
+            return belowBlock.SideSolid[BlockFacing.UP.Index] || steppableCodes.Exists(code => belowBlock.Code.Path.Contains(code));
         }
 
         protected virtual bool traversable(Block block)
         {
-            return block == null || block.CollisionBoxes == null || block.CollisionBoxes.Length == 0 || traversableCodes.Exists(code => block.Code.Path.Contains(code));
+            return block.CollisionBoxes == null || block.CollisionBoxes.Length == 0 || traversableCodes.Exists(code => block.Code.Path.Contains(code));
         }
 
         List<PathNode> retracePath(PathNode startNode, PathNode endNode)
