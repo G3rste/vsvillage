@@ -1,0 +1,14 @@
+[
+    {
+        "op": "add",
+        "path": "/entitybehaviorsByType",
+        "value": {
+            "*-head-*": [
+                {
+                    "name": "VillagerBed"
+                }
+            ]
+        },
+        "file": "game:blocktypes/wood/bed.json"
+    }
+]
