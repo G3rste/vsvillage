@@ -105,6 +105,7 @@
 					{ "code": "fleeondamage", "duration": 10, "chance": 0.4, "slot": 0, "priority": 1, "whenHealthRelBelow": 0.3, "accumType": "max" }
 				]
 			},
+			{ "code": "AlternatePathTraverser" },
 			{
 				"code": "taskai",
 				"aitasks": [
@@ -177,6 +178,18 @@
 						"wanderRangeMax": 3,
 						"teleportWhenOutOfRange": true,
 						"teleportInGameHours": 1
+					},
+					{
+						"code": "villagergoto",
+						"priority": 1.4,
+						"movespeed": 0.01,
+						"animation": "Walk"
+					},
+					{
+						"code": "villagersleep",
+						"priority": 1.4,
+						"movespeed": 0.01,
+						"animation": "Walk"
 					},
 					{
 						"code": "lookaround",

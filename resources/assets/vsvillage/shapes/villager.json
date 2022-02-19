@@ -1687,6 +1687,51 @@
 		},
 
 		{
+			"name": "Sleep",
+			"code": "sleep",
+			"quantityframes": 50,
+			"onActivityStopped": "Stop",
+			"onAnimationEnd": "Repeat",
+			"keyframes": [
+				{
+					"frame": 0,
+					"elements": {
+						"LowerTorso": { "offsetX": -3.0, "offsetY": 0.0, "offsetZ": -11.0, "rotationX": -112.5, "rotationY": 0.0, "rotationZ": -90.0 },
+						"UpperFootR": { "offsetX": -1.0, "offsetY": 0.0, "offsetZ": 0.5, "rotationX": 0.0, "rotationY": 22.5, "rotationZ": -22.5 },
+						"LowerFootR": { "offsetX": 0.2, "offsetY": 0.6, "offsetZ": 0.0, "rotationX": 0.0, "rotationY": 0.0, "rotationZ": 45.0 },
+						"UpperFootL": { "offsetX": -1.0, "offsetY": 1.0, "offsetZ": 0.0, "rotationX": 0.0, "rotationY": 0.0, "rotationZ": -67.5 },
+						"LowerFootL": { "offsetX": 0.2, "offsetY": 0.7, "offsetZ": 0.0, "rotationX": 0.0, "rotationY": 0.0, "rotationZ": 45.0 },
+						"UpperTorso": { "rotationX": 0.0, "rotationY": -22.5, "rotationZ": 0.0 },
+						"UpperArmL": { "rotationX": 0.0, "rotationY": 0.0, "rotationZ": -90.0 },
+						"LowerArmL": { "rotationX": -45.0, "rotationY": 0.0, "rotationZ": -112.5 },
+						"UpperArmR": { "offsetX": -1.0, "offsetY": 3.0, "offsetZ": 0.0, "rotationX": 0.0, "rotationY": -22.5, "rotationZ": -180.0 },
+						"LowerArmR": { "rotationX": -45.0, "rotationY": 67.5, "rotationZ": 30.0 },
+						"Neck": {  },
+						"Head": { "rotationX": 0.0, "rotationY": 22.5, "rotationZ": 0.0 }
+					}
+				},
+				{
+					"frame": 15,
+					"elements": {
+						"LowerTorso": { "offsetX": -3.0, "offsetY": 0.0, "offsetZ": -11.0 },
+						"UpperTorso": { "rotationX": 0.0, "rotationY": -24.0, "rotationZ": 0.0 },
+						"UpperArmL": { "rotationX": 0.0, "rotationY": 2.0, "rotationZ": -89.0 },
+						"LowerArmL": { "rotationX": -45.0, "rotationY": 0.0, "rotationZ": -114.0 }
+					}
+				},
+				{
+					"frame": 22,
+					"elements": {
+						"LowerTorso": { "offsetX": -3.0, "offsetY": 0.0, "offsetZ": -11.0 },
+						"UpperTorso": {  },
+						"Neck": {  },
+						"Head": { "rotationX": 0.0, "rotationY": 22.3, "rotationZ": 0.0 }
+					}
+				}
+			]
+		},
+
+		{
 			"name": "Die",
 			"code": "die",
 			"quantityframes": 120,

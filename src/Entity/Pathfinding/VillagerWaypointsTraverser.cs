@@ -267,11 +267,6 @@ namespace VsVillage
                     float factor = movingSpeed * GlobalConstants.OverallSpeedMultiplier / (float)Math.Sqrt(targetVec.X * targetVec.X + targetVec.Z * targetVec.Z);
                     controls.FlyVector.Y = targetVec.Y * factor;
                 }
-
-                if (entity.CollidedHorizontally)
-                {
-                    //TODO
-                }
             }
             else if (entity.Swimming)
             {
