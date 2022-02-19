@@ -58,13 +58,12 @@ namespace VsVillage
                 PathNode nearestNode = openSet.RemoveNearest();
                 closedSet.Add(nearestNode);
 
-                if (nearestNode == targetNode || (allowReachAlmost && Math.Abs(nearestNode.X - targetNode.X) <= 1 && Math.Abs(nearestNode.Z - targetNode.Z) <= 1 && (nearestNode.Y == targetNode.Y || nearestNode.Y == targetNode.Y + 1)))
+                if (nearestNode == targetNode || (allowReachAlmost && Math.Abs(nearestNode.X - targetNode.X) <= 1 && Math.Abs(nearestNode.Z - targetNode.Z) <= 1 && Math.Abs(nearestNode.Y - targetNode.Y) <= 2))
                 {
                     return retracePath(startNode, nearestNode);
                 }
 
-                //PathNode[] validNextNodes = getValidNextNodes(nearestNode)
-                foreach (var neighbourNode in findValidNeighbourNodes(nearestNode))
+                foreach (var neighbourNode in findValidNeighbourNodes(nearestNode, targetNode, stepHeight, maxFallHeight))
                 {
                     float extraCost = 0;
                     PathNode existingNeighbourNode = openSet.TryFindValue(neighbourNode);
@@ -74,7 +73,7 @@ namespace VsVillage
                         float baseCostToNeighbour = nearestNode.gCost + nearestNode.distanceTo(neighbourNode);
                         if (existingNeighbourNode.gCost > baseCostToNeighbour + 0.0001f)
                         {
-                            if (traversable(neighbourNode, stepHeight, maxFallHeight, entityCollBox, false, ref extraCost) && existingNeighbourNode.gCost > baseCostToNeighbour + extraCost + 0.0001f)
+                            if (traversable(neighbourNode, targetNode, stepHeight, maxFallHeight) && existingNeighbourNode.gCost > baseCostToNeighbour + extraCost + 0.0001f)
                             {
                                 UpdateNode(nearestNode, existingNeighbourNode, extraCost);
                             }
@@ -82,7 +81,7 @@ namespace VsVillage
                     }
                     else if (!closedSet.Contains(neighbourNode))
                     {
-                        if (traversable(neighbourNode, stepHeight, maxFallHeight, entityCollBox, false, ref extraCost))
+                        if (traversable(neighbourNode, targetNode, stepHeight, maxFallHeight))
                         {
                             UpdateNode(nearestNode, neighbourNode, extraCost);
                             neighbourNode.hCost = neighbourNode.distanceTo(targetNode);
@@ -95,10 +94,10 @@ namespace VsVillage
             return null;
         }
 
-        protected virtual IEnumerable<PathNode> findValidNeighbourNodes(PathNode nearestNode)
+        protected virtual IEnumerable<PathNode> findValidNeighbourNodes(PathNode nearestNode, PathNode targetNode, float stepHeight, int maxFallHeight)
         {
             Block current = blockAccess.GetBlock(nearestNode.X, nearestNode.Y, nearestNode.Z);
-            if (traversableCodes.Exists(code => current.Code.Path.Contains(code)))
+            if (climbableCodes.Exists(code => current.Code.Path.Contains(code)))
             {
                 Cardinal climbableCard;
                 List<PathNode> neighbourNodes;
@@ -149,8 +148,9 @@ namespace VsVillage
             neighbourNode.pathLength = nearestNode.pathLength + 1;
         }
 
-        protected virtual bool traversable(PathNode node, float stepHeight, int maxFallHeight, Cuboidf entityCollBox, bool isDiagonal, ref float extraCost)
+        protected virtual bool traversable(PathNode node, PathNode target, float stepHeight, int maxFallHeight)
         {
+            if (target.X == node.X && target.Z == node.Z && target.Y == node.Y) { return true; }
             if (traversable(blockAccess.GetBlock(node.X, node.Y, node.Z))
                 && traversable(blockAccess.GetBlock(node.X, node.Y + 1, node.Z)))
             {
