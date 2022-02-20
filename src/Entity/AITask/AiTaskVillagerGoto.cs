@@ -2,10 +2,7 @@ using System;
 using Vintagestory.API.Common;
 using Vintagestory.API.MathTools;
 using Vintagestory.API.Datastructures;
-using Vintagestory.Essentials;
 using Vintagestory.API.Server;
-using System.Collections.Generic;
-using Vintagestory.API.Client;
 
 namespace VsVillage
 {
