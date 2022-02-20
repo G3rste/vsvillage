@@ -15,10 +15,7 @@ namespace VsVillage
         long lastCheck;
 
         float offset;
-
-        float fromTime;
-        float toTime;
-
+        DayTimeFrame[] duringDayTimeFrames;
         VillagerWaypointsTraverser villagerPathTraverser;
         AnimationMetaData sleepAnimMeta;
 
@@ -41,8 +38,15 @@ namespace VsVillage
                 AnimationSpeed = taskConfig["sleepAnimationSpeed"].AsFloat(1f)
             }.Init();
             offset = ((float)entity.World.Rand.Next(taskConfig["minoffset"].AsInt(-50), taskConfig["maxoffset"].AsInt(50))) / 100;
-            fromTime = taskConfig["fromTime"].AsFloat(22);
-            toTime = taskConfig["toTime"].AsFloat(6);
+            duringDayTimeFrames = taskConfig["duringDayTimeFrames"].AsObject<DayTimeFrame[]>(null);
+            if (duringDayTimeFrames != null)
+            {
+                foreach (var frame in duringDayTimeFrames)
+                {
+                    frame.FromHour += offset;
+                    frame.ToHour += offset;
+                }
+            }
 
             villagerPathTraverser = entity.GetBehavior<EntityBehaviorAlternatePathtraverser>().villagerWaypointsTraverser;
             done = false;
@@ -53,7 +57,7 @@ namespace VsVillage
             if (lastCheck + 10000 < entity.World.ElapsedMilliseconds)
             {
                 lastCheck = entity.World.ElapsedMilliseconds;
-                return entity.World.Calendar.HourOfDay > fromTime + offset || entity.World.Calendar.HourOfDay < toTime + offset;
+                return IntervalUtil.matchesCurrentTime(duringDayTimeFrames, entity.World);
             }
             else
             {
@@ -85,7 +89,7 @@ namespace VsVillage
                 lastCheck = entity.World.ElapsedMilliseconds;
                 if (entity.ServerPos.SquareDistanceTo(bed.Pos.ToVec3d()) < 2) { goToBed(); }
             }
-            return entity.World.Calendar.HourOfDay > fromTime + offset || entity.World.Calendar.HourOfDay < toTime + offset;
+            return IntervalUtil.matchesCurrentTime(duringDayTimeFrames, entity.World);
         }
 
         public override void FinishExecute(bool cancelled)

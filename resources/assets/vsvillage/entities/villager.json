@@ -189,7 +189,9 @@
 						"code": "villagersleep",
 						"priority": 1.4,
 						"movespeed": 0.01,
-						"animation": "Walk"
+						"animation": "Walk",
+						"duringDayTimeFrames": [ { "fromHour": 22, "toHour": 24 }, { "fromHour": 0, "toHour": 6 } ]
+
 					},
 					{
 						"code": "lookaround",
