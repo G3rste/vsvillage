@@ -1696,7 +1696,7 @@
 				{
 					"frame": 0,
 					"elements": {
-						"LowerTorso": { "offsetX": -3.0, "offsetY": 0.0, "offsetZ": -11.0, "rotationX": -112.5, "rotationY": 0.0, "rotationZ": -90.0 },
+						"LowerTorso": { "offsetX": -3.0, "offsetY": 0.0, "offsetZ": -11.0, "rotationX": -90.0, "rotationY": -30.0, "rotationZ": 0.0 },
 						"UpperFootR": { "offsetX": -1.0, "offsetY": 0.0, "offsetZ": 0.5, "rotationX": 0.0, "rotationY": 22.5, "rotationZ": -22.5 },
 						"LowerFootR": { "offsetX": 0.2, "offsetY": 0.6, "offsetZ": 0.0, "rotationX": 0.0, "rotationY": 0.0, "rotationZ": 45.0 },
 						"UpperFootL": { "offsetX": -1.0, "offsetY": 1.0, "offsetZ": 0.0, "rotationX": 0.0, "rotationY": 0.0, "rotationZ": -67.5 },
