@@ -1704,7 +1704,7 @@
 						"UpperTorso": { "rotationX": 0.0, "rotationY": -22.5, "rotationZ": 0.0 },
 						"UpperArmL": { "rotationX": 0.0, "rotationY": 0.0, "rotationZ": -90.0 },
 						"LowerArmL": { "rotationX": -45.0, "rotationY": 0.0, "rotationZ": -112.5 },
-						"UpperArmR": { "offsetX": -1.0, "offsetY": 3.0, "offsetZ": 0.0, "rotationX": 0.0, "rotationY": -22.5, "rotationZ": -180.0 },
+						"UpperArmR": { "offsetX": -1.0, "offsetY": 3.0, "offsetZ": 0.0, "rotationX": -28.0, "rotationY": -22.5, "rotationZ": -180.0 },
 						"LowerArmR": { "rotationX": -45.0, "rotationY": 67.5, "rotationZ": 30.0 },
 						"Neck": {  },
 						"Head": { "rotationX": 0.0, "rotationY": 22.5, "rotationZ": 0.0 }
