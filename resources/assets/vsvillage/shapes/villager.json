@@ -419,7 +419,7 @@
 										"south": { "texture": "#boots", "uv": [ 10.0, 52.5, 13.5, 60.5 ] },
 										"west": { "texture": "#boots", "uv": [ 7.0, 52.5, 10.0, 60.5 ] },
 										"up": { "texture": "#boots", "uv": [ 7.0, 49.0, 10.0, 52.5 ], "rotation": 90 },
-										"down": { "texture": "#boots", "uv": [ 7.0, 60.5, 10.0, 64.0 ], "rotation": 90 }
+										"down": { "texture": "#boots", "uv": [ 19.0, 60.5, 22.0, 64.0 ], "rotation": 90 }
 									}
 								}
 							]
@@ -1696,10 +1696,10 @@
 				{
 					"frame": 0,
 					"elements": {
-						"LowerTorso": { "offsetX": -3.0, "offsetY": 0.0, "offsetZ": -11.0, "rotationX": -90.0, "rotationY": -30.0, "rotationZ": 0.0 },
+						"LowerTorso": { "offsetX": -5.0, "offsetY": 0.0, "offsetZ": -9.7, "rotationX": -90.0, "rotationY": -30.0, "rotationZ": 0.0 },
 						"UpperFootR": { "offsetX": -1.0, "offsetY": 0.0, "offsetZ": 0.5, "rotationX": 0.0, "rotationY": 22.5, "rotationZ": -22.5 },
 						"LowerFootR": { "offsetX": 0.2, "offsetY": 0.6, "offsetZ": 0.0, "rotationX": 0.0, "rotationY": 0.0, "rotationZ": 45.0 },
-						"UpperFootL": { "offsetX": -1.0, "offsetY": 1.0, "offsetZ": 0.0, "rotationX": 0.0, "rotationY": 0.0, "rotationZ": -67.5 },
+						"UpperFootL": { "offsetX": -1.0, "offsetY": 1.0, "offsetZ": 0.0, "rotationX": 11.0, "rotationY": 0.0, "rotationZ": -80.0 },
 						"LowerFootL": { "offsetX": 0.2, "offsetY": 0.7, "offsetZ": 0.0, "rotationX": 0.0, "rotationY": 0.0, "rotationZ": 45.0 },
 						"UpperTorso": { "rotationX": 0.0, "rotationY": -22.5, "rotationZ": 0.0 },
 						"UpperArmL": { "rotationX": 0.0, "rotationY": 0.0, "rotationZ": -90.0 },
@@ -1713,7 +1713,7 @@
 				{
 					"frame": 15,
 					"elements": {
-						"LowerTorso": { "offsetX": -3.0, "offsetY": 0.0, "offsetZ": -11.0 },
+						"LowerTorso": {  },
 						"UpperTorso": { "rotationX": 0.0, "rotationY": -24.0, "rotationZ": 0.0 },
 						"UpperArmL": { "rotationX": 0.0, "rotationY": 2.0, "rotationZ": -89.0 },
 						"LowerArmL": { "rotationX": -45.0, "rotationY": 0.0, "rotationZ": -114.0 }
@@ -1722,7 +1722,7 @@
 				{
 					"frame": 22,
 					"elements": {
-						"LowerTorso": { "offsetX": -3.0, "offsetY": 0.0, "offsetZ": -11.0 },
+						"LowerTorso": {  },
 						"UpperTorso": {  },
 						"Neck": {  },
 						"Head": { "rotationX": 0.0, "rotationY": 22.3, "rotationZ": 0.0 }
