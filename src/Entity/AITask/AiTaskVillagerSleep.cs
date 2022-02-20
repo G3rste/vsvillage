@@ -50,7 +50,6 @@ namespace VsVillage
             toTime = taskConfig["toTime"].AsFloat(6);
 
             villagerPathTraverser = entity.GetBehavior<EntityBehaviorAlternatePathtraverser>().villagerWaypointsTraverser;
-            entity.TryUnmount();
             done = false;
         }
 
