@@ -79,7 +79,10 @@ namespace VsVillage
         public override void OnGameTick(float dt)
         {
             base.OnGameTick(dt);
-            talkUtil?.OnGameTick(dt);
+            if (Api.Side == EnumAppSide.Client && !AnimManager.IsAnimationActive("sleep"))
+            {
+                talkUtil?.OnGameTick(dt);
+            }
         }
 
         public override void OnTesselation(ref Shape entityShape, string shapePathForLogging)
