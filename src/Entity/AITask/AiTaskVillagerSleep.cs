@@ -74,19 +74,19 @@ namespace VsVillage
 
             if (bed != null)
             {
-                done = !villagerPathTraverser.NavigateTo(bed.Pos.ToVec3d(), moveSpeed, 0.5f, goToBed, layDownAnyways, true, 10000);
+                done = !villagerPathTraverser.NavigateTo(bed.Pos.ToVec3d(), moveSpeed, 0.5f, goToBed, goToBed, true, 10000);
             }
             else
             {
                 done = true;
             }
-            if (done) { layDownAnyways(); }
+            if (done) { goToBed(); }
             else { base.StartExecute(); }
         }
 
         public override bool ContinueExecute(float dt)
         {
-            return entity.World.Calendar.HourOfDay > 21 || entity.World.Calendar.HourOfDay < 6;
+            return entity.World.Calendar.HourOfDay > fromTime + offset || entity.World.Calendar.HourOfDay < toTime + offset;
         }
 
         public override void FinishExecute(bool cancelled)
@@ -104,19 +104,11 @@ namespace VsVillage
             if (bed != null)
             {
                 entity.TryMount(bed);
+                if (bed.MountYaw != null && entity.ServerPos.SquareDistanceTo(bed.Pos.ToVec3d()) < 3)
+                {
+                    entity.ServerPos.Yaw = (float)bed.MountYaw;
+                }
             }
-            entity.AnimManager.StopAnimation(animMeta.Code);
-            entity.AnimManager.StartAnimation(sleepAnimMeta);
-        }
-
-        private void layDownAnyways()
-        {
-            done = true;
-            if (bed != null && entity.ServerPos.SquareDistanceTo(bed.Pos.ToVec3d()) < 3)
-            {
-                entity.TryMount(bed);
-            }
-            villagerPathTraverser.Stop();
             entity.AnimManager.StopAnimation(animMeta.Code);
             entity.AnimManager.StartAnimation(sleepAnimMeta);
         }
