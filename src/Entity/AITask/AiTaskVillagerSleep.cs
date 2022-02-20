@@ -85,6 +85,11 @@ namespace VsVillage
 
         public override bool ContinueExecute(float dt)
         {
+            if (lastCheck + 500 < entity.World.ElapsedMilliseconds && bed != null && entity.MountedOn == null)
+            {
+                lastCheck = entity.World.ElapsedMilliseconds;
+                if (entity.ServerPos.SquareDistanceTo(bed.Pos.ToVec3d()) < 2) { goToBed(); }
+            }
             return entity.World.Calendar.HourOfDay > fromTime + offset || entity.World.Calendar.HourOfDay < toTime + offset;
         }
 
