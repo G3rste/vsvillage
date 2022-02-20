@@ -39,7 +39,7 @@ namespace VsVillage
             if (other == null)
             {
                 var friends = entity.World.GetEntitiesAround(entity.ServerPos.XYZ, 8, 2, friend => friend is EntityVillager || friend is EntityPlayer);
-                if (friends.Length > 0) { other = friends[0]; }
+                if (friends.Length > 0) { other = friends[entity.World.Rand.Next(0, friends.Length)]; }
             }
             return other != null;
         }
@@ -52,8 +52,6 @@ namespace VsVillage
             lookAtTaskStarted = false;
 
             gotoTask.StartExecute();
-            var socialtask = other.GetBehavior<EntityBehaviorTaskAI>()?.TaskManager?.GetTask<AiTaskVillagerSocialize>();
-            if (socialtask != null) { socialtask.other = entity; }
         }
 
         public override bool ContinueExecute(float dt)
@@ -68,6 +66,8 @@ namespace VsVillage
                 {
                     lookAtTask.StartExecute();
                     lookAtTaskStarted = true;
+                    var socialtask = other.GetBehavior<EntityBehaviorTaskAI>()?.TaskManager?.GetTask<AiTaskVillagerSocialize>();
+                    if (socialtask != null) { socialtask.other = entity; }
                 }
             }
             else
