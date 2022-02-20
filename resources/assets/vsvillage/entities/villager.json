@@ -191,7 +191,13 @@
 						"movespeed": 0.01,
 						"animation": "Walk",
 						"duringDayTimeFrames": [ { "fromHour": 22, "toHour": 24 }, { "fromHour": 0, "toHour": 6 } ]
-
+					},
+					{
+						"code": "villagersocialize",
+						"priority": 1.3,
+						"mincooldown": 20000,
+						"maxcooldown": 60000,
+						"movespeed": 0.01
 					},
 					{
 						"code": "lookaround",

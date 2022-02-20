@@ -5,20 +5,35 @@ using Vintagestory.GameContent;
 using System.IO;
 using System;
 using System.Collections.Generic;
+using Vintagestory.API.Util;
+using Vintagestory.API.Client;
 
 namespace VsVillage
 {
     public class EntityVillager : EntityAgent
     {
+        public static OrderedDictionary<string, TraderPersonality> Personalities = new OrderedDictionary<string, TraderPersonality>()
+        {
+            { "formal", new TraderPersonality(1, 1, 0.9f) },
+            { "balanced", new TraderPersonality(1.2f, 0.9f, 1.1f) },
+            { "lazy", new TraderPersonality(1.65f, 0.7f, 0.9f) },
+            { "rowdy", new TraderPersonality(0.75f, 1f, 1.8f) }
+        };
         protected InventoryVillagerGear gearInv;
         public override IInventory GearInventory => gearInv;
 
         public override ItemSlot LeftHandItemSlot { get => gearInv.leftHandSlot; set => gearInv.leftHandSlot = value; }
         public override ItemSlot RightHandItemSlot { get => gearInv.rightHandSlot; set => gearInv.rightHandSlot = value; }
+
+        public EntityTalkUtil talkUtil { get; set; }
         public string Personality
         {
             get { return WatchedAttributes.GetString("personality", "formal"); }
-            set { WatchedAttributes.SetString("personality", value); }
+            set
+            {
+                WatchedAttributes.SetString("personality", value);
+                talkUtil?.SetModifiers(Personalities[value].TalkSpeedModifier, Personalities[value].PitchModifier, Personalities[value].VolumneModifier);
+            }
         }
 
         public EntityVillager()
@@ -43,6 +58,8 @@ namespace VsVillage
             }
             (AnimManager as TraderAnimationManager).Personality = Personality;
             if (api.Side == EnumAppSide.Server) { api.World.RegisterCallback(dt => GetBehavior<EntityBehaviorTaskAI>().TaskManager.StopTask(typeof(AiTaskVillagerSleep)), 10000); }
+            else { talkUtil = new EntityTalkUtil(api as ICoreClientAPI, this); }
+            this.Personality = this.Personality; // to update the talkutil
         }
 
         public override void OnEntitySpawn()
@@ -57,6 +74,12 @@ namespace VsVillage
                     slot.TryPutInto(World, GearInventory.GetBestSuitedSlot(slot).slot);
                 }
             }
+        }
+
+        public override void OnGameTick(float dt)
+        {
+            base.OnGameTick(dt);
+            talkUtil?.OnGameTick(dt);
         }
 
         public override void OnTesselation(ref Shape entityShape, string shapePathForLogging)
