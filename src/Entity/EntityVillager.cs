@@ -42,6 +42,7 @@ namespace VsVillage
                 Personality = EntityTrader.Personalities.GetKeyAtIndex(World.Rand.Next(EntityTrader.Personalities.Count));
             }
             (AnimManager as TraderAnimationManager).Personality = Personality;
+            if (api.Side == EnumAppSide.Server) { api.World.RegisterCallback(dt => GetBehavior<EntityBehaviorTaskAI>().TaskManager.StopTask(typeof(AiTaskVillagerSleep)), 10000); }
         }
 
         public override void OnEntitySpawn()
