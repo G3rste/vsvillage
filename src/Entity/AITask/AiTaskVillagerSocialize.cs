@@ -48,6 +48,7 @@ namespace VsVillage
         {
             base.StartExecute();
             gotoTask = new AiTaskGotoEntity(entity, other);
+            gotoTask.moveSpeed = moveSpeed;
             lookAtTask = new AiTaskLookAtEntity(entity, other);
             lookAtTaskStarted = false;
 

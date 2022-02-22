@@ -121,6 +121,7 @@ namespace VsVillage
             if (entity.Attributes.HasAttribute("villagerBed"))
             {
                 bed = entity.World.BlockAccessor.GetBlockEntity(entity.Attributes.GetBlockPos("villagerBed")) as BlockEntityBed;
+                if (bed != null) { return; }
             }
             var villagerBed = (entity.Api as ICoreServerAPI)?.ModLoader.GetModSystem<POIRegistry>().GetNearestPoi(entity.ServerPos.XYZ, 50, poi =>
             {

@@ -196,7 +196,7 @@
 						"code": "villagersocialize",
 						"priority": 1.3,
 						"mincooldown": 20000,
-						"maxcooldown": 60000,
+						"maxcooldown": 50000,
 						"movespeed": 0.01
 					},
 					{
