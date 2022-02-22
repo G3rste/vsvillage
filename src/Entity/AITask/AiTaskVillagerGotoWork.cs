@@ -18,6 +18,11 @@ namespace VsVillage
         DayTimeFrame[] duringDayTimeFrames;
         VillagerWaypointsTraverser villagerPathTraverser;
 
+        float maxDistance;
+        float minDistance;
+
+        VillagerPointOfInterestOccasion occasion;
+
         public AiTaskVillagerGotoWork(EntityAgent entity) : base(entity)
         {
         }
@@ -41,6 +46,9 @@ namespace VsVillage
                     frame.ToHour += offset;
                 }
             }
+            maxDistance = taskConfig["maxdistance"].AsFloat(5);
+            minDistance = taskConfig["mindistance"].AsFloat(2);
+            Enum.TryParse<VillagerPointOfInterestOccasion>(taskConfig["occasion"].AsString().ToUpper(), out occasion);
 
             villagerPathTraverser = entity.GetBehavior<EntityBehaviorAlternatePathtraverser>().villagerWaypointsTraverser;
         }
@@ -55,7 +63,7 @@ namespace VsVillage
                     retrieveWorkstation();
                     return false;
                 }
-                return entity.ServerPos.SquareDistanceTo(workstation.Position) > 8 * 8 && IntervalUtil.matchesCurrentTime(duringDayTimeFrames, entity.World);
+                return entity.ServerPos.SquareDistanceTo(workstation.Position) > maxDistance * maxDistance && IntervalUtil.matchesCurrentTime(duringDayTimeFrames, entity.World);
             }
             else
             {
@@ -77,7 +85,7 @@ namespace VsVillage
 
         public override bool ContinueExecute(float dt)
         {
-            return entity.ServerPos.SquareDistanceTo(workstation.Position) > 5 * 5;
+            return entity.ServerPos.SquareDistanceTo(workstation.Position) > minDistance * minDistance;
         }
 
         public override void FinishExecute(bool cancelled)
@@ -109,7 +117,7 @@ namespace VsVillage
         private bool isValidWorkStation(IPointOfInterest poi)
         {
             var workstation = poi as IVillagerPointOfInterest;
-            if (workstation != null)
+            if (workstation != null && workstation.occasion == occasion)
             {
                 if (workstation.workerIds.Contains(entity.EntityId))
                 {

@@ -187,7 +187,10 @@
 						"priority": 1.4,
 						"movespeed": 0.01,
 						"animation": "Walk",
-						"duringDayTimeFrames": [ { "fromHour": 7, "toHour": 16 } ]
+						"duringDayTimeFrames": [ { "fromHour": 7, "toHour": 16 } ],
+						"mindistance": 2,
+						"maxdistance": 5,
+						"occasion": "work"
 					},
 					{
 						"code": "villagersleep",
