@@ -183,7 +183,7 @@
 						"teleportInGameHours": 1
 					},
 					{
-						"code": "villagergotowork",
+						"code": "villagergotopoi",
 						"priority": 1.4,
 						"movespeed": 0.01,
 						"animation": "Walk",

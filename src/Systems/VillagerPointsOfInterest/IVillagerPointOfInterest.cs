@@ -6,11 +6,11 @@ namespace VsVillage
     public interface IVillagerPointOfInterest : IPointOfInterest
     {
         VillagerPointOfInterestOccasion occasion { get; }
-        List<EntityVillager> workers { get; }
-        List<long> workerIds { get; }
+        List<EntityVillager> villager { get; }
+        List<long> villagerIds { get; }
         bool canFit(EntityVillager villager);
-        void addWorker(EntityVillager villager);
-        bool tryAddWorker(EntityVillager villager);
+        void addVillager(EntityVillager villager);
+        bool tryAddVillager(EntityVillager villager);
     }
 
     public enum VillagerPointOfInterestOccasion

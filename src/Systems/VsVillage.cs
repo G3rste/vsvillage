@@ -30,7 +30,7 @@ namespace VsVillage
             AiTaskRegistry.Register<AiTaskVillagerGoto>("villagergoto");
             AiTaskRegistry.Register<AiTaskVillagerSleep>("villagersleep");
             AiTaskRegistry.Register<AiTaskVillagerSocialize>("villagersocialize");
-            AiTaskRegistry.Register<AiTaskVillagerGotoWork>("villagergotowork");
+            AiTaskRegistry.Register<AiTaskVillagerGotoPOI>("villagergotopoi");
         }
 
         public override void StartClientSide(ICoreClientAPI api)

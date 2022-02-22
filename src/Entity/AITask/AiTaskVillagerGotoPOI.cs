@@ -7,10 +7,10 @@ using Vintagestory.GameContent;
 
 namespace VsVillage
 {
-    public class AiTaskVillagerGotoWork : AiTaskBase
+    public class AiTaskVillagerGotoPOI : AiTaskBase
     {
 
-        IVillagerPointOfInterest workstation = null;
+        IVillagerPointOfInterest poi = null;
         float moveSpeed = 0.03f;
         long lastCheck;
 
@@ -23,7 +23,9 @@ namespace VsVillage
 
         VillagerPointOfInterestOccasion occasion;
 
-        public AiTaskVillagerGotoWork(EntityAgent entity) : base(entity)
+        string poiKey;
+
+        public AiTaskVillagerGotoPOI(EntityAgent entity) : base(entity)
         {
         }
 
@@ -49,6 +51,7 @@ namespace VsVillage
             maxDistance = taskConfig["maxdistance"].AsFloat(5);
             minDistance = taskConfig["mindistance"].AsFloat(2);
             Enum.TryParse<VillagerPointOfInterestOccasion>(taskConfig["occasion"].AsString().ToUpper(), out occasion);
+            poiKey = "villager" + Enum.GetName(typeof(VillagerPointOfInterestOccasion), occasion);
 
             villagerPathTraverser = entity.GetBehavior<EntityBehaviorAlternatePathtraverser>().villagerWaypointsTraverser;
         }
@@ -58,12 +61,12 @@ namespace VsVillage
             if (lastCheck + 10000 < entity.World.ElapsedMilliseconds)
             {
                 lastCheck = entity.World.ElapsedMilliseconds;
-                if (workstation == null)
+                if (poi == null)
                 {
-                    retrieveWorkstation();
+                    retrievePOI();
                     return false;
                 }
-                return entity.ServerPos.SquareDistanceTo(workstation.Position) > maxDistance * maxDistance && IntervalUtil.matchesCurrentTime(duringDayTimeFrames, entity.World);
+                return entity.ServerPos.SquareDistanceTo(poi.Position) > maxDistance * maxDistance && IntervalUtil.matchesCurrentTime(duringDayTimeFrames, entity.World);
             }
             else
             {
@@ -74,18 +77,18 @@ namespace VsVillage
 
         public override void StartExecute()
         {
-            if (workstation == null) { retrieveWorkstation(); }
+            if (poi == null) { retrievePOI(); }
 
-            if (workstation != null)
+            if (poi != null)
             {
-                villagerPathTraverser.NavigateTo(workstation.Position, moveSpeed, 0.5f, () => { }, () => { }, true, 10000);
+                villagerPathTraverser.NavigateTo(poi.Position, moveSpeed, 0.5f, () => { }, () => { }, true, 10000);
             }
             base.StartExecute();
         }
 
         public override bool ContinueExecute(float dt)
         {
-            return entity.ServerPos.SquareDistanceTo(workstation.Position) > minDistance * minDistance;
+            return entity.ServerPos.SquareDistanceTo(poi.Position) > minDistance * minDistance;
         }
 
         public override void FinishExecute(bool cancelled)
@@ -94,38 +97,38 @@ namespace VsVillage
             base.FinishExecute(cancelled);
         }
 
-        private void retrieveWorkstation()
+        private void retrievePOI()
         {
             var registry = (entity.Api as ICoreServerAPI)?.ModLoader.GetModSystem<POIRegistry>();
-            if (entity.Attributes.HasAttribute("villagerWork"))
+            if (entity.Attributes.HasAttribute(poiKey))
             {
-                workstation = registry.GetNearestPoi(entity.Attributes.GetBlockPos("villagerWork").ToVec3d(), 2f, isValidWorkStation) as IVillagerPointOfInterest;
-                if (workstation != null) { return; }
+                poi = registry.GetNearestPoi(entity.Attributes.GetBlockPos(poiKey).ToVec3d(), 2f, isValidPOI) as IVillagerPointOfInterest;
+                if (poi != null) { return; }
             }
             else
             {
-                workstation = registry.GetNearestPoi(entity.ServerPos.XYZ, 50f, isValidWorkStation) as IVillagerPointOfInterest;
-                if (workstation != null)
+                poi = registry.GetNearestPoi(entity.ServerPos.XYZ, 50f, isValidPOI) as IVillagerPointOfInterest;
+                if (poi != null)
                 {
-                    entity.Attributes.SetBlockPos("villagerWork", new BlockPos(workstation.Position.XInt, workstation.Position.YInt, workstation.Position.ZInt));
+                    entity.Attributes.SetBlockPos(poiKey, new BlockPos(poi.Position.XInt, poi.Position.YInt, poi.Position.ZInt));
                     return;
                 }
             }
-            entity.Attributes.RemoveAttribute("villagerWork");
+            entity.Attributes.RemoveAttribute(poiKey);
         }
 
-        private bool isValidWorkStation(IPointOfInterest poi)
+        private bool isValidPOI(IPointOfInterest pointOfInterest)
         {
-            var workstation = poi as IVillagerPointOfInterest;
-            if (workstation != null && workstation.occasion == occasion)
+            var villagerPOI = pointOfInterest as IVillagerPointOfInterest;
+            if (villagerPOI != null && villagerPOI.occasion == occasion)
             {
-                if (workstation.workerIds.Contains(entity.EntityId))
+                if (villagerPOI.villagerIds.Contains(entity.EntityId))
                 {
-                    entity.Attributes.SetBlockPos("villagerWork", new BlockPos(workstation.Position.XInt, workstation.Position.YInt, workstation.Position.ZInt));
+                    entity.Attributes.SetBlockPos(poiKey, new BlockPos(villagerPOI.Position.XInt, villagerPOI.Position.YInt, villagerPOI.Position.ZInt));
                     return true;
                 }
 
-                return workstation.tryAddWorker(entity as EntityVillager);
+                return villagerPOI.tryAddVillager(entity as EntityVillager);
             }
             return false;
         }
