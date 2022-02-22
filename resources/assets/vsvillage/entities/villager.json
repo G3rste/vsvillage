@@ -190,7 +190,7 @@
 						"priority": 1.4,
 						"movespeed": 0.01,
 						"animation": "Walk",
-						"duringDayTimeFrames": [ { "fromHour": 22, "toHour": 24 }, { "fromHour": 0, "toHour": 6 } ]
+						"duringDayTimeFrames": [ { "fromHour": 22, "toHour": 25 }, { "fromHour": -1, "toHour": 6 } ]
 					},
 					{
 						"code": "villagersocialize",
