@@ -26,6 +26,8 @@ namespace VsVillage
         public override ItemSlot RightHandItemSlot { get => gearInv.rightHandSlot; set => gearInv.rightHandSlot = value; }
 
         public EntityTalkUtil talkUtil { get; set; }
+
+        public string profession => Properties.Attributes["profession"].AsString();
         public string Personality
         {
             get { return WatchedAttributes.GetString("personality", "formal"); }

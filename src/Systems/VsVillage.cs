@@ -20,6 +20,7 @@ namespace VsVillage
             api.RegisterEntity("EntityVillager", typeof(EntityVillager));
 
             api.RegisterEntityBehaviorClass("AlternatePathTraverser", typeof(EntityBehaviorAlternatePathtraverser));
+            api.RegisterEntityBehaviorClass("SoldierWorkStation", typeof(EntityBehaviorSoldierWorkStation));
 
             api.RegisterItemClass("ItemVillagerGear", typeof(ItemVillagerGear));
 
@@ -29,6 +30,7 @@ namespace VsVillage
             AiTaskRegistry.Register<AiTaskVillagerGoto>("villagergoto");
             AiTaskRegistry.Register<AiTaskVillagerSleep>("villagersleep");
             AiTaskRegistry.Register<AiTaskVillagerSocialize>("villagersocialize");
+            AiTaskRegistry.Register<AiTaskVillagerGotoWork>("villagergotowork");
         }
 
         public override void StartClientSide(ICoreClientAPI api)

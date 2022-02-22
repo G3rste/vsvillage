@@ -6,6 +6,7 @@
 	"deadHitboxSize": { "x": 0.75, "y": 0.5 },
 	"attributesByType": {
 		"*-soldier": {
+			"profession": "soldier",
 			"validGear": {
 				"arms": ["armor", "armor-hallowcroft", "bandage-left", "bandage-right"],
 				"back": ["dagger", "spear"],
@@ -19,6 +20,7 @@
 			}
 		},
 		"*-smith": {
+			"profession": "smith",
 			"validGear": {
 				"arms": ["jewelry-left-bracelet", "jewelry-right-bracelet", "jewelry-left-bracelet-copper", "jewelry-right-bracelet-copper", "jewelry-left-bracelet-gold", "jewelry-right-bracelet-gold", "jewelry-left-rings", "jewelry-right-rings", "jewelry-left-rings-copper", "jewelry-right-rings-copper", "jewelry-left-rings-gold", "jewelry-right-rings-gold","gloves"],
 				"back": ["pickaxe", "backpack"],
@@ -32,6 +34,7 @@
 			}
 		},
 		"*-farmer": {
+			"profession": "farmer",
 			"validGear": {
 				"arms": ["jewelry-left-bracelet", "jewelry-right-bracelet", "jewelry-left-bracelet-copper", "jewelry-right-bracelet-copper", "jewelry-left-bracelet-gold", "jewelry-right-bracelet-gold", "jewelry-left-rings", "jewelry-right-rings", "jewelry-left-rings-copper", "jewelry-right-rings-copper", "jewelry-left-rings-gold", "jewelry-right-rings-gold","gloves"],
 				"back": ["dagger", "backpack"],
@@ -180,10 +183,11 @@
 						"teleportInGameHours": 1
 					},
 					{
-						"code": "villagergoto",
+						"code": "villagergotowork",
 						"priority": 1.4,
 						"movespeed": 0.01,
-						"animation": "Walk"
+						"animation": "Walk",
+						"duringDayTimeFrames": [ { "fromHour": 7, "toHour": 16 } ]
 					},
 					{
 						"code": "villagersleep",
