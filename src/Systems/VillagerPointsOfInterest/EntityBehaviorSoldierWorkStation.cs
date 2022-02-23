@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Vintagestory.API.Common;
 using Vintagestory.API.Common.Entities;
 using Vintagestory.API.Datastructures;
 using Vintagestory.API.MathTools;
@@ -33,6 +34,17 @@ namespace VsVillage
             if (sapi != null)
             {
                 sapi.ModLoader.GetModSystem<POIRegistry>().AddPOI(this);
+            }
+        }
+
+        public override void OnEntityDeath(DamageSource damageSourceForDeath)
+        {
+            base.OnEntityDeath(damageSourceForDeath);
+
+            var sapi = entity.Api as ICoreServerAPI;
+            if (sapi != null)
+            {
+                sapi.ModLoader.GetModSystem<POIRegistry>().RemovePOI(this);
             }
         }
 
