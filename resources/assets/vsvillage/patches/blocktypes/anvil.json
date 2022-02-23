@@ -1,0 +1,17 @@
+[
+    {
+        "op": "add",
+        "path": "/entitybehaviors",
+        "value": [
+            {
+                "name": "VillagerPOI",
+                "properties": {
+                    "maximumVillagers": 1,
+                    "occasion": "work",
+                    "forProfession": "smith"
+                }
+            }
+        ],
+        "file": "game:blocktypes/metal/anvil.json"
+    }
+]
