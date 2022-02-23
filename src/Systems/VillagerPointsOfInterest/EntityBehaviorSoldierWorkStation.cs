@@ -16,7 +16,7 @@ namespace VsVillage
 
         protected virtual int maximumWorkers => 3;
 
-        public List<EntityVillager> villager => villagerIds.ConvertAll<EntityVillager>(value => entity.World.GetEntityById(value) as EntityVillager);
+        public List<EntityVillager> villagers => villagerIds.ConvertAll<EntityVillager>(value => entity.World.GetEntityById(value) as EntityVillager);
 
         public List<long> villagerIds => new List<string>(entity.Attributes.GetStringArray("workers", new string[0])).ConvertAll<long>(Convert.ToInt64);
 
@@ -36,24 +36,24 @@ namespace VsVillage
             }
         }
 
-        public void addVillager(EntityVillager villager)
+        public void addVillager(EntityVillager candidate)
         {
             var list = villagerIds;
-            list.Add(villager.EntityId);
+            list.Add(candidate.EntityId);
             entity.Attributes.SetStringArray("workers", list.ConvertAll<string>(Convert.ToString).ToArray());
         }
 
-        public bool canFit(EntityVillager villager)
+        public bool canFit(EntityVillager candidate)
         {
-            if (villager.profession == "soldier")
+            if (candidate.profession == "soldier")
             {
                 if (villagerIds.Count < maximumWorkers) { return true; }
                 var aliveWorkers = new List<long>();
-                foreach (var worker in this.villager)
+                foreach (var villager in this.villagers)
                 {
-                    if (worker != null && worker.Alive)
+                    if (villager != null && villager.Alive)
                     {
-                        aliveWorkers.Add(worker.EntityId);
+                        aliveWorkers.Add(villager.EntityId);
                     }
                 }
                 entity.Attributes.SetStringArray("workers", aliveWorkers.ConvertAll<string>(Convert.ToString).ToArray());
@@ -62,11 +62,11 @@ namespace VsVillage
             return false;
         }
 
-        public bool tryAddVillager(EntityVillager villager)
+        public bool tryAddVillager(EntityVillager candidate)
         {
-            if (canFit(villager))
+            if (canFit(candidate))
             {
-                addVillager(villager);
+                addVillager(candidate);
                 return true;
             }
             return false;
