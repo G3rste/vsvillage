@@ -1,0 +1,15 @@
+[
+    {
+        "op": "add",
+        "path": "/entityBehaviors/-",
+        "value": {
+            "name": "VillagerPOI",
+            "properties": {
+                "maximumVillagers": 2,
+                "occasion": "work",
+                "forProfession": "farmer"
+            }
+        },
+        "file": "game:blocktypes/stone/quern.json"
+    }
+]

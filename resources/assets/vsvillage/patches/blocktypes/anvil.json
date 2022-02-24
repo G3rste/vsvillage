@@ -1,7 +1,7 @@
 [
     {
         "op": "add",
-        "path": "/entitybehaviors",
+        "path": "/entityBehaviors",
         "value": [
             {
                 "name": "VillagerPOI",
