@@ -116,7 +116,7 @@ namespace VsVillage
 
         Vec3d prevPos = new Vec3d(0, -2000, 0);
         Vec3d prevPrevPos = new Vec3d(0, -1000, 0);
-        Vec3d lastDoorPos = null;
+        Vec3d prevPrevPrevPos = new Vec3d(0, -3000, 0);
         float prevPosAccum;
         float sqDistToTarget;
 
@@ -167,25 +167,18 @@ namespace VsVillage
             {
                 prevPosAccum = 0;
 
-                if (lastDoorPos != null && lastDoorPos.SquareDistanceTo(entity.ServerPos.X, entity.ServerPos.Y, entity.ServerPos.Z) > 2)
-                {
-                    handleDoors(lastDoorPos, "opened");
-                    lastDoorPos = null;
-                };
+                prevPrevPrevPos.Set(prevPrevPos);
                 prevPrevPos.Set(prevPos);
                 prevPos.Set(entity.ServerPos.X, entity.ServerPos.Y, entity.ServerPos.Z);
+                handleDoors(prevPrevPrevPos, "opened");
             }
 
             stuckCounter = stuck ? (stuckCounter + 1) : 0;
             if (stuck)
             {
-                if (handleDoors(target, "closed"))
+                if (!handleDoors(target, "closed"))
                 {
-                    lastDoorPos = target;
-                }
-                else if (handleDoors(prevPos, "closed"))
-                {
-                    lastDoorPos = prevPos;
+                    handleDoors(prevPos, "closed");
                 }
                 if (GlobalConstants.OverallSpeedMultiplier > 0 && stuckCounter > 60 / GlobalConstants.OverallSpeedMultiplier)
                 {
@@ -294,29 +287,27 @@ namespace VsVillage
 
         private bool handleDoors(Vec3d target, string state)
         {
-            var targetBlock = entity.World.BlockAccessor.GetBlock(target.XInt, target.YInt, target.ZInt) as BlockDoor;
+            var targetBlock = entity.World.BlockAccessor.GetBlock(target.XInt, target.YInt, target.ZInt) as BlockBaseDoor;
             if (targetBlock != null && targetBlock.Variant["state"] == state)
             {
                 entity.World.PlaySoundAt(AssetLocation.Create(targetBlock.Attributes["triggerSound"].AsString("sounds/block/door"), targetBlock.Code.Domain), target.X + 0.5f, target.Y + 0.5f, target.Z + 0.5f);
-                AssetLocation newCode = targetBlock.CodeWithVariant("state", targetBlock.IsOpened() ? "closed" : "opened");
-                Block newBlock = entity.World.BlockAccessor.GetBlock(newCode);
+                entity.World.BlockAccessor.WalkBlocks(new BlockPos(target.XInt - 1, target.YInt - 1, target.ZInt - 1), new BlockPos(target.XInt + 1, target.YInt + 1, target.ZInt + 1), handleDoor);
 
-                AssetLocation otherNewCode = newBlock.CodeWithVariant("part", targetBlock.IsUpperHalf() ? "down" : "up");
-                BlockPos targetPos = new BlockPos(target.XInt, target.YInt, target.ZInt);
-                entity.World.BlockAccessor.ExchangeBlock(newBlock.BlockId, targetPos);
-                entity.World.BlockAccessor.MarkBlockDirty(targetPos);
-                BlockPos otherPos = new BlockPos(target.XInt, target.YInt + (targetBlock.IsUpperHalf() ? -1 : 1), target.ZInt);
-                Block otherPart = entity.World.BlockAccessor.GetBlock(otherPos);
-
-
-                if (otherPart is BlockDoor && ((BlockDoor)otherPart).IsUpperHalf() != targetBlock.IsUpperHalf())
-                {
-                    entity.World.BlockAccessor.ExchangeBlock(entity.World.BlockAccessor.GetBlock(otherNewCode).BlockId, otherPos);
-                    entity.World.BlockAccessor.MarkBlockDirty(otherPos);
-                }
                 return true;
             }
             return false;
+        }
+
+        private void handleDoor(Block block, BlockPos pos)
+        {
+            var targetBlock = entity.World.BlockAccessor.GetBlock(pos) as BlockBaseDoor;
+            if (targetBlock != null)
+            {
+                AssetLocation newCode = targetBlock.CodeWithVariant("state", targetBlock.IsOpened() ? "closed" : "opened");
+                Block newBlock = entity.World.BlockAccessor.GetBlock(newCode);
+                entity.World.BlockAccessor.ExchangeBlock(newBlock.BlockId, pos);
+                entity.World.BlockAccessor.MarkBlockDirty(pos);
+            }
         }
 
         bool IsNearTarget(int waypointOffset, ref bool nearHorizontally)
