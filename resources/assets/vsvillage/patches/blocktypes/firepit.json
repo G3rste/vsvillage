@@ -1,0 +1,14 @@
+[
+    {
+        "op": "add",
+        "path": "/entityBehaviors/-",
+        "value": {
+            "name": "VillagerPOI",
+            "properties": {
+                "maximumVillagers": 8,
+                "occasion": "freetime"
+            }
+        },
+        "file": "game:blocktypes/wood/firepit.json"
+    }
+]

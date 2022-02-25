@@ -189,8 +189,18 @@
 						"animation": "Walk",
 						"duringDayTimeFrames": [ { "fromHour": 7, "toHour": 16 } ],
 						"mindistance": 2,
-						"maxdistance": 5,
+						"maxdistance": 4,
 						"occasion": "work"
+					},
+					{
+						"code": "villagergotopoi",
+						"priority": 1.4,
+						"movespeed": 0.01,
+						"animation": "Walk",
+						"duringDayTimeFrames": [ { "fromHour": 17, "toHour": 21 } ],
+						"mindistance": 2,
+						"maxdistance": 6,
+						"occasion": "freetime"
 					},
 					{
 						"code": "villagersleep",
