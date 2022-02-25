@@ -14,6 +14,8 @@ namespace VsVillage
         float moveSpeed = 0.03f;
         long lastCheck;
 
+        bool stuck = false;
+
         float offset;
         DayTimeFrame[] duringDayTimeFrames;
         VillagerWaypointsTraverser villagerPathTraverser;
@@ -81,14 +83,15 @@ namespace VsVillage
 
             if (poi != null)
             {
-                villagerPathTraverser.NavigateTo(poi.Position, moveSpeed, 0.5f, () => { }, () => { }, true, 10000);
+                villagerPathTraverser.NavigateTo(poi.Position, moveSpeed, 0.5f, () => { }, () => stuck = true, true, 10000);
+                stuck = false;
             }
             base.StartExecute();
         }
 
         public override bool ContinueExecute(float dt)
         {
-            return entity.ServerPos.SquareDistanceTo(poi.Position) > minDistance * minDistance;
+            return !stuck && entity.ServerPos.SquareDistanceTo(poi.Position) > minDistance * minDistance;
         }
 
         public override void FinishExecute(bool cancelled)
