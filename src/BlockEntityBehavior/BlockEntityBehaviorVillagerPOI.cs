@@ -32,7 +32,7 @@ namespace VsVillage
         public override void Initialize(ICoreAPI api, JsonObject properties)
         {
             base.Initialize(api, properties);
-            if (!Enum.TryParse<VillagerPointOfInterestOccasion>(properties["occasion"].AsString(), out _occasion))
+            if (!Enum.TryParse<VillagerPointOfInterestOccasion>(properties["occasion"].AsString().ToUpper(), out _occasion))
             {
                 _occasion = VillagerPointOfInterestOccasion.WORK;
             }
