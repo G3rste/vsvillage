@@ -115,6 +115,7 @@ namespace VsVillage
         {
             base.OnHurt(dmgSource, damage);
             DrawWeapon();
+            World.RegisterCallback(dt => UndrawWeapon(), 10000);
         }
         public void DrawWeapon()
         {
@@ -139,7 +140,21 @@ namespace VsVillage
             var dummySlot = new DummySlot(new ItemStack(Api.World.GetItem(new AssetLocation(assetStringFromSlot.Invoke(chosenSlot)))));
             if (dummySlot.TryPutInto(World, RightHandItemSlot) > 0)
             {
+                var chosenCode = chosenSlot.Itemstack.Item.Code;
+                RightHandItemSlot.Itemstack.Attributes.SetString("drawnFromGearType", String.Format("{0}:{1}", chosenCode.Domain, chosenCode.Path));
                 chosenSlot.TakeOutWhole();
+            }
+        }
+
+        public void UndrawWeapon()
+        {
+            if (RightHandItemSlot != null && !RightHandItemSlot.Empty && RightHandItemSlot.Itemstack.Attributes.HasAttribute("drawnFromGearType"))
+            {
+                var dummySlot = new DummySlot(new ItemStack(Api.World.GetItem(new AssetLocation(RightHandItemSlot.Itemstack.Attributes.GetString("drawnFromGearType")))));
+                if (dummySlot.TryPutInto(World, gearInv.GetBestSuitedSlot(dummySlot).slot) > 0)
+                {
+                    RightHandItemSlot.TakeOutWhole();
+                }
             }
         }
 
