@@ -37,11 +37,13 @@ namespace VsVillage
         public override void FromTreeAttributes(ITreeAttribute tree)
         {
             slots = SlotsFromTreeAttributes(tree, slots);
+            owningEntity = tree.GetString("owningEntity");
         }
 
         public override void ToTreeAttributes(ITreeAttribute tree)
         {
             SlotsToTreeAttributes(slots, tree);
+            tree.SetString("owningEntity", owningEntity);
         }
         public override void LateInitialize(string inventoryID, ICoreAPI api)
         {

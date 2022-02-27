@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using Vintagestory.API.Util;
 using Vintagestory.API.Client;
+using Vintagestory.API.Server;
 
 namespace VsVillage
 {
@@ -45,8 +46,9 @@ namespace VsVillage
         public override void Initialize(EntityProperties properties, ICoreAPI api, long InChunkIndex3d)
         {
             base.Initialize(properties, api, InChunkIndex3d);
-            if (gearInv == null) gearInv = new InventoryVillagerGear(Code.Path, "villagerInv-" + EntityId, api);
-            else gearInv.Api = api;
+            if (gearInv == null) { gearInv = new InventoryVillagerGear(Code.Path, "villagerInv-" + EntityId, api); }
+            else { gearInv.Api = api; }
+            gearInv.SlotModified += gearInvSlotModified;
             gearInv.LateInitialize(gearInv.InventoryID, api);
             var slots = new ItemSlot[gearInv.Count];
             for (int i = 0; i < gearInv.Count; i++)
@@ -96,6 +98,17 @@ namespace VsVillage
             }
         }
 
+        public override void OnReceivedServerPacket(int packetid, byte[] data)
+        {
+            base.OnReceivedServerPacket(packetid, data);
+            if (packetid == 1235)
+            {
+                TreeAttribute tree = new TreeAttribute();
+                SerializerUtil.FromBytes(data, (r) => tree.FromBytes(r));
+                gearInv.FromTreeAttributes(tree);
+            }
+        }
+
         public override void FromBytes(BinaryReader reader, bool forClient)
         {
             base.FromBytes(reader, forClient);
@@ -106,16 +119,16 @@ namespace VsVillage
 
         public override void ToBytes(BinaryWriter writer, bool forClient)
         {
-            gearInv.ToTreeAttributes(getInventoryTree());
+            try
+            {
+                gearInv.ToTreeAttributes(getInventoryTree());
+            }
+            catch (NullReferenceException)
+            {
+                // ignore, better save whats left of it
+            }
 
             base.ToBytes(writer, forClient);
-        }
-
-        public override void OnHurt(DamageSource dmgSource, float damage)
-        {
-            base.OnHurt(dmgSource, damage);
-            DrawWeapon();
-            World.RegisterCallback(dt => UndrawWeapon(), 10000);
         }
         public void DrawWeapon()
         {
@@ -143,6 +156,8 @@ namespace VsVillage
                 var chosenCode = chosenSlot.Itemstack.Item.Code;
                 RightHandItemSlot.Itemstack.Attributes.SetString("drawnFromGearType", String.Format("{0}:{1}", chosenCode.Domain, chosenCode.Path));
                 chosenSlot.TakeOutWhole();
+                RightHandItemSlot.MarkDirty();
+                chosenSlot.MarkDirty();
             }
         }
 
@@ -151,9 +166,12 @@ namespace VsVillage
             if (RightHandItemSlot != null && !RightHandItemSlot.Empty && RightHandItemSlot.Itemstack.Attributes.HasAttribute("drawnFromGearType"))
             {
                 var dummySlot = new DummySlot(new ItemStack(Api.World.GetItem(new AssetLocation(RightHandItemSlot.Itemstack.Attributes.GetString("drawnFromGearType")))));
-                if (dummySlot.TryPutInto(World, gearInv.GetBestSuitedSlot(dummySlot).slot) > 0)
+                var chosenSlot = gearInv.GetBestSuitedSlot(dummySlot)?.slot;
+                if (dummySlot.TryPutInto(World, chosenSlot) > 0)
                 {
                     RightHandItemSlot.TakeOutWhole();
+                    RightHandItemSlot.MarkDirty();
+                    chosenSlot.MarkDirty();
                 }
             }
         }
@@ -178,6 +196,18 @@ namespace VsVillage
                 WatchedAttributes.SetAttribute("villagerInventory", tree);
             }
             return WatchedAttributes.GetTreeAttribute("villagerInventory");
+        }
+
+        private void gearInvSlotModified(int slotId)
+        {
+            ITreeAttribute tree = new TreeAttribute();
+            gearInv.ToTreeAttributes(tree);
+            WatchedAttributes.MarkPathDirty("villagerInventory");
+
+            if (Api is ICoreServerAPI sapi)
+            {
+                sapi.Network.BroadcastEntityPacket(EntityId, 1235, SerializerUtil.ToBytes((w) => tree.ToBytes(w)));
+            }
         }
     }
 }
