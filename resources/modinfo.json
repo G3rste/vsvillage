@@ -5,8 +5,8 @@
     "side": "universal",
     "author": "G3rste",
     "description": "Mod that focuses on implementing a Village System and Villagers.",
-    "version": "1.0.0",
+    "version": "0.0.1",
     "dependency": {
-        "game": "1.16.0-rc.6"
+        "game": "1.16.4"
     }
 }
