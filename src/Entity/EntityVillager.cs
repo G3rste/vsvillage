@@ -106,6 +106,10 @@ namespace VsVillage
                 TreeAttribute tree = new TreeAttribute();
                 SerializerUtil.FromBytes(data, (r) => tree.FromBytes(r));
                 gearInv.FromTreeAttributes(tree);
+                foreach(var slot in gearInv)
+                {
+                    slot.OnItemSlotModified(slot.Itemstack);
+                }
             }
         }
 
@@ -156,8 +160,6 @@ namespace VsVillage
                 var chosenCode = chosenSlot.Itemstack.Item.Code;
                 RightHandItemSlot.Itemstack.Attributes.SetString("drawnFromGearType", String.Format("{0}:{1}", chosenCode.Domain, chosenCode.Path));
                 chosenSlot.TakeOutWhole();
-                RightHandItemSlot.MarkDirty();
-                chosenSlot.MarkDirty();
             }
         }
 
@@ -170,8 +172,6 @@ namespace VsVillage
                 if (dummySlot.TryPutInto(World, chosenSlot) > 0)
                 {
                     RightHandItemSlot.TakeOutWhole();
-                    RightHandItemSlot.MarkDirty();
-                    chosenSlot.MarkDirty();
                 }
             }
         }
