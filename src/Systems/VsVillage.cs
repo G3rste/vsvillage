@@ -28,6 +28,7 @@ namespace VsVillage
             api.RegisterBlockEntityBehaviorClass("VillagerPOI", typeof(BlockEntityBehaviorVillagerPOI));
 
             AiTaskRegistry.Register<AiTaskVillagerMeleeAttack>("villagermeleeattack");
+            AiTaskRegistry.Register<AiTaskVillagerSeekEntity>("villagerseekentity");
             AiTaskRegistry.Register<AiTaskVillagerGoto>("villagergoto");
             AiTaskRegistry.Register<AiTaskVillagerSleep>("villagersleep");
             AiTaskRegistry.Register<AiTaskVillagerSocialize>("villagersocialize");

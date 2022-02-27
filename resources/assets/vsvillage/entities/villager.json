@@ -114,7 +114,7 @@
 				"aitasks": [
 					{
 						"code": "villagermeleeattack",
-						"entityCodes": ["player"],
+						"entityCodes": ["drifter-*"],
 						"priority": 2,
 						"damage": 0.5,
 						"damageTier": 3,
@@ -127,20 +127,18 @@
 						"stabanimationspeed": 0.7,
 						"slashanimation": "SwordHit",
 						"slashanimationspeed": 0.7,
-						"animationSpeed": 2,
-						"whenInEmotionState": "aggressiveondamage"
+						"animationSpeed": 2
 					},
 					{
-						"code": "seekentity",
-						"entityCodes": ["player"],
+						"code": "villagerseekentity",
+						"entityCodes": ["drifter-*"],
 						"priority": 1.5,
 						"mincooldown": 1000,
 						"maxcooldown": 1500,
 						"seekingRange": 20,
 						"movespeed": 0.035,
 						"animation": "Run",
-						"animationSpeed": 1.75,
-						"whenInEmotionState": "aggressiveondamage"
+						"animationSpeed": 1.75
 					},
 					{
 						"code": "fleeentity",
