@@ -8,15 +8,15 @@
 		"*-soldier": {
 			"profession": "soldier",
 			"validGear": {
-				"arms": ["armor", "armor-hallowcroft", "bandage-left", "bandage-right"],
+				"arms": ["armor", "armor-hallowcroft", "armor", "armor-hallowcroft", "bandage-left", "bandage-right"],
 				"back": ["dagger", "spear"],
 				"belt": [],
-				"beltslot": ["sword", "sack", "spyglass"],
-				"chest": ["armor", "armor-hallowcroft", "bandage"],
-				"feet": ["armor", "armor-hallowcroft", "bandage-left", "bandage-right", "knife"],
-				"head": ["armor", "armor-hallowcroft", "bandage", "bandage-eye"],
-				"shoulders": ["armor", "armor-hallowcroft", "bandage-left", "bandage-right"],
-				"thigh": ["armor", "armor-hallowcroft", "bandage-left", "bandage-right"]
+				"beltslot": ["sword", "sword", "sword", "sword", "sack", "spyglass"],
+				"chest": ["armor", "armor-hallowcroft", "armor", "armor-hallowcroft", "bandage"],
+				"feet": ["armor", "armor-hallowcroft", "armor", "armor-hallowcroft", "armor", "armor-hallowcroft", "armor", "armor-hallowcroft", "bandage-left", "bandage-right", "knife"],
+				"head": ["armor", "armor", "armor", "armor-hallowcroft", "bandage", "bandage-eye", "bandage-eye"],
+				"shoulders": ["armor", "armor-hallowcroft", "armor", "armor-hallowcroft", "armor", "armor-hallowcroft", "bandage-left", "bandage-right"],
+				"thigh": ["armor", "armor-hallowcroft", "armor", "armor-hallowcroft", "armor", "armor-hallowcroft", "bandage-left", "bandage-right"]
 			}
 		},
 		"*-smith": {
