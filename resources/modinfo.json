@@ -3,10 +3,12 @@
     "modid": "vsvillage",
     "name": "VS Village",
     "side": "universal",
-    "author": "G3rste",
+    "authors": [
+        "G3rste"
+    ],
     "description": "Mod that focuses on implementing a Village System and Villagers.",
     "version": "0.0.1",
-    "dependency": {
+    "dependencies": {
         "game": "1.16.4"
     }
 }
