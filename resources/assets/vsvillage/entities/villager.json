@@ -137,7 +137,7 @@
 						"maxcooldown": 1500,
 						"seekingRange": 20,
 						"movespeed": 0.035,
-						"animation": "Run",
+						"animation": "BalancedRun",
 						"animationSpeed": 1.75
 					},
 					{
