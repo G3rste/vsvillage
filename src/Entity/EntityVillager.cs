@@ -45,7 +45,14 @@ namespace VsVillage
         }
         public override void Initialize(EntityProperties properties, ICoreAPI api, long InChunkIndex3d)
         {
-            base.Initialize(properties, api, InChunkIndex3d);
+            try
+            {
+                base.Initialize(properties, api, InChunkIndex3d);
+            }
+            catch (NullReferenceException)
+            {
+                //ignore
+            }
             if (gearInv == null) { gearInv = new InventoryVillagerGear(Code.Path, "villagerInv-" + EntityId, api); }
             else { gearInv.Api = api; }
             gearInv.SlotModified += gearInvSlotModified;
@@ -106,7 +113,7 @@ namespace VsVillage
                 TreeAttribute tree = new TreeAttribute();
                 SerializerUtil.FromBytes(data, (r) => tree.FromBytes(r));
                 gearInv.FromTreeAttributes(tree);
-                foreach(var slot in gearInv)
+                foreach (var slot in gearInv)
                 {
                     slot.OnItemSlotModified(slot.Itemstack);
                 }
