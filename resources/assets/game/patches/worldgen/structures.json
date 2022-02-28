@@ -1,0 +1,25 @@
+[
+    {
+        "op": "add",
+        "path": "/structures/-",
+        "value": {
+            "code": "villageroutpost",
+			"group": "villager",
+			"minGroupDistance": 1000,
+            "chance": 1,
+            "name": "Villager Settlements",
+            "schematics": [
+                "overground/villageoutposts/villager-outpost-settlement-1",
+                "overground/villageoutposts/villager-outpost-watchtower-1"
+            ],
+            "replacewithblocklayers": [
+                "soil-medium-normal",
+                "soil-medium-none"
+            ],
+            "postPass": true,
+            "placement": "surface",
+            "offsetY": -1
+        },
+        "file": "worldgen/structures.json"
+    }
+]
