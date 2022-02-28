@@ -131,8 +131,11 @@
 					},
 					{
 						"code": "villagerseekentity",
-						"entityCodes": ["drifter-*"],
-						"priority": 1.5,
+						"entityCodesByType": {
+							"*-soldier": ["drifter-*", "wolf-male", "wolf-female"],
+							"*": []
+						},
+						"priority": 1.6,
 						"mincooldown": 1000,
 						"maxcooldown": 1500,
 						"seekingRange": 20,
@@ -142,13 +145,15 @@
 					},
 					{
 						"code": "fleeentity",
-						"entityCodes": ["player"],
+						"entityCodesByType": {
+							"*-soldier": [],
+							"*": ["drifter-*", "wolf-male", "wolf-female"]
+						},
 						"priority": 1.5,
 						"movespeed": 0.035,
 						"seekingRange": 12,
 						"animation": "Run",
-						"animationSpeed": 1.75,
-						"whenInEmotionState": "fleeondamage"
+						"animationSpeed": 1.75
 					},
 					{
 						"code": "idle",
