@@ -1,2 +1,8 @@
 {
+    "item-creature-humanoid-villager-male-soldier": "Soldier (male)",
+    "item-creature-humanoid-villager-female-soldier": "Soldier (female)",
+    "item-creature-humanoid-villager-male-smith": "Smith (male)",
+    "item-creature-humanoid-villager-female-smith": "Smith (female)",
+    "item-creature-humanoid-villager-male-farmer": "Farmer (male)",
+    "item-creature-humanoid-villager-female-farmer": "Farmer (female)"
 }
