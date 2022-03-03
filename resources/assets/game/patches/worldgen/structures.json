@@ -1,25 +1,47 @@
 [
     {
-        "op": "add",
+        "op": "addeach",
         "path": "/structures/-",
-        "value": {
-            "code": "villageroutpost",
-			"group": "villager",
-			"minGroupDistance": 1000,
-            "chance": 1,
-            "name": "Villager Settlements",
-            "schematics": [
-                "overground/villageoutposts/villager-outpost-settlement-1",
-                "overground/villageoutposts/villager-outpost-watchtower-1"
-            ],
-            "replacewithblocklayers": [
-                "soil-medium-normal",
-                "soil-medium-none"
-            ],
-            "postPass": true,
-            "placement": "surface",
-            "offsetY": -1
-        },
+        "value": [
+            {
+                "code": "villageroutpost",
+                "group": "outpost",
+                "minGroupDistance": 1000,
+                "chance": 1,
+                "name": "Villager Outposts",
+                "schematics": [
+                    "overground/village/villager-outpost-1",
+                    "overground/village/villager-outpost-2",
+                    "overground/village/villager-outpost-3"
+                ],
+                "replacewithblocklayers": [
+                    "soil-medium-normal",
+                    "soil-medium-none"
+                ],
+                "postPass": true,
+                "placement": "surface",
+                "offsetY": -1
+            },
+            {
+                "code": "villagersettlement",
+                "group": "settlement",
+                "minGroupDistance": 2000,
+                "chance": 1,
+                "name": "Villager Settlements",
+                "schematics": [
+                    "overground/village/villager-settlement-1",
+                    "overground/village/villager-settlement-2",
+                    "overground/village/villager-settlement-3"
+                ],
+                "replacewithblocklayers": [
+                    "soil-medium-normal",
+                    "soil-medium-none"
+                ],
+                "postPass": true,
+                "placement": "surface",
+                "offsetY": -1
+            }
+        ],
         "file": "worldgen/structures.json"
     }
 ]
