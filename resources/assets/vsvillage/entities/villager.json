@@ -46,9 +46,23 @@
 				"shoulders": ["jewelry-necklace", "jewelry-necklace-copper", "jewelry-necklace-gold", "scarf"],
 				"thigh": []
 			}
+		},
+		"*-shepherd": {
+			"profession": "shepherd",
+			"validGear": {
+				"arms": ["jewelry-left-bracelet", "jewelry-right-bracelet", "jewelry-left-bracelet-copper", "jewelry-right-bracelet-copper", "jewelry-left-bracelet-gold", "jewelry-right-bracelet-gold", "jewelry-left-rings", "jewelry-right-rings", "jewelry-left-rings-copper", "jewelry-right-rings-copper", "jewelry-left-rings-gold", "jewelry-right-rings-gold","gloves"],
+				"back": [],
+				"belt": ["jewelry-girdle", "jewelry-girdle-copper", "jewelry-girdle-gold"],
+				"beltslot": ["jewelry-pouch", "jewelry-pouch-copper", "jewelry-pouch-gold", "magnifying-glass", "sack", "spyglass", "chisel", "handsaw"],
+				"chest": ["jewelry-pin", "jewelry-pin-copper", "jewelry-pin-gold", "waterskin"],
+				"feet": ["knife"],
+				"head": ["beret", "chaperon", "fez", "keffiyeh", "hood", "hood-red"],
+				"shoulders": ["jewelry-necklace", "jewelry-necklace-copper", "jewelry-necklace-gold", "scarf"],
+				"thigh": []
+			}
 		}
 	},
-	"variantGroups": [{"code": "sex", "states": ["male", "female"]}, {"code": "profession", "states": ["soldier", "smith", "farmer"]}],
+	"variantGroups": [{"code": "sex", "states": ["male", "female"]}, {"code": "profession", "states": ["soldier", "smith", "farmer", "shepherd"]}],
 	"client": {
 		"renderer": "Shape",
 		"shape": { "base": "villager" },

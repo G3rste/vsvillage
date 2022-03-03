@@ -1,0 +1,34 @@
+[
+    {
+        "op": "add",
+        "path": "/entityBehaviors",
+        "value": [
+            {
+                "name": "VillagerPOI",
+                "properties": {
+                    "maximumVillagers": 1,
+                    "occasion": "work",
+                    "forProfession": "shepherd"
+                }
+            }
+        ],
+        "file": "game:blocktypes/wood/trough-small.json"
+    },
+    {
+        "op": "add",
+        "path": "/entityBehaviorsByType",
+        "value": {
+            "*-head-*": [
+                {
+                    "name": "VillagerPOI",
+                    "properties": {
+                        "maximumVillagers": 1,
+                        "occasion": "work",
+                        "forProfession": "shepherd"
+                    }
+                }
+            ]
+        },
+        "file": "game:blocktypes/wood/trough-large.json"
+    }
+]

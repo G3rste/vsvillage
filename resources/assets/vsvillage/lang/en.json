@@ -4,5 +4,7 @@
     "item-creature-humanoid-villager-male-smith": "Smith (male)",
     "item-creature-humanoid-villager-female-smith": "Smith (female)",
     "item-creature-humanoid-villager-male-farmer": "Farmer (male)",
-    "item-creature-humanoid-villager-female-farmer": "Farmer (female)"
+    "item-creature-humanoid-villager-female-farmer": "Farmer (female)",
+    "item-creature-humanoid-villager-male-shepherd": "Shepherd (male)",
+    "item-creature-humanoid-villager-female-shepherd": "Shepherd (female)"
 }

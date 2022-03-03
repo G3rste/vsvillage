@@ -5,7 +5,7 @@
         "value": {
             "name": "VillagerPOI",
             "properties": {
-                "maximumVillagers": 8,
+                "maximumVillagers": 6,
                 "occasion": "freetime"
             }
         },
