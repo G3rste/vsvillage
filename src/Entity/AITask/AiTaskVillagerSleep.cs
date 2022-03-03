@@ -123,7 +123,7 @@ namespace VsVillage
                 bed = entity.World.BlockAccessor.GetBlockEntity(entity.Attributes.GetBlockPos("villagerBed")) as BlockEntityBed;
                 if (bed != null) { return; }
             }
-            var villagerBed = (entity.Api as ICoreServerAPI)?.ModLoader.GetModSystem<POIRegistry>().GetNearestPoi(entity.ServerPos.XYZ, 50, poi =>
+            var villagerBed = (entity.Api as ICoreServerAPI)?.ModLoader.GetModSystem<POIRegistry>().GetNearestPoi(entity.ServerPos.XYZ, 75, poi =>
             {
                 var behaviorBed = poi as BlockEntityBehaviorVillagerBed;
                 return behaviorBed != null && (behaviorBed.owner == null || !behaviorBed.owner.Alive || behaviorBed.owner == entity);

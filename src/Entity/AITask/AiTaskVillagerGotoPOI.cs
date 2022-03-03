@@ -83,8 +83,11 @@ namespace VsVillage
 
             if (poi != null)
             {
-                villagerPathTraverser.NavigateTo(poi.Position, moveSpeed, 0.5f, () => { }, () => stuck = true, true, 10000);
-                stuck = false;
+                stuck = !villagerPathTraverser.NavigateTo(poi.Position, moveSpeed, 0.5f, () => { }, () => stuck = true, true, 10000);
+            }
+            else
+            {
+                stuck = true;
             }
             base.StartExecute();
         }
@@ -108,14 +111,11 @@ namespace VsVillage
                 poi = registry.GetNearestPoi(entity.Attributes.GetBlockPos(poiKey).ToVec3d(), 2f, isValidPOI) as IVillagerPointOfInterest;
                 if (poi != null) { return; }
             }
-            else
+            poi = registry.GetNearestPoi(entity.ServerPos.XYZ, 75f, isValidPOI) as IVillagerPointOfInterest;
+            if (poi != null)
             {
-                poi = registry.GetNearestPoi(entity.ServerPos.XYZ, 50f, isValidPOI) as IVillagerPointOfInterest;
-                if (poi != null)
-                {
-                    entity.Attributes.SetBlockPos(poiKey, new BlockPos(poi.Position.XInt, poi.Position.YInt, poi.Position.ZInt));
-                    return;
-                }
+                entity.Attributes.SetBlockPos(poiKey, new BlockPos(poi.Position.XInt, poi.Position.YInt, poi.Position.ZInt));
+                return;
             }
             entity.Attributes.RemoveAttribute(poiKey);
         }
