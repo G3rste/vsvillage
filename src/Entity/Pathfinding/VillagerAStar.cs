@@ -161,6 +161,12 @@ namespace VsVillage
                     if (!traversable(belowBlock)) { return false; };
                     node.Y--;
                 }
+                while (climbableCodes.Exists(code => blockAccess.GetBlock(node.X, node.Y, node.Z).Code.Path.Contains(code)))
+                {
+                    Block belowBlock = blockAccess.GetBlock(node.X, node.Y - 1, node.Z);
+                    if (canStep(belowBlock)) { return true; }
+                    node.Y--;
+                }
             }
             else
             {
