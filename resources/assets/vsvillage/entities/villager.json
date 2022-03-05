@@ -196,7 +196,7 @@
 						"maxDistanceToSpawn": 4,
 						"wanderRangeMin": 1,
 						"wanderRangeMax": 3,
-						"teleportWhenOutOfRange": true,
+						"teleportWhenOutOfRange": false,
 						"teleportInGameHours": 1
 					},
 					{
