@@ -21,7 +21,8 @@
             "states": [
                 "soldier",
                 "smith",
-                "farmer"
+                "farmer",
+                "shepherd"
             ]
         }
     ],
