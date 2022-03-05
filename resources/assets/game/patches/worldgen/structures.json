@@ -6,7 +6,7 @@
             {
                 "code": "villageroutpost",
                 "group": "outpost",
-                "minGroupDistance": 1000,
+                "minGroupDistance": 800,
                 "chance": 1,
                 "name": "Villager Outposts",
                 "schematics": [
@@ -25,7 +25,7 @@
             {
                 "code": "villagersettlement",
                 "group": "settlement",
-                "minGroupDistance": 2000,
+                "minGroupDistance": 1200,
                 "chance": 1,
                 "name": "Villager Settlements",
                 "schematics": [
