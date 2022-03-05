@@ -60,23 +60,16 @@ namespace VsVillage
 
         public override bool ContinueExecute(float dt)
         {
-            if (gotoTask.TargetReached())
+            if (lookAtTaskStarted)
             {
-                if (lookAtTaskStarted)
-                {
-                    return lookAtTask.ContinueExecute(dt);
-                }
-                else
-                {
-                    lookAtTask.StartExecute();
-                    lookAtTaskStarted = true;
-                    var socialtask = other.GetBehavior<EntityBehaviorTaskAI>()?.TaskManager?.GetTask<AiTaskVillagerSocialize>();
-                    if (socialtask != null) { socialtask.other = entity; }
-                }
+                return lookAtTask.ContinueExecute(dt);
             }
-            else
+            else if (!gotoTask.ContinueExecute(dt))
             {
-                gotoTask.ContinueExecute(dt);
+                lookAtTask.StartExecute();
+                lookAtTaskStarted = true;
+                var socialtask = other.GetBehavior<EntityBehaviorTaskAI>()?.TaskManager?.GetTask<AiTaskVillagerSocialize>();
+                if (socialtask != null) { socialtask.other = entity; }
             }
             return true;
         }
