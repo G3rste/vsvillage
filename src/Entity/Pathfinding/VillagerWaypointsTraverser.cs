@@ -167,10 +167,10 @@ namespace VsVillage
             {
                 prevPosAccum = 0;
 
+                handleDoors(prevPrevPrevPos, "opened");
                 prevPrevPrevPos.Set(prevPrevPos);
                 prevPrevPos.Set(prevPos);
                 prevPos.Set(entity.ServerPos.X, entity.ServerPos.Y, entity.ServerPos.Z);
-                handleDoors(prevPrevPrevPos, "opened");
             }
 
             stuckCounter = stuck ? (stuckCounter + 1) : 0;

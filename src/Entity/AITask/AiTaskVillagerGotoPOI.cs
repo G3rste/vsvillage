@@ -108,12 +108,13 @@ namespace VsVillage
             var registry = (entity.Api as ICoreServerAPI)?.ModLoader.GetModSystem<POIRegistry>();
             if (entity.Attributes.HasAttribute(poiKey))
             {
-                poi = registry.GetNearestPoi(entity.Attributes.GetBlockPos(poiKey).ToVec3d(), 2f, isValidPOI) as IVillagerPointOfInterest;
+                poi = registry.GetNearestPoi(entity.Attributes.GetBlockPos(poiKey).ToVec3d(), 1f, isValidPOI) as IVillagerPointOfInterest;
                 if (poi != null) { return; }
             }
             poi = registry.GetNearestPoi(entity.ServerPos.XYZ, 75f, isValidPOI) as IVillagerPointOfInterest;
             if (poi != null)
             {
+                poi.tryAddVillager(entity as EntityVillager);
                 entity.Attributes.SetBlockPos(poiKey, new BlockPos(poi.Position.XInt, poi.Position.YInt, poi.Position.ZInt));
                 return;
             }
@@ -131,7 +132,7 @@ namespace VsVillage
                     return true;
                 }
 
-                return villagerPOI.tryAddVillager(entity as EntityVillager);
+                return villagerPOI.canFit(entity as EntityVillager);
             }
             return false;
         }

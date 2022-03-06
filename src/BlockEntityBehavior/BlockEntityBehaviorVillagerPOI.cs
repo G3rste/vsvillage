@@ -70,7 +70,7 @@ namespace VsVillage
             var sapi = Blockentity.Api as ICoreServerAPI;
             if (sapi != null)
             {
-                sapi.ModLoader.GetModSystem<POIRegistry>().AddPOI(this);
+                sapi.ModLoader.GetModSystem<POIRegistry>().RemovePOI(this);
             }
         }
 
@@ -94,6 +94,7 @@ namespace VsVillage
                 }
                 _villagerIds = aliveVillagers;
                 if (villagerIds.Count < maximumVillagers) { return true; }
+                if (villagerIds.Contains(candidate.EntityId)) { return true; }
             }
             return false;
         }

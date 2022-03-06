@@ -104,7 +104,7 @@ namespace VsVillage
         {
             done = true;
             villagerPathTraverser.Stop();
-            if (bed != null)
+            if (bed != null && bed.MountedBy == null)
             {
                 entity.TryMount(bed);
                 if (bed.MountYaw != null && entity.ServerPos.SquareDistanceTo(bed.Pos.ToVec3d()) < 3)
