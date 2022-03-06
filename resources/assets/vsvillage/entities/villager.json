@@ -193,7 +193,6 @@
 						"movespeed": 0.01,
 						"animation": "Walk",
 						"wanderChance": 0.005,
-						"maxDistanceToSpawn": 4,
 						"wanderRangeMin": 1,
 						"wanderRangeMax": 3,
 						"teleportWhenOutOfRange": false,
