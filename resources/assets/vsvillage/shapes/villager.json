@@ -5584,6 +5584,46 @@
 					}
 				}
 			]
+		},
+
+		{
+			"name": "Interact",
+			"code": "interact",
+			"quantityframes": 50,
+			"onActivityStopped": "EaseOut",
+			"onAnimationEnd": "Stop",
+			"keyframes": [
+				{
+					"frame": 0,
+					"elements": {
+						"LowerTorso": {  },
+						"UpperTorso": { "rotationX": 0.0, "rotationY": 0.0, "rotationZ": 0.0 },
+						"UpperArmR": { "rotationX": 0.0, "rotationY": 0.0, "rotationZ": 0.0 },
+						"LowerArmR": { "rotationX": 0.0, "rotationY": 0.0, "rotationZ": 0.0 },
+						"Neck": { "rotationX": 0.0, "rotationY": 0.0, "rotationZ": 0.0 }
+					}
+				},
+				{
+					"frame": 15,
+					"elements": {
+						"LowerTorso": {  },
+						"UpperTorso": { "rotationX": 0.0, "rotationY": 0.0, "rotationZ": 11.0 },
+						"UpperArmR": { "rotationX": 0.0, "rotationY": 0.0, "rotationZ": -39.0 },
+						"LowerArmR": { "rotationX": -19.0, "rotationY": 11.0, "rotationZ": -19.0 },
+						"Neck": { "rotationX": 0.0, "rotationY": 0.0, "rotationZ": 6.0 }
+					}
+				},
+				{
+					"frame": 30,
+					"elements": {
+						"LowerTorso": {  },
+						"UpperTorso": { "rotationX": 0.0, "rotationY": 0.0, "rotationZ": 11.0 },
+						"UpperArmR": { "rotationX": 0.0, "rotationY": 6.0, "rotationZ": -53.0 },
+						"LowerArmR": { "rotationX": -30.0, "rotationY": 22.0, "rotationZ": -25.0 },
+						"Neck": { "rotationX": 0.0, "rotationY": 0.0, "rotationZ": 6.0 }
+					}
+				}
+			]
 		}
 	]
 }
