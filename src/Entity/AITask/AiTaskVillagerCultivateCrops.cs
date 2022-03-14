@@ -37,13 +37,9 @@ namespace VsVillage
             if (cooldownUntilMs + lastCheck < elapsedMs)
             {
                 lastCheck = elapsedMs;
-                if (nearestFarmland == null || entity.ServerPos.SquareDistanceTo(nearestFarmland.Position) > maxDistance * maxDistance * 4)
-                {
-                    nearestFarmland = entity.Api.ModLoader.GetModSystem<POIRegistry>().GetNearestPoi(entity.ServerPos.XYZ, maxDistance, isValidFarmland) as BlockEntityFarmland;
-                }
-                if (nearestFarmland != null) { return true; }
+                nearestFarmland = entity.Api.ModLoader.GetModSystem<POIRegistry>().GetNearestPoi(entity.ServerPos.XYZ, maxDistance, isValidFarmland) as BlockEntityFarmland;
             }
-            return false;
+            return nearestFarmland != null;
         }
 
         public override void StartExecute()
@@ -73,16 +69,9 @@ namespace VsVillage
                 Animation = "interact"
             }.Init();
             entity.AnimManager.StartAnimation(interactAnim);
-            if (nearestFarmland.CanPlant())
+            if (nearestFarmland.HasUnripeCrop())
             {
-                nearestFarmland.TryPlant(entity.World.GetBlock(new AssetLocation("crop-flax-1")));
-            }
-            else if (nearestFarmland.HasRipeCrop())
-            {
-                var crop = entity.World.BlockAccessor.GetBlock(nearestFarmland.UpPos) as BlockCrop;
-                entity.Api.Logger.Debug("Harvested: {0}", crop.Code.Path);
-                entity.World.BlockAccessor.BreakBlock(nearestFarmland.UpPos, null, 0);
-                nearestFarmland.TryPlant(entity.World.GetBlock(crop.CodeWithParts("1")));
+                nearestFarmland.TryGrowCrop(entity.World.Calendar.TotalHours + nearestFarmland.GetHoursForNextStage() + 1);
             }
             nearestFarmland = null;
         }
@@ -90,7 +79,7 @@ namespace VsVillage
         private bool isValidFarmland(IPointOfInterest poi)
         {
             var farmland = poi as BlockEntityFarmland;
-            return farmland != null && (farmland.HasRipeCrop() || farmland.CanPlant());
+            return farmland != null && farmland.HasUnripeCrop() && entity.World.Rand.NextDouble() < 0.2;
         }
     }
 }
