@@ -34,6 +34,7 @@ namespace VsVillage
             AiTaskRegistry.Register<AiTaskVillagerSocialize>("villagersocialize");
             AiTaskRegistry.Register<AiTaskVillagerGotoPOI>("villagergotopoi");
             AiTaskRegistry.Register<AiTraskVillagerFillTrough>("villagerfilltrough");
+            AiTaskRegistry.Register<AiTraskVillagerCultivateCrops>("villagercultivatecrops");
         }
 
         public override void StartClientSide(ICoreClientAPI api)
