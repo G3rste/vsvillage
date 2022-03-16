@@ -17,6 +17,13 @@
                 "exclude": true
             }
         },
+        "*-hammer": {
+            "weaponAssetLocation": "hammer-iron",
+            "wearableAttachment": true,
+            "handbook": {
+                "exclude": true
+            }
+        },
         "*": {
             "wearableAttachment": true,
             "handbook": {
