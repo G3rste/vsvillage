@@ -141,7 +141,20 @@ namespace VsVillage
 
             base.ToBytes(writer, forClient);
         }
-        public void DrawWeapon()
+
+        public bool HasWeapon(System.Func<string, bool> matcher = null)
+        {
+            foreach (var gear in gearInv)
+            {
+                var assetString = (gear?.Itemstack?.Item as ItemVillagerGear)?.weaponAssetLocation;
+                if (!String.IsNullOrEmpty(assetString) && (matcher == null || matcher.Invoke(gear?.Itemstack?.Item?.Code.Path)))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+        public void DrawWeapon(System.Func<string, bool> matcher = null)
         {
             var availableWeapons = new List<ItemSlot>();
             System.Func<ItemSlot, string> assetStringFromSlot = slot => (slot?.Itemstack?.Item as ItemVillagerGear)?.weaponAssetLocation;
@@ -149,9 +162,8 @@ namespace VsVillage
             // get all slots containing weapons
             foreach (var gear in gearInv)
             {
-                string weaponAssetLocation = (gear?.Itemstack?.Item as ItemVillagerGear)?.weaponAssetLocation;
-                var assetString = weaponAssetLocation;
-                if (!String.IsNullOrEmpty(assetStringFromSlot.Invoke(gear)))
+                var assetString = assetStringFromSlot.Invoke(gear);
+                if (!String.IsNullOrEmpty(assetString) && (matcher == null || matcher.Invoke(gear?.Itemstack?.Item?.Code.Path)))
                 {
                     availableWeapons.Add(gear);
                 }
