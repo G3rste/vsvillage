@@ -5624,6 +5624,137 @@
 					}
 				}
 			]
+		},
+
+		{
+			"name": "Hammerflip",
+			"code": "hammerflip",
+			"quantityframes": 90,
+			"onActivityStopped": "PlayTillEnd",
+			"onAnimationEnd": "Stop",
+			"keyframes": [
+				{
+					"frame": 1,
+					"elements": {
+						"LowerTorso": {  },
+						"UpperTorso": {  },
+						"UpperArmR": { "rotationX": 0.0, "rotationY": 0.0, "rotationZ": 0.0 },
+						"LowerArmR": { "rotationX": 0.0, "rotationY": 0.0, "rotationZ": 0.0 },
+						"HandR": {  },
+						"RightHand": { "offsetX": 0.0, "offsetY": 0.0, "offsetZ": 0.0, "rotationX": 0.0, "rotationY": 0.0, "rotationZ": 90.0 }
+					}
+				},
+				{
+					"frame": 15,
+					"elements": {
+						"LowerTorso": {  },
+						"UpperTorso": {  },
+						"UpperArmR": { "rotationX": 0.0, "rotationY": 0.0, "rotationZ": -40.0 },
+						"LowerArmR": { "rotationX": 0.0, "rotationY": 0.0, "rotationZ": -40.0 },
+						"HandR": {  },
+						"RightHand": { "offsetX": 0.0, "offsetY": 0.0, "offsetZ": 0.0, "rotationX": 20.0, "rotationY": 0.0, "rotationZ": 55.0 }
+					}
+				},
+				{
+					"frame": 20,
+					"elements": {
+						"LowerTorso": {  },
+						"UpperTorso": {  },
+						"UpperArmR": { "rotationX": 0.0, "rotationY": 0.0, "rotationZ": -40.0 },
+						"LowerArmR": { "rotationX": 0.0, "rotationY": 0.0, "rotationZ": -40.0 },
+						"HandR": {  },
+						"RightHand": { "offsetX": -3.0, "offsetY": 0.0, "offsetZ": 0.0, "rotationX": 90.0, "rotationY": 0.0, "rotationZ": 0.0 }
+					}
+				},
+				{
+					"frame": 25,
+					"elements": {
+						"LowerTorso": {  },
+						"UpperTorso": {  },
+						"UpperArmR": { "rotationX": 0.0, "rotationY": 0.0, "rotationZ": -40.0 },
+						"LowerArmR": { "rotationX": 0.0, "rotationY": 0.0, "rotationZ": -40.0 },
+						"HandR": {  },
+						"RightHand": { "offsetX": -9.0, "offsetY": 0.0, "offsetZ": 0.0, "rotationX": 180.0, "rotationY": 0.0, "rotationZ": 0.0 }
+					}
+				},
+				{
+					"frame": 30,
+					"elements": {
+						"LowerTorso": {  },
+						"UpperTorso": {  },
+						"UpperArmR": { "rotationX": 0.0, "rotationY": 0.0, "rotationZ": -40.0 },
+						"LowerArmR": { "rotationX": 0.0, "rotationY": 0.0, "rotationZ": -40.0 },
+						"HandR": {  },
+						"RightHand": { "offsetX": -3.0, "offsetY": 0.0, "offsetZ": 0.0, "rotationX": 270.0, "rotationY": 0.0, "rotationZ": 0.0 }
+					}
+				},
+				{
+					"frame": 35,
+					"elements": {
+						"LowerTorso": {  },
+						"UpperTorso": {  },
+						"UpperArmR": { "rotationX": 0.0, "rotationY": 5.0, "rotationZ": -45.0 },
+						"LowerArmR": { "rotationX": -5.0, "rotationY": 5.0, "rotationZ": -45.0 },
+						"HandR": {  },
+						"RightHand": { "offsetX": 0.0, "offsetY": 0.0, "offsetZ": 0.0, "rotationX": 360.0, "rotationY": 0.0, "rotationZ": 0.0 }
+					}
+				},
+				{
+					"frame": 45,
+					"elements": {
+						"LowerTorso": {  },
+						"UpperTorso": {  },
+						"UpperArmR": { "rotationX": 0.0, "rotationY": 0.0, "rotationZ": -20.0 },
+						"LowerArmR": { "rotationX": 0.0, "rotationY": 0.0, "rotationZ": -40.0 },
+						"HandR": {  },
+						"RightHand": { "offsetX": 0.0, "offsetY": 0.0, "offsetZ": 0.0, "rotationX": 360.0, "rotationY": 0.0, "rotationZ": 110.0 }
+					}
+				},
+				{
+					"frame": 50,
+					"elements": {
+						"LowerTorso": {  },
+						"UpperTorso": {  },
+						"UpperArmR": { "rotationX": 0.0, "rotationY": 0.0, "rotationZ": -40.0 },
+						"LowerArmR": { "rotationX": 0.0, "rotationY": 0.0, "rotationZ": -40.0 },
+						"HandR": {  },
+						"RightHand": { "offsetX": -3.0, "offsetY": 0.0, "offsetZ": 0.0, "rotationX": 270.0, "rotationY": 0.0, "rotationZ": 0.0 }
+					}
+				},
+				{
+					"frame": 55,
+					"elements": {
+						"LowerTorso": {  },
+						"UpperTorso": {  },
+						"UpperArmR": { "rotationX": 0.0, "rotationY": 0.0, "rotationZ": -40.0 },
+						"LowerArmR": { "rotationX": 0.0, "rotationY": 0.0, "rotationZ": -40.0 },
+						"HandR": {  },
+						"RightHand": { "offsetX": -9.0, "offsetY": 0.0, "offsetZ": 0.0, "rotationX": 180.0, "rotationY": 0.0, "rotationZ": 0.0 }
+					}
+				},
+				{
+					"frame": 60,
+					"elements": {
+						"LowerTorso": {  },
+						"UpperTorso": {  },
+						"UpperArmR": { "rotationX": 0.0, "rotationY": 0.0, "rotationZ": -40.0 },
+						"LowerArmR": { "rotationX": 0.0, "rotationY": 0.0, "rotationZ": -40.0 },
+						"HandR": {  },
+						"RightHand": { "offsetX": -3.0, "offsetY": 0.0, "offsetZ": 0.0, "rotationX": 90.0, "rotationY": 0.0, "rotationZ": 0.0 }
+					}
+				},
+				{
+					"frame": 65,
+					"elements": {
+						"LowerTorso": {  },
+						"UpperTorso": {  },
+						"UpperArmR": { "rotationX": 0.0, "rotationY": 5.0, "rotationZ": -45.0 },
+						"LowerArmR": { "rotationX": -5.0, "rotationY": 5.0, "rotationZ": -45.0 },
+						"HandR": {  },
+						"RightHand": { "offsetX": 0.0, "offsetY": 0.0, "offsetZ": 0.0, "rotationX": 0.0, "rotationY": 0.0, "rotationZ": 0.0 }
+					}
+				}
+			]
 		}
 	]
 }
