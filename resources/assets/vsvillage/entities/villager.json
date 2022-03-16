@@ -235,6 +235,18 @@
 					{
 						"code": "lookaround",
 						"priority": 0.5
+					},
+					{
+						"codeByType":{ "*-shepherd": "villagerfilltrough", "*-farmer": "villagercultivatecrops", "*": "villagerflipweapon"},
+						"weaponByType":{ "*-smith": "hammer", "*": "sword" },
+						"minduration": 3500,
+						"maxduration": 3500,
+						"mincooldown": 60000,
+						"maxcooldown": 120000,
+						"maxdistance": 10,
+						"animationByType": { "*-shepherd": "walk", "*-farmer": "walk", "*": "hammerflip" },
+						"priority": 1.4,
+						"movespeed": 0.01
 					}
 				]
 			}
