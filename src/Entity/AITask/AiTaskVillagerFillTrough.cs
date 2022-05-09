@@ -79,6 +79,7 @@ namespace VsVillage
                 if (contentConfig != null)
                 {
                     slot.TryPutInto(entity.World, nearestTrough.Inventory[0], contentConfig.QuantityPerFillLevel);
+                    nearestTrough.Inventory[0].MarkDirty();
                     entity.AnimManager.StartAnimation(interactAnim);
                 }
             }
@@ -89,6 +90,7 @@ namespace VsVillage
                 if (contentConfig != null)
                 {
                     slot.TryPutInto(entity.World, nearestTrough.Inventory[0], contentConfig.QuantityPerFillLevel);
+                    nearestTrough.Inventory[0].MarkDirty();
                     entity.AnimManager.StartAnimation(interactAnim);
                 }
             }
