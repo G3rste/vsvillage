@@ -128,12 +128,12 @@
 				"aitasks": [
 					{
 						"code": "villagermeleeattack",
-						"entityCodes": ["drifter-*"],
+						"entityCodes": ["drifter-*", "wolf-male", "wolf-female"],
 						"priority": 2,
 						"damage": 0.5,
 						"damageTier": 3,
-						"mincooldown": 2500,
-						"maxcooldown": 3500,
+						"mincooldown": 1500,
+						"maxcooldown": 2500,
 						"attackDurationMs": 900,
 						"damagePlayerAtMs": 300,
 						"animation": "Attack",
