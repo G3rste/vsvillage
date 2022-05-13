@@ -70,6 +70,7 @@ namespace VsVillage
             if (api.Side == EnumAppSide.Server) { api.World.RegisterCallback(dt => GetBehavior<EntityBehaviorTaskAI>().TaskManager.StopTask(typeof(AiTaskVillagerSleep)), 10000); }
             else { talkUtil = new EntityTalkUtil(api as ICoreClientAPI, this); }
             this.Personality = this.Personality; // to update the talkutil
+            TryUnmount();
         }
 
         public override void OnEntitySpawn()
