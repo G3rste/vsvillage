@@ -62,7 +62,6 @@ namespace VsVillage
             {
                 slots[i] = gearInv[i];
             }
-            AllowDespawn = false;
             if (!WatchedAttributes.HasAttribute("personality"))
             {
                 Personality = EntityTrader.Personalities.GetKeyAtIndex(World.Rand.Next(EntityTrader.Personalities.Count));

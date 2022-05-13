@@ -123,6 +123,11 @@
 				]
 			},
 			{ "code": "AlternatePathTraverser" },
+            {
+                "code": "deaddecay",
+                "hoursToDecay": 96,
+                "decayedBlock": "drycarcass-humanoid1"
+            },
 			{
 				"code": "taskai",
 				"aitasks": [
