@@ -51,7 +51,15 @@ namespace VsVillage
             }
             catch (NullReferenceException)
             {
-                //ignore
+                api.Logger.Error("Initializing the entity raised a NullReferenceException. Most likely because it was mounted on a block/ entity. We are going to ignore it though ¯\\_(ツ)_/¯.");
+            }
+            try
+            {
+                TryUnmount();
+            }
+            catch (NullReferenceException)
+            {
+                api.Logger.Error("Unmounting did not work. We are going to ignore it though ¯\\_(ツ)_/¯.");
             }
             if (gearInv == null) { gearInv = new InventoryVillagerGear(Code.Path, "villagerInv-" + EntityId, api); }
             else { gearInv.Api = api; }
@@ -70,7 +78,6 @@ namespace VsVillage
             if (api.Side == EnumAppSide.Server) { api.World.RegisterCallback(dt => GetBehavior<EntityBehaviorTaskAI>().TaskManager.StopTask(typeof(AiTaskVillagerSleep)), 10000); }
             else { talkUtil = new EntityTalkUtil(api as ICoreClientAPI, this); }
             this.Personality = this.Personality; // to update the talkutil
-            TryUnmount();
         }
 
         public override void OnEntitySpawn()
