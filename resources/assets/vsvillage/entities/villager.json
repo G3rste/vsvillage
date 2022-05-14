@@ -113,7 +113,6 @@
 			{ "code": "nametag", "showtagonlywhentargeted": true, "selectFromRandomNameByType": {"*-male-*": ["Aphid", "Erik", "Adachi", "Farhad", "Pegalesharro", "Floyd", "Temper", "En Repos", "Alanus", "Baldrich", "Cuno", "Dominicus", "Ludwig", "Lambert", "Geralt", "Richard", "Wolfram", "Zachäus", "Pippin", "Frodo", "Baggins", "Rudolf", "Marcus", "Benjamin", "Cronos", "Timoleon", "Leonidas", "Xerxes", "Brutus", "William", "Maurinus", "Hubertus"], "*-female-*": ["Anne", "Agnes", "Adachi", "Farhad", "Bianca", "Hedwig", "Demud", "Imagina", "Johanna", "Judith", "Magdalena", "Philippa", "Methild", "Violante", "Walpurga", "Josephine", "Joana", "Yvonne", "Lisbeth", "Dione", "Diana", "Olivia", "Hermine", "Triss", "Yennefer", "Lucia", "Mirella", "Bernadetta", "Tacia"]}},
 			{ "code": "repulseagents" },
 			{ "code": "controlledphysics", "stepHeight": 1.01 },
-			{ "code": "reviveondeath", "minHours": 24, "maxHours": 72 },
 			{ "code": "health", "currenthealthByType": {"*-farmer": 20, "*-smith": 30, "*-soldier": 40}, "maxhealthByType": {"*-farmer": 20, "*-smith": 30, "*-soldier": 40}},
 			{
 				"code": "emotionstates",
