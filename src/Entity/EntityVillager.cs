@@ -45,22 +45,7 @@ namespace VsVillage
         }
         public override void Initialize(EntityProperties properties, ICoreAPI api, long InChunkIndex3d)
         {
-            try
-            {
-                base.Initialize(properties, api, InChunkIndex3d);
-            }
-            catch (NullReferenceException)
-            {
-                api.Logger.Error("Initializing the entity raised a NullReferenceException. Most likely because it was mounted on a block/ entity. We are going to ignore it though ¯\\_(ツ)_/¯.");
-            }
-            try
-            {
-                TryUnmount();
-            }
-            catch (NullReferenceException)
-            {
-                api.Logger.Error("Unmounting did not work. We are going to ignore it though ¯\\_(ツ)_/¯.");
-            }
+            base.Initialize(properties, api, InChunkIndex3d);
             if (gearInv == null) { gearInv = new InventoryVillagerGear(Code.Path, "villagerInv-" + EntityId, api); }
             else { gearInv.Api = api; }
             gearInv.SlotModified += gearInvSlotModified;

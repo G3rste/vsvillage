@@ -1,4 +1,5 @@
 ﻿using System;
+using HarmonyLib;
 using ProtoBuf;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
@@ -11,11 +12,16 @@ namespace VsVillage
     public class VsVillage : ModSystem
     {
         private ICoreClientAPI clientAPI;
+
         private ICoreServerAPI serverAPI;
+
+        private Harmony harmony = new Harmony("gerste.vsvillage");
 
         public override void Start(ICoreAPI api)
         {
             base.Start(api);
+
+            BedPatch.Patch (harmony);
 
             api.RegisterEntity("EntityVillager", typeof(EntityVillager));
 

@@ -24,6 +24,10 @@
 			<HintPath>$(VINTAGE_STORY)/Lib/protobuf-net.dll</HintPath>
 			<Private>false</Private>
 		</Reference>
+		<Reference Include="Lib.Harmony">
+			<HintPath>$(VINTAGE_STORY)/Lib/0Harmony.dll</HintPath>
+			<Private>false</Private>
+		</Reference>
 	</ItemGroup>
 	
 	<ItemGroup Condition="'$(Configuration)' == 'Release'">
