@@ -132,7 +132,7 @@
 				"aitasks": [
 					{
 						"code": "villagermeleeattack",
-						"entityCodes": ["drifter-*", "wolf-male", "wolf-female"],
+						"entityCodes": ["drifter-*", "wolf-male", "wolf-female", "looter", "hound-*", "bandit-*", "poacher-*", "yeoman-archer"],
 						"priority": 2,
 						"damage": 0.5,
 						"damageTier": 3,
@@ -150,7 +150,7 @@
 					{
 						"code": "villagerseekentity",
 						"entityCodesByType": {
-							"*-soldier": ["drifter-*", "wolf-male", "wolf-female"],
+							"*-soldier": ["drifter-*", "wolf-male", "wolf-female", "looter", "hound-*", "bandit-*", "poacher-*", "yeoman-archer"],
 							"*": []
 						},
 						"priority": 1.6,
@@ -165,7 +165,7 @@
 						"code": "fleeentity",
 						"entityCodesByType": {
 							"*-soldier": [],
-							"*": ["drifter-*", "wolf-male", "wolf-female"]
+							"*": ["drifter-*", "wolf-male", "wolf-female", "looter", "hound-*", "bandit-*", "poacher-*", "yeoman-archer"]
 						},
 						"priority": 1.5,
 						"movespeed": 0.035,
