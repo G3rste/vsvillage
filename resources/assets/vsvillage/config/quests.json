@@ -1,6 +1,9 @@
 [
     {
         "id": "vsvillage:quest-kill15DriftersFor3Gears",
+        "cooldown": 5,
+        "perPlayer": true,
+        "prerequesits": [],
         "gatherObjectives": [],
         "killObjectives": [
             {
@@ -25,6 +28,9 @@
     },
     {
         "id": "vsvillage:quest-kill3NightmareDriftersFor5Gears",
+        "cooldown": 5,
+        "perPlayer": true,
+        "prerequesits": [],
         "gatherObjectives": [],
         "killObjectives": [
             {
@@ -45,6 +51,9 @@
     },
     {
         "id": "vsvillage:quest-kill4WolvesFor3Gears",
+        "cooldown": 5,
+        "perPlayer": true,
+        "prerequesits": [],
         "gatherObjectives": [],
         "killObjectives": [
             {
@@ -66,6 +75,9 @@
     },
     {
         "id": "vsvillage:quest-gather20MeatFor8FlaxSeeds",
+        "cooldown": 5,
+        "perPlayer": true,
+        "prerequesits": [],
         "gatherObjectives": [
             {
                 "validCodes": [
@@ -93,6 +105,9 @@
     },
     {
         "id": "vsvillage:quest-gather20MeatFor8ParsnipSeeds",
+        "cooldown": 5,
+        "perPlayer": true,
+        "prerequesits": [],
         "gatherObjectives": [
             {
                 "validCodes": [
@@ -120,6 +135,9 @@
     },
     {
         "id": "vsvillage:quest-gather20MeatFor8TurnipSeeds",
+        "cooldown": 5,
+        "perPlayer": true,
+        "prerequesits": [],
         "gatherObjectives": [
             {
                 "validCodes": [
