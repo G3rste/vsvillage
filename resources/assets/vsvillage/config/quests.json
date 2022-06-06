@@ -1,0 +1,148 @@
+[
+    {
+        "id": "vsvillage:quest-kill15DriftersFor3Gears",
+        "gatherObjectives": [],
+        "killObjectives": [
+            {
+                "validCodes": [
+                    "drifter-normal",
+                    "drifter-deep",
+                    "drifter-tainted",
+                    "drifter-corrupt",
+                    "drifter-nightmare",
+                    "drifter-double-headed"
+                ],
+                "demand": 15
+            }
+        ],
+        "itemRewards": [
+            {
+                "itemCode": "game:gear-rusty",
+                "amount": 3
+            }
+        ],
+        "actionRewardIds": []
+    },
+    {
+        "id": "vsvillage:quest-kill3NightmareDriftersFor5Gears",
+        "gatherObjectives": [],
+        "killObjectives": [
+            {
+                "validCodes": [
+                    "drifter-nightmare",
+                    "drifter-double-headed"
+                ],
+                "demand": 3
+            }
+        ],
+        "itemRewards": [
+            {
+                "itemCode": "game:gear-rusty",
+                "amount": 5
+            }
+        ],
+        "actionRewardIds": []
+    },
+    {
+        "id": "vsvillage:quest-kill4WolvesFor3Gears",
+        "gatherObjectives": [],
+        "killObjectives": [
+            {
+                "validCodes": [
+                    "wolf-male",
+                    "wolf-female",
+                    "wolf-pup"
+                ],
+                "demand": 4
+            }
+        ],
+        "itemRewards": [
+            {
+                "itemCode": "game:gear-rusty",
+                "amount": 3
+            }
+        ],
+        "actionRewardIds": []
+    },
+    {
+        "id": "vsvillage:quest-gather20MeatFor8FlaxSeeds",
+        "gatherObjectives": [
+            {
+                "validCodes": [
+                    "bushmeat-raw",
+                    "bushmeat-cooked",
+                    "bushmeat-cured",
+                    "redmeat-raw",
+                    "redmeat-cooked",
+                    "redmeat-cured",
+                    "poultry-raw",
+                    "poultry-cooked",
+                    "poultry-cured"
+                ],
+                "demand": 20
+            }
+        ],
+        "killObjectives": [],
+        "itemRewards": [
+            {
+                "itemCode": "game:seeds-flax",
+                "amount": 8
+            }
+        ],
+        "actionRewardIds": []
+    },
+    {
+        "id": "vsvillage:quest-gather20MeatFor8ParsnipSeeds",
+        "gatherObjectives": [
+            {
+                "validCodes": [
+                    "bushmeat-raw",
+                    "bushmeat-cooked",
+                    "bushmeat-cured",
+                    "redmeat-raw",
+                    "redmeat-cooked",
+                    "redmeat-cured",
+                    "poultry-raw",
+                    "poultry-cooked",
+                    "poultry-cured"
+                ],
+                "demand": 20
+            }
+        ],
+        "killObjectives": [],
+        "itemRewards": [
+            {
+                "itemCode": "game:seeds-parsnip",
+                "amount": 8
+            }
+        ],
+        "actionRewardIds": []
+    },
+    {
+        "id": "vsvillage:quest-gather20MeatFor8TurnipSeeds",
+        "gatherObjectives": [
+            {
+                "validCodes": [
+                    "bushmeat-raw",
+                    "bushmeat-cooked",
+                    "bushmeat-cured",
+                    "redmeat-raw",
+                    "redmeat-cooked",
+                    "redmeat-cured",
+                    "poultry-raw",
+                    "poultry-cooked",
+                    "poultry-cured"
+                ],
+                "demand": 20
+            }
+        ],
+        "killObjectives": [],
+        "itemRewards": [
+            {
+                "itemCode": "game:seeds-turnip",
+                "amount": 8
+            }
+        ],
+        "actionRewardIds": []
+    }
+]
