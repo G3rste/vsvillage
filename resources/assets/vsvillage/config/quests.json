@@ -1,6 +1,6 @@
 [
     {
-        "id": "vsvillage:quest-kill15DriftersFor3Gears",
+        "id": "vsvillage:quest-kill30DriftersFor3Gears",
         "cooldown": 5,
         "perPlayer": true,
         "prerequesits": [],
@@ -15,7 +15,7 @@
                     "drifter-nightmare",
                     "drifter-double-headed"
                 ],
-                "demand": 15
+                "demand": 30
             }
         ],
         "itemRewards": [
@@ -27,7 +27,7 @@
         "actionRewardIds": []
     },
     {
-        "id": "vsvillage:quest-kill3NightmareDriftersFor5Gears",
+        "id": "vsvillage:quest-kill8NightmareDriftersFor5Gears",
         "cooldown": 5,
         "perPlayer": true,
         "prerequesits": [],
@@ -38,7 +38,7 @@
                     "drifter-nightmare",
                     "drifter-double-headed"
                 ],
-                "demand": 3
+                "demand": 8
             }
         ],
         "itemRewards": [
@@ -50,7 +50,7 @@
         "actionRewardIds": []
     },
     {
-        "id": "vsvillage:quest-kill4WolvesFor3Gears",
+        "id": "vsvillage:quest-kill6WolvesFor2Gears",
         "cooldown": 5,
         "perPlayer": true,
         "prerequesits": [],
@@ -62,19 +62,19 @@
                     "wolf-female",
                     "wolf-pup"
                 ],
-                "demand": 4
+                "demand": 6
             }
         ],
         "itemRewards": [
             {
                 "itemCode": "game:gear-rusty",
-                "amount": 3
+                "amount": 2
             }
         ],
         "actionRewardIds": []
     },
     {
-        "id": "vsvillage:quest-gather20MeatFor8FlaxSeeds",
+        "id": "vsvillage:quest-gather20MeatFor4FlaxSeeds",
         "cooldown": 5,
         "perPlayer": true,
         "prerequesits": [],
@@ -98,13 +98,13 @@
         "itemRewards": [
             {
                 "itemCode": "game:seeds-flax",
-                "amount": 8
+                "amount": 4
             }
         ],
         "actionRewardIds": []
     },
     {
-        "id": "vsvillage:quest-gather20MeatFor8ParsnipSeeds",
+        "id": "vsvillage:quest-gather20MeatFor4ParsnipSeeds",
         "cooldown": 5,
         "perPlayer": true,
         "prerequesits": [],
@@ -128,13 +128,13 @@
         "itemRewards": [
             {
                 "itemCode": "game:seeds-parsnip",
-                "amount": 8
+                "amount": 4
             }
         ],
         "actionRewardIds": []
     },
     {
-        "id": "vsvillage:quest-gather20MeatFor8TurnipSeeds",
+        "id": "vsvillage:quest-gather20MeatFor4TurnipSeeds",
         "cooldown": 5,
         "perPlayer": true,
         "prerequesits": [],
@@ -158,7 +158,7 @@
         "itemRewards": [
             {
                 "itemCode": "game:seeds-turnip",
-                "amount": 8
+                "amount": 4
             }
         ],
         "actionRewardIds": []
