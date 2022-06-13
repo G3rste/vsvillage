@@ -94,7 +94,8 @@
 			{ "code": "nametag", "showtagonlywhentargeted": true },
 			{ "code": "repulseagents" },
 			{ "code": "controlledphysics", "stepHeight": 1.01 },
-			{ "code": "interpolateposition" }
+			{ "code": "interpolateposition" },
+			{ "code": "questgiver" }
 		],
 		"animations": [
 			{
@@ -136,6 +137,14 @@
 				]
 			},
 			{ "code": "AlternatePathTraverser" },
+			{
+				"code": "questgiver",
+				"questsByType": {
+					"*-soldier": [ "vsvillage:quest-kill15DriftersFor3Gears", "vsvillage:quest-kill3NightmareDriftersFor5Gears" ],
+					"*-farmer": [ "vsvillage:quest-gather20MeatFor8TurnipSeeds", "vsvillage:quest-gather20MeatFor8ParsnipSeeds", "vsvillage:quest-gather20MeatFor8FlaxSeeds" ],
+					"*": []
+				}
+			},
             {
                 "code": "deaddecay",
                 "hoursToDecay": 96,

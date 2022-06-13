@@ -6,5 +6,28 @@
     "item-creature-humanoid-villager-male-farmer": "Farmer (male)",
     "item-creature-humanoid-villager-female-farmer": "Farmer (female)",
     "item-creature-humanoid-villager-male-shepherd": "Shepherd (male)",
-    "item-creature-humanoid-villager-female-shepherd": "Shepherd (female)"
+    "item-creature-humanoid-villager-female-shepherd": "Shepherd (female)",
+
+    "quest-select-title": "Quest offers",
+    "button-cancel": "Cancel",
+    "button-accept": "Accept",
+    "button-complete": "Complete",
+    "no-quest-available-desc": "I currently don't need your help with anything.",
+    "no-quest-active-desc": "I don't remember having any open contracts with you.",
+
+    "quest-gather20MeatFor8FlaxSeeds-title": "There is no protein in flax fibre",
+    "quest-gather20MeatFor8FlaxSeeds-desc": "My diet could use a little bit more variation. If you provide 20 meat of any kind, I could offer you 8 flax seeds in return.",
+    "quest-gather20MeatFor8FlaxSeeds-obj": "Gathered meat: {0}/20",
+    "quest-gather20MeatFor8ParsnipSeeds-title": "There is no protein in parsnips",
+    "quest-gather20MeatFor8ParsnipSeeds-desc": "My diet could use a little bit more variation. If you provide 20 meat of any kind, I could offer you 8 parsnip seeds in return.",
+    "quest-gather20MeatFor8ParsnipSeeds-obj": "Gathered meat: {0}/20",
+    "quest-gather20MeatFor8TurnipSeeds-title": "There is no protein in turnip fibre",
+    "quest-gather20MeatFor8TurnipSeeds-desc": "My diet could use a little bit more variation. If you provide 20 meat of any kind, I could offer you 8 turnip seeds in return.",
+    "quest-gather20MeatFor8TurnipSeeds-obj": "Gathered meat: {0}/20",
+    "quest-kill15DriftersFor3Gears-title": "Shivers from another world",
+    "quest-kill15DriftersFor3Gears-desc": "The woods simply aren't safe anymore. Drifters are everywhere. If you could clear the surrounding area by killing 15 drifters, we could pay you a fair price.",
+    "quest-kill15DriftersFor3Gears-obj": "Killed drifters: {0}/15",
+    "quest-kill3NightmareDriftersFor5Gears-title": "The growling from the unspeakable depths",
+    "quest-kill3NightmareDriftersFor5Gears-desc": "We can no longer extract minerals from the mountains because of the creatures that lurk in the caves deep down below. We would be willing to pay a generous price for anyone helping to clear the depths by killing 3 nightmare drifters.",
+    "quest-kill3NightmareDriftersFor5Gears-obj": "Killed nightmare drifters: {0}/3"
 }
