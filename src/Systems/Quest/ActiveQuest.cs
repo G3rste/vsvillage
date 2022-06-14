@@ -101,6 +101,10 @@ namespace VsVillage
             int itemsFound = 0;
             foreach (var inventory in byPlayer.InventoryManager.Inventories.Values)
             {
+                if (inventory.ClassName == GlobalConstants.creativeInvClassName)
+                {
+                    continue;
+                }
                 foreach (var slot in inventory)
                 {
                     if (gatherObjective.validCodes.Contains(slot?.Itemstack?.Collectible?.Code?.Path))
