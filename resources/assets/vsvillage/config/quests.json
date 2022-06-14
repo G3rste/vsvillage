@@ -162,5 +162,27 @@
             }
         ],
         "actionRewardIds": []
+    },
+    {
+        "id": "vsvillage:quest-gather20CharcoalFor3Gears",
+        "cooldown": 5,
+        "perPlayer": true,
+        "prerequesits": [],
+        "gatherObjectives": [
+            {
+                "validCodes": [
+                    "charcoal"
+                ],
+                "demand": 20
+            }
+        ],
+        "killObjectives": [],
+        "itemRewards": [
+            {
+                "itemCode": "game:gear-rusty",
+                "amount": 3
+            }
+        ],
+        "actionRewardIds": []
     }
 ]

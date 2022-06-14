@@ -143,7 +143,7 @@
 					"*-soldier": [ "vsvillage:quest-kill30DriftersFor3Gears", "vsvillage:quest-kill8NightmareDriftersFor5Gears" ],
 					"*-farmer": [ "vsvillage:quest-gather20MeatFor4TurnipSeeds", "vsvillage:quest-gather20MeatFor4ParsnipSeeds", "vsvillage:quest-gather20MeatFor4FlaxSeeds" ],
 					"*-shepherd": [ "vsvillage:quest-kill6WolvesFor2Gears" ],
-					"*-smith": [],
+					"*-smith": [ "vsvillage:quest-gather20CharcoalFor3Gears" ],
 					"*": []
 				}
 			},
