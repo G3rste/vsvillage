@@ -3,7 +3,6 @@
         "id": "vsvillage:quest-kill30DriftersFor3Gears",
         "cooldown": 20,
         "perPlayer": true,
-        "prerequesits": [],
         "gatherObjectives": [],
         "killObjectives": [
             {
@@ -30,7 +29,6 @@
         "id": "vsvillage:quest-kill8NightmareDriftersFor5Gears",
         "cooldown": 25,
         "perPlayer": true,
-        "prerequesits": [],
         "gatherObjectives": [],
         "killObjectives": [
             {
@@ -53,7 +51,6 @@
         "id": "vsvillage:quest-kill6WolvesFor2Gears",
         "cooldown": 15,
         "perPlayer": true,
-        "prerequesits": [],
         "gatherObjectives": [],
         "killObjectives": [
             {
@@ -74,10 +71,35 @@
         "actionRewardIds": []
     },
     {
+        "id": "vsvillage:quest-kill6FoxesFor1Gear",
+        "cooldown": 15,
+        "perPlayer": true,
+        "gatherObjectives": [],
+        "killObjectives": [
+            {
+                "validCodes": [
+                    "fox-pup-forest",
+                    "fox-pup-arctic",
+                    "fox-male",
+                    "fox-female",
+                    "fox-arctic-male",
+                    "fox-arctic-female"
+                ],
+                "demand": 6
+            }
+        ],
+        "itemRewards": [
+            {
+                "itemCode": "game:gear-rusty",
+                "amount": 1
+            }
+        ],
+        "actionRewardIds": []
+    },
+    {
         "id": "vsvillage:quest-gather20MeatFor4FlaxSeeds",
         "cooldown": 15,
         "perPlayer": true,
-        "prerequesits": [],
         "gatherObjectives": [
             {
                 "validCodes": [
@@ -104,10 +126,96 @@
         "actionRewardIds": []
     },
     {
+        "id": "vsvillage:quest-gather20MeatFor4CarrotSeeds",
+        "cooldown": 15,
+        "perPlayer": true,
+        "gatherObjectives": [
+            {
+                "validCodes": [
+                    "bushmeat-raw",
+                    "bushmeat-cooked",
+                    "bushmeat-cured",
+                    "redmeat-raw",
+                    "redmeat-cooked",
+                    "redmeat-cured",
+                    "poultry-raw",
+                    "poultry-cooked",
+                    "poultry-cured"
+                ],
+                "demand": 20
+            }
+        ],
+        "killObjectives": [],
+        "itemRewards": [
+            {
+                "itemCode": "game:seeds-carrot",
+                "amount": 4
+            }
+        ],
+        "actionRewardIds": []
+    },
+    {
+        "id": "vsvillage:quest-gather20MeatFor4OnionSeeds",
+        "cooldown": 15,
+        "perPlayer": true,
+        "gatherObjectives": [
+            {
+                "validCodes": [
+                    "bushmeat-raw",
+                    "bushmeat-cooked",
+                    "bushmeat-cured",
+                    "redmeat-raw",
+                    "redmeat-cooked",
+                    "redmeat-cured",
+                    "poultry-raw",
+                    "poultry-cooked",
+                    "poultry-cured"
+                ],
+                "demand": 20
+            }
+        ],
+        "killObjectives": [],
+        "itemRewards": [
+            {
+                "itemCode": "game:seeds-onion",
+                "amount": 4
+            }
+        ],
+        "actionRewardIds": []
+    },
+    {
+        "id": "vsvillage:quest-gather20MeatFor4SpeltSeeds",
+        "cooldown": 15,
+        "perPlayer": true,
+        "gatherObjectives": [
+            {
+                "validCodes": [
+                    "bushmeat-raw",
+                    "bushmeat-cooked",
+                    "bushmeat-cured",
+                    "redmeat-raw",
+                    "redmeat-cooked",
+                    "redmeat-cured",
+                    "poultry-raw",
+                    "poultry-cooked",
+                    "poultry-cured"
+                ],
+                "demand": 20
+            }
+        ],
+        "killObjectives": [],
+        "itemRewards": [
+            {
+                "itemCode": "game:seeds-spelt",
+                "amount": 4
+            }
+        ],
+        "actionRewardIds": []
+    },
+    {
         "id": "vsvillage:quest-gather20MeatFor4ParsnipSeeds",
         "cooldown": 15,
         "perPlayer": true,
-        "prerequesits": [],
         "gatherObjectives": [
             {
                 "validCodes": [
@@ -137,7 +245,6 @@
         "id": "vsvillage:quest-gather20MeatFor4TurnipSeeds",
         "cooldown": 15,
         "perPlayer": true,
-        "prerequesits": [],
         "gatherObjectives": [
             {
                 "validCodes": [
@@ -167,7 +274,6 @@
         "id": "vsvillage:quest-gather20CharcoalFor3Gears",
         "cooldown": 15,
         "perPlayer": true,
-        "prerequesits": [],
         "gatherObjectives": [
             {
                 "validCodes": [
@@ -181,6 +287,39 @@
             {
                 "itemCode": "game:gear-rusty",
                 "amount": 3
+            }
+        ],
+        "actionRewardIds": []
+    },
+    {
+        "id": "vsvillage:quest-buy1BlackGuardSword",
+        "cooldown": 15,
+        "perPlayer": true,
+        "gatherObjectives": [
+            {
+                "validCodes": [
+                    "ingot-iron"
+                ],
+                "demand": 1
+            },
+            {
+                "validCodes": [
+                    "charcoal"
+                ],
+                "demand": 1
+            },
+            {
+                "validCodes": [
+                    "gear-rusty"
+                ],
+                "demand": 5
+            }
+        ],
+        "killObjectives": [],
+        "itemRewards": [
+            {
+                "itemCode": "game:blade-blackguard",
+                "amount": 1
             }
         ],
         "actionRewardIds": []

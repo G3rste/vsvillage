@@ -141,11 +141,13 @@
 				"code": "questgiver",
 				"questsByType": {
 					"*-soldier": [ "vsvillage:quest-kill30DriftersFor3Gears", "vsvillage:quest-kill8NightmareDriftersFor5Gears" ],
-					"*-farmer": [ "vsvillage:quest-gather20MeatFor4TurnipSeeds", "vsvillage:quest-gather20MeatFor4ParsnipSeeds", "vsvillage:quest-gather20MeatFor4FlaxSeeds" ],
-					"*-shepherd": [ "vsvillage:quest-kill6WolvesFor2Gears" ],
-					"*-smith": [ "vsvillage:quest-gather20CharcoalFor3Gears" ],
+					"*-farmer": [ "vsvillage:quest-gather20MeatFor4TurnipSeeds", "vsvillage:quest-gather20MeatFor4ParsnipSeeds", "vsvillage:quest-gather20MeatFor4FlaxSeeds", "vsvillage:quest-gather20MeatFor4CarrotSeeds", "vsvillage:quest-gather20MeatFor4OnionSeeds", "vsvillage:quest-gather20MeatFor4SpeltSeeds" ],
+					"*-shepherd": [ "vsvillage:quest-kill6WolvesFor2Gears", "vsvillage:quest-kill6FoxesFor1Gear" ],
+					"*-smith": [ "vsvillage:quest-gather20CharcoalFor3Gears", "vsvillage:quest-buy1BlackGuardSword" ],
 					"*": []
-				}
+				},
+				"selectrandom": true,
+				"selectrandomcount": 1
 			},
             {
                 "code": "deaddecay",
