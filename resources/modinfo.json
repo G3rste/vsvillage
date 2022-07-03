@@ -7,8 +7,8 @@
         "G3rste"
     ],
     "description": "Mod that focuses on implementing a Village System and Villagers.",
-    "version": "0.0.6",
+    "version": "0.0.7",
     "dependencies": {
-        "game": "1.16.5"
+        "game": "1.17.0-pre.1"
     }
 }

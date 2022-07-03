@@ -35,7 +35,7 @@ namespace VsVillage
             set
             {
                 WatchedAttributes.SetString("personality", value);
-                talkUtil?.SetModifiers(Personalities[value].TalkSpeedModifier, Personalities[value].PitchModifier, Personalities[value].VolumneModifier);
+                talkUtil?.SetModifiers(Personalities[value].ChorldDelayMul, Personalities[value].PitchModifier, Personalities[value].VolumneModifier);
             }
         }
 

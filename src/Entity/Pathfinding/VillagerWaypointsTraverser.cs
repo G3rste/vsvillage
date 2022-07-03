@@ -45,10 +45,7 @@ namespace VsVillage
 
             villagerAstar = new VillagerAStar(entity.Api as ICoreServerAPI);
         }
-
-
-
-        public override bool NavigateTo(Vec3d target, float movingSpeed, float targetDistance, Action OnGoalReached, Action OnStuck, bool giveUpWhenNoPath = false, int searchDepth = 999, bool allowReachAlmost = false)
+        public override bool NavigateTo(Vec3d target, float movingSpeed, float targetDistance, Action OnGoalReached, Action OnStuck, bool giveUpWhenNoPath = false, int searchDepth = 999, int mhdistanceTolerance = 0)
         {
             BlockPos startBlockPos = entity.ServerPos.AsBlockPos;
             waypointToReachIndex = 0;
@@ -59,7 +56,7 @@ namespace VsVillage
 
             if (!entity.World.BlockAccessor.IsNotTraversable(startBlockPos))
             {
-                waypoints = villagerAstar.FindPathAsWaypoints(startBlockPos, target.AsBlockPos, canFallDamage ? 8 : 4, stepHeight, entity.CollisionBox, searchDepth, allowReachAlmost);
+                waypoints = villagerAstar.FindPathAsWaypoints(startBlockPos, target.AsBlockPos, canFallDamage ? 8 : 4, stepHeight, entity.CollisionBox, searchDepth);
             }
 
             bool nopath = false;
@@ -291,7 +288,7 @@ namespace VsVillage
             if (targetBlock != null && targetBlock.Variant["state"] == state)
             {
                 entity.World.PlaySoundAt(AssetLocation.Create(targetBlock.Attributes["triggerSound"].AsString("sounds/block/door"), targetBlock.Code.Domain), target.X + 0.5f, target.Y + 0.5f, target.Z + 0.5f);
-                entity.World.BlockAccessor.WalkBlocks(new BlockPos(target.XInt - 1, target.YInt - 1, target.ZInt - 1), new BlockPos(target.XInt + 1, target.YInt + 1, target.ZInt + 1), handleDoor);
+                entity.World.BlockAccessor.WalkBlocks(new BlockPos(target.XInt - 1, target.YInt - 1, target.ZInt - 1), new BlockPos(target.XInt + 1, target.YInt + 1, target.ZInt + 1), (block, x, y, z) => handleDoor(block, new BlockPos(x, y, z)));
 
                 return true;
             }
