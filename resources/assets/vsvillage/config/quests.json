@@ -1,8 +1,8 @@
 [
     {
         "id": "vsvillage:quest-kill30DriftersFor3Gears",
-        "cooldown": 20,
-        "perPlayer": true,
+        "cooldown": 40,
+        "perPlayer": false,
         "gatherObjectives": [],
         "killObjectives": [
             {
@@ -27,8 +27,8 @@
     },
     {
         "id": "vsvillage:quest-kill8NightmareDriftersFor5Gears",
-        "cooldown": 25,
-        "perPlayer": true,
+        "cooldown": 50,
+        "perPlayer": false,
         "gatherObjectives": [],
         "killObjectives": [
             {
@@ -49,8 +49,8 @@
     },
     {
         "id": "vsvillage:quest-kill6WolvesFor2Gears",
-        "cooldown": 15,
-        "perPlayer": true,
+        "cooldown": 30,
+        "perPlayer": false,
         "gatherObjectives": [],
         "killObjectives": [
             {
@@ -72,8 +72,8 @@
     },
     {
         "id": "vsvillage:quest-kill6FoxesFor1Gear",
-        "cooldown": 15,
-        "perPlayer": true,
+        "cooldown": 30,
+        "perPlayer": false,
         "gatherObjectives": [],
         "killObjectives": [
             {
@@ -98,8 +98,8 @@
     },
     {
         "id": "vsvillage:quest-gather20MeatFor4FlaxSeeds",
-        "cooldown": 15,
-        "perPlayer": true,
+        "cooldown": 30,
+        "perPlayer": false,
         "gatherObjectives": [
             {
                 "validCodes": [
@@ -127,8 +127,8 @@
     },
     {
         "id": "vsvillage:quest-gather20MeatFor4CarrotSeeds",
-        "cooldown": 15,
-        "perPlayer": true,
+        "cooldown": 30,
+        "perPlayer": false,
         "gatherObjectives": [
             {
                 "validCodes": [
@@ -156,8 +156,8 @@
     },
     {
         "id": "vsvillage:quest-gather20MeatFor4OnionSeeds",
-        "cooldown": 15,
-        "perPlayer": true,
+        "cooldown": 30,
+        "perPlayer": false,
         "gatherObjectives": [
             {
                 "validCodes": [
@@ -185,8 +185,8 @@
     },
     {
         "id": "vsvillage:quest-gather20MeatFor4SpeltSeeds",
-        "cooldown": 15,
-        "perPlayer": true,
+        "cooldown": 30,
+        "perPlayer": false,
         "gatherObjectives": [
             {
                 "validCodes": [
@@ -214,8 +214,8 @@
     },
     {
         "id": "vsvillage:quest-gather20MeatFor4ParsnipSeeds",
-        "cooldown": 15,
-        "perPlayer": true,
+        "cooldown": 30,
+        "perPlayer": false,
         "gatherObjectives": [
             {
                 "validCodes": [
@@ -243,8 +243,8 @@
     },
     {
         "id": "vsvillage:quest-gather20MeatFor4TurnipSeeds",
-        "cooldown": 15,
-        "perPlayer": true,
+        "cooldown": 30,
+        "perPlayer": false,
         "gatherObjectives": [
             {
                 "validCodes": [
@@ -272,8 +272,8 @@
     },
     {
         "id": "vsvillage:quest-gather20CharcoalFor3Gears",
-        "cooldown": 15,
-        "perPlayer": true,
+        "cooldown": 30,
+        "perPlayer": false,
         "gatherObjectives": [
             {
                 "validCodes": [
@@ -293,8 +293,8 @@
     },
     {
         "id": "vsvillage:quest-buy1BlackGuardSword",
-        "cooldown": 15,
-        "perPlayer": true,
+        "cooldown": 30,
+        "perPlayer": false,
         "gatherObjectives": [
             {
                 "validCodes": [
