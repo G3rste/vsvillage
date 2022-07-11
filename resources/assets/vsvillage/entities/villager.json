@@ -144,7 +144,7 @@
 					"*-farmer": [ "vsvillage:quest-gather20MeatFor4TurnipSeeds", "vsvillage:quest-gather20MeatFor4ParsnipSeeds", "vsvillage:quest-gather20MeatFor4FlaxSeeds", "vsvillage:quest-gather20MeatFor4CarrotSeeds", "vsvillage:quest-gather20MeatFor4OnionSeeds", "vsvillage:quest-gather20MeatFor4SpeltSeeds" ],
 					"*-shepherd": [ "vsvillage:quest-kill6WolvesFor2Gears", "vsvillage:quest-kill6FoxesFor1Gear" ],
 					"*-smith": [ "vsvillage:quest-gather20CharcoalFor3Gears", "vsvillage:quest-buy1BlackGuardSword" ],
-					"*-mayor": [ "vsvillage:quest-recruit2farmers", "vsvillage:quest-recruit2shepherds", "vsvillage:quest-recruit2soldiers", "vsvillage:quest-recruit1smith" ],
+					"*-mayor": [ "vsvillage:quest-recruit1farmer", "vsvillage:quest-recruit1shepherd", "vsvillage:quest-recruit1soldier", "vsvillage:quest-recruit1smith", "vsvillage:quest-fundvillage-start", "vsvillage:quest-fundvillage-1", "vsvillage:quest-fundvillage-2", "vsvillage:quest-fundvillage-3", "vsvillage:quest-fundvillage-final" ],
 					"*": []
 				},
 				"selectrandomByType": { "*-mayor": false, "*": true },

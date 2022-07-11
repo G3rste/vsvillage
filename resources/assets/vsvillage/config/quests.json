@@ -313,9 +313,10 @@
         ]
     },
     {
-        "id": "vsvillage:quest-recruit2farmers",
-        "cooldown": 10,
-        "perPlayer": true,
+        "id": "vsvillage:quest-recruit1farmer",
+        "predecessor": "vsvillage:quest-fundvillage-final",
+        "cooldown": 5,
+        "perPlayer": false,
         "gatherObjectives": [
             {
                 "validCodes": [
@@ -325,17 +326,17 @@
             }
         ],
         "actionObjectives": [
-            "add2villagerbed"
+            "add1villagerbed"
         ],
         "actionRewards": [
-            "spawnfarmer",
             "spawnfarmer"
         ]
     },
     {
-        "id": "vsvillage:quest-recruit2shepherds",
-        "cooldown": 10,
-        "perPlayer": true,
+        "id": "vsvillage:quest-recruit1shepherd",
+        "predecessor": "vsvillage:quest-fundvillage-final",
+        "cooldown": 5,
+        "perPlayer": false,
         "gatherObjectives": [
             {
                 "validCodes": [
@@ -345,17 +346,17 @@
             }
         ],
         "actionObjectives": [
-            "add2villagerbed"
+            "add1villagerbed"
         ],
         "actionRewards": [
-            "spawnshepherd",
             "spawnshepherd"
         ]
     },
     {
-        "id": "vsvillage:quest-recruit2soldiers",
-        "cooldown": 10,
-        "perPlayer": true,
+        "id": "vsvillage:quest-recruit1soldier",
+        "predecessor": "vsvillage:quest-fundvillage-final",
+        "cooldown": 5,
+        "perPlayer": false,
         "gatherObjectives": [
             {
                 "validCodes": [
@@ -365,23 +366,23 @@
             }
         ],
         "actionObjectives": [
-            "add2villagerbed"
+            "add1villagerbed"
         ],
         "actionRewards": [
-            "spawnsoldier",
             "spawnsoldier"
         ]
     },
     {
         "id": "vsvillage:quest-recruit1smith",
+        "predecessor": "vsvillage:quest-fundvillage-final",
         "cooldown": 15,
-        "perPlayer": true,
+        "perPlayer": false,
         "gatherObjectives": [
             {
                 "validCodes": [
                     "gear-rusty"
                 ],
-                "demand": 3
+                "demand": 6
             }
         ],
         "actionObjectives": [
@@ -390,6 +391,225 @@
         ],
         "actionRewards": [
             "spawnsmith"
+        ]
+    },
+    {
+        "id": "vsvillage:quest-fundvillage-start",
+        "cooldown": 1000000000,
+        "perPlayer": false,
+        "gatherObjectives": [
+            {
+                "validCodes": [
+                    "grain-spelt",
+                    "grain-rice",
+                    "grain-flax",
+                    "grain-rye",
+                    "grain-amaranth",
+                    "grain-sunflower"
+                ],
+                "demand": 32
+            },
+            {
+                "validCodes": [
+                    "vegetable-carrot",
+                    "vegetable-cabbage",
+                    "vegetable-onion",
+                    "vegetable-turnip",
+                    "vegetable-parsnip",
+                    "vegetable-cookedcattailroot",
+                    "vegetable-pumpkin",
+                    "vegetable-cassava",
+                    "vegetable-cookedpapyrusroot",
+                    "vegetable-bellpepper",
+                    "vegetable-olive"
+                ],
+                "demand": 16
+            },
+            {
+                "validCodes": [
+                    "bushmeat-raw",
+                    "bushmeat-cooked",
+                    "bushmeat-cured",
+                    "redmeat-raw",
+                    "redmeat-cooked",
+                    "redmeat-cured",
+                    "poultry-raw",
+                    "poultry-cooked",
+                    "poultry-cured"
+                ],
+                "demand": 8
+            }
+        ],
+        "killObjectives": [
+            {
+                "validCodes": [
+                    "drifter-normal",
+                    "drifter-deep",
+                    "drifter-tainted",
+                    "drifter-corrupt",
+                    "drifter-nightmare",
+                    "drifter-double-headed"
+                ],
+                "demand": 30
+            }
+        ],
+        "actionObjectives": [
+            "add3villagerbed"
+        ],
+        "actionRewards": [
+            "spawnsoldier",
+            "spawnfarmer",
+            "spawnfarmer"
+        ]
+    },
+    {
+        "id": "vsvillage:quest-fundvillage-1",
+        "predecessor": "vsvillage:quest-fundvillage-start",
+        "cooldown": 1000000000,
+        "perPlayer": false,
+        "gatherObjectives": [
+            {
+                "validCodes": [
+                    "gear-rusty"
+                ],
+                "demand": 64
+            }
+        ],
+        "actionObjectives": [
+            "add1villagerbed"
+        ],
+        "actionRewards": [
+            "spawnsoldier"
+        ]
+    },
+    {
+        "id": "vsvillage:quest-fundvillage-2",
+        "predecessor": "vsvillage:quest-fundvillage-1",
+        "cooldown": 1000000000,
+        "perPlayer": false,
+        "gatherObjectives": [
+            {
+                "validCodes": [
+                    "grain-spelt",
+                    "grain-rice",
+                    "grain-flax",
+                    "grain-rye",
+                    "grain-amaranth",
+                    "grain-sunflower"
+                ],
+                "demand": 128
+            },
+            {
+                "validCodes": [
+                    "vegetable-carrot",
+                    "vegetable-cabbage",
+                    "vegetable-onion",
+                    "vegetable-turnip",
+                    "vegetable-parsnip",
+                    "vegetable-cookedcattailroot",
+                    "vegetable-pumpkin",
+                    "vegetable-cassava",
+                    "vegetable-cookedpapyrusroot",
+                    "vegetable-bellpepper",
+                    "vegetable-olive"
+                ],
+                "demand": 64
+            },
+            {
+                "validCodes": [
+                    "bushmeat-raw",
+                    "bushmeat-cooked",
+                    "bushmeat-cured",
+                    "redmeat-raw",
+                    "redmeat-cooked",
+                    "redmeat-cured",
+                    "poultry-raw",
+                    "poultry-cooked",
+                    "poultry-cured"
+                ],
+                "demand": 32
+            }
+        ],
+        "actionObjectives": [
+            "add2villagerbed"
+        ],
+        "actionRewards": [
+            "spawnfarmer",
+            "spawnshepherd"
+        ]
+    },
+    {
+        "id": "vsvillage:quest-fundvillage-3",
+        "predecessor": "vsvillage:quest-fundvillage-2",
+        "cooldown": 1000000000,
+        "perPlayer": false,
+        "gatherObjectives": [
+            {
+                "validCodes": [
+                    "ingot-tinbronze",
+                    "ingot-blackbronze",
+                    "ingot-bismuthbronze"
+                ],
+                "demand": 32
+            },
+            {
+                "validCodes": [
+                    "charcoal"
+                ],
+                "demand": 64
+            },
+            {
+                "validCodes": [
+                    "leather-plain",
+                    "leather-orange",
+                    "leather-black",
+                    "leather-red",
+                    "leather-blue",
+                    "leather-purple",
+                    "leather-pink",
+                    "leather-white",
+                    "leather-yellow",
+                    "leather-gray",
+                    "leather-green"
+                ],
+                "demand": 32
+            }
+        ],
+        "actionObjectives": [
+            "add1villagerbed",
+            "add1anvil"
+        ],
+        "actionRewards": [
+            "spawnsmith"
+        ]
+    },
+    {
+        "id": "vsvillage:quest-fundvillage-final",
+        "predecessor": "vsvillage:quest-fundvillage-3",
+        "cooldown": 1000000000,
+        "perPlayer": false,
+        "killObjectives": [
+            {
+                "validCodes": [
+                    "drifter-double-headed"
+                ],
+                "demand": 1
+            },
+            {
+                "validCodes": [
+                    "drifter-nightmare"
+                ],
+                "demand": 10
+            },
+            {
+                "validCodes": [
+                    "locust-corrupt-sawblade"
+                ],
+                "demand": 5
+            }
+        ],
+        "actionRewards": [
+            "spawnsoldier"
         ]
     }
 ]
