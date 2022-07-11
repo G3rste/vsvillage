@@ -28,6 +28,10 @@
 			<HintPath>$(VINTAGE_STORY)/Lib/0Harmony.dll</HintPath>
 			<Private>false</Private>
 		</Reference>
+		<Reference Include="VsQuest">
+			<HintPath>Lib/vsquest.dll</HintPath>
+			<Private>false</Private>
+		</Reference>
 	</ItemGroup>
 	
 	<ItemGroup Condition="'$(Configuration)' == 'Release'">

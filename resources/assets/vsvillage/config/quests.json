@@ -22,8 +22,7 @@
                 "itemCode": "game:gear-rusty",
                 "amount": 3
             }
-        ],
-        "actionRewardIds": []
+        ]
     },
     {
         "id": "vsvillage:quest-kill8NightmareDriftersFor5Gears",
@@ -44,8 +43,7 @@
                 "itemCode": "game:gear-rusty",
                 "amount": 5
             }
-        ],
-        "actionRewardIds": []
+        ]
     },
     {
         "id": "vsvillage:quest-kill6WolvesFor2Gears",
@@ -67,8 +65,7 @@
                 "itemCode": "game:gear-rusty",
                 "amount": 2
             }
-        ],
-        "actionRewardIds": []
+        ]
     },
     {
         "id": "vsvillage:quest-kill6FoxesFor1Gear",
@@ -93,8 +90,7 @@
                 "itemCode": "game:gear-rusty",
                 "amount": 1
             }
-        ],
-        "actionRewardIds": []
+        ]
     },
     {
         "id": "vsvillage:quest-gather20MeatFor4FlaxSeeds",
@@ -122,8 +118,7 @@
                 "itemCode": "game:seeds-flax",
                 "amount": 4
             }
-        ],
-        "actionRewardIds": []
+        ]
     },
     {
         "id": "vsvillage:quest-gather20MeatFor4CarrotSeeds",
@@ -151,8 +146,7 @@
                 "itemCode": "game:seeds-carrot",
                 "amount": 4
             }
-        ],
-        "actionRewardIds": []
+        ]
     },
     {
         "id": "vsvillage:quest-gather20MeatFor4OnionSeeds",
@@ -180,8 +174,7 @@
                 "itemCode": "game:seeds-onion",
                 "amount": 4
             }
-        ],
-        "actionRewardIds": []
+        ]
     },
     {
         "id": "vsvillage:quest-gather20MeatFor4SpeltSeeds",
@@ -209,8 +202,7 @@
                 "itemCode": "game:seeds-spelt",
                 "amount": 4
             }
-        ],
-        "actionRewardIds": []
+        ]
     },
     {
         "id": "vsvillage:quest-gather20MeatFor4ParsnipSeeds",
@@ -238,8 +230,7 @@
                 "itemCode": "game:seeds-parsnip",
                 "amount": 4
             }
-        ],
-        "actionRewardIds": []
+        ]
     },
     {
         "id": "vsvillage:quest-gather20MeatFor4TurnipSeeds",
@@ -267,8 +258,7 @@
                 "itemCode": "game:seeds-turnip",
                 "amount": 4
             }
-        ],
-        "actionRewardIds": []
+        ]
     },
     {
         "id": "vsvillage:quest-gather20CharcoalFor3Gears",
@@ -288,8 +278,7 @@
                 "itemCode": "game:gear-rusty",
                 "amount": 3
             }
-        ],
-        "actionRewardIds": []
+        ]
     },
     {
         "id": "vsvillage:quest-buy1BlackGuardSword",
@@ -321,7 +310,26 @@
                 "itemCode": "game:blade-blackguard",
                 "amount": 1
             }
+        ]
+    },
+    {
+        "id": "vsvillage:quest-recruit2farmers",
+        "cooldown": 20,
+        "perPlayer": true,
+        "gatherObjectives": [
+            {
+                "validCodes": [
+                    "gear-rusty"
+                ],
+                "demand": 4
+            }
         ],
-        "actionRewardIds": []
+        "actionObjectives": [
+            "add2villagerbed"
+        ],
+        "actionRewards": [
+            "spawnfarmer",
+            "spawnfarmer"
+        ]
     }
 ]

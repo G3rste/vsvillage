@@ -55,5 +55,9 @@
     "quest-kill30DriftersFor3Gears-obj": "Killed drifters: {0}/30",
     "quest-kill8NightmareDriftersFor5Gears-title": "The growling from the unspeakable depths",
     "quest-kill8NightmareDriftersFor5Gears-desc": "We can no longer extract minerals from the mountains because of the creatures that lurk in the caves deep down below. We would be willing to pay a generous price for anyone helping to clear the depths from nightmare drifters.",
-    "quest-kill8NightmareDriftersFor5Gears-obj": "Killed nightmare drifters: {0}/8"
+    "quest-kill8NightmareDriftersFor5Gears-obj": "Killed nightmare drifters: {0}/8",
+    
+    "quest-recruit2farmers-title": "More men for the field work",
+    "quest-recruit2farmers-desc": "If you can provide shelter and a little bit of payment, I am able to recruit two more farmers to the village.",
+    "quest-recruit2farmers-obj": "Rusty gears: {0}/4\nFree Beds: {1}/2"
 }
