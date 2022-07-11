@@ -53,6 +53,7 @@ namespace VsVillage
             questSystem.actionObjectiveRegistry.Add("add1villagerbed", new MoreBedsThanVillagersObjective(1));
             questSystem.actionObjectiveRegistry.Add("add2villagerbed", new MoreBedsThanVillagersObjective(2));
             questSystem.actionObjectiveRegistry.Add("add3villagerbed", new MoreBedsThanVillagersObjective(3));
+            questSystem.actionObjectiveRegistry.Add("add1anvil", new EnoughAnvils(1));
 
         }
 

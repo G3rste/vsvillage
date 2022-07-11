@@ -57,7 +57,16 @@
     "quest-kill8NightmareDriftersFor5Gears-desc": "We can no longer extract minerals from the mountains because of the creatures that lurk in the caves deep down below. We would be willing to pay a generous price for anyone helping to clear the depths from nightmare drifters.",
     "quest-kill8NightmareDriftersFor5Gears-obj": "Killed nightmare drifters: {0}/8",
     
-    "quest-recruit2farmers-title": "More men for the field work",
+    "quest-recruit2farmers-title": "More farmers on the fields",
     "quest-recruit2farmers-desc": "If you can provide shelter and a little bit of payment, I am able to recruit two more farmers to the village.",
-    "quest-recruit2farmers-obj": "Rusty gears: {0}/4\nFree Beds: {1}/2"
+    "quest-recruit2farmers-obj": "Rusty gears: {0}/4\nFree Beds: {1}/2",
+    "quest-recruit2shepherds-title": "More shepherds caring for the cattle",
+    "quest-recruit2shepherds-desc": "If you can provide shelter and a little bit of payment, I am able to recruit two more shepherds to the village.",
+    "quest-recruit2shepherds-obj": "Rusty gears: {0}/4\nFree Beds: {1}/2",
+    "quest-recruit2soldiers-title": "More protectors for the village",
+    "quest-recruit2soldiers-desc": "If you can provide shelter and a little bit of payment, I am able to recruit two more soldiers to the village.",
+    "quest-recruit2soldiers-obj": "Rusty gears: {0}/8\nFree Beds: {1}/2",
+    "quest-recruit1smith-title": "More smiths creating tools and weapons",
+    "quest-recruit1smith-desc": "If you can provide shelter and a little bit of payment, I am able to recruit a smith to the village.",
+    "quest-recruit1smith-obj": "Rusty gears: {0}/3\nFree Beds: {1}/1\nPlaced anvils: {2}/1"
 }

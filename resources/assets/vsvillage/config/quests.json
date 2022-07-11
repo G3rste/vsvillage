@@ -314,7 +314,7 @@
     },
     {
         "id": "vsvillage:quest-recruit2farmers",
-        "cooldown": 20,
+        "cooldown": 10,
         "perPlayer": true,
         "gatherObjectives": [
             {
@@ -330,6 +330,66 @@
         "actionRewards": [
             "spawnfarmer",
             "spawnfarmer"
+        ]
+    },
+    {
+        "id": "vsvillage:quest-recruit2shepherds",
+        "cooldown": 10,
+        "perPlayer": true,
+        "gatherObjectives": [
+            {
+                "validCodes": [
+                    "gear-rusty"
+                ],
+                "demand": 4
+            }
+        ],
+        "actionObjectives": [
+            "add2villagerbed"
+        ],
+        "actionRewards": [
+            "spawnshepherd",
+            "spawnshepherd"
+        ]
+    },
+    {
+        "id": "vsvillage:quest-recruit2soldiers",
+        "cooldown": 10,
+        "perPlayer": true,
+        "gatherObjectives": [
+            {
+                "validCodes": [
+                    "gear-rusty"
+                ],
+                "demand": 8
+            }
+        ],
+        "actionObjectives": [
+            "add2villagerbed"
+        ],
+        "actionRewards": [
+            "spawnsoldier",
+            "spawnsoldier"
+        ]
+    },
+    {
+        "id": "vsvillage:quest-recruit1smith",
+        "cooldown": 15,
+        "perPlayer": true,
+        "gatherObjectives": [
+            {
+                "validCodes": [
+                    "gear-rusty"
+                ],
+                "demand": 3
+            }
+        ],
+        "actionObjectives": [
+            "add1villagerbed",
+            "add1anvil"
+        ],
+        "actionRewards": [
+            "spawnsmith"
         ]
     }
 ]
