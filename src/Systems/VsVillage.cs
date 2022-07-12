@@ -32,7 +32,7 @@ namespace VsVillage
 
             api.RegisterBlockEntityBehaviorClass("VillagerBed", typeof(BlockEntityBehaviorVillagerBed));
             api.RegisterBlockEntityBehaviorClass("VillagerPOI", typeof(BlockEntityBehaviorVillagerPOI));
-            
+
             api.RegisterBlockEntityClass("Lectern", typeof(BlockEntityLectern));
 
             AiTaskRegistry.Register<AiTaskVillagerMeleeAttack>("villagermeleeattack");
@@ -52,10 +52,17 @@ namespace VsVillage
             questSystem.actionRewardRegistry.Add("spawnshepherd", message => spawnVillager(message, api, "shepherd"));
             questSystem.actionRewardRegistry.Add("spawnsmith", message => spawnVillager(message, api, "smith"));
 
-            questSystem.actionObjectiveRegistry.Add("add1villagerbed", new MoreBedsThanVillagersObjective(1));
-            questSystem.actionObjectiveRegistry.Add("add2villagerbed", new MoreBedsThanVillagersObjective(2));
-            questSystem.actionObjectiveRegistry.Add("add3villagerbed", new MoreBedsThanVillagersObjective(3));
-            questSystem.actionObjectiveRegistry.Add("add1anvil", new EnoughAnvils(1));
+            questSystem.actionObjectiveRegistry.Add("add1villagerbed", new EnoughBedsObjective(1));
+            questSystem.actionObjectiveRegistry.Add("add2villagerbed", new EnoughBedsObjective(2));
+            questSystem.actionObjectiveRegistry.Add("add3villagerbed", new EnoughBedsObjective(3));
+            questSystem.actionObjectiveRegistry.Add("add1villagerfreetime", new EnoughFirepitsObjective(1));
+            questSystem.actionObjectiveRegistry.Add("add2villagerfreetime", new EnoughFirepitsObjective(2));
+            questSystem.actionObjectiveRegistry.Add("add3villagerfreetime", new EnoughFirepitsObjective(3));
+            questSystem.actionObjectiveRegistry.Add("add1smithwork", new EnoughAnvilsObjective(1));
+            questSystem.actionObjectiveRegistry.Add("add1soldierwork", new EnoughStrawdummiesObjective(1));
+            questSystem.actionObjectiveRegistry.Add("add1shepherdwork", new EnoughTroughsObjective(1));
+            questSystem.actionObjectiveRegistry.Add("add1farmerwork", new EnoughQuernsObjective(1));
+            questSystem.actionObjectiveRegistry.Add("add2farmerwork", new EnoughQuernsObjective(2));
 
         }
 

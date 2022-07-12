@@ -326,7 +326,9 @@
             }
         ],
         "actionObjectives": [
-            "add1villagerbed"
+            "add1villagerbed",
+            "add1farmerwork",
+            "add1villagerfreetime"
         ],
         "actionRewards": [
             "spawnfarmer"
@@ -346,7 +348,9 @@
             }
         ],
         "actionObjectives": [
-            "add1villagerbed"
+            "add1villagerbed",
+            "add1farmerwork",
+            "add1villagerfreetime"
         ],
         "actionRewards": [
             "spawnshepherd"
@@ -366,7 +370,9 @@
             }
         ],
         "actionObjectives": [
-            "add1villagerbed"
+            "add1villagerbed",
+            "add1soldierwork",
+            "add1villagerfreetime"
         ],
         "actionRewards": [
             "spawnsoldier"
@@ -387,7 +393,8 @@
         ],
         "actionObjectives": [
             "add1villagerbed",
-            "add1anvil"
+            "add1smithwork",
+            "add1villagerfreetime"
         ],
         "actionRewards": [
             "spawnsmith"
@@ -577,7 +584,7 @@
         ],
         "actionObjectives": [
             "add1villagerbed",
-            "add1anvil"
+            "add1smithwork"
         ],
         "actionRewards": [
             "spawnsmith"

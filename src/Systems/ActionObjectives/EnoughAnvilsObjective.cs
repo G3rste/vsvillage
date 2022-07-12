@@ -1,14 +1,16 @@
 using System.Collections.Generic;
 using Vintagestory.API.Common;
+using Vintagestory.API.MathTools;
+using Vintagestory.GameContent;
 using VsQuest;
 
 namespace VsVillage
 {
-    public class EnoughAnvils : ActionObjective
+    public class EnoughAnvilsObjective : ActionObjective
     {
         private int anvilDemand;
 
-        public EnoughAnvils(int anvilDemand = 1)
+        public EnoughAnvilsObjective(int anvilDemand = 1)
         {
             this.anvilDemand = anvilDemand;
         }
@@ -19,18 +21,12 @@ namespace VsVillage
 
         public List<int> progress(IPlayer byPlayer)
         {
-            var pos = byPlayer.Entity.Pos;
-            int anvilCount = 0;
-            byPlayer.Entity.World.BlockAccessor.WalkBlocks(pos.AsBlockPos.AddCopy(-100, -15, -100), pos.AsBlockPos.AddCopy(100, 15, 100), (block, x, y, z) =>
-            {
-                string code = block.Code.Path;
-                if (code.StartsWith("anvil-"))
-                {
-                    anvilCount++;
-                }
-            });
-            int villagerCount = byPlayer.Entity.World.GetEntitiesAround(pos.XYZ, 100, 15, entity => entity.Code.Path.EndsWith("-smith")).Length;
+            var pos = byPlayer.Entity.Pos.XYZInt;
+            int anvilCount = ActionObjectiveUtil.countBlockEntities(pos, byPlayer.Entity.World.BlockAccessor, blockEntity => blockEntity is BlockEntityAnvil);
+            int villagerCount = byPlayer.Entity.World.GetEntitiesAround(new Vec3d(pos.X, pos.Y, pos.Z), 100, 15, entity => entity.Code.Path.EndsWith("-smith")).Length;
             return new List<int>(new int[] { anvilCount - villagerCount });
         }
+
+        
     }
 }
