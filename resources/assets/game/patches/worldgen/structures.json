@@ -23,6 +23,24 @@
                 "offsetY": -1
             },
             {
+                "code": "villagerwagon",
+                "group": "outpost",
+                "minGroupDistance": 900,
+                "chance": 1,
+                "name": "Villager Wagons",
+                "schematics": [
+                    "overground/village/villager-wagon-1",
+                    "overground/village/villager-wagon-2",
+                    "overground/village/villager-wagon-3"
+                ],
+                "replacewithblocklayers": [
+                    "soil-medium-normal",
+                    "soil-medium-none"
+                ],
+                "postPass": true,
+                "placement": "surface"
+            },
+            {
                 "code": "villagersettlement",
                 "group": "settlement",
                 "minGroupDistance": 1200,
