@@ -10,6 +10,8 @@
     "item-creature-humanoid-villager-male-mayor": "Mayor (male)",
     "item-creature-humanoid-villager-female-mayor": "Mayor (female)",
 
+    "block-villagerlectern-*": "Lectern",
+
     "quest-select-title": "Quest offers",
     "button-cancel": "Cancel",
     "button-accept": "Accept",

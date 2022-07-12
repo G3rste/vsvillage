@@ -1,0 +1,50 @@
+{
+    "code": "villagerlectern",
+    "entityClass": "Lectern",
+    "entityBehaviors": [
+        {
+            "name": "VillagerPOI",
+            "properties": {
+                "maximumVillagers": 1,
+                "occasion": "work",
+                "forProfession": "mayor"
+            }
+        }
+    ],
+    "behaviors": [
+        {
+            "name": "HorizontalOrientable"
+        }
+    ],
+    "variantgroups": [
+        {
+            "code": "side",
+            "loadFromProperties": "abstract/horizontalorientation"
+        }
+    ],
+    "creativeinventory": {
+        "general": [
+            "*-east"
+        ]
+    },
+    "shape": {
+        "base": "lectern",
+        "rotateYByType": {
+            "*-north": 0,
+            "*-east": 270,
+            "*-south": 180,
+            "*-west": 90
+        }
+    },
+    "blockmaterial": "Wood",
+    "sidesolid": {
+        "all": false,
+        "down": true
+    },
+    "sideopaque": {
+        "all": false,
+        "down": true
+    },
+    "lightAbsorption": 1,
+    "maxStackSize": 1
+}
