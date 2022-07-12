@@ -165,12 +165,16 @@ namespace VsVillage
 
             // pick random weapon
             var chosenSlot = availableWeapons[World.Rand.Next(0, availableWeapons.Count)];
-            var dummySlot = new DummySlot(new ItemStack(Api.World.GetItem(new AssetLocation(assetStringFromSlot.Invoke(chosenSlot)))));
-            if (dummySlot.TryPutInto(World, RightHandItemSlot) > 0)
+            var item = Api.World.GetItem(new AssetLocation(assetStringFromSlot.Invoke(chosenSlot)));
+            if (item != null)
             {
-                var chosenCode = chosenSlot.Itemstack.Item.Code;
-                RightHandItemSlot.Itemstack.Attributes.SetString("drawnFromGearType", String.Format("{0}:{1}", chosenCode.Domain, chosenCode.Path));
-                chosenSlot.TakeOutWhole();
+                var dummySlot = new DummySlot(new ItemStack(item));
+                if (dummySlot.TryPutInto(World, RightHandItemSlot) > 0)
+                {
+                    var chosenCode = chosenSlot.Itemstack.Item.Code;
+                    RightHandItemSlot.Itemstack.Attributes.SetString("drawnFromGearType", String.Format("{0}:{1}", chosenCode.Domain, chosenCode.Path));
+                    chosenSlot.TakeOutWhole();
+                }
             }
         }
 
