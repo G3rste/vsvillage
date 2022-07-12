@@ -74,5 +74,11 @@ namespace VsVillage
             }
             base.StartExecute();
         }
+
+        public void OnAllyAttacked(Entity byEntity){
+            if(targetEntity == null || !targetEntity.Alive){
+                targetEntity = byEntity;
+            }
+        }
     }
 }

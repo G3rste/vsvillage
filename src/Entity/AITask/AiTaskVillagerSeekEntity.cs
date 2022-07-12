@@ -9,6 +9,7 @@ namespace VsVillage
 
         protected long lastCheckTotalMs { get; set; }
         protected long lastCheckCooldown { get; set; } = 500;
+        protected long lastCallForHelp { get; set; }
         public AiTaskVillagerSeekEntity(EntityAgent entity) : base(entity)
         {
         }
@@ -63,6 +64,22 @@ namespace VsVillage
         {
             base.OnEntityHurt(source, damage);
             (entity as EntityVillager)?.DrawWeapon();
+            if (lastCallForHelp + 5000 < entity.World.ElapsedMilliseconds)
+            {
+                lastCallForHelp = entity.World.ElapsedMilliseconds;
+                foreach (var villager in entity.World.GetEntitiesAround(entity.ServerPos.XYZ, 15, 4, entity => (entity as EntityVillager)?.profession == "soldier"))
+                {
+                    var taskManager = villager.GetBehavior<EntityBehaviorTaskAI>().TaskManager;
+                    taskManager.GetTask<AiTaskVillagerSeekEntity>().OnAllyAttacked(source.SourceEntity);
+                    taskManager.GetTask<AiTaskVillagerMeleeAttack>().OnAllyAttacked(source.SourceEntity);
+                }
+            }
+        }
+
+        public void OnAllyAttacked(Entity byEntity){
+            if(targetEntity == null || !targetEntity.Alive){
+                targetEntity = byEntity;
+            }
         }
 
         public override bool IsTargetableEntity(Entity e, float range, bool ignoreEntityCode = false)
