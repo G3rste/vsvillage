@@ -314,7 +314,7 @@
     },
     {
         "id": "vsvillage:quest-recruit1farmer",
-        "predecessor": "vsvillage:quest-fundvillage-final",
+        "predecessor": "vsvillage:quest-foundvillage-final",
         "cooldown": 5,
         "perPlayer": false,
         "gatherObjectives": [
@@ -334,7 +334,7 @@
     },
     {
         "id": "vsvillage:quest-recruit1shepherd",
-        "predecessor": "vsvillage:quest-fundvillage-final",
+        "predecessor": "vsvillage:quest-foundvillage-final",
         "cooldown": 5,
         "perPlayer": false,
         "gatherObjectives": [
@@ -354,7 +354,7 @@
     },
     {
         "id": "vsvillage:quest-recruit1soldier",
-        "predecessor": "vsvillage:quest-fundvillage-final",
+        "predecessor": "vsvillage:quest-foundvillage-final",
         "cooldown": 5,
         "perPlayer": false,
         "gatherObjectives": [
@@ -374,7 +374,7 @@
     },
     {
         "id": "vsvillage:quest-recruit1smith",
-        "predecessor": "vsvillage:quest-fundvillage-final",
+        "predecessor": "vsvillage:quest-foundvillage-final",
         "cooldown": 15,
         "perPlayer": false,
         "gatherObjectives": [
@@ -394,7 +394,7 @@
         ]
     },
     {
-        "id": "vsvillage:quest-fundvillage-start",
+        "id": "vsvillage:quest-foundvillage-start",
         "cooldown": 1000000000,
         "perPlayer": false,
         "gatherObjectives": [
@@ -463,8 +463,8 @@
         ]
     },
     {
-        "id": "vsvillage:quest-fundvillage-1",
-        "predecessor": "vsvillage:quest-fundvillage-start",
+        "id": "vsvillage:quest-foundvillage-1",
+        "predecessor": "vsvillage:quest-foundvillage-start",
         "cooldown": 1000000000,
         "perPlayer": false,
         "gatherObjectives": [
@@ -483,8 +483,8 @@
         ]
     },
     {
-        "id": "vsvillage:quest-fundvillage-2",
-        "predecessor": "vsvillage:quest-fundvillage-1",
+        "id": "vsvillage:quest-foundvillage-2",
+        "predecessor": "vsvillage:quest-foundvillage-1",
         "cooldown": 1000000000,
         "perPlayer": false,
         "gatherObjectives": [
@@ -539,8 +539,8 @@
         ]
     },
     {
-        "id": "vsvillage:quest-fundvillage-3",
-        "predecessor": "vsvillage:quest-fundvillage-2",
+        "id": "vsvillage:quest-foundvillage-3",
+        "predecessor": "vsvillage:quest-foundvillage-2",
         "cooldown": 1000000000,
         "perPlayer": false,
         "gatherObjectives": [
@@ -584,8 +584,8 @@
         ]
     },
     {
-        "id": "vsvillage:quest-fundvillage-final",
-        "predecessor": "vsvillage:quest-fundvillage-3",
+        "id": "vsvillage:quest-foundvillage-final",
+        "predecessor": "vsvillage:quest-foundvillage-3",
         "cooldown": 1000000000,
         "perPlayer": false,
         "killObjectives": [
