@@ -69,7 +69,7 @@ namespace VsVillage
         public override void OnInteract(EntityAgent byEntity, ItemSlot slot, Vec3d hitPosition, EnumInteractMode mode)
         {
             base.OnInteract(byEntity, slot, hitPosition, mode);
-            if (byEntity is EntityPlayer player && WatchedAttributes.GetString("guardedPlayerUid") == player.PlayerUID)
+            if (byEntity is EntityPlayer player && WatchedAttributes.GetString("guardedPlayerUid") == player.PlayerUID && mode == EnumInteractMode.Interact && !player.Controls.Sneak)
             {
                 bool commandSit = WatchedAttributes.GetBool("commandSit", false);
                 WatchedAttributes.SetBool("commandSit", !commandSit);

@@ -26,6 +26,8 @@ namespace VsVillage
                 entity.WatchedAttributes.RemoveAttribute("guardedPlayerUid");
                 entity.WatchedAttributes.RemoveAttribute("guardedEntityId");
                 entity.WatchedAttributes.RemoveAttribute("employedSince");
+                entity.WatchedAttributes.MarkPathDirty("guardedPlayerUid");
+                entity.WatchedAttributes.MarkPathDirty("guardedEntityId");
             }
             return base.ShouldExecute();
         }
