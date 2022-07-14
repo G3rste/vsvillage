@@ -53,7 +53,7 @@ namespace VsVillage
             questSystem.actionRewardRegistry.Add("spawnfarmer", (message, byPlayer) => spawnVillager(message, api, "farmer"));
             questSystem.actionRewardRegistry.Add("spawnshepherd", (message, byPlayer) => spawnVillager(message, api, "shepherd"));
             questSystem.actionRewardRegistry.Add("spawnsmith", (message, byPlayer) => spawnVillager(message, api, "smith"));
-            questSystem.actionRewardRegistry.Add("recuitvillager", recruitVillager(api));
+            questSystem.actionRewardRegistry.Add("recruitvillager", recruitVillager(api));
 
             questSystem.actionObjectiveRegistry.Add("add1villagerbed", new EnoughBedsObjective(1));
             questSystem.actionObjectiveRegistry.Add("add2villagerbed", new EnoughBedsObjective(2));
