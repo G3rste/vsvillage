@@ -105,6 +105,8 @@ namespace VsVillage
                 var recruit = api.World.GetEntityById(message.questGiverId);
                 recruit.WatchedAttributes.SetDouble("employedSince", api.World.Calendar.TotalHours);
                 recruit.WatchedAttributes.SetString("guardedPlayerUid", byPlayer.PlayerUID);
+                recruit.WatchedAttributes.SetBool("commandSit", false);
+                recruit.WatchedAttributes.MarkPathDirty("guardedPlayerUid");
             };
         }
     }

@@ -19,6 +19,9 @@
     "no-quest-available-desc": "I currently don't need your help with anything.",
     "no-quest-active-desc": "I don't remember having any open contracts with you.",
 
+    "command-stay": "Stay here!",
+    "command-follow": "Follow me!",
+
     "quest-gather20MeatFor4FlaxSeeds-title": "There is no protein in flax fibre",
     "quest-gather20MeatFor4FlaxSeeds-desc": "My diet could use a little bit more variation. If you provide 20 meat of any kind, I could offer you some seeds in return.",
     "quest-gather20MeatFor4FlaxSeeds-obj": "Gathered meat: {0}/20",

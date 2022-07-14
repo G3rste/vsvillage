@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using Vintagestory.API.Util;
 using Vintagestory.API.Client;
 using Vintagestory.API.Server;
+using Vintagestory.API.MathTools;
 
 namespace VsVillage
 {
@@ -63,6 +64,35 @@ namespace VsVillage
             if (api.Side == EnumAppSide.Server) { api.World.RegisterCallback(dt => GetBehavior<EntityBehaviorTaskAI>().TaskManager.StopTask(typeof(AiTaskVillagerSleep)), 10000); }
             else { talkUtil = new EntityTalkUtil(api as ICoreClientAPI, this); }
             this.Personality = this.Personality; // to update the talkutil
+        }
+
+        public override void OnInteract(EntityAgent byEntity, ItemSlot slot, Vec3d hitPosition, EnumInteractMode mode)
+        {
+            base.OnInteract(byEntity, slot, hitPosition, mode);
+            if (byEntity is EntityPlayer player && WatchedAttributes.GetString("guardedPlayerUid") == player.PlayerUID)
+            {
+                bool commandSit = WatchedAttributes.GetBool("commandSit", false);
+                WatchedAttributes.SetBool("commandSit", !commandSit);
+                WatchedAttributes.MarkPathDirty("commandSit");
+            }
+        }
+
+        public override WorldInteraction[] GetInteractionHelp(IClientWorldAccessor world, EntitySelection es, IClientPlayer player)
+        {
+            if (WatchedAttributes.GetString("guardedPlayerUid") == player.PlayerUID)
+            {
+                string actionLangCode = WatchedAttributes.GetBool("commandSit", false) ? "vsvillage:command-follow" : "vsvillage:command-stay";
+                return new WorldInteraction[]{
+                    new WorldInteraction(){
+                        ActionLangCode = actionLangCode,
+                        MouseButton = EnumMouseButton.Right
+                    }
+                };
+            }
+            else
+            {
+                return base.GetInteractionHelp(world, es, player);
+            }
         }
 
         public override void OnEntitySpawn()
