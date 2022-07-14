@@ -140,14 +140,14 @@
 			{
 				"code": "questgiver",
 				"questsByType": {
-					"*-soldier": [ "vsvillage:quest-kill30DriftersFor3Gears", "vsvillage:quest-kill8NightmareDriftersFor5Gears" ],
+					"*-soldier": [ "vsvillage:quest-recruitvillager" ],
 					"*-farmer": [ "vsvillage:quest-gather20MeatFor4TurnipSeeds", "vsvillage:quest-gather20MeatFor4ParsnipSeeds", "vsvillage:quest-gather20MeatFor4FlaxSeeds", "vsvillage:quest-gather20MeatFor4CarrotSeeds", "vsvillage:quest-gather20MeatFor4OnionSeeds", "vsvillage:quest-gather20MeatFor4SpeltSeeds" ],
 					"*-shepherd": [ "vsvillage:quest-kill6WolvesFor2Gears", "vsvillage:quest-kill6FoxesFor1Gear" ],
 					"*-smith": [ "vsvillage:quest-gather20CharcoalFor3Gears", "vsvillage:quest-buy1BlackGuardSword" ],
-					"*-mayor": [ "vsvillage:quest-recruit1farmer", "vsvillage:quest-recruit1shepherd", "vsvillage:quest-recruit1soldier", "vsvillage:quest-recruit1smith", "vsvillage:quest-foundvillage-start", "vsvillage:quest-foundvillage-1", "vsvillage:quest-foundvillage-2", "vsvillage:quest-foundvillage-3", "vsvillage:quest-foundvillage-final" ],
+					"*-mayor": [ "vsvillage:quest-recruit1farmer", "vsvillage:quest-recruit1shepherd", "vsvillage:quest-recruit1soldier", "vsvillage:quest-recruit1smith", "vsvillage:quest-foundvillage-start", "vsvillage:quest-foundvillage-1", "vsvillage:quest-foundvillage-2", "vsvillage:quest-foundvillage-3", "vsvillage:quest-foundvillage-final", "vsvillage:quest-kill30DriftersFor3Gears", "vsvillage:quest-kill8NightmareDriftersFor5Gears" ],
 					"*": []
 				},
-				"selectrandomByType": { "*-mayor": false, "*": true },
+				"selectrandomByType": { "*-mayor": false, "*-soldier": false, "*": true },
 				"selectrandomcount": 1
 			},
             {
@@ -160,7 +160,7 @@
 				"aitasks": [
 					{
 						"code": "villagermeleeattack",
-						"entityCodes": ["drifter-*", "wolf-male", "wolf-female", "looter", "hound-*", "bandit-*", "poacher-*", "yeoman-archer"],
+						"entityCodes": ["drifter-*", "locust-*", "wolf-male", "wolf-female", "looter", "hound-*", "bandit-*", "poacher-*", "yeoman-archer"],
 						"priority": 2,
 						"damage": 0.5,
 						"damageTier": 3,
@@ -178,7 +178,7 @@
 					{
 						"code": "villagerseekentity",
 						"entityCodesByType": {
-							"*-soldier": ["drifter-*", "wolf-male", "wolf-female", "looter", "hound-*", "bandit-*", "poacher-*", "yeoman-archer"],
+							"*-soldier": ["drifter-*", "locust-*", "wolf-male", "wolf-female", "looter", "hound-*", "bandit-*", "poacher-*", "yeoman-archer"],
 							"*": []
 						},
 						"priority": 1.6,
@@ -269,16 +269,17 @@
 						"priority": 0.5
 					},
 					{
-						"codeByType":{ "*-shepherd": "villagerfilltrough", "*-farmer": "villagercultivatecrops", "*": "villagerflipweapon"},
+						"codeByType":{ "*-shepherd": "villagerfilltrough", "*-farmer": "villagercultivatecrops", "*-soldier": "villagerstayclose", "*": "villagerflipweapon"},
 						"weaponByType":{ "*-smith": "hammer", "*": "sword" },
 						"minduration": 3500,
 						"maxduration": 3500,
 						"mincooldown": 60000,
 						"maxcooldown": 120000,
-						"maxdistance": 10,
-						"animationByType": { "*-shepherd": "walk", "*-farmer": "walk", "*": "hammerflip" },
-						"priority": 1.4,
-						"movespeed": 0.01
+						"maxdistanceByType": { "*-soldier": 5, "*": 10 },
+						"animationByType": { "*-shepherd": "walk", "*-farmer": "walk", "*-soldier": "Run", "*": "hammerflip" },
+						"animationSpeedByType": { "*-soldier": 1.75, "*": 1 },
+						"priorityByType": { "*-soldier": 1.5, "*": 1.4 },
+						"movespeedByType": { "*-soldier": 0.035, "*": 0.01 }
 					}
 				]
 			}

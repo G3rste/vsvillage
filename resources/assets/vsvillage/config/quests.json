@@ -1,6 +1,7 @@
 [
     {
         "id": "vsvillage:quest-kill30DriftersFor3Gears",
+        "predecessor": "vsvillage:quest-foundvillage-final",
         "cooldown": 40,
         "perPlayer": false,
         "gatherObjectives": [],
@@ -26,6 +27,7 @@
     },
     {
         "id": "vsvillage:quest-kill8NightmareDriftersFor5Gears",
+        "predecessor": "vsvillage:quest-foundvillage-final",
         "cooldown": 50,
         "perPlayer": false,
         "gatherObjectives": [],
@@ -617,6 +619,22 @@
         ],
         "actionRewards": [
             "spawnsoldier"
+        ]
+    },
+    {
+        "id": "vsvillage:quest-recruitvillager",
+        "cooldown": 1,
+        "perPlayer": false,
+        "gatherObjectives": [
+            {
+                "validCodes": [
+                    "gear-rusty"
+                ],
+                "demand": 1
+            }
+        ],
+        "actionRewards": [
+            "recuitvillager"
         ]
     }
 ]

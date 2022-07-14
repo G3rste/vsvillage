@@ -85,5 +85,8 @@
     "quest-foundvillage-3-obj": "Gathered bronze ingots: {0}/32\nGathered charcoal: {1}/64\nGathered leather: {2}/32\nFree beds: {3}/1\nPlaced anvils: {4}/1",
     "quest-foundvillage-final-title": "Emerge from the ashes",
     "quest-foundvillage-final-desc": "More and more people gain hope that this outpost could actually be made to last. To really gain their trust, proof that even the strongest beings from the rustworld do not stand a chance against you.",
-    "quest-foundvillage-final-obj": "Double headed drifters killed: {0}/1\nNightmare drifters killed: {1}/10\nSawblade locusts killed: {2}/5"
+    "quest-foundvillage-final-obj": "Double headed drifters killed: {0}/1\nNightmare drifters killed: {1}/10\nSawblade locusts killed: {2}/5",
+    "quest-recruitvillager-title": "At your service",
+    "quest-recruitvillager-desc": "For a small amount of gears I can escort and protect you for a day.",
+    "quest-recruitvillager-obj": "Rusty gears: {0}/1"
 }

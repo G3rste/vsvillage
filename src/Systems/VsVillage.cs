@@ -6,6 +6,7 @@ using Vintagestory.API.Common;
 using Vintagestory.API.Server;
 using Vintagestory.API.Util;
 using Vintagestory.GameContent;
+using System;
 
 namespace VsVillage
 {
@@ -44,13 +45,15 @@ namespace VsVillage
             AiTaskRegistry.Register<AiTraskVillagerFillTrough>("villagerfilltrough");
             AiTaskRegistry.Register<AiTraskVillagerCultivateCrops>("villagercultivatecrops");
             AiTaskRegistry.Register<AiTraskVillagerFlipWeapon>("villagerflipweapon");
+            AiTaskRegistry.Register<AiTaskStayCloseToEmployer>("villagerstayclose");
 
             var questSystem = api.ModLoader.GetModSystem<QuestSystem>();
 
-            questSystem.actionRewardRegistry.Add("spawnsoldier", message => spawnVillager(message, api, "soldier"));
-            questSystem.actionRewardRegistry.Add("spawnfarmer", message => spawnVillager(message, api, "farmer"));
-            questSystem.actionRewardRegistry.Add("spawnshepherd", message => spawnVillager(message, api, "shepherd"));
-            questSystem.actionRewardRegistry.Add("spawnsmith", message => spawnVillager(message, api, "smith"));
+            questSystem.actionRewardRegistry.Add("spawnsoldier", (message, byPlayer) => spawnVillager(message, api, "soldier"));
+            questSystem.actionRewardRegistry.Add("spawnfarmer", (message, byPlayer) => spawnVillager(message, api, "farmer"));
+            questSystem.actionRewardRegistry.Add("spawnshepherd", (message, byPlayer) => spawnVillager(message, api, "shepherd"));
+            questSystem.actionRewardRegistry.Add("spawnsmith", (message, byPlayer) => spawnVillager(message, api, "smith"));
+            questSystem.actionRewardRegistry.Add("recuitvillager", recruitVillager(api));
 
             questSystem.actionObjectiveRegistry.Add("add1villagerbed", new EnoughBedsObjective(1));
             questSystem.actionObjectiveRegistry.Add("add2villagerbed", new EnoughBedsObjective(2));
@@ -87,12 +90,22 @@ namespace VsVillage
             (clientAPI.World.GetEntityById(networkMessage.entityId) as EntityVillager)?.talkUtil.Talk(networkMessage.talkType);
         }
 
-        private void spawnVillager(QuestCompletedMessage message, ICoreAPI api, string profession)
+        private static void spawnVillager(QuestCompletedMessage message, ICoreAPI api, string profession)
         {
             var sex = api.World.Rand.NextDouble() < 0.5 ? "male" : "female";
             var entity = api.World.ClassRegistry.CreateEntity(api.World.GetEntityType(new AssetLocation("vsvillage", string.Format("humanoid-villager-{0}-{1}", sex, profession))));
             entity.ServerPos = api.World.GetEntityById(message.questGiverId).ServerPos.Copy();
             api.World.SpawnEntity(entity);
+        }
+
+        private static Action<QuestCompletedMessage, IPlayer> recruitVillager(ICoreAPI api)
+        {
+            return (message, byPlayer) =>
+            {
+                var recruit = api.World.GetEntityById(message.questGiverId);
+                recruit.WatchedAttributes.SetDouble("employedSince", api.World.Calendar.TotalHours);
+                recruit.WatchedAttributes.SetString("guardedPlayerUid", byPlayer.PlayerUID);
+            };
         }
     }
 
