@@ -160,7 +160,7 @@
 				"aitasks": [
 					{
 						"code": "villagermeleeattack",
-						"entityCodes": ["drifter-*", "locust-*", "wolf-male", "wolf-female", "looter", "hound-*", "bandit-*", "poacher-*", "yeoman-archer"],
+						"entityCodes": ["drifter-*", "locust-*", "bear-*", "wolf-male", "wolf-female", "looter", "hound-*", "bandit-*", "poacher-*", "yeoman-archer"],
 						"priority": 2,
 						"damage": 0.5,
 						"damageTier": 3,
@@ -178,7 +178,7 @@
 					{
 						"code": "villagerseekentity",
 						"entityCodesByType": {
-							"*-soldier": ["drifter-*", "locust-*", "wolf-male", "wolf-female", "looter", "hound-*", "bandit-*", "poacher-*", "yeoman-archer"],
+							"*-soldier": ["drifter-*", "locust-*", "bear-*", "wolf-male", "wolf-female", "looter", "hound-*", "bandit-*", "poacher-*", "yeoman-archer"],
 							"*": []
 						},
 						"priority": 1.6,
@@ -186,19 +186,19 @@
 						"maxcooldown": 1500,
 						"seekingRange": 20,
 						"movespeed": 0.035,
-						"animation": "BalancedRun",
+						"animation": "RowdyRun",
 						"animationSpeed": 1.75
 					},
 					{
 						"code": "fleeentity",
 						"entityCodesByType": {
 							"*-soldier": [],
-							"*": ["drifter-*", "wolf-male", "wolf-female", "looter", "hound-*", "bandit-*", "poacher-*", "yeoman-archer"]
+							"*": ["drifter-*", "locust-*", "bear-*", "wolf-male", "wolf-female", "looter", "hound-*", "bandit-*", "poacher-*", "yeoman-archer"]
 						},
 						"priority": 1.5,
 						"movespeed": 0.035,
 						"seekingRange": 12,
-						"animation": "Run",
+						"animation": "FormalRun",
 						"animationSpeed": 1.75
 					},
 					{
