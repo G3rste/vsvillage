@@ -3,8 +3,10 @@ using Vintagestory.API.Common;
 using Vintagestory.API.Datastructures;
 using Vintagestory.API.Server;
 
-namespace VsVillage{
-    public class VillageGenerator : ModSystem {
+namespace VsVillage
+{
+    public class VillageGenerator : ModSystem
+    {
 
         public override double ExecuteOrder() => 0.6;
         public override void StartServerSide(ICoreServerAPI api)
