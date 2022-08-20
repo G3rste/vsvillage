@@ -239,8 +239,8 @@ namespace VsVillage
                 controls.FlyVector.Set(controls.WalkVector);
 
                 Vec3d pos = entity.Pos.XYZ;
-                Block inblock = entity.World.BlockAccessor.GetSolidBlock((int)pos.X, (int)(pos.Y), (int)pos.Z);
-                Block aboveblock = entity.World.BlockAccessor.GetSolidBlock((int)pos.X, (int)(pos.Y + 1), (int)pos.Z);
+                Block inblock = entity.World.BlockAccessor.GetBlock((int)pos.X, (int)(pos.Y), (int)pos.Z);
+                Block aboveblock = entity.World.BlockAccessor.GetBlock((int)pos.X, (int)(pos.Y + 1), (int)pos.Z);
                 float waterY = (int)pos.Y + inblock.LiquidLevel / 8f + (aboveblock.IsLiquid() ? 9 / 8f : 0);
                 float bottomSubmergedness = waterY - (float)pos.Y;
 
@@ -263,8 +263,8 @@ namespace VsVillage
                 controls.FlyVector.Set(controls.WalkVector);
 
                 Vec3d pos = entity.Pos.XYZ;
-                Block inblock = entity.World.BlockAccessor.GetSolidBlock((int)pos.X, (int)(pos.Y), (int)pos.Z);
-                Block aboveblock = entity.World.BlockAccessor.GetSolidBlock((int)pos.X, (int)(pos.Y + 1), (int)pos.Z);
+                Block inblock = entity.World.BlockAccessor.GetBlock((int)pos.X, (int)(pos.Y), (int)pos.Z);
+                Block aboveblock = entity.World.BlockAccessor.GetBlock((int)pos.X, (int)(pos.Y + 1), (int)pos.Z);
                 float waterY = (int)pos.Y + inblock.LiquidLevel / 8f + (aboveblock.IsLiquid() ? 9 / 8f : 0);
                 float bottomSubmergedness = waterY - (float)pos.Y;
 
@@ -284,7 +284,7 @@ namespace VsVillage
 
         private bool handleDoors(Vec3d target, string state)
         {
-            var targetBlock = entity.World.BlockAccessor.GetSolidBlock(target.XInt, target.YInt, target.ZInt) as BlockBaseDoor;
+            var targetBlock = entity.World.BlockAccessor.GetBlock(target.XInt, target.YInt, target.ZInt) as BlockBaseDoor;
             if (targetBlock != null && targetBlock.Variant["state"] == state)
             {
                 entity.World.PlaySoundAt(AssetLocation.Create(targetBlock.Attributes["triggerSound"].AsString("sounds/block/door"), targetBlock.Code.Domain), target.X + 0.5f, target.Y + 0.5f, target.Z + 0.5f);
@@ -297,7 +297,7 @@ namespace VsVillage
 
         private void handleDoor(Block block, BlockPos pos)
         {
-            var targetBlock = entity.World.BlockAccessor.GetSolidBlock(pos) as BlockBaseDoor;
+            var targetBlock = entity.World.BlockAccessor.GetBlock(pos) as BlockBaseDoor;
             if (targetBlock != null)
             {
                 AssetLocation newCode = targetBlock.CodeWithVariant("state", targetBlock.IsOpened() ? "closed" : "opened");
