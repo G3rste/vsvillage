@@ -9,7 +9,7 @@
 			<Private>false</Private>
 		</Reference>
 		<Reference Include="Newtonsoft">
-			<HintPath>lib/Newtonsoft.Json.dll</HintPath>
+			<HintPath>$(VINTAGE_STORY)/Lib/Newtonsoft.Json.dll</HintPath>
 			<Private>false</Private>
 		</Reference>
 		<Reference Include="VSEssentials">
