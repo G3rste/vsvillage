@@ -16,7 +16,7 @@ namespace VsVillage
         [JsonProperty]
         public string SchematicCode;
         [JsonProperty]
-        public int AttachmentPoint = 0;// 0=NORTH 1=WEST 2=SOUTH 3=EAST
+        public int AttachmentPoint = 0;// 0=NORTH 1=EAST 2=SOUTH 3=WEST
         [JsonProperty]
         public int VerticalOffset = -1;
         [JsonProperty]
@@ -55,7 +55,7 @@ namespace VsVillage
                 else
                 {
                     Schematics[k] = schematic;
-                    Schematics[k].TransformWhilePacked(api.World, EnumOrigin.BottomCenter, AttachmentPoint * 90);
+                    Schematics[k].TransformWhilePacked(api.World, EnumOrigin.BottomCenter, AttachmentPoint * 90 * (4 - AttachmentPoint));
                 }
                 Schematics[k].Init(api.World.BlockAccessor);
                 Schematics[k].LoadMetaInformationAndValidate(api.World.BlockAccessor, api.World, schematic.FromFileName);
