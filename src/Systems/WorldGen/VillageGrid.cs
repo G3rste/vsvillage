@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using System.Text;
+using Vintagestory.API.MathTools;
 
 namespace VsVillage
 {
@@ -8,6 +10,8 @@ namespace VsVillage
         public EnumgGridSlot[][] grid;
 
         public List<WorldGenVillageStructure> structures = new List<WorldGenVillageStructure>();
+
+        public int capacity = 16;
 
         public VillageGrid()
         {
@@ -35,6 +39,7 @@ namespace VsVillage
 
         public void AddBigStructure(WorldGenVillageStructure structure)
         {
+            capacity -= 16;
             structures.Add(structure);
             for (int i = 1; i < 8; i++)
             {
@@ -62,6 +67,7 @@ namespace VsVillage
 
         public void AddMediumStructure(WorldGenVillageStructure structure, int x, int y)
         {
+            capacity -= 4;
             structures.Add(structure);
             for (int i = 0; i < 3; i++)
             {
@@ -89,6 +95,7 @@ namespace VsVillage
 
         public void AddSmallStructure(WorldGenVillageStructure structure, int x, int y)
         {
+            capacity -= 1;
             structures.Add(structure);
             grid[x * 2 + 1][y * 2 + 1] = EnumgGridSlot.STRUCTURE;
             switch (structure.AttachmentPoint)
@@ -105,6 +112,57 @@ namespace VsVillage
                 case 3:
                     grid[x * 2][y * 2 + 1] = EnumgGridSlot.STREET;
                     break;
+            }
+        }
+
+        //always go from biggest to smallest structure, otherwise this will break
+        public bool tryAddStructure(WorldGenVillageStructure structure, Random random)
+        {
+            switch (structure.Size)
+            {
+                case EnumVillageStructureSize.LARGE:
+                    if (capacity < 16) { return false; }
+                    else { AddBigStructure(structure); return true; }
+                case EnumVillageStructureSize.MEDIUM:
+                    if (capacity < 4) { return false; }
+                    else
+                    {
+                        var free = new List<Vec2i>();
+                        for (int i = 0; i < 2; i++)
+                        {
+                            for (int k = 0; k < 2; k++)
+                            {
+                                if (MediumSlotAvailable(i, k))
+                                {
+                                    free.Add(new Vec2i(i, k));
+                                }
+                            }
+                        }
+                        var xy = free[random.Next(0, free.Count)];
+                        AddMediumStructure(structure, xy.X, xy.Y);
+                        return true;
+                    }
+                case EnumVillageStructureSize.SMALL:
+                    if (capacity < 1) { return false; }
+                    else
+                    {
+                        var free = new List<Vec2i>();
+                        for (int i = 0; i < 4; i++)
+                        {
+                            for (int k = 0; k < 4; k++)
+                            {
+                                if (SmallSlotAvailable(i, k))
+                                {
+                                    free.Add(new Vec2i(i, k));
+                                }
+                            }
+                        }
+                        var xy = free[random.Next(0, free.Count)];
+                        AddSmallStructure(structure, xy.X, xy.Y);
+                        return true;
+                    }
+                default: return false;
+
             }
         }
 

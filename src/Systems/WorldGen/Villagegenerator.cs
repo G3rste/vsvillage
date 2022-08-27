@@ -16,10 +16,10 @@ namespace VsVillage
             //api.Event.ChunkColumnGeneration(handler, EnumWorldGenPass.TerrainFeatures, "standard");
             //api.Event.MapRegionGeneration(mapHandler, "standard");
 
-            api.RegisterCommand("vds", "debug command for printing village layout", "[square|village]", onCmdDebugVillage, Privilege.controlserver);
+            api.RegisterCommand("vds", "debug command for printing village layout", "[square|village]", (player, groupId, args) => onCmdDebugVillage(player, groupId, args, api), Privilege.controlserver);
         }
 
-        private void onCmdDebugVillage(IServerPlayer player, int groupId, CmdArgs args)
+        private void onCmdDebugVillage(IServerPlayer player, int groupId, CmdArgs args, ICoreServerAPI sapi)
         {
             if (args[0] == "square")
             {
@@ -52,6 +52,19 @@ namespace VsVillage
                         break;
                     case "big":
                         grid.AddBigStructure(new WorldGenVillageStructure());
+                        break;
+                    case "random":
+                        var medium = new WorldGenVillageStructure();
+                        medium.Size = EnumVillageStructureSize.MEDIUM;
+                        medium.AttachmentPoint = sapi.World.Rand.Next(0, 4);
+                        grid.tryAddStructure(medium, sapi.World.Rand);
+                        for (int i = 0; i < sapi.World.Rand.Next(0, 12); i++)
+                        {
+                            var small = new WorldGenVillageStructure();
+                            small.Size = EnumVillageStructureSize.SMALL;
+                            small.AttachmentPoint = sapi.World.Rand.Next(0, 4);
+                            grid.tryAddStructure(small, sapi.World.Rand);
+                        }
                         break;
                 }
                 player.SendMessage(GlobalConstants.AllChatGroups, grid.debugPrintGrid(), EnumChatType.CommandSuccess);
