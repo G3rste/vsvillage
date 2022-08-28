@@ -44,7 +44,7 @@ namespace VsVillage
                             for (int k = 0; k < 2; k++)
                             {
                                 var structure = new WorldGenVillageStructure();
-                                structure.AttachmentPoint = point;
+                                structure.AttachmentPoint = 0;
                                 grid.AddMediumStructure(structure, i, k);
                                 point++;
                             }
@@ -72,6 +72,30 @@ namespace VsVillage
                             grid.tryAddStructure(structure, sapi.World.Rand);
                         }
                         structures = sapi.World.Rand.Next(0, grid.capacity);
+                        for(int i = 0; i < structures; i++){
+                            var structure = new WorldGenVillageStructure();
+                            structure.Size = EnumVillageStructureSize.SMALL;
+                            structure.AttachmentPoint = sapi.World.Rand.Next(0, 4);
+                            grid.tryAddStructure(structure, sapi.World.Rand);
+                        }
+                        break;
+                    case "custom":
+                        grid = new VillageGrid(2, 2);
+                        int.TryParse(args[2], out structures);
+                        for(int i = 0; i < structures; i++){
+                            var structure = new WorldGenVillageStructure();
+                            structure.Size = EnumVillageStructureSize.LARGE;
+                            structure.AttachmentPoint = sapi.World.Rand.Next(0, 4);
+                            grid.tryAddStructure(structure, sapi.World.Rand);
+                        }
+                        int.TryParse(args[3], out structures);
+                        for(int i = 0; i < structures; i++){
+                            var structure = new WorldGenVillageStructure();
+                            structure.Size = EnumVillageStructureSize.MEDIUM;
+                            structure.AttachmentPoint = sapi.World.Rand.Next(0, 4);
+                            grid.tryAddStructure(structure, sapi.World.Rand);
+                        }
+                        int.TryParse(args[4], out structures);
                         for(int i = 0; i < structures; i++){
                             var structure = new WorldGenVillageStructure();
                             structure.Size = EnumVillageStructureSize.SMALL;

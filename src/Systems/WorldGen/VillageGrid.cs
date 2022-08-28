@@ -250,8 +250,8 @@ namespace VsVillage
                 bool? goHorizontal = null;
                 while (Math.Abs(newStreet.X - currentX) + Math.Abs(newStreet.Y - currentY) > 1)
                 {
-                    canWalkX = currentY % 2 == 0 && inWidthBounds(currentX + directionX) && grid[currentX + directionX][currentY] == EnumgGridSlot.EMPTY;
-                    canWalkY = currentX % 2 == 0 && inHeightBounds(currentY + directionY) && grid[currentX][currentY + directionY] == EnumgGridSlot.EMPTY;
+                    canWalkX = currentY % 2 == 0 && inWidthBounds(currentX + directionX) && grid[currentX + directionX][currentY] != EnumgGridSlot.STRUCTURE;
+                    canWalkY = currentX % 2 == 0 && inHeightBounds(currentY + directionY) && grid[currentX][currentY + directionY] != EnumgGridSlot.STRUCTURE;
                     canWalkTowards &= canWalkX && (newStreet.X - currentX) * directionX > 0 || canWalkY && (newStreet.Y - currentY) * directionY > 0;
                     if (!canWalkTowards)
                     {
@@ -272,11 +272,11 @@ namespace VsVillage
                         else if (goHorizontal == true) { currentX += directionX; }
                         else { currentY += directionY; }
                     }
-                    else if (canWalkX && Math.Abs(newStreet.X - currentX) > Math.Abs(newStreet.Y - currentY) || !canWalkY)
+                    else if (canWalkX && Math.Abs(newStreet.X - currentX) >= Math.Abs(newStreet.Y - currentY) || !canWalkY)
                     {
                         currentX += directionX;
                     }
-                    else
+                    else if (canWalkY)
                     {
                         currentY += directionY;
                     }
