@@ -36,6 +36,8 @@ namespace VsVillage
 
         public BlockSchematicStructure[] Schematics;
 
+        public Vec2i gridCoords;
+
         public void Init(ICoreServerAPI api)
         {
             var schematic = api.Assets.Get(new AssetLocation("vsvillage", "worldgen/schematics/" + SchematicCode))?.ToObject<BlockSchematicStructure>();

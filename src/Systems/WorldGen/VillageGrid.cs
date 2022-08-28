@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Vintagestory.API.Common;
 using Vintagestory.API.MathTools;
 
 namespace VsVillage
@@ -51,6 +52,7 @@ namespace VsVillage
         {
             capacity -= 16;
             structures.Add(structure);
+            structure.gridCoords = new Vec2i(x * 8 + 1, y * 8 + 1);
             for (int i = 0; i < 7; i++)
             {
                 for (int k = 0; k < 7; k++)
@@ -79,6 +81,7 @@ namespace VsVillage
         {
             capacity -= 4;
             structures.Add(structure);
+            structure.gridCoords = new Vec2i(x * 4 + 1, y * 4 + 1);
             for (int i = 0; i < 3; i++)
             {
                 for (int k = 0; k < 3; k++)
@@ -107,6 +110,7 @@ namespace VsVillage
         {
             capacity -= 1;
             structures.Add(structure);
+            structure.gridCoords = new Vec2i(x * 2 + 1, y * 2 + 1);
             grid[x * 2 + 1][y * 2 + 1] = EnumgGridSlot.STRUCTURE;
             switch (structure.AttachmentPoint)
             {
@@ -298,6 +302,78 @@ namespace VsVillage
                 sb.Append("\n");
             }
             return sb.ToString();
+        }
+
+        public Vec2i GridCoordsToMapCoords(int x, int y)
+        {
+            return new Vec2i(x * 3 + (x / 2) * 4, y * 3 + (y / 2) * 4);
+        }
+
+        public Vec2i GridCoordsToMapSize(int x, int y)
+        {
+            return new Vec2i(x % 2 == 0 ? 3 : 7, y % 2 == 0 ? 3 : 7);
+        }
+
+        public void GenerateStreets(Vec3i start, IWorldAccessor world)
+        {
+            for (int i = 0; i < width; i++)
+            {
+                for (int k = 0; k < height; k++)
+                {
+                    if (grid[i][k] == EnumgGridSlot.STREET)
+                    {
+                        GenerateStreetPart(start, i, k, world);
+                    }
+                }
+            }
+        }
+
+        private void GenerateStreetPart(Vec3i start, int x, int z, IWorldAccessor world)
+        {
+            var coords = GridCoordsToMapCoords(x, z);
+            var size = GridCoordsToMapSize(x, z);
+            for (int i = 0; i < size.X; i++)
+            {
+                for (int k = 0; k < size.Y; k++)
+                {
+                    int id = world.GetBlock(new AssetLocation("packeddirt")).Id;
+                    world.BlockAccessor.ExchangeBlock(id, start.ToBlockPos().Add(coords.X + i, 0, coords.Y + k));
+                }
+            }
+        }
+
+        public void GenerateDebugHouses(Vec3i start, IWorldAccessor world)
+        {
+            foreach (var house in structures)
+            {
+                GenerateDebugHouse(house, start, world);
+            }
+        }
+
+        private void GenerateDebugHouse(WorldGenVillageStructure house, Vec3i start, IWorldAccessor world)
+        {
+            int length = 0;
+            var coords = GridCoordsToMapCoords(house.gridCoords.X, house.gridCoords.Y);
+            switch (house.Size)
+            {
+                case EnumVillageStructureSize.SMALL:
+                    length = 7;
+                    break;
+                case EnumVillageStructureSize.MEDIUM:
+                    length = 17;
+                    break;
+                case EnumVillageStructureSize.LARGE:
+                    length = 37;
+                    break;
+            }
+            for (int i = 0; i < length; i++)
+            {
+                for (int k = 0; k < length; k++)
+                {
+                    int id = world.GetBlock(new AssetLocation("mudbrick-light")).Id;
+                    world.BlockAccessor.ExchangeBlock(id, start.ToBlockPos().Add(coords.X + i, 0, coords.Y + k));
+                }
+            }
         }
 
         private bool inHeightBounds(int y)
