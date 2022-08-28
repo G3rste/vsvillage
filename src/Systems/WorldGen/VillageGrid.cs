@@ -11,23 +11,30 @@ namespace VsVillage
 
         public List<WorldGenVillageStructure> structures = new List<WorldGenVillageStructure>();
 
-        public int capacity = 16;
+        public int capacity;
 
-        public int width = 9;
-        public int height = 9;
+        public readonly int width;
+        public readonly int height;
 
-        public VillageGrid()
+        public VillageGrid(int width = 1, int height = 1)
         {
-            grid = new EnumgGridSlot[9][];
-            for (int i = 0; i < 9; i++)
+            this.width = width * 8 + 1;
+            this.height = height * 8 + 1;
+            this.capacity = (this.width / 2) * (this.height / 2);
+            grid = new EnumgGridSlot[this.width][];
+            for (int i = 0; i < this.width; i++)
             {
-                grid[i] = new EnumgGridSlot[] { EnumgGridSlot.EMPTY, EnumgGridSlot.EMPTY, EnumgGridSlot.EMPTY, EnumgGridSlot.EMPTY, EnumgGridSlot.EMPTY, EnumgGridSlot.EMPTY, EnumgGridSlot.EMPTY, EnumgGridSlot.EMPTY, EnumgGridSlot.EMPTY };
+                grid[i] = new EnumgGridSlot[this.height];
+                for (int k = 0; k < this.height; k++)
+                {
+                    grid[i][k] = EnumgGridSlot.EMPTY;
+                }
             }
         }
 
-        public bool BigSlotAvailable()
+        public bool BigSlotAvailable(int x, int y)
         {
-            return grid[0][0] == EnumgGridSlot.EMPTY;
+            return grid[x * 8 + 1][y * 8 + 1] == EnumgGridSlot.EMPTY;
         }
 
         public bool MediumSlotAvailable(int x, int y)
@@ -40,30 +47,30 @@ namespace VsVillage
             return grid[x * 2 + 1][y * 2 + 1] == EnumgGridSlot.EMPTY;
         }
 
-        public void AddBigStructure(WorldGenVillageStructure structure)
+        public void AddBigStructure(WorldGenVillageStructure structure, int x, int y)
         {
             capacity -= 16;
             structures.Add(structure);
-            for (int i = 1; i < 8; i++)
+            for (int i = 0; i < 7; i++)
             {
-                for (int k = 1; k < 8; k++)
+                for (int k = 0; k < 7; k++)
                 {
-                    grid[i][k] = EnumgGridSlot.STRUCTURE;
+                    grid[x * 8 + 1 + i][y * 8 + 1 + k] = EnumgGridSlot.STRUCTURE;
                 }
             }
             switch (structure.AttachmentPoint)
             {
                 case 0:
-                    grid[4][8] = EnumgGridSlot.STREET;
+                    grid[x * 8 + 4][y * 8 + 8] = EnumgGridSlot.STREET;
                     break;
                 case 1:
-                    grid[8][4] = EnumgGridSlot.STREET;
+                    grid[x * 8 + 8][y * 8 + 4] = EnumgGridSlot.STREET;
                     break;
                 case 2:
-                    grid[4][0] = EnumgGridSlot.STREET;
+                    grid[x * 8 + 4][y * 8] = EnumgGridSlot.STREET;
                     break;
                 case 3:
-                    grid[0][4] = EnumgGridSlot.STREET;
+                    grid[x * 8][y * 8 + 4] = EnumgGridSlot.STREET;
                     break;
             }
         }
@@ -125,15 +132,31 @@ namespace VsVillage
             {
                 case EnumVillageStructureSize.LARGE:
                     if (capacity < 16) { return false; }
-                    else { AddBigStructure(structure); return true; }
+                    else
+                    {
+                        var free = new List<Vec2i>();
+                        for (int i = 0; i < width / 8; i++)
+                        {
+                            for (int k = 0; k < height / 8; k++)
+                            {
+                                if (BigSlotAvailable(i, k))
+                                {
+                                    free.Add(new Vec2i(i, k));
+                                }
+                            }
+                        }
+                        var xy = free[random.Next(0, free.Count)];
+                        AddBigStructure(structure, xy.X, xy.Y);
+                        return true;
+                    }
                 case EnumVillageStructureSize.MEDIUM:
                     if (capacity < 4) { return false; }
                     else
                     {
                         var free = new List<Vec2i>();
-                        for (int i = 0; i < 2; i++)
+                        for (int i = 0; i < width / 4; i++)
                         {
-                            for (int k = 0; k < 2; k++)
+                            for (int k = 0; k < height / 4; k++)
                             {
                                 if (MediumSlotAvailable(i, k))
                                 {
@@ -150,9 +173,9 @@ namespace VsVillage
                     else
                     {
                         var free = new List<Vec2i>();
-                        for (int i = 0; i < 4; i++)
+                        for (int i = 0; i < width / 2; i++)
                         {
-                            for (int k = 0; k < 4; k++)
+                            for (int k = 0; k < height / 2; k++)
                             {
                                 if (SmallSlotAvailable(i, k))
                                 {
@@ -174,7 +197,10 @@ namespace VsVillage
             var connectedStreets = new List<Vec2i>();
             int currentX = 0;
             int currentY = 0;
-            for (int i = 0; i < 9 * 9; i++)
+            int offsetX = 0;
+            int offsetY = 0;
+            bool rightEdge = false;
+            for (int i = 0; i < width * height; i++)
             {
                 if (grid[currentX][currentY] == EnumgGridSlot.STREET)
                 {
@@ -182,15 +208,13 @@ namespace VsVillage
                 }
                 currentX--;
                 currentY++;
-                if (currentX < 0 && currentY < 9)
+                if (currentX < 0 || currentY >= height)
                 {
-                    currentX = currentY;
-                    currentY = 0;
-                }
-                else if (currentY >= 9)
-                {
-                    currentY = currentX + 2;
-                    currentX = 8;
+                    offsetX = rightEdge ? width - 1 : offsetX + 1;
+                    offsetY = rightEdge ? offsetY + 1 : offsetY;
+                    rightEdge |= offsetX >= width - 1;
+                    currentX = offsetX;
+                    currentY = offsetY;
                 }
             }
         }
@@ -265,11 +289,11 @@ namespace VsVillage
         public string debugPrintGrid()
         {
             var sb = new StringBuilder();
-            for (int i = 0; i < 9; i++)
+            for (int i = 0; i < height; i++)
             {
-                for (int k = 0; k < 9; k++)
+                for (int k = 0; k < width; k++)
                 {
-                    sb.Append((int)grid[k][8 - i]).Append(" ");
+                    sb.Append((int)grid[k][height - 1 - i]).Append(" ");
                 }
                 sb.Append("\n");
             }
