@@ -13,6 +13,9 @@ namespace VsVillage
 
         public int capacity = 16;
 
+        public int width = 9;
+        public int height = 9;
+
         public VillageGrid()
         {
             grid = new EnumgGridSlot[9][];
@@ -115,7 +118,7 @@ namespace VsVillage
             }
         }
 
-        //always go from biggest to smallest structure, otherwise this will break
+        //always go from biggest to smallest structure, otherwise this might break
         public bool tryAddStructure(WorldGenVillageStructure structure, Random random)
         {
             switch (structure.Size)
@@ -166,6 +169,99 @@ namespace VsVillage
             }
         }
 
+        public void connectStreets()
+        {
+            var connectedStreets = new List<Vec2i>();
+            int currentX = 0;
+            int currentY = 0;
+            for (int i = 0; i < 9 * 9; i++)
+            {
+                if (grid[currentX][currentY] == EnumgGridSlot.STREET)
+                {
+                    addStreedToGrid(connectedStreets, new Vec2i(currentX, currentY));
+                }
+                currentX--;
+                currentY++;
+                if (currentX < 0 && currentY < 9)
+                {
+                    currentX = currentY;
+                    currentY = 0;
+                }
+                else if (currentY >= 9)
+                {
+                    currentY = currentX + 2;
+                    currentX = 8;
+                }
+            }
+        }
+
+        private void addStreedToGrid(List<Vec2i> connectedStreets, Vec2i newStreet)
+        {
+            if (connectedStreets.Count == 0)
+            {
+                connectedStreets.Add(newStreet);
+            }
+            else
+            {
+                // get closest street
+                var nearest = connectedStreets[0];
+                var nearestDistance = Math.Abs(newStreet.X - nearest.X) + Math.Abs(newStreet.Y - nearest.Y);
+                foreach (var candidate in connectedStreets)
+                {
+                    var candidateDistance = Math.Abs(newStreet.X - candidate.X) + Math.Abs(newStreet.Y - candidate.Y);
+                    if (candidateDistance < nearestDistance)
+                    {
+                        nearest = candidate;
+                        nearestDistance = candidateDistance;
+                    }
+                }
+                // conntect streets
+                int currentX = nearest.X;
+                int currentY = nearest.Y;
+                bool canWalkY;
+                bool canWalkX;
+                bool canWalkTowards = true;
+                int directionX = Math.Sign(newStreet.X - currentX + 0.5f);
+                int directionY = Math.Sign(newStreet.Y - currentY + 0.5f);
+                bool? goHorizontal = null;
+                while (Math.Abs(newStreet.X - currentX) + Math.Abs(newStreet.Y - currentY) > 1)
+                {
+                    canWalkX = currentY % 2 == 0 && inWidthBounds(currentX + directionX) && grid[currentX + directionX][currentY] == EnumgGridSlot.EMPTY;
+                    canWalkY = currentX % 2 == 0 && inHeightBounds(currentY + directionY) && grid[currentX][currentY + directionY] == EnumgGridSlot.EMPTY;
+                    canWalkTowards &= canWalkX && (newStreet.X - currentX) * directionX > 0 || canWalkY && (newStreet.Y - currentY) * directionY > 0;
+                    if (!canWalkTowards)
+                    {
+                        if (goHorizontal == null)
+                        {
+                            goHorizontal = canWalkX;
+                        }
+
+                        if (canWalkY && goHorizontal == true || canWalkX && goHorizontal == false)
+                        {
+                            if (goHorizontal == true) { currentY += directionY; }
+                            else { currentX += directionX; }
+                            goHorizontal = null;
+                            canWalkTowards = true;
+                            directionX = Math.Sign(newStreet.X - currentX + 0.5f);
+                            directionY = Math.Sign(newStreet.Y - currentY + 0.5f);
+                        }
+                        else if (goHorizontal == true) { currentX += directionX; }
+                        else { currentY += directionY; }
+                    }
+                    else if (canWalkX && Math.Abs(newStreet.X - currentX) > Math.Abs(newStreet.Y - currentY) || !canWalkY)
+                    {
+                        currentX += directionX;
+                    }
+                    else
+                    {
+                        currentY += directionY;
+                    }
+                    grid[currentX][currentY] = EnumgGridSlot.STREET;
+                    connectedStreets.Add(new Vec2i(currentX, currentY));
+                }
+            }
+        }
+
         public string debugPrintGrid()
         {
             var sb = new StringBuilder();
@@ -178,6 +274,16 @@ namespace VsVillage
                 sb.Append("\n");
             }
             return sb.ToString();
+        }
+
+        private bool inHeightBounds(int y)
+        {
+            return y >= 0 && y < height;
+        }
+
+        private bool inWidthBounds(int x)
+        {
+            return x >= 0 && x < width;
         }
     }
 

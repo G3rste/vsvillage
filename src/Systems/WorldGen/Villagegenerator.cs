@@ -67,6 +67,7 @@ namespace VsVillage
                         }
                         break;
                 }
+                grid.connectStreets();
                 player.SendMessage(GlobalConstants.AllChatGroups, grid.debugPrintGrid(), EnumChatType.CommandSuccess);
             }
         }
