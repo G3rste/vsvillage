@@ -17,6 +17,8 @@ namespace VsVillage
         public readonly int width;
         public readonly int height;
 
+        public int avgheight;
+
         public VillageGrid(int width = 1, int height = 1)
         {
             this.width = width * 8 + 1;
@@ -316,6 +318,8 @@ namespace VsVillage
 
         public void GenerateStreets(Vec3i start, IWorldAccessor world)
         {
+            var blockAccessor = world.BlockAccessor;
+
             for (int i = 0; i < width; i++)
             {
                 for (int k = 0; k < height; k++)
@@ -332,12 +336,17 @@ namespace VsVillage
         {
             var coords = GridCoordsToMapCoords(x, z);
             var size = GridCoordsToMapSize(x, z);
+            var startPos = start.ToBlockPos();
+            int id = world.GetBlock(new AssetLocation("packeddirt")).Id;
             for (int i = 0; i < size.X; i++)
             {
                 for (int k = 0; k < size.Y; k++)
                 {
-                    int id = world.GetBlock(new AssetLocation("packeddirt")).Id;
-                    world.BlockAccessor.ExchangeBlock(id, start.ToBlockPos().Add(coords.X + i, 0, coords.Y + k));
+                    var pos = startPos.AddCopy(coords.X + i, 0, coords.Y + k);
+                    pos.Y = world.BlockAccessor.GetTerrainMapheightAt(pos);
+                    world.BlockAccessor.SetBlock(id, pos);
+                    world.BlockAccessor.SetBlock(0, pos.Add(0, 1, 0)); // can probably be removed when hooked properly into world gen
+                    world.BlockAccessor.SetBlock(0, pos.Add(0, 1, 0)); // can probably be removed when hooked properly into world gen
                 }
             }
         }
