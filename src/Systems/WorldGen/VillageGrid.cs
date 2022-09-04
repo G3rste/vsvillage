@@ -350,16 +350,30 @@ namespace VsVillage
             var coords = GridCoordsToMapCoords(x, z);
             var size = GridCoordsToMapSize(x, z);
             var startPos = start.ToBlockPos();
-            int id = world.GetBlock(new AssetLocation("packeddirt")).Id;
+            int idpath = world.GetBlock(new AssetLocation("packeddirt")).Id;
+            int idbridge = world.GetBlock(new AssetLocation("planks-aged-hor")).Id;
+            var blockAccessor = world.BlockAccessor;
             for (int i = 0; i < size.X; i++)
             {
                 for (int k = 0; k < size.Y; k++)
                 {
                     var pos = startPos.AddCopy(coords.X + i, 0, coords.Y + k);
-                    pos.Y = world.BlockAccessor.GetTerrainMapheightAt(pos);
-                    world.BlockAccessor.SetBlock(id, pos);
-                    world.BlockAccessor.SetBlock(0, pos.Add(0, 1, 0)); // can probably be removed when hooked properly into world gen
-                    world.BlockAccessor.SetBlock(0, pos.Add(0, 1, 0)); // can probably be removed when hooked properly into world gen
+                    int terrainheight = blockAccessor.GetTerrainMapheightAt(pos);
+                    int rainheight = blockAccessor.GetRainMapHeightAt(pos);
+                    int id;
+                    if (terrainheight < rainheight)
+                    {
+                        pos.Y = rainheight;
+                        id = idbridge;
+                    }
+                    else
+                    {
+                        pos.Y = terrainheight;
+                        id = idpath;
+                    }
+                    blockAccessor.SetBlock(id, pos);
+                    blockAccessor.SetBlock(0, pos.Add(0, 1, 0)); // can probably be removed when hooked properly into world gen
+                    blockAccessor.SetBlock(0, pos.Add(0, 1, 0)); // can probably be removed when hooked properly into world gen
                 }
             }
         }
@@ -378,7 +392,18 @@ namespace VsVillage
             var coords = GridCoordsToMapCoords(house.gridCoords.X, house.gridCoords.Y);
             var pos = start.ToBlockPos().Add(coords.X, 0, coords.Y);
             var offsetForHeight = connectingPathOffset(house);
-            pos.Y = world.BlockAccessor.GetTerrainMapheightAt(pos.AddCopy(offsetForHeight.X, 0, offsetForHeight.Y));
+            var posForHeightDetection = pos.AddCopy(offsetForHeight.X, 0, offsetForHeight.Y);
+            var blockAccessor = world.BlockAccessor;
+            int terrainheight = blockAccessor.GetTerrainMapheightAt(posForHeightDetection);
+            int rainheight = blockAccessor.GetRainMapHeightAt(posForHeightDetection);
+            if (terrainheight < rainheight)
+            {
+                pos.Y = rainheight;
+            }
+            else
+            {
+                pos.Y = terrainheight;
+            }
             house.structure.Generate(world.BlockAccessor, world, pos, house.orientation);
         }
 
