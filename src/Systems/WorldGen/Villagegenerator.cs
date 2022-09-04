@@ -32,7 +32,7 @@ namespace VsVillage
                         {
                             var structure = new WorldGenVillageStructure();
                             structure.AttachmentPoint = k;
-                            grid.AddSmallStructure(structure, i, k);
+                            grid.AddSmallStructure(structure, i, k, 0);
                         }
                     }
                     break;
@@ -44,13 +44,13 @@ namespace VsVillage
                         {
                             var structure = new WorldGenVillageStructure();
                             structure.AttachmentPoint = 0;
-                            grid.AddMediumStructure(structure, i, k);
+                            grid.AddMediumStructure(structure, i, k, 0);
                             point++;
                         }
                     }
                     break;
                 case "big":
-                    grid.AddBigStructure(new WorldGenVillageStructure(), 0, 0);
+                    grid.AddBigStructure(new WorldGenVillageStructure(), 0, 0, 0);
                     break;
                 case "random":
                     int width = sapi.World.Rand.Next(2, 5);
@@ -88,7 +88,9 @@ namespace VsVillage
                     {
                         var structure = new WorldGenVillageStructure();
                         structure.Size = EnumVillageStructureSize.LARGE;
-                        structure.AttachmentPoint = sapi.World.Rand.Next(0, 4);
+                        structure.AttachmentPoint = 0;
+                        structure.SchematicCode = "house-large-1";
+                        structure.Init(sapi);
                         grid.tryAddStructure(structure, sapi.World.Rand);
                     }
                     int.TryParse(args[3], out structures);
@@ -96,7 +98,9 @@ namespace VsVillage
                     {
                         var structure = new WorldGenVillageStructure();
                         structure.Size = EnumVillageStructureSize.MEDIUM;
-                        structure.AttachmentPoint = sapi.World.Rand.Next(0, 4);
+                        structure.AttachmentPoint = 0;
+                        structure.SchematicCode = "house-medium-1";
+                        structure.Init(sapi);
                         grid.tryAddStructure(structure, sapi.World.Rand);
                     }
                     int.TryParse(args[4], out structures);
@@ -104,7 +108,9 @@ namespace VsVillage
                     {
                         var structure = new WorldGenVillageStructure();
                         structure.Size = EnumVillageStructureSize.SMALL;
-                        structure.AttachmentPoint = sapi.World.Rand.Next(0, 4);
+                        structure.AttachmentPoint = 0;
+                        structure.SchematicCode = "house-small-1";
+                        structure.Init(sapi);
                         grid.tryAddStructure(structure, sapi.World.Rand);
                     }
                     break;

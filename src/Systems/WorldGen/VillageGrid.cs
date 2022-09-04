@@ -10,7 +10,7 @@ namespace VsVillage
     {
         public EnumgGridSlot[][] grid;
 
-        public List<WorldGenVillageStructure> structures = new List<WorldGenVillageStructure>();
+        public List<StructureWithOrientation> structures = new List<StructureWithOrientation>();
 
         public int capacity;
 
@@ -50,10 +50,10 @@ namespace VsVillage
             return grid[x * 2 + 1][y * 2 + 1] == EnumgGridSlot.EMPTY;
         }
 
-        public void AddBigStructure(WorldGenVillageStructure structure, int x, int y)
+        public void AddBigStructure(WorldGenVillageStructure structure, int x, int y, int orientation)
         {
             capacity -= 16;
-            structures.Add(structure);
+            structures.Add(new StructureWithOrientation() { structure = structure, orientation = orientation });
             structure.gridCoords = new Vec2i(x * 8 + 1, y * 8 + 1);
             for (int i = 0; i < 7; i++)
             {
@@ -62,7 +62,7 @@ namespace VsVillage
                     grid[x * 8 + 1 + i][y * 8 + 1 + k] = EnumgGridSlot.STRUCTURE;
                 }
             }
-            switch (structure.AttachmentPoint)
+            switch (orientation)
             {
                 case 0:
                     grid[x * 8 + 4][y * 8 + 8] = EnumgGridSlot.STREET;
@@ -79,10 +79,10 @@ namespace VsVillage
             }
         }
 
-        public void AddMediumStructure(WorldGenVillageStructure structure, int x, int y)
+        public void AddMediumStructure(WorldGenVillageStructure structure, int x, int y, int orientation)
         {
             capacity -= 4;
-            structures.Add(structure);
+            structures.Add(new StructureWithOrientation() { structure = structure, orientation = orientation });
             structure.gridCoords = new Vec2i(x * 4 + 1, y * 4 + 1);
             for (int i = 0; i < 3; i++)
             {
@@ -91,7 +91,7 @@ namespace VsVillage
                     grid[x * 4 + 1 + i][y * 4 + 1 + k] = EnumgGridSlot.STRUCTURE;
                 }
             }
-            switch (structure.AttachmentPoint)
+            switch (orientation)
             {
                 case 0:
                     grid[x * 4 + 2][y * 4 + 4] = EnumgGridSlot.STREET;
@@ -108,13 +108,13 @@ namespace VsVillage
             }
         }
 
-        public void AddSmallStructure(WorldGenVillageStructure structure, int x, int y)
+        public void AddSmallStructure(WorldGenVillageStructure structure, int x, int y, int orientation)
         {
             capacity -= 1;
-            structures.Add(structure);
+            structures.Add(new StructureWithOrientation() { structure = structure, orientation = orientation });
             structure.gridCoords = new Vec2i(x * 2 + 1, y * 2 + 1);
             grid[x * 2 + 1][y * 2 + 1] = EnumgGridSlot.STRUCTURE;
-            switch (structure.AttachmentPoint)
+            switch (orientation)
             {
                 case 0:
                     grid[x * 2 + 1][y * 2 + 2] = EnumgGridSlot.STREET;
@@ -134,6 +134,7 @@ namespace VsVillage
         //always go from biggest to smallest structure, otherwise this might break
         public bool tryAddStructure(WorldGenVillageStructure structure, Random random)
         {
+            int orientation = random.Next(0, 4);
             switch (structure.Size)
             {
                 case EnumVillageStructureSize.LARGE:
@@ -152,7 +153,7 @@ namespace VsVillage
                             }
                         }
                         var xy = free[random.Next(0, free.Count)];
-                        AddBigStructure(structure, xy.X, xy.Y);
+                        AddBigStructure(structure, xy.X, xy.Y, orientation);
                         return true;
                     }
                 case EnumVillageStructureSize.MEDIUM:
@@ -171,7 +172,7 @@ namespace VsVillage
                             }
                         }
                         var xy = free[random.Next(0, free.Count)];
-                        AddMediumStructure(structure, xy.X, xy.Y);
+                        AddMediumStructure(structure, xy.X, xy.Y, orientation);
                         return true;
                     }
                 case EnumVillageStructureSize.SMALL:
@@ -190,7 +191,7 @@ namespace VsVillage
                             }
                         }
                         var xy = free[random.Next(0, free.Count)];
-                        AddSmallStructure(structure, xy.X, xy.Y);
+                        AddSmallStructure(structure, xy.X, xy.Y, orientation);
                         return true;
                     }
                 default: return false;
@@ -355,34 +356,16 @@ namespace VsVillage
         {
             foreach (var house in structures)
             {
-                GenerateDebugHouse(house, start, world);
+                GenerateDebugHouse(house.structure, start, world, house.orientation);
             }
         }
 
-        private void GenerateDebugHouse(WorldGenVillageStructure house, Vec3i start, IWorldAccessor world)
+        private void GenerateDebugHouse(WorldGenVillageStructure house, Vec3i start, IWorldAccessor world, int orientation)
         {
-            int length = 0;
             var coords = GridCoordsToMapCoords(house.gridCoords.X, house.gridCoords.Y);
-            switch (house.Size)
-            {
-                case EnumVillageStructureSize.SMALL:
-                    length = 7;
-                    break;
-                case EnumVillageStructureSize.MEDIUM:
-                    length = 17;
-                    break;
-                case EnumVillageStructureSize.LARGE:
-                    length = 37;
-                    break;
-            }
-            for (int i = 0; i < length; i++)
-            {
-                for (int k = 0; k < length; k++)
-                {
-                    int id = world.GetBlock(new AssetLocation("mudbrick-light")).Id;
-                    world.BlockAccessor.ExchangeBlock(id, start.ToBlockPos().Add(coords.X + i, 0, coords.Y + k));
-                }
-            }
+            var pos = start.ToBlockPos().Add(coords.X, 0, coords.Y);
+            pos.Y = world.BlockAccessor.GetTerrainMapheightAt(pos);
+            house.Generate(world.BlockAccessor, world, pos, orientation);
         }
 
         private bool inHeightBounds(int y)
@@ -399,5 +382,11 @@ namespace VsVillage
     public enum EnumgGridSlot
     {
         EMPTY, STRUCTURE, STREET
+    }
+
+    public class StructureWithOrientation
+    {
+        public WorldGenVillageStructure structure;
+        public int orientation;
     }
 }
