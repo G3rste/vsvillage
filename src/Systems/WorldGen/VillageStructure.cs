@@ -48,20 +48,22 @@ namespace VsVillage
                 return;
             }
             Schematics = new BlockSchematicStructure[4];
+            schematic.FromFileName = asset.Name;
+            schematic.Init(api.World.BlockAccessor);
+            schematic.TransformWhilePacked(api.World, EnumOrigin.BottomCenter, 90 * (4 - AttachmentPoint));
+            schematic.LoadMetaInformationAndValidate(api.World.BlockAccessor, api.World, schematic.FromFileName);
             Schematics[0] = schematic;
-            Schematics[0].FromFileName = asset.Name;
-            Schematics[0].Init(api.World.BlockAccessor);
-            Schematics[0].TransformWhilePacked(api.World, EnumOrigin.BottomCenter, 90 * (4 - AttachmentPoint));
-            Schematics[0].LoadMetaInformationAndValidate(api.World.BlockAccessor, api.World, schematic.FromFileName);
-            api.World.Logger.Debug(Schematics[0].FromFileName);
             for (int k = 1; k < 4; k++)
             {
-                Schematics[k] = Schematics[0].Clone();
+                Schematics[k] = schematic.Clone();
                 Schematics[k].TransformWhilePacked(api.World, EnumOrigin.BottomCenter, k * 90);
                 Schematics[k].Init(api.World.BlockAccessor);
                 Schematics[k].LoadMetaInformationAndValidate(api.World.BlockAccessor, api.World, schematic.FromFileName);
             }
 
+            // while in the VS World +z coordinate equals south, in the grid worl it equals north, so we have to invert here
+            Schematics[0].TransformWhilePacked(api.World, EnumOrigin.BottomCenter, 180);
+            Schematics[2].TransformWhilePacked(api.World, EnumOrigin.BottomCenter, 180);
         }
 
         public void Generate(IBlockAccessor blockAccessor, IWorldAccessor worldForCollectibleResolve, BlockPos pos, int neededBlockFacing)
