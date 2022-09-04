@@ -53,8 +53,12 @@ namespace VsVillage
         public void AddBigStructure(WorldGenVillageStructure structure, int x, int y, int orientation)
         {
             capacity -= 16;
-            structures.Add(new StructureWithOrientation() { structure = structure, orientation = orientation });
-            structure.gridCoords = new Vec2i(x * 8 + 1, y * 8 + 1);
+            structures.Add(new StructureWithOrientation()
+            {
+                structure = structure,
+                orientation = orientation,
+                gridCoords = new Vec2i(x * 8 + 1, y * 8 + 1)
+            });
             for (int i = 0; i < 7; i++)
             {
                 for (int k = 0; k < 7; k++)
@@ -82,8 +86,12 @@ namespace VsVillage
         public void AddMediumStructure(WorldGenVillageStructure structure, int x, int y, int orientation)
         {
             capacity -= 4;
-            structures.Add(new StructureWithOrientation() { structure = structure, orientation = orientation });
-            structure.gridCoords = new Vec2i(x * 4 + 1, y * 4 + 1);
+            structures.Add(new StructureWithOrientation()
+            {
+                structure = structure,
+                orientation = orientation,
+                gridCoords = new Vec2i(x * 4 + 1, y * 4 + 1)
+            });
             for (int i = 0; i < 3; i++)
             {
                 for (int k = 0; k < 3; k++)
@@ -111,8 +119,12 @@ namespace VsVillage
         public void AddSmallStructure(WorldGenVillageStructure structure, int x, int y, int orientation)
         {
             capacity -= 1;
-            structures.Add(new StructureWithOrientation() { structure = structure, orientation = orientation });
-            structure.gridCoords = new Vec2i(x * 2 + 1, y * 2 + 1);
+            structures.Add(new StructureWithOrientation()
+            {
+                structure = structure,
+                orientation = orientation,
+                gridCoords = new Vec2i(x * 2 + 1, y * 2 + 1)
+            });
             grid[x * 2 + 1][y * 2 + 1] = EnumgGridSlot.STRUCTURE;
             switch (orientation)
             {
@@ -356,16 +368,16 @@ namespace VsVillage
         {
             foreach (var house in structures)
             {
-                GenerateDebugHouse(house.structure, start, world, house.orientation);
+                GenerateDebugHouse(house, start, world);
             }
         }
 
-        private void GenerateDebugHouse(WorldGenVillageStructure house, Vec3i start, IWorldAccessor world, int orientation)
+        private void GenerateDebugHouse(StructureWithOrientation house, Vec3i start, IWorldAccessor world)
         {
             var coords = GridCoordsToMapCoords(house.gridCoords.X, house.gridCoords.Y);
             var pos = start.ToBlockPos().Add(coords.X, 0, coords.Y);
             pos.Y = world.BlockAccessor.GetTerrainMapheightAt(pos);
-            house.Generate(world.BlockAccessor, world, pos, orientation);
+            house.structure.Generate(world.BlockAccessor, world, pos, house.orientation);
         }
 
         private bool inHeightBounds(int y)
@@ -388,5 +400,7 @@ namespace VsVillage
     {
         public WorldGenVillageStructure structure;
         public int orientation;
+
+        public Vec2i gridCoords;
     }
 }

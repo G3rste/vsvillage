@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using Vintagestory.API.MathTools;
 using Vintagestory.ServerMods;
 using Newtonsoft.Json;
@@ -21,26 +20,12 @@ namespace VsVillage
         public int VerticalOffset = 0;
         [JsonProperty]
         public EnumVillageStructureSize Size = EnumVillageStructureSize.SMALL;
-        [JsonProperty]
-        public int MinTemp = -30;
-        [JsonProperty]
-        public int MaxTemp = 40;
-        [JsonProperty]
-        public float MinRain = 0;
-        [JsonProperty]
-        public float MaxRain = 1;
-        [JsonProperty]
-        public float MinForest = 0;
-        [JsonProperty]
-        public float MaxForest = 1;
 
         public BlockSchematicStructure[] Schematics;
 
-        public Vec2i gridCoords;
-
         public void Init(ICoreServerAPI api)
         {
-            var asset = api.Assets.Get(new AssetLocation("game", "worldgen/schematics/overground/village/" + SchematicCode + ".json"));
+            var asset = api.Assets.Get(new AssetLocation("game", "worldgen/schematics/vsvillage/" + SchematicCode + ".json"));
             var schematic = asset?.ToObject<BlockSchematicStructure>();
             if (schematic == null)
             {
@@ -68,39 +53,9 @@ namespace VsVillage
 
         public void Generate(IBlockAccessor blockAccessor, IWorldAccessor worldForCollectibleResolve, BlockPos pos, int neededBlockFacing)
         {
-            //Schematics[neededBlockFacing].PlaceReplacingBlocks(blockAccessor, worldForCollectibleResolve, pos, EnumReplaceMode.ReplaceAllNoAir, new Dictionary<int, Dictionary<int, int>>());
             Schematics[neededBlockFacing].Place(blockAccessor, worldForCollectibleResolve, pos, EnumReplaceMode.ReplaceAllNoAir);
             blockAccessor.Commit();
             Schematics[neededBlockFacing].PlaceEntitiesAndBlockEntities(blockAccessor, worldForCollectibleResolve, pos);
-            //blockAccessor.Commit();        
-            /*
-            for (int i = 0; i < Schematics[neededBlockFacing].Indices.Count; i++)
-            {
-                uint index = Schematics[neededBlockFacing].Indices[i];
-                int storedBlockid = Schematics[neededBlockFacing].BlockIds[i];
-
-                int dx = (int)(index & 0x1ff);
-                int dy = (int)((index >> 20) & 0x1ff);
-                int dz = (int)((index >> 10) & 0x1ff);
-
-                Block block = blockAccessor.GetBlock(Schematics[neededBlockFacing].BlockCodes[storedBlockid]);
-                if (block == null) { worldForCollectibleResolve.Logger.Debug(Schematics[neededBlockFacing].BlockCodes[storedBlockid].Domain); continue;}
-                blockAccessor.SetBlock(block.Id, pos.AddCopy(dx, dy, dz));
-
-                Schematics[neededBlockFacing].blocksByPos[dx, dy, dz] = block;
-            }
-            for (int x = 0; x < Schematics[neededBlockFacing].blocksByPos.GetLength(0); x++)
-                for (int y = 0; y < Schematics[neededBlockFacing].blocksByPos.GetLength(1); y++)
-                    for (int z = 0; z < Schematics[neededBlockFacing].blocksByPos.GetLength(2); z++)
-                        if (Schematics[neededBlockFacing].blocksByPos[x, y, z] != null)
-                        {
-                            worldForCollectibleResolve.Logger.Debug("Placed block " + Schematics[neededBlockFacing].blocksByPos[x, y, z].Id);
-                            blockAccessor.SetBlock(Schematics[neededBlockFacing].blocksByPos[x, y, z].Id, pos.AddCopy(x, y, z));
-                        }
-            foreach (var entry in Schematics[neededBlockFacing].BlockCodes.Values)
-            {
-                worldForCollectibleResolve.Logger.Debug(entry.Path);
-            }*/
         }
     }
 

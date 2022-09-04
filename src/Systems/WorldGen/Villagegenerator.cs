@@ -99,7 +99,7 @@ namespace VsVillage
                         var structure = new WorldGenVillageStructure();
                         structure.Size = EnumVillageStructureSize.MEDIUM;
                         structure.AttachmentPoint = 0;
-                        structure.SchematicCode = "house-medium-1";
+                        structure.SchematicCode = "house-medium-" + sapi.World.Rand.Next(1, 3);
                         structure.Init(sapi);
                         grid.tryAddStructure(structure, sapi.World.Rand);
                     }
@@ -109,7 +109,7 @@ namespace VsVillage
                         var structure = new WorldGenVillageStructure();
                         structure.Size = EnumVillageStructureSize.SMALL;
                         structure.AttachmentPoint = 0;
-                        structure.SchematicCode = "house-small-1";
+                        structure.SchematicCode = "house-small-" + sapi.World.Rand.Next(1, 7);
                         structure.Init(sapi);
                         grid.tryAddStructure(structure, sapi.World.Rand);
                     }
@@ -117,7 +117,8 @@ namespace VsVillage
             }
             grid.connectStreets();
             player.SendMessage(GlobalConstants.AllChatGroups, grid.debugPrintGrid(), EnumChatType.CommandSuccess);
-            if(args[0] == "world"){
+            if (args[0] == "world")
+            {
                 grid.GenerateStreets(player.Entity.ServerPos.XYZInt, sapi.World);
                 grid.GenerateDebugHouses(player.Entity.ServerPos.XYZInt, sapi.World);
             }
