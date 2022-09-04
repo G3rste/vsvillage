@@ -364,20 +364,45 @@ namespace VsVillage
             }
         }
 
-        public void GenerateDebugHouses(Vec3i start, IWorldAccessor world)
+        public void GenerateHouses(Vec3i start, IWorldAccessor world)
         {
             foreach (var house in structures)
             {
-                GenerateDebugHouse(house, start, world);
+                GenerateHouse(house, start, world);
             }
         }
 
-        private void GenerateDebugHouse(StructureWithOrientation house, Vec3i start, IWorldAccessor world)
+        private void GenerateHouse(StructureWithOrientation house, Vec3i start, IWorldAccessor world)
         {
+
             var coords = GridCoordsToMapCoords(house.gridCoords.X, house.gridCoords.Y);
             var pos = start.ToBlockPos().Add(coords.X, 0, coords.Y);
-            pos.Y = world.BlockAccessor.GetTerrainMapheightAt(pos);
+            var offsetForHeight = connectingPathOffset(house);
+            pos.Y = world.BlockAccessor.GetTerrainMapheightAt(pos.AddCopy(offsetForHeight.X, 0, offsetForHeight.Y));
             house.structure.Generate(world.BlockAccessor, world, pos, house.orientation);
+        }
+
+        private Vec2i connectingPathOffset(StructureWithOrientation house)
+        {
+            var size = house.structure.Size;
+            switch (house.orientation)
+            {
+                case 0: return new Vec2i(getSize(size) / 2, getSize(size));
+                case 1: return new Vec2i(getSize(size), getSize(size) / 2);
+                case 2: return new Vec2i(getSize(size) / 2, -1);
+                case 3: return new Vec2i(-1, getSize(size) / 2);
+                default: throw new ArgumentException("House has invalid orientation.");
+            }
+        }
+
+        private int getSize(EnumVillageStructureSize size)
+        {
+            switch (size)
+            {
+                case EnumVillageStructureSize.SMALL: return 7;
+                case EnumVillageStructureSize.MEDIUM: return 17;
+                default: return 37;
+            }
         }
 
         private bool inHeightBounds(int y)

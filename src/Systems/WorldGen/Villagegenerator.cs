@@ -120,7 +120,7 @@ namespace VsVillage
             if (args[0] == "world")
             {
                 grid.GenerateStreets(player.Entity.ServerPos.XYZInt, sapi.World);
-                grid.GenerateDebugHouses(player.Entity.ServerPos.XYZInt, sapi.World);
+                grid.GenerateHouses(player.Entity.ServerPos.XYZInt, sapi.World);
             }
         }
 
