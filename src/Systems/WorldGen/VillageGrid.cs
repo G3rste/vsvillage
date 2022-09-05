@@ -360,13 +360,9 @@ namespace VsVillage
                     var pos = startPos.AddCopy(coords.X + i, 0, coords.Y + k);
                     int terrainheight = blockAccessor.GetTerrainMapheightAt(pos);
                     int rainheight = blockAccessor.GetRainMapHeightAt(pos);
-                    int id;
-                    if (terrainheight < rainheight)
-                    {
-                        pos.Y = rainheight;
-                        id = idbridge;
-                    }
-                    else
+                    int id = idbridge;
+                    pos.Y = rainheight;
+                    if (terrainheight >= rainheight || blockAccessor.GetBlock(pos, BlockLayersAccess.Fluid).Id == 0)
                     {
                         pos.Y = terrainheight;
                         id = idpath;
@@ -396,11 +392,8 @@ namespace VsVillage
             var blockAccessor = world.BlockAccessor;
             int terrainheight = blockAccessor.GetTerrainMapheightAt(posForHeightDetection);
             int rainheight = blockAccessor.GetRainMapHeightAt(posForHeightDetection);
-            if (terrainheight < rainheight)
-            {
-                pos.Y = rainheight;
-            }
-            else
+            pos.Y = rainheight;
+            if (terrainheight >= rainheight || blockAccessor.GetBlock(pos, BlockLayersAccess.Fluid).Id == 0)
             {
                 pos.Y = terrainheight;
             }

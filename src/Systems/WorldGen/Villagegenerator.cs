@@ -119,8 +119,8 @@ namespace VsVillage
             player.SendMessage(GlobalConstants.AllChatGroups, grid.debugPrintGrid(), EnumChatType.CommandSuccess);
             if (args[0] == "world")
             {
-                grid.GenerateStreets(player.Entity.ServerPos.XYZInt, sapi.World);
                 grid.GenerateHouses(player.Entity.ServerPos.XYZInt, sapi.World);
+                grid.GenerateStreets(player.Entity.ServerPos.XYZInt, sapi.World);
             }
         }
 
