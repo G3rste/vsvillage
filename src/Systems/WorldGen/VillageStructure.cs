@@ -51,11 +51,51 @@ namespace VsVillage
             Schematics[2].TransformWhilePacked(api.World, EnumOrigin.BottomCenter, 180);
         }
 
-        public void Generate(IBlockAccessor blockAccessor, IWorldAccessor worldForCollectibleResolve, BlockPos pos, int neededBlockFacing)
+        public void Generate(IBlockAccessor blockAccessor, IWorldAccessor worldForCollectibleResolve, BlockPos pos, int orientation)
         {
-            Schematics[neededBlockFacing].Place(blockAccessor, worldForCollectibleResolve, pos, EnumReplaceMode.ReplaceAllNoAir);
+            Schematics[orientation].Place(blockAccessor, worldForCollectibleResolve, pos, EnumReplaceMode.ReplaceAllNoAir);
             blockAccessor.Commit();
-            Schematics[neededBlockFacing].PlaceEntitiesAndBlockEntities(blockAccessor, worldForCollectibleResolve, pos);
+            Schematics[orientation].PlaceEntitiesAndBlockEntities(blockAccessor, worldForCollectibleResolve, pos);
+            if (orientation % 2 == 0)
+            {
+                orientation = (orientation + 2) % 4; // has something to do with the rotation by 180° a couple lines earlier, needs to be done for some reason...
+            }
+            generateFoundation(blockAccessor, pos, Schematics[orientation], orientation);
+        }
+
+        private void generateFoundation(IBlockAccessor blockAccessor, BlockPos pos, BlockSchematicStructure schematic, int orientation)
+        {
+            BlockPos probePos = pos.DownCopy();
+            int length = schematic.blocksByPos.GetLength(0);
+            int width = schematic.blocksByPos.GetLength(2);
+            while (probe(blockAccessor, probePos, length, width))
+            {
+                for (int i = 0; i < length; i++)
+                {
+                    for (int k = 0; k < width; k++)
+                    {
+                        Block block = schematic.blocksByPos[i, 0, k];
+                        if (block != null)
+                        {
+                            blockAccessor.SetBlock(block.Id, probePos.AddCopy(i, 0, k));
+                        }
+                    }
+                }
+                probePos.Down();
+            }
+        }
+
+        private bool probe(IBlockAccessor blockAccessor, BlockPos pos, int length, int width)
+        {
+            BlockPos[] probePositions = new BlockPos[] { pos.Copy(), pos.AddCopy(length, 0, 0), pos.AddCopy(0, 0, width), pos.AddCopy(length, 0, width), pos.AddCopy(length / 2, 0, 0), pos.AddCopy(0, 0, width / 2), pos.AddCopy(length / 2, 0, width), pos.AddCopy(length, 0, width / 2) };
+            for (int i = 0; i < probePositions.Length; i++)
+            {
+                if (blockAccessor.GetBlock(probePositions[i], BlockLayersAccess.Solid).Id == 0)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
     }
 
