@@ -1,0 +1,33 @@
+[
+    {
+        "Code": "testvillage",
+        "Height": 2,
+        "Length": 2,
+        "StructureGroups": [
+            {
+                "Code": "farmer",
+                "Size": "SMALL",
+                "MinStructuresPerVillage": 4,
+                "MaxStructuresPerVillage": 8
+            },
+            {
+                "Code": "smith",
+                "Size": "MEDIUM",
+                "MinStructuresPerVillage": 1,
+                "MaxStructuresPerVillage": 1
+            },
+            {
+                "Code": "shepherd",
+                "Size": "MEDIUM",
+                "MinStructuresPerVillage": 1,
+                "MaxStructuresPerVillage": 2
+            },
+            {
+                "Code": "castle",
+                "Size": "LARGE",
+                "MinStructuresPerVillage": 1,
+                "MaxStructuresPerVillage": 1
+            }
+        ]
+    }
+]

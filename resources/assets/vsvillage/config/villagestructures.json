@@ -1,0 +1,65 @@
+[
+    {
+        "Code": "farmer-small-1",
+        "Group": "farmer",
+        "AttachmentPoint": 0,
+        "VerticalOffset": 0,
+        "Size": "SMALL"
+    },
+    {
+        "Code": "farmer-small-2",
+        "Group": "farmer",
+        "AttachmentPoint": 0,
+        "VerticalOffset": 0,
+        "Size": "SMALL"
+    },
+    {
+        "Code": "farmer-small-3",
+        "Group": "farmer",
+        "AttachmentPoint": 0,
+        "VerticalOffset": 0,
+        "Size": "SMALL"
+    },
+    {
+        "Code": "farmer-small-4",
+        "Group": "farmer",
+        "AttachmentPoint": 0,
+        "VerticalOffset": 0,
+        "Size": "SMALL"
+    },
+    {
+        "Code": "farmer-small-5",
+        "Group": "farmer",
+        "AttachmentPoint": 0,
+        "VerticalOffset": 0,
+        "Size": "SMALL"
+    },
+    {
+        "Code": "farmer-small-6",
+        "Group": "farmer",
+        "AttachmentPoint": 0,
+        "VerticalOffset": 0,
+        "Size": "SMALL"
+    },
+    {
+        "Code": "shepherd-medium-1",
+        "Group": "shepherd",
+        "AttachmentPoint": 0,
+        "VerticalOffset": 0,
+        "Size": "MEDIUM"
+    },
+    {
+        "Code": "smith-medium-1",
+        "Group": "smith",
+        "AttachmentPoint": 0,
+        "VerticalOffset": 0,
+        "Size": "MEDIUM"
+    },
+    {
+        "Code": "castle-large-1",
+        "Group": "castle",
+        "AttachmentPoint": 0,
+        "VerticalOffset": 0,
+        "Size": "LARGE"
+    }
+]

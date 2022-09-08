@@ -11,9 +11,7 @@ namespace VsVillage
         [JsonProperty]
         public string Code;
         [JsonProperty]
-        public string StructureGroup;
-        [JsonProperty]
-        public string SchematicCode;
+        public string Group;
         [JsonProperty]
         public int AttachmentPoint = 0;// 0=NORTH 1=EAST 2=SOUTH 3=WEST 
         [JsonProperty]
@@ -25,11 +23,11 @@ namespace VsVillage
 
         public void Init(ICoreServerAPI api)
         {
-            var asset = api.Assets.Get(new AssetLocation("game", "worldgen/schematics/vsvillage/" + SchematicCode + ".json"));
+            var asset = api.Assets.Get(new AssetLocation("game", "worldgen/schematics/vsvillage/" + Code + ".json"));
             var schematic = asset?.ToObject<BlockSchematicStructure>();
             if (schematic == null)
             {
-                api.World.Logger.Warning("Could not load VillageStruce {0}", SchematicCode);
+                api.World.Logger.Warning("Could not load VillageStruce {0}", Code);
                 return;
             }
             Schematics = new BlockSchematicStructure[4];
