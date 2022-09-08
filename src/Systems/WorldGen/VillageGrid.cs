@@ -329,7 +329,7 @@ namespace VsVillage
             return new Vec2i(x % 2 == 0 ? 3 : 7, y % 2 == 0 ? 3 : 7);
         }
 
-        public void GenerateStreets(Vec3i start, IWorldAccessor world)
+        public void GenerateStreets(BlockPos start, IWorldAccessor world)
         {
             var blockAccessor = world.BlockAccessor;
 
@@ -345,11 +345,10 @@ namespace VsVillage
             }
         }
 
-        private void GenerateStreetPart(Vec3i start, int x, int z, IWorldAccessor world)
+        private void GenerateStreetPart(BlockPos start, int x, int z, IWorldAccessor world)
         {
             var coords = GridCoordsToMapCoords(x, z);
             var size = GridCoordsToMapSize(x, z);
-            var startPos = start.ToBlockPos();
             int idpath = world.GetBlock(new AssetLocation("packeddirt")).Id;
             int idbridge = world.GetBlock(new AssetLocation("planks-aged-hor")).Id;
             var blockAccessor = world.BlockAccessor;
@@ -357,7 +356,7 @@ namespace VsVillage
             {
                 for (int k = 0; k < size.Y; k++)
                 {
-                    var pos = startPos.AddCopy(coords.X + i, 0, coords.Y + k);
+                    var pos = start.AddCopy(coords.X + i, 0, coords.Y + k);
                     int terrainheight = blockAccessor.GetTerrainMapheightAt(pos);
                     int rainheight = blockAccessor.GetRainMapHeightAt(pos);
                     int id = idbridge;
@@ -374,7 +373,7 @@ namespace VsVillage
             }
         }
 
-        public void GenerateHouses(Vec3i start, IWorldAccessor world)
+        public void GenerateHouses(BlockPos start, IWorldAccessor world)
         {
             foreach (var house in structures)
             {
@@ -382,11 +381,11 @@ namespace VsVillage
             }
         }
 
-        private void GenerateHouse(StructureWithOrientation house, Vec3i start, IWorldAccessor world)
+        private void GenerateHouse(StructureWithOrientation house, BlockPos start, IWorldAccessor world)
         {
 
             var coords = GridCoordsToMapCoords(house.gridCoords.X, house.gridCoords.Y);
-            var pos = start.ToBlockPos().Add(coords.X, 0, coords.Y);
+            var pos = start.AddCopy(coords.X, 0, coords.Y);
             var offsetForHeight = connectingPathOffset(house);
             var posForHeightDetection = pos.AddCopy(offsetForHeight.X, 0, offsetForHeight.Y);
             var blockAccessor = world.BlockAccessor;

@@ -56,18 +56,50 @@ namespace VsVillage
         private void onCmdDebugVillage(IServerPlayer player, int groupId, CmdArgs args, ICoreServerAPI sapi)
         {
             var grid = new VillageGrid();
-            switch (args[0])
-            {
-                case "preset":
-                    var village = villages.Find(match => match.Code == args[1]);
-                    grid = village.genVillageGrid(sapi.World.Rand);
-                    break;
-            }
-            grid.connectStreets();
-            player.SendMessage(GlobalConstants.AllChatGroups, grid.debugPrintGrid(), EnumChatType.CommandSuccess);
 
-            grid.GenerateHouses(player.Entity.ServerPos.XYZInt, sapi.World);
-            grid.GenerateStreets(player.Entity.ServerPos.XYZInt, sapi.World);
+            var village = villages.Find(match => match.Code == args[0]);
+            grid = village.genVillageGrid(sapi.World.Rand);
+            var start = player.Entity.ServerPos.XYZInt.ToBlockPos();
+            if (args.Length > 1 && args[1] == "probe" && !probeTerrain(start, grid, sapi.World.BlockAccessor))
+            {
+                player.SendMessage(GlobalConstants.AllChatGroups, "Terrain is too steep for generating a village", EnumChatType.CommandError);
+            }
+            else
+            {
+                grid.connectStreets();
+                player.SendMessage(GlobalConstants.AllChatGroups, grid.debugPrintGrid(), EnumChatType.CommandSuccess);
+
+                grid.GenerateHouses(start, sapi.World);
+                grid.GenerateStreets(start, sapi.World);
+            }
+        }
+
+        private bool probeTerrain(BlockPos start, VillageGrid grid, IBlockAccessor blockAccessor)
+        {
+            int max;
+            int min;
+            int current;
+            int tolerance = (grid.width + grid.height) / 3;
+            for (int x = 0; x < grid.width - 1; x++)
+            {
+                for (int z = 0; z < grid.height - 1; z++)
+                {
+                    max = blockAccessor.GetTerrainMapheightAt(start);
+                    min = max;
+                    for (int i = 0; i < 2; i++)
+                    {
+                        for (int k = 0; k < 2; k++)
+                        {
+                            var coords = grid.GridCoordsToMapCoords(x + i, z + k);
+                            current = blockAccessor.GetTerrainMapheightAt(start.AddCopy(coords.X, 0, coords.Y));
+                            max = Math.Max(max, current);
+                            min = Math.Min(min, current);
+                        }
+                    }
+                    if (min + 10 < max) { tolerance--; }
+                }
+            }
+            return tolerance > 0;
         }
 
         private void mapHandler(IMapRegion mapRegion, int regionX, int regionZ)
