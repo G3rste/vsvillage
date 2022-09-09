@@ -389,13 +389,12 @@ namespace VsVillage
             var offsetForHeight = connectingPathOffset(house);
             var posForHeightDetection = pos.AddCopy(offsetForHeight.X, 0, offsetForHeight.Y);
             var blockAccessor = world.BlockAccessor;
-            int terrainheight = blockAccessor.GetTerrainMapheightAt(posForHeightDetection);
-            int rainheight = blockAccessor.GetRainMapHeightAt(posForHeightDetection);
-            pos.Y = rainheight;
-            if (terrainheight >= rainheight || blockAccessor.GetBlock(pos, BlockLayersAccess.Fluid).Id == 0)
+            posForHeightDetection.Y = blockAccessor.GetTerrainMapheightAt(posForHeightDetection);
+            while (blockAccessor.GetBlock(posForHeightDetection.UpCopy(), BlockLayersAccess.Fluid).Id != 0)
             {
-                pos.Y = terrainheight;
+                posForHeightDetection.Up();
             }
+            pos.Y = posForHeightDetection.Y + house.structure.VerticalOffset;
             house.structure.Generate(world.BlockAccessor, world, pos, house.orientation);
         }
 
