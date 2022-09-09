@@ -1,5 +1,33 @@
 [
     {
+        "Code": "cattle-small-1",
+        "Group": "cattle",
+        "AttachmentPoint": 0,
+        "VerticalOffset": 0,
+        "Size": "SMALL"
+    },
+    {
+        "Code": "cattle-small-2",
+        "Group": "cattle",
+        "AttachmentPoint": 0,
+        "VerticalOffset": 0,
+        "Size": "SMALL"
+    },
+    {
+        "Code": "garden-small-1",
+        "Group": "garden",
+        "AttachmentPoint": 0,
+        "VerticalOffset": -1,
+        "Size": "SMALL"
+    },
+    {
+        "Code": "garden-small-2",
+        "Group": "garden",
+        "AttachmentPoint": 0,
+        "VerticalOffset": -1,
+        "Size": "SMALL"
+    },
+    {
         "Code": "farmer-small-1",
         "Group": "farmer",
         "AttachmentPoint": 0,
