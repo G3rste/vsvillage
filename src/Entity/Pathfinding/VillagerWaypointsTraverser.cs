@@ -164,7 +164,7 @@ namespace VsVillage
             {
                 prevPosAccum = 0;
 
-                handleDoors(prevPrevPrevPos, "opened");
+                CanBeOpenedOrClosed(prevPrevPrevPos.AsBlockPos, "opened");
                 prevPrevPrevPos.Set(prevPrevPos);
                 prevPrevPos.Set(prevPos);
                 prevPos.Set(entity.ServerPos.X, entity.ServerPos.Y, entity.ServerPos.Z);
@@ -173,9 +173,9 @@ namespace VsVillage
             stuckCounter = stuck ? (stuckCounter + 1) : 0;
             if (stuck)
             {
-                if (!handleDoors(target, "closed"))
+                if (!CanBeOpenedOrClosed(target.AsBlockPos, "closed"))
                 {
-                    handleDoors(prevPos, "closed");
+                    CanBeOpenedOrClosed(prevPos.AsBlockPos, "closed");
                 }
                 if (GlobalConstants.OverallSpeedMultiplier > 0 && stuckCounter > 60 / GlobalConstants.OverallSpeedMultiplier)
                 {
@@ -282,28 +282,25 @@ namespace VsVillage
             }
         }
 
-        private bool handleDoors(Vec3d target, string state)
+        private bool CanBeOpenedOrClosed(BlockPos pos, string state)
         {
-            var targetBlock = entity.World.BlockAccessor.GetBlock(target.XInt, target.YInt, target.ZInt) as BlockBaseDoor;
-            if (targetBlock != null && targetBlock.Variant["state"] == state)
+            var block = entity.World.BlockAccessor.GetBlock(pos);
+            if (block is BlockBaseDoor && block.Variant["state"] == state)
             {
-                entity.World.PlaySoundAt(AssetLocation.Create(targetBlock.Attributes["triggerSound"].AsString("sounds/block/door"), targetBlock.Code.Domain), target.X + 0.5f, target.Y + 0.5f, target.Z + 0.5f);
-                entity.World.BlockAccessor.WalkBlocks(new BlockPos(target.XInt - 1, target.YInt - 1, target.ZInt - 1), new BlockPos(target.XInt + 1, target.YInt + 1, target.ZInt + 1), (block, x, y, z) => handleDoor(block, new BlockPos(x, y, z)));
-
+                var minPos = new BlockPos(target.XInt - 1, target.YInt - 1, target.ZInt - 1);
+                var maxPos = new BlockPos(target.XInt + 1, target.YInt + 1, target.ZInt + 1);
+                entity.World.BlockAccessor.WalkBlocks(minPos, maxPos, (onBlock, x, y, z) => OpenOrClose(new BlockPos(x, y, z), state));
                 return true;
             }
             return false;
         }
 
-        private void handleDoor(Block block, BlockPos pos)
+        private void OpenOrClose(BlockPos pos, string state)
         {
-            var targetBlock = entity.World.BlockAccessor.GetBlock(pos) as BlockBaseDoor;
-            if (targetBlock != null)
+            var block = entity.World.BlockAccessor.GetBlock(pos);
+            if (block is BlockBaseDoor && block.Variant["state"] == state)
             {
-                AssetLocation newCode = targetBlock.CodeWithVariant("state", targetBlock.IsOpened() ? "closed" : "opened");
-                Block newBlock = entity.World.BlockAccessor.GetBlock(newCode);
-                entity.World.BlockAccessor.ExchangeBlock(newBlock.BlockId, pos);
-                entity.World.BlockAccessor.MarkBlockDirty(pos);
+                block.OnBlockInteractStart(entity.World, null, new BlockSelection() { Position = pos });
             }
         }
 
