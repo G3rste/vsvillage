@@ -18,6 +18,7 @@ namespace VsVillage
         public readonly int height;
 
         public int avgheight;
+        public VillageType VillageType;
 
         public VillageGrid(int width = 1, int height = 1)
         {
@@ -329,29 +330,26 @@ namespace VsVillage
             return new Vec2i(x % 2 == 0 ? 3 : 7, y % 2 == 0 ? 3 : 7);
         }
 
-        public void GenerateStreets(BlockPos start, IWorldAccessor world)
+        public void GenerateStreets(BlockPos start, IBlockAccessor blockAccessor, IWorldAccessor worldForCollectibleResolve)
         {
-            var blockAccessor = world.BlockAccessor;
-
+            int idpath = worldForCollectibleResolve.GetBlock(new AssetLocation(VillageType.StreetCode)).Id;
+            int idbridge = worldForCollectibleResolve.GetBlock(new AssetLocation(VillageType.BridgeCode)).Id;
             for (int i = 0; i < width; i++)
             {
                 for (int k = 0; k < height; k++)
                 {
                     if (grid[i][k] == EnumgGridSlot.STREET)
                     {
-                        GenerateStreetPart(start, i, k, world);
+                        GenerateStreetPart(start, i, k, blockAccessor, idpath, idbridge);
                     }
                 }
             }
         }
 
-        private void GenerateStreetPart(BlockPos start, int x, int z, IWorldAccessor world)
+        private void GenerateStreetPart(BlockPos start, int x, int z, IBlockAccessor blockAccessor, int idpath, int idbridge)
         {
             var coords = GridCoordsToMapCoords(x, z);
             var size = GridCoordsToMapSize(x, z);
-            int idpath = world.GetBlock(new AssetLocation("packeddirt")).Id;
-            int idbridge = world.GetBlock(new AssetLocation("planks-aged-hor")).Id;
-            var blockAccessor = world.BlockAccessor;
             for (int i = 0; i < size.X; i++)
             {
                 for (int k = 0; k < size.Y; k++)
@@ -373,29 +371,28 @@ namespace VsVillage
             }
         }
 
-        public void GenerateHouses(BlockPos start, IWorldAccessor world)
+        public void GenerateHouses(BlockPos start, IBlockAccessor blockAccessor, IWorldAccessor worldForCollectibleResolve)
         {
             foreach (var house in structures)
             {
-                GenerateHouse(house, start, world);
+                GenerateHouse(house, start, blockAccessor, worldForCollectibleResolve);
             }
         }
 
-        private void GenerateHouse(StructureWithOrientation house, BlockPos start, IWorldAccessor world)
+        private void GenerateHouse(StructureWithOrientation house, BlockPos start, IBlockAccessor blockAccessor, IWorldAccessor worldForCollectibleResolve)
         {
 
             var coords = GridCoordsToMapCoords(house.gridCoords.X, house.gridCoords.Y);
             var pos = start.AddCopy(coords.X, 0, coords.Y);
             var offsetForHeight = connectingPathOffset(house);
             var posForHeightDetection = pos.AddCopy(offsetForHeight.X, 0, offsetForHeight.Y);
-            var blockAccessor = world.BlockAccessor;
             posForHeightDetection.Y = blockAccessor.GetTerrainMapheightAt(posForHeightDetection);
             while (blockAccessor.GetBlock(posForHeightDetection.UpCopy(), BlockLayersAccess.Fluid).Id != 0)
             {
                 posForHeightDetection.Up();
             }
             pos.Y = posForHeightDetection.Y + house.structure.VerticalOffset;
-            house.structure.Generate(world.BlockAccessor, world, pos, house.orientation);
+            house.structure.Generate(blockAccessor, worldForCollectibleResolve, pos, house.orientation);
         }
 
         private Vec2i connectingPathOffset(StructureWithOrientation house)

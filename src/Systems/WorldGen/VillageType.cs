@@ -11,6 +11,10 @@ namespace VsVillage
 
         [JsonProperty]
         public List<StructureGroup> StructureGroups = new List<StructureGroup>();
+        [JsonProperty]
+        public string StreetCode = "game:packeddirt";
+        [JsonProperty]
+        public string BridgeCode = "game:planks-aged-hor";
 
         [JsonProperty]
         public int Height = 2;
@@ -32,6 +36,7 @@ namespace VsVillage
 
         public VillageGrid genVillageGrid(Random rand){
             var grid = new VillageGrid(Length, Height);
+            grid.VillageType = this;
             foreach(var group in StructureGroups){
                 int amount = rand.Next(group.MinStructuresPerVillage, group.MaxStructuresPerVillage + 1);
                 for(int i = 0; i< amount; i++){

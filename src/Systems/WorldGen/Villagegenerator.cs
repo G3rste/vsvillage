@@ -11,46 +11,23 @@ namespace VsVillage
 {
     public class VillageGenerator : ModStdWorldGen
     {
+        private ICoreServerAPI sapi;
 
-        public override double ExecuteOrder() => 0.6;
+        private IWorldGenBlockAccessor worldgenBlockAccessor;
+
+        public override double ExecuteOrder() => 0.45;
 
         public List<WorldGenVillageStructure> structures;
         public List<VillageType> villages;
         public override void StartServerSide(ICoreServerAPI api)
         {
-            //api.Event.ChunkColumnGeneration(handler, EnumWorldGenPass.TerrainFeatures, "standard");
-            //api.Event.MapRegionGeneration(mapHandler, "standard");
+            sapi = api;
+            api.Event.InitWorldGenerator(initWorldGen, "standard");
+            api.Event.ChunkColumnGeneration(handler, EnumWorldGenPass.TerrainFeatures, "standard");
+            api.Event.MapRegionGeneration(mapHandler, "standard");
+            api.Event.GetWorldgenBlockAccessor(chunkProvider => worldgenBlockAccessor = chunkProvider.GetBlockAccessor(false));
 
             api.RegisterCommand("genvillage", "debug command for printing village layout", "[square|village]", (player, groupId, args) => onCmdDebugVillage(player, groupId, args, api), Privilege.controlserver);
-        }
-
-        public override void AssetsLoaded(ICoreAPI api)
-        {
-            base.AssetsLoaded(api);
-            if (api is ICoreServerAPI sapi)
-            {
-                structures = sapi.Assets.Get<List<WorldGenVillageStructure>>(new AssetLocation("vsvillage", "config/villagestructures.json"));
-                villages = sapi.Assets.Get<List<VillageType>>(new AssetLocation("vsvillage", "config/villagetypes.json"));
-                foreach (var structure in structures)
-                {
-                    sapi.Logger.Event("Loading structure {0}", structure.Code);
-                    structure.Init(sapi);
-                    foreach (var village in villages)
-                    {
-                        foreach (var group in village.StructureGroups)
-                        {
-                            if (structure.Group == group.Code && structure.Size == group.Size)
-                            {
-                                group.MatchingStructures.Add(structure);
-                            }
-                        }
-                    }
-                }
-                foreach (var village in villages)
-                {
-                    village.StructureGroups.Sort((a, b) => ((int)b.Size).CompareTo((int)a.Size));
-                }
-            }
         }
 
         private void onCmdDebugVillage(IServerPlayer player, int groupId, CmdArgs args, ICoreServerAPI sapi)
@@ -69,8 +46,8 @@ namespace VsVillage
                 grid.connectStreets();
                 player.SendMessage(GlobalConstants.AllChatGroups, grid.debugPrintGrid(), EnumChatType.CommandSuccess);
 
-                grid.GenerateHouses(start, sapi.World);
-                grid.GenerateStreets(start, sapi.World);
+                grid.GenerateHouses(start, sapi.World.BlockAccessor, sapi.World);
+                grid.GenerateStreets(start, sapi.World.BlockAccessor, sapi.World);
             }
         }
 
@@ -102,14 +79,57 @@ namespace VsVillage
             return tolerance > 0;
         }
 
+        private void initWorldGen()
+        {
+            LoadGlobalConfig(sapi);
+            chunksize = sapi.World.BlockAccessor.ChunkSize;
+
+            structures = sapi.Assets.Get<List<WorldGenVillageStructure>>(new AssetLocation("vsvillage", "config/villagestructures.json"));
+            villages = sapi.Assets.Get<List<VillageType>>(new AssetLocation("vsvillage", "config/villagetypes.json"));
+            foreach (var structure in structures)
+            {
+                sapi.Logger.Event("Loading structure {0}", structure.Code);
+                structure.Init(sapi);
+                foreach (var village in villages)
+                {
+                    foreach (var group in village.StructureGroups)
+                    {
+                        if (structure.Group == group.Code && structure.Size == group.Size)
+                        {
+                            group.MatchingStructures.Add(structure);
+                        }
+                    }
+                }
+            }
+            foreach (var village in villages)
+            {
+                village.StructureGroups.Sort((a, b) => ((int)b.Size).CompareTo((int)a.Size));
+            }
+        }
+
         private void mapHandler(IMapRegion mapRegion, int regionX, int regionZ)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
 
         private void handler(IServerChunk[] chunks, int chunkX, int chunkZ, ITreeAttribute chunkGenParams)
         {
-            throw new NotImplementedException();
+            IMapRegion region = chunks[0].MapChunk.MapRegion;
+            if (villages != null && chunkX % 8 == 0 && chunkZ % 8 == 0)
+            {
+                worldgenBlockAccessor.BeginColumn();
+                sapi.Logger.Debug("Try generating village.");
+                var grid = villages[sapi.World.Rand.Next(0, villages.Count)].genVillageGrid(sapi.World.Rand);
+                var start = new BlockPos(chunksize * chunkX, 0, chunksize * chunkZ);
+                sapi.Logger.Debug("Checking terrain.");
+                if (probeTerrain(start, grid, worldgenBlockAccessor))
+                {
+                    sapi.Logger.Debug("Try spawning village.");
+                    grid.connectStreets();
+                    grid.GenerateHouses(start, worldgenBlockAccessor, sapi.World);
+                    grid.GenerateStreets(start, worldgenBlockAccessor, sapi.World);
+                }
+            }
         }
     }
 }

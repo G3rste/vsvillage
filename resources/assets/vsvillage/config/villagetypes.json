@@ -20,7 +20,7 @@
     },
     {
         "Code": "small",
-        "Height": 2,
+        "Height": 1,
         "Length": 2,
         "StructureGroups": [
             {
@@ -58,7 +58,7 @@
     {
         "Code": "medium",
         "Height": 2,
-        "Length": 3,
+        "Length": 2,
         "StructureGroups": [
             {
                 "Code": "farmer",
