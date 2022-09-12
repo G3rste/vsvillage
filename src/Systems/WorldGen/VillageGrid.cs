@@ -212,6 +212,12 @@ namespace VsVillage
             }
         }
 
+        public BlockPos getEnd(BlockPos start)
+        {
+            var end = GridCoordsToMapCoords(grid.Length, grid[0].Length);
+            return start.AddCopy(end.X + 3, 20, end.Y + 3);
+        }
+
         public void connectStreets()
         {
             var connectedStreets = new List<Vec2i>();
