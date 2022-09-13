@@ -144,8 +144,8 @@ namespace VsVillage
             var grid = new VillageGrid(village.Length, village.Height);
             var start = new BlockPos(chunksize * chunkX, 0, chunksize * chunkZ);
             var end = grid.getEnd(start);
-            var corner1 = start.Copy().Set(start.X, 0, end.Z);
-            var corner2 = start.Copy().Set(end.X, 0, start.Z);
+            var corner1 = new BlockPos(start.X, 0, end.Z);
+            var corner2 = new BlockPos(end.X, 0, start.Z);
 
             // check if all chunks are generated, still throws a bunch of exceptions when travelling south but I dont know how to properly check if a chunk is generated/ loaded
             if (worldgenBlockAccessor.GetChunkAtBlockPos(start) == null
