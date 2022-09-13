@@ -8,7 +8,7 @@ namespace VsVillage
 {
     public class VillageGrid
     {
-        public EnumgGridSlot[][] grid;
+        public EnumgGridSlot[,] grid;
 
         public List<StructureWithOrientation> structures = new List<StructureWithOrientation>();
 
@@ -29,20 +29,19 @@ namespace VsVillage
 
         public void Init(VillageType type, LCGRandom rand)
         {
-            grid = new EnumgGridSlot[this.width][];
+            grid = new EnumgGridSlot[this.width, this.height];
             for (int i = 0; i < this.width; i++)
             {
-                grid[i] = new EnumgGridSlot[this.height];
                 for (int k = 0; k < this.height; k++)
                 {
-                    grid[i][k] = EnumgGridSlot.EMPTY;
+                    grid[i, k] = EnumgGridSlot.EMPTY;
                 }
             }
 
             VillageType = type;
             foreach (var group in type.StructureGroups)
             {
-                int amount = rand.NextInt(group.MaxStructuresPerVillage +1 - group.MinStructuresPerVillage) + group.MinStructuresPerVillage;
+                int amount = rand.NextInt(group.MaxStructuresPerVillage + 1 - group.MinStructuresPerVillage) + group.MinStructuresPerVillage;
                 for (int i = 0; i < amount; i++)
                 {
                     tryAddStructure(group.MatchingStructures[rand.NextInt(group.MatchingStructures.Count)], rand);
@@ -52,17 +51,17 @@ namespace VsVillage
 
         public bool BigSlotAvailable(int x, int y)
         {
-            return grid[x * 8 + 1][y * 8 + 1] == EnumgGridSlot.EMPTY;
+            return grid[x * 8 + 1, y * 8 + 1] == EnumgGridSlot.EMPTY;
         }
 
         public bool MediumSlotAvailable(int x, int y)
         {
-            return grid[x * 4 + 1][y * 4 + 1] == EnumgGridSlot.EMPTY;
+            return grid[x * 4 + 1, y * 4 + 1] == EnumgGridSlot.EMPTY;
         }
 
         public bool SmallSlotAvailable(int x, int y)
         {
-            return grid[x * 2 + 1][y * 2 + 1] == EnumgGridSlot.EMPTY;
+            return grid[x * 2 + 1, y * 2 + 1] == EnumgGridSlot.EMPTY;
         }
 
         public void AddBigStructure(WorldGenVillageStructure structure, int x, int y, int orientation)
@@ -78,22 +77,22 @@ namespace VsVillage
             {
                 for (int k = 0; k < 7; k++)
                 {
-                    grid[x * 8 + 1 + i][y * 8 + 1 + k] = EnumgGridSlot.STRUCTURE;
+                    grid[x * 8 + 1 + i, y * 8 + 1 + k] = EnumgGridSlot.STRUCTURE;
                 }
             }
             switch (orientation)
             {
                 case 0:
-                    grid[x * 8 + 4][y * 8 + 8] = EnumgGridSlot.STREET;
+                    grid[x * 8 + 4, y * 8 + 8] = EnumgGridSlot.STREET;
                     break;
                 case 1:
-                    grid[x * 8 + 8][y * 8 + 4] = EnumgGridSlot.STREET;
+                    grid[x * 8 + 8, y * 8 + 4] = EnumgGridSlot.STREET;
                     break;
                 case 2:
-                    grid[x * 8 + 4][y * 8] = EnumgGridSlot.STREET;
+                    grid[x * 8 + 4, y * 8] = EnumgGridSlot.STREET;
                     break;
                 case 3:
-                    grid[x * 8][y * 8 + 4] = EnumgGridSlot.STREET;
+                    grid[x * 8, y * 8 + 4] = EnumgGridSlot.STREET;
                     break;
             }
         }
@@ -111,22 +110,22 @@ namespace VsVillage
             {
                 for (int k = 0; k < 3; k++)
                 {
-                    grid[x * 4 + 1 + i][y * 4 + 1 + k] = EnumgGridSlot.STRUCTURE;
+                    grid[x * 4 + 1 + i, y * 4 + 1 + k] = EnumgGridSlot.STRUCTURE;
                 }
             }
             switch (orientation)
             {
                 case 0:
-                    grid[x * 4 + 2][y * 4 + 4] = EnumgGridSlot.STREET;
+                    grid[x * 4 + 2, y * 4 + 4] = EnumgGridSlot.STREET;
                     break;
                 case 1:
-                    grid[x * 4 + 4][y * 4 + 2] = EnumgGridSlot.STREET;
+                    grid[x * 4 + 4, y * 4 + 2] = EnumgGridSlot.STREET;
                     break;
                 case 2:
-                    grid[x * 4 + 2][y * 4] = EnumgGridSlot.STREET;
+                    grid[x * 4 + 2, y * 4] = EnumgGridSlot.STREET;
                     break;
                 case 3:
-                    grid[x * 4][y * 4 + 2] = EnumgGridSlot.STREET;
+                    grid[x * 4, y * 4 + 2] = EnumgGridSlot.STREET;
                     break;
             }
         }
@@ -140,20 +139,20 @@ namespace VsVillage
                 orientation = orientation,
                 gridCoords = new Vec2i(x * 2 + 1, y * 2 + 1)
             });
-            grid[x * 2 + 1][y * 2 + 1] = EnumgGridSlot.STRUCTURE;
+            grid[x * 2 + 1, y * 2 + 1] = EnumgGridSlot.STRUCTURE;
             switch (orientation)
             {
                 case 0:
-                    grid[x * 2 + 1][y * 2 + 2] = EnumgGridSlot.STREET;
+                    grid[x * 2 + 1, y * 2 + 2] = EnumgGridSlot.STREET;
                     break;
                 case 1:
-                    grid[x * 2 + 2][y * 2 + 1] = EnumgGridSlot.STREET;
+                    grid[x * 2 + 2, y * 2 + 1] = EnumgGridSlot.STREET;
                     break;
                 case 2:
-                    grid[x * 2 + 1][y * 2] = EnumgGridSlot.STREET;
+                    grid[x * 2 + 1, y * 2] = EnumgGridSlot.STREET;
                     break;
                 case 3:
-                    grid[x * 2][y * 2 + 1] = EnumgGridSlot.STREET;
+                    grid[x * 2, y * 2 + 1] = EnumgGridSlot.STREET;
                     break;
             }
         }
@@ -242,7 +241,7 @@ namespace VsVillage
             bool rightEdge = false;
             for (int i = 0; i < width * height; i++)
             {
-                if (grid[currentX][currentY] == EnumgGridSlot.STREET)
+                if (grid[currentX, currentY] == EnumgGridSlot.STREET)
                 {
                     addStreedToGrid(connectedStreets, new Vec2i(currentX, currentY));
                 }
@@ -290,8 +289,8 @@ namespace VsVillage
                 bool? goHorizontal = null;
                 while (Math.Abs(newStreet.X - currentX) + Math.Abs(newStreet.Y - currentY) > 1)
                 {
-                    canWalkX = currentY % 2 == 0 && inWidthBounds(currentX + directionX) && grid[currentX + directionX][currentY] != EnumgGridSlot.STRUCTURE;
-                    canWalkY = currentX % 2 == 0 && inHeightBounds(currentY + directionY) && grid[currentX][currentY + directionY] != EnumgGridSlot.STRUCTURE;
+                    canWalkX = currentY % 2 == 0 && inWidthBounds(currentX + directionX) && grid[currentX + directionX, currentY] != EnumgGridSlot.STRUCTURE;
+                    canWalkY = currentX % 2 == 0 && inHeightBounds(currentY + directionY) && grid[currentX, currentY + directionY] != EnumgGridSlot.STRUCTURE;
                     canWalkTowards &= canWalkX && (newStreet.X - currentX) * directionX > 0 || canWalkY && (newStreet.Y - currentY) * directionY > 0;
                     if (!canWalkTowards)
                     {
@@ -320,7 +319,7 @@ namespace VsVillage
                     {
                         currentY += directionY;
                     }
-                    grid[currentX][currentY] = EnumgGridSlot.STREET;
+                    grid[currentX, currentY] = EnumgGridSlot.STREET;
                     connectedStreets.Add(new Vec2i(currentX, currentY));
                 }
             }
@@ -333,7 +332,7 @@ namespace VsVillage
             {
                 for (int k = 0; k < width; k++)
                 {
-                    sb.Append((int)grid[k][height - 1 - i]).Append(" ");
+                    sb.Append((int)grid[k, height - 1 - i]).Append(" ");
                 }
                 sb.Append("\n");
             }
@@ -358,7 +357,7 @@ namespace VsVillage
             {
                 for (int k = 0; k < height; k++)
                 {
-                    if (grid[i][k] == EnumgGridSlot.STREET)
+                    if (grid[i, k] == EnumgGridSlot.STREET)
                     {
                         GenerateStreetPart(start, i, k, blockAccessor, idpath, idbridge);
                     }
