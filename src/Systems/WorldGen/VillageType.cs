@@ -33,18 +33,6 @@ namespace VsVillage
         public float MinForest = 0;
         [JsonProperty]
         public float MaxForest = 1;
-
-        public VillageGrid genVillageGrid(Random rand){
-            var grid = new VillageGrid(Length, Height);
-            grid.VillageType = this;
-            foreach(var group in StructureGroups){
-                int amount = rand.Next(group.MinStructuresPerVillage, group.MaxStructuresPerVillage + 1);
-                for(int i = 0; i< amount; i++){
-                    grid.tryAddStructure(group.MatchingStructures[rand.Next(0, group.MatchingStructures.Count)], rand);
-                }
-            }
-            return grid;
-        }
     }
 
     public class StructureGroup

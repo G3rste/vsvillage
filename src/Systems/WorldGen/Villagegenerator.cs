@@ -57,10 +57,9 @@ namespace VsVillage
 
         private void onCmdDebugVillage(IServerPlayer player, int groupId, CmdArgs args, ICoreServerAPI sapi)
         {
-            var grid = new VillageGrid();
-
             var village = villages.Find(match => match.Code == args[0]);
-            grid = village.genVillageGrid(sapi.World.Rand);
+            var grid = new VillageGrid(village.Length, village.Height);
+            grid.Init(village, rand);
             var start = player.Entity.ServerPos.XYZInt.ToBlockPos();
             if (args.Length > 1 && args[1] == "probe" && !probeTerrain(start, grid, sapi.World.BlockAccessor))
             {
@@ -151,7 +150,7 @@ namespace VsVillage
             worldgenBlockAccessor.BeginColumn();
             if (probeTerrain(start, grid, worldgenBlockAccessor))
             {
-                grid = village.genVillageGrid(sapi.World.Rand);
+                grid.Init(village, rand);
                 region.GeneratedStructures.Add(new GeneratedStructure() { Code = grid.VillageType.Code, Group = "village", Location = new Cuboidi(start, end) });
                 grid.connectStreets();
                 grid.GenerateHouses(start, worldgenBlockAccessor, sapi.World);

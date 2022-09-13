@@ -25,6 +25,10 @@ namespace VsVillage
             this.width = width * 8 + 1;
             this.height = height * 8 + 1;
             this.capacity = (this.width / 2) * (this.height / 2);
+        }
+
+        public void Init(VillageType type, LCGRandom rand)
+        {
             grid = new EnumgGridSlot[this.width][];
             for (int i = 0; i < this.width; i++)
             {
@@ -32,6 +36,16 @@ namespace VsVillage
                 for (int k = 0; k < this.height; k++)
                 {
                     grid[i][k] = EnumgGridSlot.EMPTY;
+                }
+            }
+
+            VillageType = type;
+            foreach (var group in type.StructureGroups)
+            {
+                int amount = rand.NextInt(group.MaxStructuresPerVillage +1 - group.MinStructuresPerVillage) + group.MinStructuresPerVillage;
+                for (int i = 0; i < amount; i++)
+                {
+                    tryAddStructure(group.MatchingStructures[rand.NextInt(group.MatchingStructures.Count)], rand);
                 }
             }
         }
@@ -145,9 +159,9 @@ namespace VsVillage
         }
 
         //always go from biggest to smallest structure, otherwise this might break
-        public bool tryAddStructure(WorldGenVillageStructure structure, Random random)
+        public bool tryAddStructure(WorldGenVillageStructure structure, LCGRandom random)
         {
-            int orientation = random.Next(0, 4);
+            int orientation = random.NextInt(4);
             switch (structure.Size)
             {
                 case EnumVillageStructureSize.LARGE:
@@ -165,7 +179,7 @@ namespace VsVillage
                                 }
                             }
                         }
-                        var xy = free[random.Next(0, free.Count)];
+                        var xy = free[random.NextInt(free.Count)];
                         AddBigStructure(structure, xy.X, xy.Y, orientation);
                         return true;
                     }
@@ -184,7 +198,7 @@ namespace VsVillage
                                 }
                             }
                         }
-                        var xy = free[random.Next(0, free.Count)];
+                        var xy = free[random.NextInt(free.Count)];
                         AddMediumStructure(structure, xy.X, xy.Y, orientation);
                         return true;
                     }
@@ -203,7 +217,7 @@ namespace VsVillage
                                 }
                             }
                         }
-                        var xy = free[random.Next(0, free.Count)];
+                        var xy = free[random.NextInt(free.Count)];
                         AddSmallStructure(structure, xy.X, xy.Y, orientation);
                         return true;
                     }
@@ -214,7 +228,7 @@ namespace VsVillage
 
         public BlockPos getEnd(BlockPos start)
         {
-            var end = GridCoordsToMapCoords(grid.Length, grid[0].Length);
+            var end = GridCoordsToMapCoords(width, height);
             return start.AddCopy(end.X + 3, 20, end.Y + 3);
         }
 
