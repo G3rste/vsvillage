@@ -16,13 +16,13 @@ namespace VsVillage
         public AiTaskGotoEntity gotoTask;
         public AiTaskLookAtEntity lookAtTask;
 
-        long lastCheck;
+        public long lastCheck;
 
-        float moveSpeed;
+        public float moveSpeed;
 
-        float maxDistance;
+        public float maxDistance;
 
-        bool lookAtTaskStarted;
+        public bool lookAtTaskStarted;
 
         public AiTaskVillagerSocialize(EntityAgent entity) : base(entity)
         {
@@ -64,12 +64,15 @@ namespace VsVillage
             {
                 return lookAtTask.ContinueExecute(dt);
             }
-            else if (entity.GetBehavior<EntityBehaviorTaskAI>()?.PathTraverser?.CurrentTarget != null && !gotoTask.ContinueExecute(dt))
+            else if (!pathTraverser.Active || !gotoTask.ContinueExecute(dt) || entity.ServerPos.SquareDistanceTo(other.ServerPos) < 2.5)
             {
                 lookAtTask.StartExecute();
                 lookAtTaskStarted = true;
                 var socialtask = other.GetBehavior<EntityBehaviorTaskAI>()?.TaskManager?.GetTask<AiTaskVillagerSocialize>();
-                if (socialtask != null) { socialtask.other = entity; }
+                if (socialtask != null)
+                {
+                    socialtask.other = entity;
+                }
             }
             return true;
         }

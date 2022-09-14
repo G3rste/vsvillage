@@ -287,9 +287,7 @@ namespace VsVillage
             var block = entity.World.BlockAccessor.GetBlock(pos);
             if (block is BlockBaseDoor && block.Variant["state"] == state)
             {
-                var minPos = new BlockPos(target.XInt - 1, target.YInt - 1, target.ZInt - 1);
-                var maxPos = new BlockPos(target.XInt + 1, target.YInt + 1, target.ZInt + 1);
-                entity.World.BlockAccessor.WalkBlocks(minPos, maxPos, (onBlock, x, y, z) => OpenOrClose(new BlockPos(x, y, z), state));
+                OpenOrClose(pos, state);
                 return true;
             }
             return false;
