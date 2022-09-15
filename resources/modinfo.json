@@ -9,7 +9,6 @@
     "description": "Mod that focuses on implementing a Village System and Villagers.",
     "version": "0.2.4",
     "dependencies": {
-        "game": "1.17.2",
-        "vsquest": "0.0.4"
+        "game": "1.17.2"
     }
 }

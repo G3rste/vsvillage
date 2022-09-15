@@ -1,0 +1,69 @@
+[
+    {
+        "op": "add",
+        "path": "/server/behaviors/-",
+        "value": {
+            "code": "questgiver",
+            "questsByType": {
+                "*-soldier": [
+                    "vsvillage:quest-recruitvillager"
+                ],
+                "*-farmer": [
+                    "vsvillage:quest-gather20MeatFor4TurnipSeeds",
+                    "vsvillage:quest-gather20MeatFor4ParsnipSeeds",
+                    "vsvillage:quest-gather20MeatFor4FlaxSeeds",
+                    "vsvillage:quest-gather20MeatFor4CarrotSeeds",
+                    "vsvillage:quest-gather20MeatFor4OnionSeeds",
+                    "vsvillage:quest-gather20MeatFor4SpeltSeeds"
+                ],
+                "*-shepherd": [
+                    "vsvillage:quest-kill6WolvesFor2Gears",
+                    "vsvillage:quest-kill6FoxesFor1Gear"
+                ],
+                "*-smith": [
+                    "vsvillage:quest-gather20CharcoalFor3Gears",
+                    "vsvillage:quest-buy1BlackGuardSword"
+                ],
+                "*-mayor": [
+                    "vsvillage:quest-recruit1farmer",
+                    "vsvillage:quest-recruit1shepherd",
+                    "vsvillage:quest-recruit1soldier",
+                    "vsvillage:quest-recruit1smith",
+                    "vsvillage:quest-foundvillage-start",
+                    "vsvillage:quest-foundvillage-1",
+                    "vsvillage:quest-foundvillage-2",
+                    "vsvillage:quest-foundvillage-3",
+                    "vsvillage:quest-foundvillage-final",
+                    "vsvillage:quest-kill30DriftersFor3Gears",
+                    "vsvillage:quest-kill8NightmareDriftersFor5Gears"
+                ],
+                "*": []
+            },
+            "selectrandomByType": {
+                "*-mayor": false,
+                "*-soldier": false,
+                "*": true
+            },
+            "selectrandomcount": 1
+        },
+        "file": "vsvillage:entities/villager.json",
+        "dependsOn": [
+            {
+                "modid": "vsquest"
+            }
+        ]
+    },
+    {
+        "op": "add",
+        "path": "/client/behaviors/-",
+        "value": {
+            "code": "questgiver"
+        },
+        "file": "vsvillage:entities/villager.json",
+        "dependsOn": [
+            {
+                "modid": "vsquest"
+            }
+        ]
+    }
+]
