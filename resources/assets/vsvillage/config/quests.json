@@ -309,7 +309,7 @@
         "killObjectives": [],
         "itemRewards": [
             {
-                "itemCode": "game:blade-blackguard",
+                "itemCode": "game:blade-short-blackguard",
                 "amount": 1
             }
         ]
