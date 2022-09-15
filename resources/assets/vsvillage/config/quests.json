@@ -327,13 +327,15 @@
                 "demand": 4
             }
         ],
-        "actionObjectives": [
-            "add1villagerbed",
-            "add1farmerwork",
-            "add1villagerfreetime"
-        ],
+        "actionObjectives": [],
         "actionRewards": [
-            "spawnfarmer"
+            {
+                "id": "spawnany",
+                "args": [
+                    "humanoid-villager-male-farmer",
+                    "humanoid-villager-female-farmer"
+                ]
+            }
         ]
     },
     {
@@ -349,13 +351,15 @@
                 "demand": 4
             }
         ],
-        "actionObjectives": [
-            "add1villagerbed",
-            "add1farmerwork",
-            "add1villagerfreetime"
-        ],
+        "actionObjectives": [],
         "actionRewards": [
-            "spawnshepherd"
+            {
+                "id": "spawnany",
+                "args": [
+                    "humanoid-villager-male-shepherd",
+                    "humanoid-villager-female-shepherd"
+                ]
+            }
         ]
     },
     {
@@ -363,6 +367,7 @@
         "predecessor": "vsvillage:quest-foundvillage-final",
         "cooldown": 5,
         "perPlayer": false,
+        "onAcceptedActions": [],
         "gatherObjectives": [
             {
                 "validCodes": [
@@ -371,13 +376,15 @@
                 "demand": 8
             }
         ],
-        "actionObjectives": [
-            "add1villagerbed",
-            "add1soldierwork",
-            "add1villagerfreetime"
-        ],
+        "actionObjectives": [],
         "actionRewards": [
-            "spawnsoldier"
+            {
+                "id": "spawnany",
+                "args": [
+                    "humanoid-villager-male-soldier",
+                    "humanoid-villager-female-soldier"
+                ]
+            }
         ]
     },
     {
@@ -393,13 +400,15 @@
                 "demand": 6
             }
         ],
-        "actionObjectives": [
-            "add1villagerbed",
-            "add1smithwork",
-            "add1villagerfreetime"
-        ],
+        "actionObjectives": [],
         "actionRewards": [
-            "spawnsmith"
+            {
+                "id": "spawnany",
+                "args": [
+                    "humanoid-villager-male-smith",
+                    "humanoid-villager-female-smith"
+                ]
+            }
         ]
     },
     {
@@ -462,13 +471,29 @@
                 "demand": 30
             }
         ],
-        "actionObjectives": [
-            "add3villagerbed"
-        ],
+        "actionObjectives": [],
         "actionRewards": [
-            "spawnsoldier",
-            "spawnfarmer",
-            "spawnfarmer"
+            {
+                "id": "spawnany",
+                "args": [
+                    "humanoid-villager-male-shepherd",
+                    "humanoid-villager-female-shepherd"
+                ]
+            },
+            {
+                "id": "spawnany",
+                "args": [
+                    "humanoid-villager-male-farmer",
+                    "humanoid-villager-female-farmer"
+                ]
+            },
+            {
+                "id": "spawnany",
+                "args": [
+                    "humanoid-villager-male-farmer",
+                    "humanoid-villager-female-farmer"
+                ]
+            }
         ]
     },
     {
@@ -484,11 +509,15 @@
                 "demand": 64
             }
         ],
-        "actionObjectives": [
-            "add1villagerbed"
-        ],
+        "actionObjectives": [],
         "actionRewards": [
-            "spawnsoldier"
+            {
+                "id": "spawnany",
+                "args": [
+                    "humanoid-villager-male-soldier",
+                    "humanoid-villager-female-soldier"
+                ]
+            }
         ]
     },
     {
@@ -539,12 +568,22 @@
                 "demand": 32
             }
         ],
-        "actionObjectives": [
-            "add2villagerbed"
-        ],
+        "actionObjectives": [],
         "actionRewards": [
-            "spawnfarmer",
-            "spawnshepherd"
+            {
+                "id": "spawnany",
+                "args": [
+                    "humanoid-villager-male-farmer",
+                    "humanoid-villager-female-farmer"
+                ]
+            },
+            {
+                "id": "spawnany",
+                "args": [
+                    "humanoid-villager-male-shepherd",
+                    "humanoid-villager-female-shepherd"
+                ]
+            }
         ]
     },
     {
@@ -584,12 +623,15 @@
                 "demand": 32
             }
         ],
-        "actionObjectives": [
-            "add1villagerbed",
-            "add1smithwork"
-        ],
+        "actionObjectives": [],
         "actionRewards": [
-            "spawnsmith"
+            {
+                "id": "spawnany",
+                "args": [
+                    "humanoid-villager-male-smith",
+                    "humanoid-villager-female-smith"
+                ]
+            }
         ]
     },
     {
@@ -618,13 +660,20 @@
             }
         ],
         "actionRewards": [
-            "spawnsoldier"
+            {
+                "id": "spawnany",
+                "args": [
+                    "humanoid-villager-male-soldier",
+                    "humanoid-villager-female-soldier"
+                ]
+            }
         ]
     },
     {
         "id": "vsvillage:quest-recruitvillager",
         "cooldown": 1,
         "perPlayer": false,
+        "onAcceptedActions": [],
         "gatherObjectives": [
             {
                 "validCodes": [
@@ -634,7 +683,16 @@
             }
         ],
         "actionRewards": [
-            "recruitvillager"
+            {
+                "id": "recruitentity",
+                "args": []
+            },
+            {
+                "id": "playsound",
+                "args": [
+                    "game:sounds/voice/saxophone"
+                ]
+            }
         ]
     }
 ]
