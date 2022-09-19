@@ -1,3 +1,4 @@
+using System;
 using Vintagestory.API.Common;
 using Vintagestory.API.Datastructures;
 using Vintagestory.API.Server;
@@ -126,7 +127,12 @@ namespace VsVillage
             var villagerBed = (entity.Api as ICoreServerAPI)?.ModLoader.GetModSystem<POIRegistry>().GetNearestPoi(entity.ServerPos.XYZ, 75, poi =>
             {
                 var behaviorBed = poi as BlockEntityBehaviorVillagerBed;
-                return behaviorBed != null && (behaviorBed.owner == null || !behaviorBed.owner.Alive || behaviorBed.owner == entity);
+                
+                // sometimes the worldgen overwrites some bed blocks without deleting the bed entity properly
+                // we shall avoid those bed entities
+                bool isNotRiggedByWorldGen = entity.World.BlockAccessor.GetBlock(poi.Position.AsBlockPos).Code.Path.StartsWith("bed-");
+                
+                return behaviorBed != null && isNotRiggedByWorldGen && (behaviorBed.owner == null || !behaviorBed.owner.Alive || behaviorBed.owner == entity);
             }) as BlockEntityBehaviorVillagerBed;
             bed = villagerBed?.Blockentity as BlockEntityBed;
             if (bed != null)
