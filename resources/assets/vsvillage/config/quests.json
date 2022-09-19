@@ -332,8 +332,8 @@
             {
                 "id": "spawnany",
                 "args": [
-                    "humanoid-villager-male-farmer",
-                    "humanoid-villager-female-farmer"
+                    "vsvillage:humanoid-villager-male-farmer",
+                    "vsvillage:humanoid-villager-female-farmer"
                 ]
             }
         ]
@@ -356,8 +356,8 @@
             {
                 "id": "spawnany",
                 "args": [
-                    "humanoid-villager-male-shepherd",
-                    "humanoid-villager-female-shepherd"
+                    "vsvillage:humanoid-villager-male-shepherd",
+                    "vsvillage:humanoid-villager-female-shepherd"
                 ]
             }
         ]
@@ -381,8 +381,8 @@
             {
                 "id": "spawnany",
                 "args": [
-                    "humanoid-villager-male-soldier",
-                    "humanoid-villager-female-soldier"
+                    "vsvillage:humanoid-villager-male-soldier",
+                    "vsvillage:humanoid-villager-female-soldier"
                 ]
             }
         ]
@@ -405,8 +405,8 @@
             {
                 "id": "spawnany",
                 "args": [
-                    "humanoid-villager-male-smith",
-                    "humanoid-villager-female-smith"
+                    "vsvillage:humanoid-villager-male-smith",
+                    "vsvillage:humanoid-villager-female-smith"
                 ]
             }
         ]
@@ -476,22 +476,22 @@
             {
                 "id": "spawnany",
                 "args": [
-                    "humanoid-villager-male-shepherd",
-                    "humanoid-villager-female-shepherd"
+                    "vsvillage:humanoid-villager-male-shepherd",
+                    "vsvillage:humanoid-villager-female-shepherd"
                 ]
             },
             {
                 "id": "spawnany",
                 "args": [
-                    "humanoid-villager-male-farmer",
-                    "humanoid-villager-female-farmer"
+                    "vsvillage:humanoid-villager-male-farmer",
+                    "vsvillage:humanoid-villager-female-farmer"
                 ]
             },
             {
                 "id": "spawnany",
                 "args": [
-                    "humanoid-villager-male-farmer",
-                    "humanoid-villager-female-farmer"
+                    "vsvillage:humanoid-villager-male-farmer",
+                    "vsvillage:humanoid-villager-female-farmer"
                 ]
             }
         ]
@@ -514,8 +514,8 @@
             {
                 "id": "spawnany",
                 "args": [
-                    "humanoid-villager-male-soldier",
-                    "humanoid-villager-female-soldier"
+                    "vsvillage:humanoid-villager-male-soldier",
+                    "vsvillage:humanoid-villager-female-soldier"
                 ]
             }
         ]
@@ -573,15 +573,15 @@
             {
                 "id": "spawnany",
                 "args": [
-                    "humanoid-villager-male-farmer",
-                    "humanoid-villager-female-farmer"
+                    "vsvillage:humanoid-villager-male-farmer",
+                    "vsvillage:humanoid-villager-female-farmer"
                 ]
             },
             {
                 "id": "spawnany",
                 "args": [
-                    "humanoid-villager-male-shepherd",
-                    "humanoid-villager-female-shepherd"
+                    "vsvillage:humanoid-villager-male-shepherd",
+                    "vsvillage:humanoid-villager-female-shepherd"
                 ]
             }
         ]
@@ -628,8 +628,8 @@
             {
                 "id": "spawnany",
                 "args": [
-                    "humanoid-villager-male-smith",
-                    "humanoid-villager-female-smith"
+                    "vsvillage:humanoid-villager-male-smith",
+                    "vsvillage:humanoid-villager-female-smith"
                 ]
             }
         ]
@@ -663,8 +663,8 @@
             {
                 "id": "spawnany",
                 "args": [
-                    "humanoid-villager-male-soldier",
-                    "humanoid-villager-female-soldier"
+                    "vsvillage:humanoid-villager-male-soldier",
+                    "vsvillage:humanoid-villager-female-soldier"
                 ]
             }
         ]
