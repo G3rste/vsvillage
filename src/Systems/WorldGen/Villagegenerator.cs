@@ -57,7 +57,22 @@ namespace VsVillage
 
         private void onCmdDebugVillage(IServerPlayer player, int groupId, CmdArgs args, ICoreServerAPI sapi)
         {
-            var village = villages.Find(match => match.Code == args[0]);
+            VillageType village;
+            if (args.Length < 1)
+            {
+                village = villages[sapi.World.Rand.Next(0, villages.Count)];
+            }
+            else
+            {
+                string villageName = args[0];
+                village = villages.Find(match => match.Code == villageName);
+                if (village == null)
+                {
+                    sapi.SendMessage(player, GlobalConstants.AllChatGroups, string.Format("Could not find village with name {0}.", villageName), EnumChatType.CommandError);
+                    return;
+                }
+            }
+
             var grid = new VillageGrid(village.Length, village.Height);
             grid.Init(village, rand);
             var start = player.Entity.ServerPos.XYZInt.ToBlockPos();
