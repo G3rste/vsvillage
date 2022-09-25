@@ -97,5 +97,42 @@
                 "MaxStructuresPerVillage": 1
             }
         ]
+    },
+    {
+        "Code": "new",
+        "Height": 2,
+        "Length": 2,
+        "StructureGroups": [
+            {
+                "Code": "woodcutter",
+                "Size": "MEDIUM",
+                "MinStructuresPerVillage": 1,
+                "MaxStructuresPerVillage": 1
+            },
+            {
+                "Code": "bookrey",
+                "Size": "MEDIUM",
+                "MinStructuresPerVillage": 1,
+                "MaxStructuresPerVillage": 1
+            },
+            {
+                "Code": "cattle-new",
+                "Size": "SMALL",
+                "MinStructuresPerVillage": 1,
+                "MaxStructuresPerVillage": 1
+            },
+            {
+                "Code": "well",
+                "Size": "small",
+                "MinStructuresPerVillage": 1,
+                "MaxStructuresPerVillage": 1
+            },
+            {
+                "Code": "church",
+                "Size": "LARGE",
+                "MinStructuresPerVillage": 1,
+                "MaxStructuresPerVillage": 1
+            }
+        ]
     }
 ]

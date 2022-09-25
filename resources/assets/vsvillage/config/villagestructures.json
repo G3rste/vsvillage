@@ -14,6 +14,13 @@
         "Size": "SMALL"
     },
     {
+        "Code": "cattle-small-3",
+        "Group": "cattle-new",
+        "AttachmentPoint": 0,
+        "VerticalOffset": 0,
+        "Size": "SMALL"
+    },
+    {
         "Code": "garden-small-1",
         "Group": "garden",
         "AttachmentPoint": 0,
@@ -25,6 +32,13 @@
         "Group": "garden",
         "AttachmentPoint": 0,
         "VerticalOffset": -1,
+        "Size": "SMALL"
+    },
+    {
+        "Code": "well-small-1",
+        "Group": "well",
+        "AttachmentPoint": 0,
+        "VerticalOffset": -5,
         "Size": "SMALL"
     },
     {
@@ -84,8 +98,29 @@
         "Size": "MEDIUM"
     },
     {
+        "Code": "bookrey-medium-1",
+        "Group": "bookrey",
+        "AttachmentPoint": 0,
+        "VerticalOffset": 1,
+        "Size": "MEDIUM"
+    },
+    {
+        "Code": "woodcutter-medium-1",
+        "Group": "woodcutter",
+        "AttachmentPoint": 0,
+        "VerticalOffset": 0,
+        "Size": "MEDIUM"
+    },
+    {
         "Code": "castle-large-1",
         "Group": "castle",
+        "AttachmentPoint": 0,
+        "VerticalOffset": 0,
+        "Size": "LARGE"
+    },
+    {
+        "Code": "church-large-1",
+        "Group": "church",
         "AttachmentPoint": 0,
         "VerticalOffset": 0,
         "Size": "LARGE"
