@@ -140,7 +140,7 @@ namespace VsVillage
                             min = Math.Min(min, current);
                         }
                     }
-                    if (min + 10 < max) { tolerance--; }
+                    tolerance -= (max - min) / 10;
                 }
             }
             return tolerance > 0;
