@@ -41,7 +41,7 @@ namespace VsVillage
                 lastCheck = elapsedMs;
                 if (woundedEntity == null || entity.ServerPos.SquareDistanceTo(woundedEntity.ServerPos.XYZ) > maxDistance * maxDistance * 4)
                 {
-                    var villagers = entity.World.GetEntitiesAround(entity.ServerPos.XYZ, maxDistance, 5, entity => entity is EntityVillager);
+                    var villagers = entity.World.GetEntitiesAround(entity.ServerPos.XYZ, maxDistance, 5, entity => entity is EntityVillager || entity is EntityPlayer);
                     int maxHpLossIndex = 0;
                     float maxHpLoss = 0;
                     for (int i = 0; i < villagers.Length; i++)
@@ -95,7 +95,7 @@ namespace VsVillage
                 {
                     DamageTier = 0,
                     HitPosition = woundedEntity.ServerPos.XYZ,
-                    Source = EnumDamageSource.Entity,
+                    Source = EnumDamageSource.Internal,
                     SourceEntity = null, // otherwise the basegame wants to retaliate attacks ^^
                     Type = EnumDamageType.Heal
                 }, 100);
