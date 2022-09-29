@@ -269,14 +269,14 @@
 						"priority": 0.5
 					},
 					{
-						"codeByType":{ "*-shepherd": "villagerfilltrough", "*-farmer": "villagercultivatecrops", "*-soldier": "villagerstayclose", "*": "villagerflipweapon"},
+						"codeByType":{ "*-shepherd": "villagerfilltrough", "*-farmer": "villagercultivatecrops", "*-soldier": "villagerstayclose", "*-herbalist": "villagerhealwounded", "*": "villagerflipweapon"},
 						"weaponByType":{ "*-smith": "hammer", "*": "sword" },
 						"minduration": 3500,
 						"maxduration": 3500,
-						"mincooldown": 60000,
-						"maxcooldown": 120000,
-						"maxdistanceByType": { "*-soldier": 5, "*": 10 },
-						"animationByType": { "*-shepherd": "walk", "*-farmer": "walk", "*-soldier": "BalancedRun", "*": "hammerflip" },
+						"mincooldownByType": {"*-herbalist": 10000, "*": 60000},
+						"maxcooldownByType": {"*-herbalist": 20000, "*": 120000},
+						"maxdistanceByType": { "*-soldier": 5, "*-herbalist": 25, "*": 10 },
+						"animationByType": { "*-shepherd": "walk", "*-farmer": "walk", "*-herbalist": "walk", "*-soldier": "BalancedRun", "*": "hammerflip" },
 						"animationSpeedByType": { "*-soldier": 1.75, "*": 1 },
 						"priorityByType": { "*-soldier": 1.5, "*": 1.4 },
 						"movespeedByType": { "*-soldier": 0.035, "*": 0.01 }
