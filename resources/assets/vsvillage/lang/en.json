@@ -41,6 +41,14 @@
     "quest-gather20MeatFor4SpeltSeeds-desc": "My diet could use a little bit more variation. If you provide 20 meat of any kind, I could offer you some seeds in return.",
     "quest-gather20MeatFor4SpeltSeeds-obj": "Gathered meat: {0}/20",
 
+    "quest-cull10HaresFor5Carrots-title": "Hare problem",
+    "quest-cull10HaresFor5Carrots-desc": "Those horrible hares keep eating my crops. Get rid of them and I'll share some carrots with you.",
+    "quest-cull10HaresFor5Carrots-obj": "Hares killed: {0}/10",
+
+    "quest-cull10HaresFor5Spelt-title": "Hare problem",
+    "quest-cull10HaresFor5Spelt-desc": "Those horrible hares keep eating my crops. Get rid of them and I'll share some spelt with you.",
+    "quest-cull10HaresFor5Spelt-obj": "Hares killed: {0}/10",
+
     "quest-gather20CharcoalFor3Gears-title": "The forge stays cold today",
     "quest-gather20CharcoalFor3Gears-desc": "I want to produce some new iron tools but forgot to prepare the charcoal. Can you help me gather some coal for me? I could pay you.",
     "quest-gather20CharcoalFor3Gears-obj": "Gathered charcoal: {0}/20",
