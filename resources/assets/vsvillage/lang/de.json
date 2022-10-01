@@ -6,5 +6,7 @@
     "item-creature-humanoid-villager-male-farmer": "Bauer (männlich)",
     "item-creature-humanoid-villager-female-farmer": "Bauer (weiblich)",
     "item-creature-humanoid-villager-male-shepherd": "Hirte (männlich)",
-    "item-creature-humanoid-villager-female-shepherd": "Hirte (weiblich)"
+    "item-creature-humanoid-villager-female-shepherd": "Hirte (weiblich)",
+    "item-creature-humanoid-villager-male-herbalist": "Kräuterkundler (male)",
+    "item-creature-humanoid-villager-female-herbalist": "Kräuterhexe (female)"
 }

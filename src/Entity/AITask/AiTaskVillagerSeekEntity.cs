@@ -64,7 +64,7 @@ namespace VsVillage
         {
             base.OnEntityHurt(source, damage);
             (entity as EntityVillager)?.DrawWeapon();
-            if (lastCallForHelp + 5000 < entity.World.ElapsedMilliseconds)
+            if (source.Type != EnumDamageType.Heal && lastCallForHelp + 5000 < entity.World.ElapsedMilliseconds)
             {
                 lastCallForHelp = entity.World.ElapsedMilliseconds;
                 foreach (var villager in entity.World.GetEntitiesAround(entity.ServerPos.XYZ, 15, 4, entity => (entity as EntityVillager)?.profession == "soldier"))
