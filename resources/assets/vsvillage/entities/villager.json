@@ -22,13 +22,13 @@
 		"*-smith": {
 			"profession": "smith",
 			"validGear": {
-				"arms": ["jewelry-left-bracelet", "jewelry-right-bracelet", "jewelry-left-bracelet-copper", "jewelry-right-bracelet-copper", "jewelry-left-bracelet-gold", "jewelry-right-bracelet-gold", "jewelry-left-rings", "jewelry-right-rings", "jewelry-left-rings-copper", "jewelry-right-rings-copper", "jewelry-left-rings-gold", "jewelry-right-rings-gold","gloves"],
-				"back": ["pickaxe", "backpack"],
-				"belt": ["jewelry-girdle", "jewelry-girdle-copper", "jewelry-girdle-gold"],
+				"arms": ["gloves"],
+				"back": ["pickaxe"],
+				"belt": ["jewelry-girdle", "jewelry-girdle-copper"],
 				"beltslot": ["hammer"],
 				"chest": ["apron", "apron-cloth", "apron-fancy"],
-				"feet": ["knife", "boots"],
-				"head": ["beret", "chaperon", "fez", "miner-hat", "keffiyeh"],
+				"feet": [],
+				"head": ["miner-hat"],
 				"shoulders": ["jewelry-necklace", "jewelry-necklace-copper", "jewelry-necklace-gold", "scarf"],
 				"thigh": []
 			}
@@ -37,13 +37,13 @@
 			"profession": "farmer",
 			"validGear": {
 				"arms": ["jewelry-left-bracelet", "jewelry-right-bracelet", "jewelry-left-bracelet-copper", "jewelry-right-bracelet-copper", "jewelry-left-bracelet-gold", "jewelry-right-bracelet-gold", "jewelry-left-rings", "jewelry-right-rings", "jewelry-left-rings-copper", "jewelry-right-rings-copper", "jewelry-left-rings-gold", "jewelry-right-rings-gold","gloves"],
-				"back": ["dagger", "backpack"],
-				"belt": ["jewelry-girdle", "jewelry-girdle-copper", "jewelry-girdle-gold"],
-				"beltslot": ["jewelry-pouch", "jewelry-pouch-copper", "jewelry-pouch-gold", "magnifying-glass", "sack", "spyglass", "chisel", "handsaw"],
-				"chest": ["jewelry-pin", "jewelry-pin-copper", "jewelry-pin-gold", "waterskin"],
-				"feet": ["knife", "boots"],
-				"head": ["beret", "chaperon", "fez", "keffiyeh", "hood", "hood-red"],
-				"shoulders": ["jewelry-necklace", "jewelry-necklace-copper", "jewelry-necklace-gold", "scarf"],
+				"back": [],
+				"belt": [],
+				"beltslot": [],
+				"chest": [],
+				"feet": ["boots"],
+				"head": ["beret", "fez"],
+				"shoulders": [],
 				"thigh": []
 			}
 		},
@@ -52,12 +52,26 @@
 			"validGear": {
 				"arms": ["jewelry-left-bracelet", "jewelry-right-bracelet", "jewelry-left-bracelet-copper", "jewelry-right-bracelet-copper", "jewelry-left-bracelet-gold", "jewelry-right-bracelet-gold", "jewelry-left-rings", "jewelry-right-rings", "jewelry-left-rings-copper", "jewelry-right-rings-copper", "jewelry-left-rings-gold", "jewelry-right-rings-gold","gloves"],
 				"back": [],
-				"belt": ["jewelry-girdle", "jewelry-girdle-copper", "jewelry-girdle-gold"],
-				"beltslot": ["jewelry-pouch", "jewelry-pouch-copper", "jewelry-pouch-gold", "magnifying-glass", "sack", "spyglass", "chisel", "handsaw"],
-				"chest": ["jewelry-pin", "jewelry-pin-copper", "jewelry-pin-gold", "waterskin"],
+				"belt": ["jewelry-girdle", "jewelry-girdle-copper"],
+				"beltslot": [],
+				"chest": [],
+				"feet": ["boots"],
+				"head": ["keffiyeh"],
+				"shoulders": ["scarf"],
+				"thigh": []
+			}
+		},
+		"*-herbalist": {
+			"profession": "herbalist",
+			"validGear": {
+				"arms": [],
+				"back": ["backpack"],
+				"belt": [],
+				"beltslot": ["magnifying-glass", "jewelry-pouch", "jewelry-pouch-copper", "jewelry-pouch-gold", "sack"],
+				"chest": ["waterskin"],
 				"feet": ["knife"],
-				"head": ["beret", "chaperon", "fez", "keffiyeh", "hood", "hood-red"],
-				"shoulders": ["jewelry-necklace", "jewelry-necklace-copper", "jewelry-necklace-gold", "scarf"],
+				"head": ["chaperon"],
+				"shoulders": [],
 				"thigh": []
 			}
 		},
@@ -65,18 +79,18 @@
 			"profession": "mayor",
 			"validGear": {
 				"arms": ["jewelry-left-bracelet", "jewelry-right-bracelet", "jewelry-left-bracelet-copper", "jewelry-right-bracelet-copper", "jewelry-left-bracelet-gold", "jewelry-right-bracelet-gold", "jewelry-left-rings", "jewelry-right-rings", "jewelry-left-rings-copper", "jewelry-right-rings-copper", "jewelry-left-rings-gold", "jewelry-right-rings-gold"],
-				"back": ["dagger"],
+				"back": [],
 				"belt": ["jewelry-girdle", "jewelry-girdle-copper", "jewelry-girdle-gold"],
-				"beltslot": ["jewelry-pouch", "jewelry-pouch-copper", "jewelry-pouch-gold", "magnifying-glass"],
+				"beltslot": ["magnifying-glass"],
 				"chest": ["jewelry-pin", "jewelry-pin-copper", "jewelry-pin-gold"],
-				"feet": ["knife"],
+				"feet": [],
 				"head": ["jewelry-monocle",	"jewelry-monocle-copper", "jewelry-monocle-gold"],
-				"shoulders": ["jewelry-necklace", "jewelry-necklace-copper", "jewelry-necklace-gold", "scarf"],
+				"shoulders": ["jewelry-necklace", "jewelry-necklace-copper", "jewelry-necklace-gold"],
 				"thigh": []
 			}
 		}
 	},
-	"variantGroups": [{"code": "sex", "states": ["male", "female"]}, {"code": "profession", "states": ["soldier", "smith", "farmer", "shepherd", "mayor"]}],
+	"variantGroups": [{"code": "sex", "states": ["male", "female"]}, {"code": "profession", "states": ["soldier", "smith", "farmer", "shepherd", "herbalist", "mayor"]}],
 	"client": {
 		"renderer": "Shape",
 		"shape": { "base": "villager" },
@@ -127,7 +141,7 @@
 			{ "code": "nametag", "showtagonlywhentargeted": true, "selectFromRandomNameByType": {"*-male-*": ["Aphid", "Erik", "Adachi", "Farhad", "Pegalesharro", "Floyd", "Temper", "En Repos", "Alanus", "Baldrich", "Cuno", "Dominicus", "Ludwig", "Lambert", "Geralt", "Richard", "Wolfram", "Zachäus", "Pippin", "Frodo", "Baggins", "Rudolf", "Marcus", "Benjamin", "Cronos", "Timoleon", "Leonidas", "Xerxes", "Brutus", "William", "Maurinus", "Hubertus"], "*-female-*": ["Anne", "Agnes", "Adachi", "Farhad", "Bianca", "Hedwig", "Demud", "Imagina", "Johanna", "Judith", "Magdalena", "Philippa", "Methild", "Violante", "Walpurga", "Josephine", "Joana", "Yvonne", "Lisbeth", "Dione", "Diana", "Olivia", "Hermine", "Triss", "Yennefer", "Lucia", "Mirella", "Bernadetta", "Tacia"]}},
 			{ "code": "repulseagents" },
 			{ "code": "controlledphysics", "stepHeight": 1.01 },
-			{ "code": "health", "currenthealthByType": {"*-farmer": 20, "*-smith": 30, "*-soldier": 40}, "maxhealthByType": {"*-farmer": 20, "*-smith": 30, "*-soldier": 40}},
+			{ "code": "health", "currenthealthByType": {"*-smith": 30, "*-soldier": 40, "*": 20 }, "maxhealthByType": {"*-smith": 30, "*-soldier": 40, "*": 20}},
 			{
 				"code": "emotionstates",
 				"states": [
@@ -255,14 +269,14 @@
 						"priority": 0.5
 					},
 					{
-						"codeByType":{ "*-shepherd": "villagerfilltrough", "*-farmer": "villagercultivatecrops", "*-soldier": "villagerstayclose", "*": "villagerflipweapon"},
+						"codeByType":{ "*-shepherd": "villagerfilltrough", "*-farmer": "villagercultivatecrops", "*-soldier": "villagerstayclose", "*-herbalist": "villagerhealwounded", "*": "villagerflipweapon"},
 						"weaponByType":{ "*-smith": "hammer", "*": "sword" },
 						"minduration": 3500,
 						"maxduration": 3500,
-						"mincooldown": 60000,
-						"maxcooldown": 120000,
-						"maxdistanceByType": { "*-soldier": 5, "*": 10 },
-						"animationByType": { "*-shepherd": "walk", "*-farmer": "walk", "*-soldier": "BalancedRun", "*": "hammerflip" },
+						"mincooldownByType": {"*-herbalist": 10000, "*": 60000},
+						"maxcooldownByType": {"*-herbalist": 20000, "*": 120000},
+						"maxdistanceByType": { "*-soldier": 5, "*-herbalist": 25, "*": 10 },
+						"animationByType": { "*-shepherd": "walk", "*-farmer": "walk", "*-herbalist": "walk", "*-soldier": "BalancedRun", "*": "hammerflip" },
 						"animationSpeedByType": { "*-soldier": 1.75, "*": 1 },
 						"priorityByType": { "*-soldier": 1.5, "*": 1.4 },
 						"movespeedByType": { "*-soldier": 0.035, "*": 0.01 }
