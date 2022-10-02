@@ -5,6 +5,24 @@
         "Length": 1,
         "StructureGroups": [
             {
+                "Code": "clutter",
+                "Size": "SMALL",
+                "MinStructuresPerVillage": 0,
+                "MaxStructuresPerVillage": 1
+            },
+            {
+                "Code": "well",
+                "Size": "SMALL",
+                "MinStructuresPerVillage": 0,
+                "MaxStructuresPerVillage": 1
+            },
+            {
+                "Code": "soldier",
+                "Size": "SMALL",
+                "MinStructuresPerVillage": 0,
+                "MaxStructuresPerVillage": 1
+            },
+            {
                 "Code": "farmer",
                 "Size": "SMALL",
                 "MinStructuresPerVillage": 2,
@@ -23,6 +41,24 @@
         "Height": 1,
         "Length": 2,
         "StructureGroups": [
+            {
+                "Code": "clutter",
+                "Size": "SMALL",
+                "MinStructuresPerVillage": 0,
+                "MaxStructuresPerVillage": 1
+            },
+            {
+                "Code": "well",
+                "Size": "small",
+                "MinStructuresPerVillage": 1,
+                "MaxStructuresPerVillage": 1
+            },
+            {
+                "Code": "soldier",
+                "Size": "SMALL",
+                "MinStructuresPerVillage": 0,
+                "MaxStructuresPerVillage": 1
+            },
             {
                 "Code": "farmer",
                 "Size": "SMALL",
@@ -56,10 +92,65 @@
         ]
     },
     {
+        "Code": "small-witch-hut",
+        "Height": 1,
+        "Length": 2,
+        "StructureGroups": [
+            {
+                "Code": "well",
+                "Size": "small",
+                "MinStructuresPerVillage": 1,
+                "MaxStructuresPerVillage": 1
+            },
+            {
+                "Code": "soldier",
+                "Size": "SMALL",
+                "MinStructuresPerVillage": 1,
+                "MaxStructuresPerVillage": 3
+            },
+            {
+                "Code": "farmer",
+                "Size": "SMALL",
+                "MinStructuresPerVillage": 3,
+                "MaxStructuresPerVillage": 5
+            },
+            {
+                "Code": "garden",
+                "Size": "SMALL",
+                "MinStructuresPerVillage": 2,
+                "MaxStructuresPerVillage": 4
+            },
+            {
+                "Code": "herbalist",
+                "Size": "LARGE",
+                "MinStructuresPerVillage": 1,
+                "MaxStructuresPerVillage": 1
+            }
+        ]
+    },
+    {
         "Code": "medium",
         "Height": 2,
         "Length": 2,
         "StructureGroups": [
+            {
+                "Code": "clutter",
+                "Size": "SMALL",
+                "MinStructuresPerVillage": 0,
+                "MaxStructuresPerVillage": 1
+            },
+            {
+                "Code": "well",
+                "Size": "small",
+                "MinStructuresPerVillage": 1,
+                "MaxStructuresPerVillage": 1
+            },
+            {
+                "Code": "soldier",
+                "Size": "SMALL",
+                "MinStructuresPerVillage": 0,
+                "MaxStructuresPerVillage": 2
+            },
             {
                 "Code": "farmer",
                 "Size": "SMALL",
@@ -82,6 +173,12 @@
                 "Code": "smith",
                 "Size": "MEDIUM",
                 "MinStructuresPerVillage": 1,
+                "MaxStructuresPerVillage": 1
+            },
+            {
+                "Code": "gather",
+                "Size": "MEDIUM",
+                "MinStructuresPerVillage": 0,
                 "MaxStructuresPerVillage": 1
             },
             {
@@ -116,7 +213,7 @@
                 "MaxStructuresPerVillage": 1
             },
             {
-                "Code": "cattle-new",
+                "Code": "cattle",
                 "Size": "SMALL",
                 "MinStructuresPerVillage": 1,
                 "MaxStructuresPerVillage": 1
@@ -129,6 +226,12 @@
             },
             {
                 "Code": "church",
+                "Size": "LARGE",
+                "MinStructuresPerVillage": 1,
+                "MaxStructuresPerVillage": 1
+            },
+            {
+                "Code": "mayor",
                 "Size": "LARGE",
                 "MinStructuresPerVillage": 1,
                 "MaxStructuresPerVillage": 1
