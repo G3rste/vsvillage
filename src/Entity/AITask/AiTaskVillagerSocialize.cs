@@ -2,13 +2,14 @@ using System.Collections.Generic;
 using Vintagestory.API.Common;
 using Vintagestory.API.Common.Entities;
 using Vintagestory.API.Datastructures;
+using Vintagestory.API.MathTools;
 using Vintagestory.API.Server;
 using Vintagestory.API.Util;
 using Vintagestory.GameContent;
 
 namespace VsVillage
 {
-    public class AiTaskVillagerSocialize : AiTaskBase
+    public class AiTaskVillagerSocialize : AiTaskGotoAndInteract
     {
 
         public Entity other { get; set; }
@@ -16,86 +17,45 @@ namespace VsVillage
         public AiTaskGotoEntity gotoTask;
         public AiTaskLookAtEntity lookAtTask;
 
-        public long lastCheck;
-
-        public float moveSpeed;
-
-        public float maxDistance;
-
         public bool lookAtTaskStarted;
 
         public AiTaskVillagerSocialize(EntityAgent entity) : base(entity)
         {
         }
 
-        public override void LoadConfig(JsonObject taskConfig, JsonObject aiConfig)
+        protected override Vec3d GetTargetPos()
         {
-            base.LoadConfig(taskConfig, aiConfig);
-            moveSpeed = taskConfig["movespeed"].AsFloat(0.03f);
-            maxDistance = taskConfig["maxDistance"].AsFloat(5f);
-
-        }
-        public override bool ShouldExecute()
-        {
-            if (cooldownUntilMs + lastCheck > entity.World.ElapsedMilliseconds && other == null) { return false; }
-            lastCheck = entity.World.ElapsedMilliseconds;
-            if (other == null)
+            var friends = entity.World.GetEntitiesAround(entity.ServerPos.XYZ, maxDistance, 2, friend => friend is EntityVillager && friend != entity && friend.Alive || friend is EntityPlayer);
+            if (friends.Length > 0)
             {
-                var friends = entity.World.GetEntitiesAround(entity.ServerPos.XYZ, maxDistance, 2, friend => friend is EntityVillager && friend != entity || friend is EntityPlayer);
-                if (friends.Length > 0) { other = friends[entity.World.Rand.Next(0, friends.Length)]; }
+                other = friends[entity.World.Rand.Next(0, friends.Length)];
+                return other.ServerPos.XYZ;
             }
-            return other != null;
+            return null;
         }
 
-        public override void StartExecute()
+        protected override bool InteractionPossible()
         {
-            base.StartExecute();
-            gotoTask = new AiTaskGotoEntity(entity, other);
-            gotoTask.moveSpeed = moveSpeed;
-            lookAtTask = new AiTaskLookAtEntity(entity, other);
-            lookAtTaskStarted = false;
-
-            gotoTask.StartExecute();
-        }
-
-        public override bool ContinueExecute(float dt)
-        {
-            if (lookAtTaskStarted)
+            bool closeEnough = entity.ServerPos.SquareDistanceTo(other.ServerPos) < 2 * 2;
+            if (closeEnough)
             {
-                return lookAtTask.ContinueExecute(dt);
-            }
-            else if (!pathTraverser.Active || !gotoTask.ContinueExecute(dt) || entity.ServerPos.SquareDistanceTo(other.ServerPos) < 2.5)
-            {
-                lookAtTask.StartExecute();
-                lookAtTaskStarted = true;
-                var socialtask = other.GetBehavior<EntityBehaviorTaskAI>()?.TaskManager?.GetTask<AiTaskVillagerSocialize>();
-                if (socialtask != null)
+                var message = new TalkUtilMessage();
+                message.entityId = entity.EntityId;
+                message.talkType = EnumTalkType.Meet;
+
+                IServerPlayer[] relevantPlayers = new List<Entity>(entity.World.GetEntitiesAround(entity.ServerPos.XYZ, 30, 10, player => player is EntityPlayer))
+                    .ConvertAll<IServerPlayer>(player => (player as EntityPlayer).Player as IServerPlayer).ToArray();
+
+                if (relevantPlayers.Length > 0)
                 {
-                    socialtask.other = entity;
+                    (entity.Api as ICoreServerAPI).Network.GetChannel("vsvillagenetwork").SendPacket<TalkUtilMessage>(message, relevantPlayers);
                 }
             }
-            return true;
+            return closeEnough;
         }
 
-        public override void FinishExecute(bool cancelled)
+        protected override void ApplyInteractionEffect()
         {
-            base.FinishExecute(cancelled);
-            gotoTask.FinishExecute(cancelled);
-            lookAtTask.FinishExecute(cancelled);
-            entity.AnimManager.StartAnimation(new AnimationMetaData() { Animation = "welcome", Code = "welcome", Weight = 10, EaseOutSpeed = 10000, EaseInSpeed = 10000 });
-
-            var message = new TalkUtilMessage();
-            message.entityId = entity.EntityId;
-            message.talkType = EnumTalkType.Meet;
-
-            IServerPlayer[] relevantPlayers = new List<Entity>(entity.World.GetEntitiesAround(entity.ServerPos.XYZ, 30, 10, player => player is EntityPlayer))
-                .ConvertAll<IServerPlayer>(player => (player as EntityPlayer).Player as IServerPlayer).ToArray();
-
-            if (relevantPlayers.Length > 0)
-            {
-                (entity.Api as ICoreServerAPI).Network.GetChannel("vsvillagenetwork").SendPacket<TalkUtilMessage>(message, relevantPlayers);
-            }
-
             other = null;
         }
     }

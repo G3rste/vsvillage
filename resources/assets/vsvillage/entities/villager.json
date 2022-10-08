@@ -262,7 +262,9 @@
 						"priority": 1.3,
 						"mincooldown": 10000,
 						"maxcooldown": 30000,
-						"movespeed": 0.01
+						"movespeed": 0.01,
+						"animation": "Walk",
+						"interact": "welcome"
 					},
 					{
 						"code": "lookaround",
