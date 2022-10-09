@@ -1,3 +1,4 @@
+using System.Runtime.CompilerServices;
 using Vintagestory.API.Common;
 using Vintagestory.API.Datastructures;
 using Vintagestory.API.MathTools;
@@ -10,7 +11,7 @@ namespace VsVillage
     {
 
         protected long? ownerId { get; set; }
-        public EntityVillager owner { get => ownerId == null ? null : Api.World.GetEntityById((long)ownerId) as EntityVillager; set => ownerId = value.EntityId; }
+        public EntityVillager owner { get => ownerId == null ? null : Api.World.GetEntityById((long)ownerId) as EntityVillager; }
 
         public Vec3d Position => Blockentity.Pos.ToVec3d();
 
@@ -44,6 +45,16 @@ namespace VsVillage
         {
             base.ToTreeAttributes(tree);
             if (ownerId != null) { tree.SetLong("ownerId", (long)ownerId); }
+        }
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
+        public bool setOwnerIfFree(long newOwner){
+            if(ownerId == null || ownerId == newOwner || Api.World.GetEntityById((long)ownerId)?.Alive != true){
+                ownerId = newOwner;
+                return true;
+            }else{
+                return false;
+            }
         }
     }
 }
