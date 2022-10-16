@@ -263,6 +263,48 @@
         ]
     },
     {
+        "id": "vsvillage:quest-cull10HaresFor5Carrots",
+        "cooldown": 10,
+        "perPlayer": false,
+        "gatherObjectives": [],
+        "killObjectives": [
+            {
+                "validCodes": [
+                    "game:hare-male",
+                    "game:hare-female",
+                    "game:hare-baby"
+                ],
+                "demand": 10
+            }],
+        "itemRewards": [
+            {
+                "itemCode": "game:vegetable-carrot",
+                "amount": 5
+            }
+        ]
+    },
+    {
+        "id": "vsvillage:quest-cull10HaresFor5Spelt",
+        "cooldown": 10,
+        "perPlayer": false,
+        "gatherObjectives": [],
+        "killObjectives": [
+            {
+                "validCodes": [
+                    "game:hare-male",
+                    "game:hare-female",
+                    "game:hare-baby"
+                ],
+                "demand": 10
+            }],
+        "itemRewards": [
+            {
+                "itemCode": "game:grain-spelt",
+                "amount": 5
+            }
+        ]
+    },
+    {
         "id": "vsvillage:quest-gather20CharcoalFor3Gears",
         "cooldown": 30,
         "perPlayer": false,
