@@ -14,6 +14,13 @@
         "Size": "SMALL"
     },
     {
+        "Code": "cattle-small-3",
+        "Group": "cattle",
+        "AttachmentPoint": 0,
+        "VerticalOffset": 0,
+        "Size": "SMALL"
+    },
+    {
         "Code": "garden-small-1",
         "Group": "garden",
         "AttachmentPoint": 0,
@@ -25,6 +32,34 @@
         "Group": "garden",
         "AttachmentPoint": 0,
         "VerticalOffset": -1,
+        "Size": "SMALL"
+    },
+    {
+        "Code": "well-small-1",
+        "Group": "well",
+        "AttachmentPoint": 0,
+        "VerticalOffset": -5,
+        "Size": "SMALL"
+    },
+    {
+        "Code": "well-small-2",
+        "Group": "well",
+        "AttachmentPoint": 0,
+        "VerticalOffset": 0,
+        "Size": "SMALL"
+    },
+    {
+        "Code": "gather-small-1",
+        "Group": "gather",
+        "AttachmentPoint": 0,
+        "VerticalOffset": 0,
+        "Size": "SMALL"
+    },
+    {
+        "Code": "gather-small-2",
+        "Group": "gather",
+        "AttachmentPoint": 0,
+        "VerticalOffset": 0,
         "Size": "SMALL"
     },
     {
@@ -70,6 +105,27 @@
         "Size": "SMALL"
     },
     {
+        "Code": "soldier-small-1",
+        "Group": "soldier",
+        "AttachmentPoint": 0,
+        "VerticalOffset": 1,
+        "Size": "SMALL"
+    },
+    {
+        "Code": "soldier-small-2",
+        "Group": "soldier",
+        "AttachmentPoint": 0,
+        "VerticalOffset": 0,
+        "Size": "SMALL"
+    },
+    {
+        "Code": "cart-small-1",
+        "Group": "clutter",
+        "AttachmentPoint": 0,
+        "VerticalOffset": 0,
+        "Size": "SMALL"
+    },
+    {
         "Code": "shepherd-medium-1",
         "Group": "shepherd",
         "AttachmentPoint": 0,
@@ -84,10 +140,52 @@
         "Size": "MEDIUM"
     },
     {
+        "Code": "bookrey-medium-1",
+        "Group": "bookrey",
+        "AttachmentPoint": 0,
+        "VerticalOffset": 1,
+        "Size": "MEDIUM"
+    },
+    {
+        "Code": "woodcutter-medium-1",
+        "Group": "woodcutter",
+        "AttachmentPoint": 0,
+        "VerticalOffset": 0,
+        "Size": "MEDIUM"
+    },
+    {
+        "Code": "gather-medium-1",
+        "Group": "gather",
+        "AttachmentPoint": 0,
+        "VerticalOffset": 1,
+        "Size": "MEDIUM"
+    },
+    {
+        "Code": "herbalist-large-1",
+        "Group": "herbalist",
+        "AttachmentPoint": 0,
+        "VerticalOffset": -1,
+        "Size": "LARGE"
+    },
+    {
+        "Code": "mayor-large-1",
+        "Group": "mayor",
+        "AttachmentPoint": 0,
+        "VerticalOffset": 0,
+        "Size": "LARGE"
+    },
+    {
         "Code": "castle-large-1",
         "Group": "castle",
         "AttachmentPoint": 0,
         "VerticalOffset": 0,
+        "Size": "LARGE"
+    },
+    {
+        "Code": "church-large-1",
+        "Group": "church",
+        "AttachmentPoint": 0,
+        "VerticalOffset": -1,
         "Size": "LARGE"
     }
 ]
