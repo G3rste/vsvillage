@@ -7,6 +7,17 @@
     "item-creature-humanoid-villager-female-farmer": "Bauer (weiblich)",
     "item-creature-humanoid-villager-male-shepherd": "Hirte (männlich)",
     "item-creature-humanoid-villager-female-shepherd": "Hirte (weiblich)",
-    "item-creature-humanoid-villager-male-herbalist": "Kräuterkundler (male)",
-    "item-creature-humanoid-villager-female-herbalist": "Kräuterhexe (female)"
+    "item-creature-humanoid-villager-male-herbalist": "Kräuterkundler (männlich)",
+    "item-creature-humanoid-villager-female-herbalist": "Kräuterhexe (weiblich)",
+    "item-creature-humanoid-villager-male-mayor": "Bürgermeister (männlich)",
+    "item-creature-humanoid-villager-female-mayor": "Bürgermeister (weiblich)",
+
+    "block-workstation-soldier-*": "Werkbank (Soldat)",
+    "block-workstation-smith-*": "Werkbank (Schmied)",
+    "block-workstation-farmer-*": "Werkbank (Bauer)",
+    "block-workstation-shepherd-*": "Werkbank (Hirte)",
+    "block-workstation-herbalist-*": "Werkbank (Kräuterkundler)",
+    "block-workstation-mayor-*": "Werkbank (Bürgermeister)",
+
+    "block-brazier": "Feuerstelle"
 }
