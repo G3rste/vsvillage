@@ -1,22 +1,23 @@
 {
-    "code": "villagerlectern",
-    "entityClass": "Lectern",
-    "entityBehaviors": [
-        {
-            "name": "VillagerPOI",
-            "properties": {
-                "maximumVillagers": 1,
-                "occasion": "work",
-                "forProfession": "mayor"
-            }
-        }
-    ],
+    "code": "workstation",
+    "entityClass": "VillagerWorkstation",
     "behaviors": [
         {
             "name": "HorizontalOrientable"
         }
     ],
     "variantgroups": [
+        {
+            "code": "profession",
+            "states": [
+                "smith",
+                "farmer",
+                "shepherd",
+                "mayor",
+                "soldier",
+                "herbalist"
+            ]
+        },
         {
             "code": "side",
             "loadFromProperties": "abstract/horizontalorientation"
@@ -28,7 +29,7 @@
         ]
     },
     "shape": {
-        "base": "lectern",
+        "base": "workstations/{profession}",
         "rotateYByType": {
             "*-north": 0,
             "*-east": 270,
@@ -38,12 +39,10 @@
     },
     "blockmaterial": "Wood",
     "sidesolid": {
-        "all": false,
-        "down": true
+        "all": false
     },
     "sideopaque": {
-        "all": false,
-        "down": true
+        "all": false
     },
     "lightAbsorption": 1,
     "maxStackSize": 1

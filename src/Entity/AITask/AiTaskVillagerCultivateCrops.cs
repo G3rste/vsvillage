@@ -1,79 +1,47 @@
 using Vintagestory.API.Common;
 using Vintagestory.API.Datastructures;
+using Vintagestory.API.MathTools;
 using Vintagestory.GameContent;
 
 namespace VsVillage
 {
-    public class AiTraskVillagerCultivateCrops : AiTaskBase
+    public class AiTraskVillagerCultivateCrops : AiTaskGotoAndInteract
     {
-        private float maxDistance { get; set; }
-
-        private float moveSpeed;
-        private VillagerWaypointsTraverser villagerPathTraverser;
-        private long lastCheck;
-
         BlockEntityFarmland nearestFarmland;
-        private bool stuck;
 
         public AiTraskVillagerCultivateCrops(EntityAgent entity) : base(entity)
         {
         }
 
-
-        public override void LoadConfig(JsonObject taskConfig, JsonObject aiConfig)
+        protected override Vec3d GetTargetPos()
         {
-            base.LoadConfig(taskConfig, aiConfig);
-
-            maxDistance = taskConfig["maxdistance"].AsFloat(5);
-            moveSpeed = taskConfig["movespeed"].AsFloat(0.03f);
-
-
-            villagerPathTraverser = entity.GetBehavior<EntityBehaviorAlternatePathtraverser>().villagerWaypointsTraverser;
+            nearestFarmland = entity.Api.ModLoader.GetModSystem<POIRegistry>().GetNearestPoi(entity.ServerPos.XYZ, maxDistance, isValidFarmland) as BlockEntityFarmland;
+            return nearestFarmland?.Position;
         }
 
-        public override bool ShouldExecute()
+        protected override void ApplyInteractionEffect()
         {
-            var elapsedMs = entity.World.ElapsedMilliseconds;
-            if (cooldownUntilMs + lastCheck < elapsedMs)
-            {
-                lastCheck = elapsedMs;
-                nearestFarmland = entity.Api.ModLoader.GetModSystem<POIRegistry>().GetNearestPoi(entity.ServerPos.XYZ, maxDistance, isValidFarmland) as BlockEntityFarmland;
-            }
-            return nearestFarmland != null;
-        }
-
-        public override void StartExecute()
-        {
-            if (nearestFarmland != null)
-            {
-                stuck = !villagerPathTraverser.NavigateTo(nearestFarmland.Position, moveSpeed, 0.5f, () => { }, () => stuck = true, true, 10000);
-            }
-            else
-            {
-                stuck = true;
-            }
-            base.StartExecute();
-        }
-
-        public override bool ContinueExecute(float dt)
-        {
-            return !stuck && entity.ServerPos.SquareDistanceTo(nearestFarmland.Position) > 1.5f * 1.5f;
-        }
-
-        public override void FinishExecute(bool cancelled)
-        {
-            base.FinishExecute(cancelled);
-            var interactAnim = new AnimationMetaData
-            {
-                Code = "Interact",
-                Animation = "interact"
-            }.Init();
-            entity.AnimManager.StartAnimation(interactAnim);
             if (nearestFarmland.HasUnripeCrop())
             {
                 nearestFarmland.TryGrowCrop(entity.World.Calendar.TotalHours + nearestFarmland.GetHoursForNextStage() + 1);
+
+                SimpleParticleProperties fertilizer = new SimpleParticleProperties(
+                        10, 15,
+                        ColorUtil.ToRgba(255, 255, 233, 83),
+                        nearestFarmland.Position.AddCopy(-0.4, 0.8, -0.4),
+                        nearestFarmland.Position.AddCopy(-0.6, 0.8, -0.6),
+                        new Vec3f(-0.25f, 0f, -0.25f),
+                        new Vec3f(0.25f, 0f, 0.25f),
+                        2f,
+                        1f,
+                        0.2f,
+                        1f,
+                        EnumParticleModel.Cube
+                    );
+
+                fertilizer.MinPos = targetPos.AddCopy(0.5, 1, 0.5);
+                entity.World.SpawnParticles(fertilizer);
             }
-            nearestFarmland = null;
         }
 
         private bool isValidFarmland(IPointOfInterest poi)

@@ -12,14 +12,14 @@
     "item-creature-humanoid-villager-male-mayor": "Mayor (male)",
     "item-creature-humanoid-villager-female-mayor": "Mayor (female)",
 
-    "block-villagerlectern-*": "Lectern",
+    "block-workstation-soldier-*": "Workstation (soldier)",
+    "block-workstation-smith-*": "Workstation (smith)",
+    "block-workstation-farmer-*": "Workstation (farmer)",
+    "block-workstation-shepherd-*": "Workstation (shepherd)",
+    "block-workstation-herbalist-*": "Workstation (herbalist)",
+    "block-workstation-mayor-*": "Workstation (mayor)",
 
-    "quest-select-title": "Quest offers",
-    "button-cancel": "Cancel",
-    "button-accept": "Accept",
-    "button-complete": "Complete",
-    "no-quest-available-desc": "I currently don't need your help with anything.",
-    "no-quest-active-desc": "I don't remember having any open contracts with you.",
+    "block-brazier": "Brazier",
 
     "command-stay": "Stay here!",
     "command-follow": "Follow me!",
