@@ -7,32 +7,25 @@ using Vintagestory.GameContent;
 
 namespace VsVillage
 {
-    public class BlockEntityBehaviorVillagerBed : BlockEntityBehavior, IPointOfInterest
+    public class BlockEntityVillagerWorkstation : BlockEntity, IPointOfInterest
     {
 
         protected long? ownerId { get; set; }
         public EntityVillager owner { get => ownerId == null ? null : Api.World.GetEntityById((long)ownerId) as EntityVillager; }
 
-        public Vec3d Position => Blockentity.Pos.ToVec3d();
+        public Vec3d Position => Pos.ToVec3d();
 
-        public string Type => "villagerBed";
-
-        public BlockEntityBehaviorVillagerBed(BlockEntity blockentity) : base(blockentity)
+        public string Type => Block.Variant["profession"];
+        public override void Initialize(ICoreAPI api)
         {
-        }
-
-        public override void Initialize(ICoreAPI api, JsonObject properties)
-        {
-            base.Initialize(api, properties);
-            var sapi = api as ICoreServerAPI;
-            if (sapi != null) { sapi.ModLoader.GetModSystem<POIRegistry>().AddPOI(this); }
+            base.Initialize(api);
+            if (api is ICoreServerAPI sapi) { sapi.ModLoader.GetModSystem<POIRegistry>().AddPOI(this); }
         }
 
         public override void OnBlockBroken(IPlayer byPlayer = null)
         {
             base.OnBlockBroken(byPlayer);
-            var sapi = Api as ICoreServerAPI;
-            if (sapi != null) { sapi.ModLoader.GetModSystem<POIRegistry>().RemovePOI(this); }
+            if (Api is ICoreServerAPI sapi) { sapi.ModLoader.GetModSystem<POIRegistry>().RemovePOI(this); }
         }
 
         public override void FromTreeAttributes(ITreeAttribute tree, IWorldAccessor worldAccessForResolve)

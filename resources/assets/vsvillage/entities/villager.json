@@ -231,24 +231,24 @@
 						"teleportInGameHours": 1
 					},
 					{
-						"code": "villagergotopoi",
+						"code": "villagergotowork",
 						"priority": 1.4,
 						"movespeed": 0.01,
 						"animation": "Walk",
+						"mincooldown": 30000,
+						"maxcooldown": 60000,
 						"duringDayTimeFrames": [ { "fromHour": 7, "toHour": 16 } ],
-						"mindistance": 2,
-						"maxdistance": 4,
-						"occasion": "work"
+						"maxdistance": 75
 					},
 					{
-						"code": "villagergotopoi",
+						"code": "villagergotogather",
 						"priority": 1.4,
 						"movespeed": 0.01,
 						"animation": "Walk",
+						"mincooldown": 30000,
+						"maxcooldown": 60000,
 						"duringDayTimeFrames": [ { "fromHour": 17, "toHour": 21 } ],
-						"mindistance": 2,
-						"maxdistance": 6,
-						"occasion": "freetime"
+						"maxdistance": 75
 					},
 					{
 						"code": "villagersleep",
@@ -262,7 +262,9 @@
 						"priority": 1.3,
 						"mincooldown": 10000,
 						"maxcooldown": 30000,
-						"movespeed": 0.01
+						"movespeed": 0.01,
+						"animation": "Walk",
+						"interact": "welcome"
 					},
 					{
 						"code": "lookaround",

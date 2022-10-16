@@ -1,98 +1,50 @@
 using Vintagestory.API.Common;
 using Vintagestory.API.Datastructures;
+using Vintagestory.API.MathTools;
 using Vintagestory.GameContent;
 
 namespace VsVillage
 {
-    public class AiTraskVillagerFillTrough : AiTaskBase
+    public class AiTraskVillagerFillTrough : AiTaskGotoAndInteract
     {
-        private float maxDistance { get; set; }
-
-        private float moveSpeed;
-        private VillagerWaypointsTraverser villagerPathTraverser;
-        private long lastCheck;
-
         BlockEntityTrough nearestTrough;
-        private bool stuck;
 
         public AiTraskVillagerFillTrough(EntityAgent entity) : base(entity)
         {
         }
 
-
-        public override void LoadConfig(JsonObject taskConfig, JsonObject aiConfig)
+        protected override Vec3d GetTargetPos()
         {
-            base.LoadConfig(taskConfig, aiConfig);
-
-            maxDistance = taskConfig["maxdistance"].AsFloat(5);
-            moveSpeed = taskConfig["movespeed"].AsFloat(0.03f);
-
-
-            villagerPathTraverser = entity.GetBehavior<EntityBehaviorAlternatePathtraverser>().villagerWaypointsTraverser;
+            nearestTrough = entity.Api.ModLoader.GetModSystem<POIRegistry>().GetNearestPoi(entity.ServerPos.XYZ, maxDistance, poi => poi is BlockEntityTrough) as BlockEntityTrough;
+            return nearestTrough?.Position;
         }
 
-        public override bool ShouldExecute()
+        protected override void ApplyInteractionEffect()
         {
-            var elapsedMs = entity.World.ElapsedMilliseconds;
-            if (cooldownUntilMs + lastCheck < elapsedMs)
+            var troughContent = nearestTrough.Inventory[0].Empty ? entity.World.GetItem(new AssetLocation("grain-flax")) : nearestTrough.Inventory[0].Itemstack.Item;
+            ItemSlot slot = new DummySlot(new ItemStack(troughContent, 16));
+            var contentConfig = ItemSlotTrough.getContentConfig(entity.Api.World, nearestTrough.contentConfigs, slot);
+            if (contentConfig != null)
             {
-                lastCheck = elapsedMs;
-                if (nearestTrough == null || entity.ServerPos.SquareDistanceTo(nearestTrough.Position) > maxDistance * maxDistance * 4)
-                {
-                    nearestTrough = entity.Api.ModLoader.GetModSystem<POIRegistry>().GetNearestPoi(entity.ServerPos.XYZ, maxDistance, poi => poi is BlockEntityTrough) as BlockEntityTrough;
-                }
-                if (nearestTrough != null) { return true; }
-            }
-            return false;
-        }
+                slot.TryPutInto(entity.World, nearestTrough.Inventory[0], contentConfig.QuantityPerFillLevel);
+                nearestTrough.Inventory[0].MarkDirty();
 
-        public override void StartExecute()
-        {
-            if (nearestTrough != null)
-            {
-                stuck = !villagerPathTraverser.NavigateTo(nearestTrough.Position, moveSpeed, 0.5f, () => { }, () => stuck = true, true, 10000);
-            }
-            else
-            {
-                stuck = true;
-            }
-            base.StartExecute();
-        }
+                SimpleParticleProperties grain = new SimpleParticleProperties(
+                        10, 15,
+                        ColorUtil.ToRgba(255, 255, 233, 83),
+                        nearestTrough.Position.AddCopy(-0.4, 0.8, -0.4),
+                        nearestTrough.Position.AddCopy(-0.6, 0.8, -0.6),
+                        new Vec3f(-0.25f, 0f, -0.25f),
+                        new Vec3f(0.25f, 0f, 0.25f),
+                        2f,
+                        1f,
+                        0.2f,
+                        1f,
+                        EnumParticleModel.Cube
+                    );
 
-        public override bool ContinueExecute(float dt)
-        {
-            return !stuck && entity.ServerPos.SquareDistanceTo(nearestTrough.Position) > 1.5f * 1.5f;
-        }
-
-        public override void FinishExecute(bool cancelled)
-        {
-            base.FinishExecute(cancelled);
-            var interactAnim = new AnimationMetaData
-            {
-                Code = "Interact",
-                Animation = "interact"
-            }.Init();
-            if (nearestTrough.Inventory[0].Empty)
-            {
-                var slot = new DummySlot(new ItemStack(entity.World.GetItem(new AssetLocation("grain-flax")), 16));
-                var contentConfig = ItemSlotTrough.getContentConfig(entity.Api.World, nearestTrough.contentConfigs, slot);
-                if (contentConfig != null)
-                {
-                    slot.TryPutInto(entity.World, nearestTrough.Inventory[0], contentConfig.QuantityPerFillLevel);
-                    nearestTrough.Inventory[0].MarkDirty();
-                    entity.AnimManager.StartAnimation(interactAnim);
-                }
-            }
-            else
-            {
-                var slot = new DummySlot(new ItemStack(nearestTrough.Inventory[0].Itemstack.Item, 16));
-                var contentConfig = ItemSlotTrough.getContentConfig(entity.Api.World, nearestTrough.contentConfigs, slot);
-                if (contentConfig != null)
-                {
-                    slot.TryPutInto(entity.World, nearestTrough.Inventory[0], contentConfig.QuantityPerFillLevel);
-                    nearestTrough.Inventory[0].MarkDirty();
-                    entity.AnimManager.StartAnimation(interactAnim);
-                }
+                grain.MinPos = targetPos.AddCopy(0.5, 1, 0.5);
+                entity.World.SpawnParticles(grain);
             }
         }
     }

@@ -6,90 +6,43 @@ using Vintagestory.GameContent;
 
 namespace VsVillage
 {
-    public class AiTraskHealWounded : AiTaskBase
+    public class AiTaskHealWounded : AiTaskGotoAndInteract
     {
-        private float maxDistance { get; set; }
-
-        private float moveSpeed;
-        private VillagerWaypointsTraverser villagerPathTraverser;
-        private long lastCheck;
 
         Entity woundedEntity;
-        private bool stuck;
-
-        public AiTraskHealWounded(EntityAgent entity) : base(entity)
+        public AiTaskHealWounded(EntityAgent entity) : base(entity)
         {
         }
 
-
-        public override void LoadConfig(JsonObject taskConfig, JsonObject aiConfig)
+        protected override Vec3d GetTargetPos()
         {
-            base.LoadConfig(taskConfig, aiConfig);
-
-            maxDistance = taskConfig["maxdistance"].AsFloat(25);
-            moveSpeed = taskConfig["movespeed"].AsFloat(0.03f);
-
-
-            villagerPathTraverser = entity.GetBehavior<EntityBehaviorAlternatePathtraverser>().villagerWaypointsTraverser;
-        }
-
-        public override bool ShouldExecute()
-        {
-            var elapsedMs = entity.World.ElapsedMilliseconds;
-            if (cooldownUntilMs + lastCheck < elapsedMs)
+            woundedEntity = null;
+            var villagers = entity.World.GetEntitiesAround(entity.ServerPos.XYZ, maxDistance, 5, entity => entity is EntityVillager || entity is EntityPlayer);
+            int maxHpLossIndex = 0;
+            float maxHpLoss = 0;
+            for (int i = 0; i < villagers.Length; i++)
             {
-                lastCheck = elapsedMs;
-                if (woundedEntity == null || entity.ServerPos.SquareDistanceTo(woundedEntity.ServerPos.XYZ) > maxDistance * maxDistance * 4)
+                var health = villagers[i].GetBehavior<EntityBehaviorHealth>();
+                if (health != null && maxHpLoss < health.MaxHealth - health.Health)
                 {
-                    var villagers = entity.World.GetEntitiesAround(entity.ServerPos.XYZ, maxDistance, 5, entity => entity is EntityVillager || entity is EntityPlayer);
-                    int maxHpLossIndex = 0;
-                    float maxHpLoss = 0;
-                    for (int i = 0; i < villagers.Length; i++)
-                    {
-                        var health = villagers[i].GetBehavior<EntityBehaviorHealth>();
-                        if (health != null && maxHpLoss < health.MaxHealth - health.Health)
-                        {
-                            maxHpLoss = health.MaxHealth - health.Health;
-                            maxHpLossIndex = i;
-                        }
-                    }
-                    if (maxHpLoss > 0.5f)
-                    {
-                        woundedEntity = villagers[maxHpLossIndex];
-                    }
+                    maxHpLoss = health.MaxHealth - health.Health;
+                    maxHpLossIndex = i;
                 }
-                if (woundedEntity != null) { return true; }
             }
-            return false;
+            if (maxHpLoss > 0.5f)
+            {
+                woundedEntity = villagers[maxHpLossIndex];
+            }
+            return woundedEntity?.ServerPos?.XYZ;
         }
 
-        public override void StartExecute()
+        protected override bool InteractionPossible()
         {
-            if (woundedEntity != null)
-            {
-                stuck = !villagerPathTraverser.NavigateTo(woundedEntity.ServerPos.XYZ, moveSpeed, 0.5f, () => { }, () => stuck = true, true, 10000);
-            }
-            else
-            {
-                stuck = true;
-            }
-            base.StartExecute();
+            return entity.ServerPos.SquareDistanceTo(woundedEntity.ServerPos) < 2 * 2;
         }
 
-        public override bool ContinueExecute(float dt)
-        {
-            return !stuck && entity.ServerPos.SquareDistanceTo(woundedEntity.ServerPos.XYZ) > 1f * 1f;
-        }
-
-        public override void FinishExecute(bool cancelled)
-        {
-            base.FinishExecute(cancelled);
-            var interactAnim = new AnimationMetaData
-            {
-                Code = "Interact",
-                Animation = "interact"
-            }.Init();
-            if (woundedEntity.Alive)
+        protected override void ApplyInteractionEffect()
+        {if (woundedEntity.Alive)
             {
                 woundedEntity.ReceiveDamage(new DamageSource()
                 {
@@ -118,7 +71,6 @@ namespace VsVillage
 
             smoke.MinPos = woundedEntity.ServerPos.XYZ.AddCopy(-1.5, -0.5, -1.5);
             entity.World.SpawnParticles(smoke);
-            lastCheck = entity.World.ElapsedMilliseconds;
             woundedEntity = null;
         }
     }
