@@ -49,6 +49,20 @@
         "Size": "SMALL"
     },
     {
+        "Code": "gather-small-1",
+        "Group": "gather",
+        "AttachmentPoint": 0,
+        "VerticalOffset": 0,
+        "Size": "SMALL"
+    },
+    {
+        "Code": "gather-small-2",
+        "Group": "gather",
+        "AttachmentPoint": 0,
+        "VerticalOffset": 0,
+        "Size": "SMALL"
+    },
+    {
         "Code": "farmer-small-1",
         "Group": "farmer",
         "AttachmentPoint": 0,
@@ -101,7 +115,7 @@
         "Code": "soldier-small-2",
         "Group": "soldier",
         "AttachmentPoint": 0,
-        "VerticalOffset": 1,
+        "VerticalOffset": 0,
         "Size": "SMALL"
     },
     {
