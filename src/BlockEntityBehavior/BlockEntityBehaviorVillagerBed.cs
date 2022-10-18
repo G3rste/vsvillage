@@ -1,5 +1,6 @@
 using System.Runtime.CompilerServices;
 using Vintagestory.API.Common;
+using Vintagestory.API.Common.Entities;
 using Vintagestory.API.Datastructures;
 using Vintagestory.API.MathTools;
 using Vintagestory.API.Server;
@@ -11,7 +12,7 @@ namespace VsVillage
     {
 
         protected long? ownerId { get; set; }
-        public EntityVillager owner { get => ownerId == null ? null : Api.World.GetEntityById((long)ownerId) as EntityVillager; }
+        public Entity owner { get => ownerId == null ? null : Api.World.GetEntityById((long)ownerId); }
 
         public Vec3d Position => Blockentity.Pos.ToVec3d();
 
@@ -25,7 +26,11 @@ namespace VsVillage
         {
             base.Initialize(api, properties);
             var sapi = api as ICoreServerAPI;
-            if (sapi != null) { sapi.ModLoader.GetModSystem<POIRegistry>().AddPOI(this); }
+            if (sapi != null)
+            {
+                sapi.ModLoader.GetModSystem<POIRegistry>().AddPOI(this);
+                sapi.World.RegisterCallback(dt => (Blockentity as BlockEntityBed).MountedBy?.TryUnmount(), 500);
+            }
         }
 
         public override void OnBlockBroken(IPlayer byPlayer = null)
@@ -48,11 +53,15 @@ namespace VsVillage
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]
-        public bool setOwnerIfFree(long newOwner){
-            if(ownerId == null || ownerId == newOwner || Api.World.GetEntityById((long)ownerId)?.Alive != true){
+        public bool setOwnerIfFree(long newOwner)
+        {
+            if (ownerId == null || ownerId == newOwner || Api.World.GetEntityById((long)ownerId)?.Alive != true)
+            {
                 ownerId = newOwner;
                 return true;
-            }else{
+            }
+            else
+            {
                 return false;
             }
         }

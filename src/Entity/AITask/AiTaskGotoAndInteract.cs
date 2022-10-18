@@ -1,7 +1,6 @@
 using Vintagestory.API.Common;
 using Vintagestory.API.Datastructures;
 using Vintagestory.API.MathTools;
-using Vintagestory.GameContent;
 
 namespace VsVillage
 {
@@ -72,6 +71,7 @@ namespace VsVillage
             else if (InteractionPossible())
             {
                 entity.AnimManager.StartAnimation(interactAnim);
+                entity.GetBehavior<EntityBehaviorAlternatePathtraverser>()?.villagerWaypointsTraverser.Stop();
                 targetReached = true;
                 return true;
             }

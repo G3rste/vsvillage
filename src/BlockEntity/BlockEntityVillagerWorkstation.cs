@@ -1,5 +1,6 @@
 using System.Runtime.CompilerServices;
 using Vintagestory.API.Common;
+using Vintagestory.API.Common.Entities;
 using Vintagestory.API.Datastructures;
 using Vintagestory.API.MathTools;
 using Vintagestory.API.Server;
@@ -11,7 +12,7 @@ namespace VsVillage
     {
 
         protected long? ownerId { get; set; }
-        public EntityVillager owner { get => ownerId == null ? null : Api.World.GetEntityById((long)ownerId) as EntityVillager; }
+        public Entity owner { get => ownerId == null ? null : Api.World.GetEntityById((long)ownerId); }
 
         public Vec3d Position => Pos.ToVec3d();
 
