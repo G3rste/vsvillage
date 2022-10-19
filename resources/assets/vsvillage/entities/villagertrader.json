@@ -98,6 +98,7 @@
         ]
     },
     "attributes": {
+        "profession": "trader",
         "tradeProps": {
             "money": {
                 "avg": 30,
@@ -185,6 +186,19 @@
                         }
                     },
                     {
+                        "code": "vsvillage:workstation-trader-east",
+                        "type": "block",
+                        "stacksize": 1,
+                        "stock": {
+                            "avg": 2,
+                            "var": 1
+                        },
+                        "price": {
+                            "avg": 6,
+                            "var": 2
+                        }
+                    },
+                    {
                         "code": "vsvillage:brazier",
                         "type": "block",
                         "stacksize": 1,
@@ -201,7 +215,112 @@
             },
             "buying": {
                 "maxItems": 14,
-                "list": []
+                "list": [
+                    {
+                        "code": "bread-spelt-perfect",
+                        "type": "item",
+                        "stacksize": 8,
+                        "stock": {
+                            "avg": 4,
+                            "var": 1
+                        },
+                        "price": {
+                            "avg": 2,
+                            "var": 0.5
+                        }
+                    },
+                    {
+                        "code": "bread-rye-perfect",
+                        "type": "item",
+                        "stacksize": 8,
+                        "stock": {
+                            "avg": 4,
+                            "var": 1
+                        },
+                        "price": {
+                            "avg": 2,
+                            "var": 0.5
+                        }
+                    },
+                    {
+                        "code": "bread-flax-perfect",
+                        "type": "item",
+                        "stacksize": 8,
+                        "stock": {
+                            "avg": 4,
+                            "var": 1
+                        },
+                        "price": {
+                            "avg": 2,
+                            "var": 0.5
+                        }
+                    },
+                    {
+                        "code": "bread-rice-perfect",
+                        "type": "item",
+                        "stacksize": 8,
+                        "stock": {
+                            "avg": 4,
+                            "var": 1
+                        },
+                        "price": {
+                            "avg": 2,
+                            "var": 0.5
+                        }
+                    },
+                    {
+                        "code": "redmeat-cooked",
+                        "type": "item",
+                        "stacksize": 8,
+                        "stock": {
+                            "avg": 4,
+                            "var": 1
+                        },
+                        "price": {
+                            "avg": 2,
+                            "var": 0.5
+                        }
+                    },
+                    {
+                        "code": "poultry-cooked",
+                        "type": "item",
+                        "stacksize": 8,
+                        "stock": {
+                            "avg": 4,
+                            "var": 1
+                        },
+                        "price": {
+                            "avg": 2,
+                            "var": 0.5
+                        }
+                    },
+                    {
+                        "code": "bushmeat-cooked",
+                        "type": "item",
+                        "stacksize": 8,
+                        "stock": {
+                            "avg": 4,
+                            "var": 1
+                        },
+                        "price": {
+                            "avg": 1,
+                            "var": 0.5
+                        }
+                    },
+                    {
+                        "code": "fat",
+                        "type": "item",
+                        "stacksize": 3,
+                        "stock": {
+                            "avg": 4,
+                            "var": 1
+                        },
+                        "price": {
+                            "avg": 2,
+                            "var": 0.5
+                        }
+                    }
+                ]
             }
         }
     },
