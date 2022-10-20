@@ -5,6 +5,30 @@
         "Length": 1,
         "StructureGroups": [
             {
+                "Code": "gather",
+                "Size": "SMALL",
+                "MinStructuresPerVillage": 1,
+                "MaxStructuresPerVillage": 1
+            },
+            {
+                "Code": "clutter",
+                "Size": "SMALL",
+                "MinStructuresPerVillage": 0,
+                "MaxStructuresPerVillage": 1
+            },
+            {
+                "Code": "well",
+                "Size": "SMALL",
+                "MinStructuresPerVillage": 0,
+                "MaxStructuresPerVillage": 1
+            },
+            {
+                "Code": "soldier",
+                "Size": "SMALL",
+                "MinStructuresPerVillage": 0,
+                "MaxStructuresPerVillage": 1
+            },
+            {
                 "Code": "farmer",
                 "Size": "SMALL",
                 "MinStructuresPerVillage": 2,
@@ -29,6 +53,30 @@
         "Height": 1,
         "Length": 2,
         "StructureGroups": [
+            {
+                "Code": "gather",
+                "Size": "SMALL",
+                "MinStructuresPerVillage": 1,
+                "MaxStructuresPerVillage": 1
+            },
+            {
+                "Code": "clutter",
+                "Size": "SMALL",
+                "MinStructuresPerVillage": 0,
+                "MaxStructuresPerVillage": 1
+            },
+            {
+                "Code": "well",
+                "Size": "small",
+                "MinStructuresPerVillage": 1,
+                "MaxStructuresPerVillage": 1
+            },
+            {
+                "Code": "soldier",
+                "Size": "SMALL",
+                "MinStructuresPerVillage": 0,
+                "MaxStructuresPerVillage": 1
+            },
             {
                 "Code": "trader",
                 "Size": "SMALL",
@@ -68,6 +116,49 @@
         ]
     },
     {
+        "Code": "small-herbalist",
+        "Height": 1,
+        "Length": 2,
+        "StructureGroups": [
+            {
+                "Code": "gather",
+                "Size": "SMALL",
+                "MinStructuresPerVillage": 1,
+                "MaxStructuresPerVillage": 1
+            },
+            {
+                "Code": "well",
+                "Size": "small",
+                "MinStructuresPerVillage": 1,
+                "MaxStructuresPerVillage": 1
+            },
+            {
+                "Code": "soldier",
+                "Size": "SMALL",
+                "MinStructuresPerVillage": 1,
+                "MaxStructuresPerVillage": 3
+            },
+            {
+                "Code": "farmer",
+                "Size": "SMALL",
+                "MinStructuresPerVillage": 3,
+                "MaxStructuresPerVillage": 5
+            },
+            {
+                "Code": "garden",
+                "Size": "SMALL",
+                "MinStructuresPerVillage": 2,
+                "MaxStructuresPerVillage": 4
+            },
+            {
+                "Code": "herbalist",
+                "Size": "LARGE",
+                "MinStructuresPerVillage": 1,
+                "MaxStructuresPerVillage": 1
+            }
+        ]
+    },
+    {
         "Code": "medium",
         "Height": 2,
         "Length": 2,
@@ -77,6 +168,24 @@
                 "Size": "SMALL",
                 "MinStructuresPerVillage": 1,
                 "MaxStructuresPerVillage": 1
+            },
+            {
+                "Code": "clutter",
+                "Size": "SMALL",
+                "MinStructuresPerVillage": 0,
+                "MaxStructuresPerVillage": 1
+            },
+            {
+                "Code": "well",
+                "Size": "small",
+                "MinStructuresPerVillage": 1,
+                "MaxStructuresPerVillage": 1
+            },
+            {
+                "Code": "soldier",
+                "Size": "SMALL",
+                "MinStructuresPerVillage": 0,
+                "MaxStructuresPerVillage": 2
             },
             {
                 "Code": "farmer",
@@ -100,6 +209,12 @@
                 "Code": "smith",
                 "Size": "MEDIUM",
                 "MinStructuresPerVillage": 1,
+                "MaxStructuresPerVillage": 1
+            },
+            {
+                "Code": "gather",
+                "Size": "MEDIUM",
+                "MinStructuresPerVillage": 0,
                 "MaxStructuresPerVillage": 1
             },
             {

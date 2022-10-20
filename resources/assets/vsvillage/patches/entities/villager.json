@@ -14,7 +14,9 @@
                     "vsvillage:quest-gather20MeatFor4FlaxSeeds",
                     "vsvillage:quest-gather20MeatFor4CarrotSeeds",
                     "vsvillage:quest-gather20MeatFor4OnionSeeds",
-                    "vsvillage:quest-gather20MeatFor4SpeltSeeds"
+                    "vsvillage:quest-gather20MeatFor4SpeltSeeds",
+                    "vsvillage:quest-cull10HaresFor5Carrots",
+                    "vsvillage:quest-cull10HaresFor5Spelt"
                 ],
                 "*-shepherd": [
                     "vsvillage:quest-kill6WolvesFor2Gears",
