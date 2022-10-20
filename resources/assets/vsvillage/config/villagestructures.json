@@ -28,6 +28,13 @@
         "Size": "SMALL"
     },
     {
+        "Code": "trader-small-1",
+        "Group": "trader",
+        "AttachmentPoint": 0,
+        "VerticalOffset": 0,
+        "Size": "SMALL"
+    },
+    {
         "Code": "farmer-small-1",
         "Group": "farmer",
         "AttachmentPoint": 0,

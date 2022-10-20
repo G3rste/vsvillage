@@ -11,6 +11,12 @@
                 "MaxStructuresPerVillage": 4
             },
             {
+                "Code": "trader",
+                "Size": "SMALL",
+                "MinStructuresPerVillage": 0,
+                "MaxStructuresPerVillage": 1
+            },
+            {
                 "Code": "garden",
                 "Size": "SMALL",
                 "MinStructuresPerVillage": 1,
@@ -23,6 +29,12 @@
         "Height": 1,
         "Length": 2,
         "StructureGroups": [
+            {
+                "Code": "trader",
+                "Size": "SMALL",
+                "MinStructuresPerVillage": 0,
+                "MaxStructuresPerVillage": 1
+            },
             {
                 "Code": "farmer",
                 "Size": "SMALL",
@@ -60,6 +72,12 @@
         "Height": 2,
         "Length": 2,
         "StructureGroups": [
+            {
+                "Code": "trader",
+                "Size": "SMALL",
+                "MinStructuresPerVillage": 1,
+                "MaxStructuresPerVillage": 1
+            },
             {
                 "Code": "farmer",
                 "Size": "SMALL",
