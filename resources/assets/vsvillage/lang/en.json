@@ -11,6 +11,8 @@
     "item-creature-humanoid-villager-female-herbalist": "Herbalist (female)",
     "item-creature-humanoid-villager-male-mayor": "Mayor (male)",
     "item-creature-humanoid-villager-female-mayor": "Mayor (female)",
+    "item-creature-humanoid-villager-male-trader": "Trader (male)",
+    "item-creature-humanoid-villager-female-trader": "Trader (female)",
 
     "block-workstation-soldier-*": "Workstation (soldier)",
     "block-workstation-smith-*": "Workstation (smith)",
@@ -18,6 +20,7 @@
     "block-workstation-shepherd-*": "Workstation (shepherd)",
     "block-workstation-herbalist-*": "Workstation (herbalist)",
     "block-workstation-mayor-*": "Workstation (mayor)",
+    "block-workstation-trader-*": "Workstation (trader)",
 
     "block-brazier": "Brazier",
 

@@ -61,8 +61,7 @@ namespace VsVillage
                 Personality = EntityTrader.Personalities.GetKeyAtIndex(World.Rand.Next(EntityTrader.Personalities.Count));
             }
             (AnimManager as TraderAnimationManager).Personality = Personality;
-            if (api.Side == EnumAppSide.Server) { api.World.RegisterCallback(dt => GetBehavior<EntityBehaviorTaskAI>().TaskManager.StopTask(typeof(AiTaskVillagerSleep)), 10000); }
-            else { talkUtil = new EntityTalkUtil(api as ICoreClientAPI, this); }
+            if(api is ICoreClientAPI capi) { talkUtil = new EntityTalkUtil(capi, this); }
             this.Personality = this.Personality; // to update the talkutil
         }
 

@@ -11,6 +11,8 @@
     "item-creature-humanoid-villager-female-herbalist": "Kräuterhexe (weiblich)",
     "item-creature-humanoid-villager-male-mayor": "Bürgermeister (männlich)",
     "item-creature-humanoid-villager-female-mayor": "Bürgermeister (weiblich)",
+    "item-creature-humanoid-villager-male-trader": "Händler (männlich)",
+    "item-creature-humanoid-villager-female-trader": "Händler (weiblich)",
 
     "block-workstation-soldier-*": "Werkbank (Soldat)",
     "block-workstation-smith-*": "Werkbank (Schmied)",
@@ -18,6 +20,7 @@
     "block-workstation-shepherd-*": "Werkbank (Hirte)",
     "block-workstation-herbalist-*": "Werkbank (Kräuterkundler)",
     "block-workstation-mayor-*": "Werkbank (Bürgermeister)",
+    "block-workstation-trader-*": "Werkbank (Händler)",
 
     "block-brazier": "Feuerstelle"
 }
