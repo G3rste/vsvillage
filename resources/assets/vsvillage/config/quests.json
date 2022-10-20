@@ -95,6 +95,175 @@
         ]
     },
     {
+        "id": "vsvillage:quest-gatherMeatForSeed",
+        "cooldown": 30,
+        "perPlayer": false,
+        "gatherObjectives": [
+            {
+                "validCodes": [
+                    "bushmeat-raw",
+                    "bushmeat-cooked",
+                    "bushmeat-cured",
+                    "redmeat-raw",
+                    "redmeat-cooked",
+                    "redmeat-cured",
+                    "poultry-raw",
+                    "poultry-cooked",
+                    "poultry-cured"
+                ],
+                "demand": 20
+            }
+        ],
+        "killObjectives": [],
+        "randomItemRewards": {
+            "selectAmount": 1,
+            "items": [
+                {
+                    "itemCode": "game:seeds-carrot",
+                    "minAmount": 3,
+                    "maxAmount": 6
+                },
+                {
+                    "itemCode": "game:seeds-flax",
+                    "minAmount": 3,
+                    "maxAmount": 6
+                },
+                {
+                    "itemCode": "game:seeds-onion",
+                    "minAmount": 3,
+                    "maxAmount": 6
+                },
+                {
+                    "itemCode": "game:seeds-spelt",
+                    "minAmount": 3,
+                    "maxAmount": 6
+                },
+                {
+                    "itemCode": "game:seeds-turnip",
+                    "minAmount": 3,
+                    "maxAmount": 6
+                },
+                {
+                    "itemCode": "game:seeds-parsnip",
+                    "minAmount": 3,
+                    "maxAmount": 6
+                },
+                {
+                    "itemCode": "game:seeds-rice",
+                    "minAmount": 3,
+                    "maxAmount": 6
+                },
+                {
+                    "itemCode": "game:seeds-rye",
+                    "minAmount": 3,
+                    "maxAmount": 6
+                },
+                {
+                    "itemCode": "game:seeds-soybean",
+                    "minAmount": 3,
+                    "maxAmount": 6
+                },
+                {
+                    "itemCode": "game:seeds-cabbage",
+                    "minAmount": 3,
+                    "maxAmount": 6
+                },
+                {
+                    "itemCode": "game:seeds-pumpkin",
+                    "minAmount": 3,
+                    "maxAmount": 6
+                },
+                {
+                    "itemCode": "game:seeds-pineapple",
+                    "minAmount": 1,
+                    "maxAmount": 2
+                },
+                {
+                    "itemCode": "game:seeds-cassava",
+                    "minAmount": 3,
+                    "maxAmount": 6
+                },
+                {
+                    "itemCode": "game:seeds-amaranth",
+                    "minAmount": 3,
+                    "maxAmount": 6
+                },
+                {
+                    "itemCode": "game:seeds-peanut",
+                    "minAmount": 3,
+                    "maxAmount": 6
+                },
+                {
+                    "itemCode": "game:seeds-sunflower",
+                    "minAmount": 3,
+                    "maxAmount": 6
+                },
+                {
+                    "itemCode": "game:seeds-bellpepper",
+                    "minAmount": 3,
+                    "maxAmount": 6
+                }
+            ]
+        }
+    },
+    {
+        "id": "vsvillage:quest-gainzOverGrains",
+        "cooldown": 30,
+        "perPlayer": false,
+        "gatherObjectives": [
+            {
+                "validCodes": [
+                    "bushmeat-raw",
+                    "bushmeat-cooked",
+                    "bushmeat-cured",
+                    "redmeat-raw",
+                    "redmeat-cooked",
+                    "redmeat-cured",
+                    "poultry-raw",
+                    "poultry-cooked",
+                    "poultry-cured"
+                ],
+                "demand": 20
+            }
+        ],
+        "killObjectives": [],
+        "randomItemRewards": {
+            "selectAmount": 2,
+            "items": [
+                {
+                    "itemCode": "game:grain-spelt",
+                    "minAmount": 12,
+                    "maxAmount": 24
+                },
+                {
+                    "itemCode": "game:grain-rice",
+                    "minAmount": 12,
+                    "maxAmount": 24
+                },
+                {
+                    "itemCode": "game:grain-flax",
+                    "minAmount": 12,
+                    "maxAmount": 24
+                },
+                {
+                    "itemCode": "game:grain-rye",
+                    "minAmount": 12,
+                    "maxAmount": 24
+                },
+                {
+                    "itemCode": "game:grain-amaranth",
+                    "minAmount": 12,
+                    "maxAmount": 24
+                },
+                {
+                    "itemCode": "game:grain-sunflower",
+                    "minAmount": 12,
+                    "maxAmount": 24
+                }
+            ]
+        }
+    },
+    {
         "id": "vsvillage:quest-gather20MeatFor4FlaxSeeds",
         "cooldown": 30,
         "perPlayer": false,
@@ -275,7 +444,8 @@
                     "game:hare-baby"
                 ],
                 "demand": 10
-            }],
+            }
+        ],
         "itemRewards": [
             {
                 "itemCode": "game:vegetable-carrot",
@@ -296,7 +466,8 @@
                     "game:hare-baby"
                 ],
                 "demand": 10
-            }],
+            }
+        ],
         "itemRewards": [
             {
                 "itemCode": "game:grain-spelt",
