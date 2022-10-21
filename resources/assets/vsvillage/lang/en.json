@@ -102,5 +102,8 @@
     "quest-foundvillage-final-obj": "Double headed drifters killed: {0}/1\nNightmare drifters killed: {1}/10\nSawblade locusts killed: {2}/5",
     "quest-recruitvillager-title": "At your service",
     "quest-recruitvillager-desc": "For a small amount of gears I can escort and protect you for a day.",
-    "quest-recruitvillager-obj": "Rusty gears: {0}/1"
+    "quest-recruitvillager-obj": "Rusty gears: {0}/1",
+    "quest-healplayer-title": "A visit at the doc",
+    "quest-healplayer-desc": "If you ever take a beating, I am able to take a look at your wounds.",
+    "quest-healplayer-obj": ""
 }

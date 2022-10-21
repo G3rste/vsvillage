@@ -275,7 +275,8 @@
                     "game:hare-baby"
                 ],
                 "demand": 10
-            }],
+            }
+        ],
         "itemRewards": [
             {
                 "itemCode": "game:vegetable-carrot",
@@ -296,7 +297,8 @@
                     "game:hare-baby"
                 ],
                 "demand": 10
-            }],
+            }
+        ],
         "itemRewards": [
             {
                 "itemCode": "game:grain-spelt",
@@ -734,6 +736,19 @@
                 "args": [
                     "game:sounds/voice/saxophone"
                 ]
+            }
+        ]
+    },
+    {
+        "id": "vsvillage:quest-healplayer",
+        "cooldown": 1,
+        "perPlayer": true,
+        "onAcceptedActions": [],
+        "gatherObjectives": [],
+        "actionRewards": [
+            {
+                "id": "healplayer",
+                "args": []
             }
         ]
     }

@@ -34,11 +34,15 @@
                     "vsvillage:quest-kill30DriftersFor3Gears",
                     "vsvillage:quest-kill8NightmareDriftersFor5Gears"
                 ],
+                "*-herbalist": [
+                    "vsvillage:quest-healplayer"
+                ],
                 "*": []
             },
             "selectrandomByType": {
                 "*-mayor": false,
                 "*-soldier": false,
+                "*-herbalist": false,
                 "*": true
             },
             "selectrandomcount": 1
