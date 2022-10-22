@@ -27,6 +27,12 @@
     "command-stay": "Stay here!",
     "command-follow": "Follow me!",
 
+    "quest-gatherMeatForSeed-title": "Meat for seed",
+    "quest-gatherMeatForSeed-desc": "My diet could use a little bit more variation. If you provide 20 meat of any kind, I could offer you some seeds in return.",
+    "quest-gatherMeatForSeed-obj": "Gathered meat: {0}/20",
+    "quest-gainzOverGrains-title": "Gainz over grains",
+    "quest-gainzOverGrains-desc": "My diet could use a little bit more variation. If you provide 20 meat of any kind, I could offer you some grain in return.",
+    "quest-gainzOverGrains-obj": "Gathered meat: {0}/20",
     "quest-gather20MeatFor4FlaxSeeds-title": "There is no protein in flax fibre",
     "quest-gather20MeatFor4FlaxSeeds-desc": "My diet could use a little bit more variation. If you provide 20 meat of any kind, I could offer you some seeds in return.",
     "quest-gather20MeatFor4FlaxSeeds-obj": "Gathered meat: {0}/20",
