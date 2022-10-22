@@ -46,12 +46,12 @@ namespace VsVillage
             if (entity.Attributes.HasAttribute("workstation"))
             {
                 workstation = entity.World.BlockAccessor.GetBlockEntity(entity.Attributes.GetBlockPos("workstation")) as BlockEntityVillagerWorkstation;
-                if (workstation?.owner?.EntityId == entity.EntityId) { return getRandomPosNearby(workstation.Position); }
+                if (workstation?.ownerId == entity.EntityId) { return getRandomPosNearby(workstation.Position); }
             }
             workstation = registry.GetNearestPoi(entity.ServerPos.XYZ, maxDistance, poi =>
             {
                 var candidate = poi as BlockEntityVillagerWorkstation;
-                return candidate != null && candidate.Type == entity.Properties.Attributes["profession"].AsString() && (candidate.owner == null || !candidate.owner.Alive || candidate.owner == entity);
+                return candidate != null && candidate.Type == entity.Properties.Attributes["profession"].AsString() && (candidate.ownerId == null || !candidate.owner.Alive || candidate.ownerId == entity.EntityId);
             }) as BlockEntityVillagerWorkstation;
             if (workstation?.setOwnerIfFree(entity.EntityId) == true)
             {

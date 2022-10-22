@@ -11,7 +11,7 @@ namespace VsVillage
     public class BlockEntityBehaviorVillagerBed : BlockEntityBehavior, IPointOfInterest
     {
 
-        protected long? ownerId { get; set; }
+        public long? ownerId { get; protected set; }
         public Entity owner { get => ownerId == null ? null : Api.World.GetEntityById((long)ownerId); }
 
         public Vec3d Position => Blockentity.Pos.ToVec3d();

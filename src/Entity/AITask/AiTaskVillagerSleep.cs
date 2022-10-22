@@ -58,7 +58,7 @@ namespace VsVillage
             if (lastCheck + 10000 < entity.World.ElapsedMilliseconds)
             {
                 lastCheck = entity.World.ElapsedMilliseconds;
-                if(bed == null || bed.GetBehavior<BlockEntityBehaviorVillagerBed>()?.owner != entity){
+                if(bed == null || bed.GetBehavior<BlockEntityBehaviorVillagerBed>()?.ownerId != entity.EntityId){
                     retrieveBed();
                 }
                 return IntervalUtil.matchesCurrentTime(duringDayTimeFrames, entity.World);
