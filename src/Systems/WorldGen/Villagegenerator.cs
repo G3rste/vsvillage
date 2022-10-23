@@ -123,7 +123,7 @@ namespace VsVillage
             int max;
             int min;
             int current;
-            int tolerance = (grid.width + grid.height) / 3;
+            int tolerance = (grid.width * grid.height) * 4;
             for (int x = 0; x < grid.width - 1; x++)
             {
                 for (int z = 0; z < grid.height - 1; z++)
@@ -138,9 +138,13 @@ namespace VsVillage
                             current = blockAccessor.GetTerrainMapheightAt(start.AddCopy(coords.X, 0, coords.Y));
                             max = Math.Max(max, current);
                             min = Math.Min(min, current);
+                            if (blockAccessor.GetBlock(coords.X, current + 1, coords.Y, BlockLayersAccess.Fluid).Id != 0)
+                            {
+                                tolerance -= grid.width * grid.height;
+                            }
                         }
                     }
-                    tolerance -= (max - min) / 10;
+                    tolerance -= (max - min);
                 }
             }
             return tolerance > 0;
