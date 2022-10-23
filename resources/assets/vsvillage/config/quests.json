@@ -439,9 +439,33 @@
         "killObjectives": [
             {
                 "validCodes": [
-                    "game:hare-male",
-                    "game:hare-female",
-                    "game:hare-baby"
+                    "hare-male-arctic",
+                    "hare-male-ashgrey",
+                    "hare-male-darkbrown",
+                    "hare-male-desert",
+                    "hare-male-gold",
+                    "hare-male-lightbrown",
+                    "hare-male-lightgrey",
+                    "hare-male-silver",
+                    "hare-male-smokegrey",
+                    "hare-female-arctic",
+                    "hare-female-ashgrey",
+                    "hare-female-darkbrown",
+                    "hare-female-desert",
+                    "hare-female-gold",
+                    "hare-female-lightbrown",
+                    "hare-female-lightgrey",
+                    "hare-female-silver",
+                    "hare-female-smokegrey",
+                    "hare-baby-arctic",
+                    "hare-baby-ashgrey",
+                    "hare-baby-darkbrown",
+                    "hare-baby-desert",
+                    "hare-baby-gold",
+                    "hare-baby-lightbrown",
+                    "hare-baby-lightgrey",
+                    "hare-baby-silver",
+                    "hare-baby-smokegrey"
                 ],
                 "demand": 10
             }
@@ -461,9 +485,33 @@
         "killObjectives": [
             {
                 "validCodes": [
-                    "game:hare-male",
-                    "game:hare-female",
-                    "game:hare-baby"
+                    "hare-male-arctic",
+                    "hare-male-ashgrey",
+                    "hare-male-darkbrown",
+                    "hare-male-desert",
+                    "hare-male-gold",
+                    "hare-male-lightbrown",
+                    "hare-male-lightgrey",
+                    "hare-male-silver",
+                    "hare-male-smokegrey",
+                    "hare-female-arctic",
+                    "hare-female-ashgrey",
+                    "hare-female-darkbrown",
+                    "hare-female-desert",
+                    "hare-female-gold",
+                    "hare-female-lightbrown",
+                    "hare-female-lightgrey",
+                    "hare-female-silver",
+                    "hare-female-smokegrey",
+                    "hare-baby-arctic",
+                    "hare-baby-ashgrey",
+                    "hare-baby-darkbrown",
+                    "hare-baby-desert",
+                    "hare-baby-gold",
+                    "hare-baby-lightbrown",
+                    "hare-baby-lightgrey",
+                    "hare-baby-silver",
+                    "hare-baby-smokegrey"
                 ],
                 "demand": 10
             }
