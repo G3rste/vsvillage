@@ -23,7 +23,7 @@ namespace VsVillage
             if (api is ICoreServerAPI sapi)
             {
                 sapi.ModLoader.GetModSystem<POIRegistry>().AddPOI(this);
-                sapi.World.RegisterGameTickListener(repopulate, 120000, 120000);
+                sapi.World.RegisterGameTickListener(repopulate, 300000, 300000);
             }
         }
 
@@ -61,7 +61,7 @@ namespace VsVillage
 
         private void repopulate(float dt)
         {
-            if (ownerId == null || Api.World.GetEntityById((long)ownerId)?.Alive != true)
+            if (ownerId == null || Api.World.GetEntityById((long)ownerId) == null)
             {
                 var registry = Api.ModLoader.GetModSystem<POIRegistry>();
                 var spawn = registry.GetNearestPoi(Position, 75, poi =>
