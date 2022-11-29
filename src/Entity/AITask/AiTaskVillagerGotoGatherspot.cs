@@ -12,6 +12,8 @@ namespace VsVillage
         float offset;
         DayTimeFrame[] duringDayTimeFrames;
 
+        BlockEntityVillagerBrazier brazier;
+
         public AiTaskVillagerGotoGatherspot(EntityAgent entity) : base(entity)
         {
         }
@@ -34,13 +36,15 @@ namespace VsVillage
 
         protected override void ApplyInteractionEffect()
         {
-            // do nothing
+            brazier?.Ignite();
+            brazier = null;
         }
 
         protected override Vec3d GetTargetPos()
         {
             var registry = (entity.Api as ICoreServerAPI)?.ModLoader.GetModSystem<POIRegistry>();
-            return getRandomPosNearby(registry.GetNearestPoi(entity.ServerPos.XYZ, maxDistance, poi => poi is BlockEntityVillagerBrazier)?.Position);
+            brazier = registry.GetNearestPoi(entity.ServerPos.XYZ, maxDistance, poi => poi is BlockEntityVillagerBrazier) as BlockEntityVillagerBrazier;
+            return getRandomPosNearby(brazier?.Position);
         }
 
         public override bool ShouldExecute()

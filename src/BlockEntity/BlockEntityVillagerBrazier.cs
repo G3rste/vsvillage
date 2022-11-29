@@ -14,12 +14,32 @@ namespace VsVillage
         {
             base.Initialize(api);
             if (api is ICoreServerAPI sapi) { sapi.ModLoader.GetModSystem<POIRegistry>().AddPOI(this); }
+            RegisterGameTickListener(dt => { if (Api.World.Calendar.FullHourOfDay < 17) Extinguish(); }, 5000);
         }
 
         public override void OnBlockBroken(IPlayer byPlayer = null)
         {
             base.OnBlockBroken(byPlayer);
             if (Api is ICoreServerAPI sapi) { sapi.ModLoader.GetModSystem<POIRegistry>().RemovePOI(this); }
+        }
+
+        public void Extinguish()
+        {
+            if (Block.Variant["burnstate"] == "lit")
+            {
+                var brazierExtinct = Api.World.GetBlock(Block.CodeWithVariant("burnstate", "extinct"));
+                Api.World.BlockAccessor.ExchangeBlock(brazierExtinct.Id, Pos);
+                this.Block = brazierExtinct;
+            }
+        }
+        public void Ignite()
+        {
+            if (Block.Variant["burnstate"] == "extinct")
+            {
+                var brazierLit = Api.World.GetBlock(Block.CodeWithVariant("burnstate", "lit"));
+                Api.World.BlockAccessor.ExchangeBlock(brazierLit.Id, Pos);
+                this.Block = brazierLit;
+            }
         }
     }
 }

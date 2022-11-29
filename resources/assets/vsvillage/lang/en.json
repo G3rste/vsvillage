@@ -22,7 +22,7 @@
     "block-workstation-mayor-*": "Workstation (mayor)",
     "block-workstation-trader-*": "Workstation (trader)",
 
-    "block-brazier": "Brazier",
+    "block-brazier-*": "Brazier",
 
     "command-stay": "Stay here!",
     "command-follow": "Follow me!",

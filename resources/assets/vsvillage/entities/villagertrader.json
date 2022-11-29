@@ -199,7 +199,7 @@
                         }
                     },
                     {
-                        "code": "vsvillage:brazier",
+                        "code": "vsvillage:brazier-extinct",
                         "type": "block",
                         "stacksize": 1,
                         "stock": {

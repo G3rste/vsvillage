@@ -6,9 +6,32 @@
     },
     "creativeinventory": {
         "general": [
-            "*"
+            "*-extinct"
         ]
     },
+    "variantgroups": [
+        {
+            "code": "burnstate",
+            "states": [
+                "extinct",
+                "lit"
+            ]
+        }
+    ],
+    "attributes": {
+        "handbook": {
+            "excludeByType": {
+                "brazier-lit": true,
+                "brazier-extinct": false
+            }
+        }
+    },
+    "drops": [
+        {
+            "code": "vsvillage:brazier-extinct",
+            "type": "block"
+        }
+    ],
     "sidesolid": {
         "all": false
     },
@@ -37,229 +60,239 @@
             "z2": 0.75
         }
     ],
-    "lightHsv": [
-        7,
-        7,
-        16
-    ],
-    "particleProperties": [
-        {
-            "__comment": "Ember cubicles",
-            "hsvaColor": [
-                {
-                    "avg": 30,
-                    "var": 20
+    "lightHsvByType": {
+        "brazier-lit": [
+            7,
+            7,
+            16
+        ],
+        "brazier-extinct": [
+            7,
+            7,
+            1
+        ]
+    },
+    "particlePropertiesByType": {
+        "brazier-extinct": [],
+        "brazier-lit": [
+            {
+                "__comment": "Ember cubicles",
+                "hsvaColor": [
+                    {
+                        "avg": 30,
+                        "var": 20
+                    },
+                    {
+                        "avg": 255,
+                        "var": 50
+                    },
+                    {
+                        "avg": 255,
+                        "var": 50
+                    },
+                    {
+                        "avg": 255,
+                        "var": 0
+                    }
+                ],
+                "gravityEffect": {
+                    "dist": "invexp",
+                    "avg": -0.1,
+                    "var": 0.4
                 },
-                {
-                    "avg": 255,
-                    "var": 50
+                "posOffset": [
+                    {
+                        "avg": 0,
+                        "var": 0.2
+                    },
+                    {
+                        "avg": -0.8,
+                        "var": 0
+                    },
+                    {
+                        "avg": 0,
+                        "var": 0.2
+                    }
+                ],
+                "velocity": [
+                    {
+                        "avg": 0,
+                        "var": 0.15
+                    },
+                    {
+                        "avg": 0.5,
+                        "var": 0.1
+                    },
+                    {
+                        "avg": 0,
+                        "var": 0.15
+                    }
+                ],
+                "quantity": {
+                    "avg": 0.015
                 },
-                {
-                    "avg": 255,
-                    "var": 50
-                },
-                {
-                    "avg": 255,
-                    "var": 0
-                }
-            ],
-            "gravityEffect": {
-                "dist": "invexp",
-                "avg": -0.1,
-                "var": 0.4
-            },
-            "posOffset": [
-                {
-                    "avg": 0,
-                    "var": 0.2
-                },
-                {
-                    "avg": -0.8,
-                    "var": 0
-                },
-                {
-                    "avg": 0,
-                    "var": 0.2
-                }
-            ],
-            "velocity": [
-                {
-                    "avg": 0,
-                    "var": 0.15
-                },
-                {
-                    "avg": 0.5,
-                    "var": 0.1
-                },
-                {
-                    "avg": 0,
-                    "var": 0.15
-                }
-            ],
-            "quantity": {
-                "avg": 0.015
-            },
-            "size": {
-                "avg": 0.4,
-                "var": 0
-            },
-            "sizeEvolve": {
-                "transform": "quadratic",
-                "factor": -0.7
-            },
-            "lifeLength": {
-                "avg": 1.5
-            },
-            "vertexFlags": 128,
-            "windAffectednes": 0.2
-        },
-        {
-            "__comment": "Smoke quads",
-            "hsvaColor": [
-                {
-                    "avg": 0,
+                "size": {
+                    "avg": 0.4,
                     "var": 0
                 },
-                {
+                "sizeEvolve": {
+                    "transform": "quadratic",
+                    "factor": -0.7
+                },
+                "lifeLength": {
+                    "avg": 1.5
+                },
+                "vertexFlags": 128,
+                "windAffectednes": 0.2
+            },
+            {
+                "__comment": "Smoke quads",
+                "hsvaColor": [
+                    {
+                        "avg": 0,
+                        "var": 0
+                    },
+                    {
+                        "avg": 0,
+                        "var": 0
+                    },
+                    {
+                        "avg": 70,
+                        "var": 30
+                    },
+                    {
+                        "avg": 220,
+                        "var": 50
+                    }
+                ],
+                "opacityEvolve": {
+                    "transform": "linear",
+                    "factor": -255
+                },
+                "gravityEffect": {
                     "avg": 0,
                     "var": 0
                 },
-                {
-                    "avg": 70,
-                    "var": 30
+                "posOffset": [
+                    {
+                        "avg": 0,
+                        "var": 0.2
+                    },
+                    {
+                        "avg": -0.8,
+                        "var": 0
+                    },
+                    {
+                        "avg": 0,
+                        "var": 0.2
+                    }
+                ],
+                "velocity": [
+                    {
+                        "avg": 0,
+                        "var": 0.025
+                    },
+                    {
+                        "avg": 0.2,
+                        "var": 0.05
+                    },
+                    {
+                        "avg": 0,
+                        "var": 0.025
+                    }
+                ],
+                "quantity": {
+                    "avg": 0.08
                 },
-                {
-                    "avg": 220,
-                    "var": 50
-                }
-            ],
-            "opacityEvolve": {
-                "transform": "linear",
-                "factor": -255
-            },
-            "gravityEffect": {
-                "avg": 0,
-                "var": 0
-            },
-            "posOffset": [
-                {
-                    "avg": 0,
-                    "var": 0.2
-                },
-                {
-                    "avg": -0.8,
-                    "var": 0
-                },
-                {
-                    "avg": 0,
-                    "var": 0.2
-                }
-            ],
-            "velocity": [
-                {
-                    "avg": 0,
-                    "var": 0.025
-                },
-                {
-                    "avg": 0.2,
+                "size": {
+                    "avg": 0.3,
                     "var": 0.05
                 },
-                {
+                "sizeEvolve": {
+                    "transform": "linear",
+                    "factor": 1.5
+                },
+                "particleModel": "Quad",
+                "lifeLength": {
+                    "avg": 18
+                },
+                "selfPropelled": true,
+                "windAffectednes": 0.7
+            },
+            {
+                "__comment": "Fire quads",
+                "hsvaColor": [
+                    {
+                        "avg": 20,
+                        "var": 20
+                    },
+                    {
+                        "avg": 255,
+                        "var": 50
+                    },
+                    {
+                        "avg": 255,
+                        "var": 50
+                    },
+                    {
+                        "avg": 255,
+                        "var": 0
+                    }
+                ],
+                "opacityEvolve": {
+                    "transform": "quadratic",
+                    "factor": -16
+                },
+                "gravityEffect": {
                     "avg": 0,
-                    "var": 0.025
-                }
-            ],
-            "quantity": {
-                "avg": 0.08
-            },
-            "size": {
-                "avg": 0.3,
-                "var": 0.05
-            },
-            "sizeEvolve": {
-                "transform": "linear",
-                "factor": 1.5
-            },
-            "particleModel": "Quad",
-            "lifeLength": {
-                "avg": 18
-            },
-            "selfPropelled": true,
-            "windAffectednes": 0.7
-        },
-        {
-            "__comment": "Fire quads",
-            "hsvaColor": [
-                {
-                    "avg": 20,
-                    "var": 20
-                },
-                {
-                    "avg": 255,
-                    "var": 50
-                },
-                {
-                    "avg": 255,
-                    "var": 50
-                },
-                {
-                    "avg": 255,
-                    "var": 0
-                }
-            ],
-            "opacityEvolve": {
-                "transform": "quadratic",
-                "factor": -16
-            },
-            "gravityEffect": {
-                "avg": 0,
-                "var": 0
-            },
-            "posOffset": [
-                {
-                    "avg": 0,
-                    "var": 0.1
-                },
-                {
-                    "avg": -0.8,
                     "var": 0
                 },
-                {
-                    "avg": 0,
-                    "var": 0.1
-                }
-            ],
-            "velocity": [
-                {
-                    "avg": 0,
-                    "var": 0.1
+                "posOffset": [
+                    {
+                        "avg": 0,
+                        "var": 0.1
+                    },
+                    {
+                        "avg": -0.8,
+                        "var": 0
+                    },
+                    {
+                        "avg": 0,
+                        "var": 0.1
+                    }
+                ],
+                "velocity": [
+                    {
+                        "avg": 0,
+                        "var": 0.1
+                    },
+                    {
+                        "avg": 0.125,
+                        "var": 0.05
+                    },
+                    {
+                        "avg": 0,
+                        "var": 0.1
+                    }
+                ],
+                "quantity": {
+                    "avg": 0.5
                 },
-                {
-                    "avg": 0.125,
+                "size": {
+                    "avg": 0.25,
                     "var": 0.05
                 },
-                {
-                    "avg": 0,
-                    "var": 0.1
-                }
-            ],
-            "quantity": {
-                "avg": 0.5
-            },
-            "size": {
-                "avg": 0.25,
-                "var": 0.05
-            },
-            "lifeLength": {
-                "avg": 0.5
-            },
-            "sizeEvolve": {
-                "transform": "linear",
-                "factor": 0.5
-            },
-            "particleModel": "Quad",
-            "vertexFlags": 128,
-            "windAffectednes": 0.7
-        }
-    ]
+                "lifeLength": {
+                    "avg": 0.5
+                },
+                "sizeEvolve": {
+                    "transform": "linear",
+                    "factor": 0.5
+                },
+                "particleModel": "Quad",
+                "vertexFlags": 128,
+                "windAffectednes": 0.7
+            }
+        ]
+    }
 }

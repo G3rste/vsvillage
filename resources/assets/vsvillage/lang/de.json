@@ -22,5 +22,5 @@
     "block-workstation-mayor-*": "Werkbank (Bürgermeister)",
     "block-workstation-trader-*": "Werkbank (Händler)",
 
-    "block-brazier": "Feuerstelle"
+    "block-brazier-*": "Feuerstelle"
 }
