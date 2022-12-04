@@ -580,6 +580,20 @@
         "predecessor": "vsvillage:quest-foundvillage-final",
         "cooldown": 5,
         "perPlayer": false,
+        "blockPlaceObjectives":[
+            {
+                "validCodes": [
+                    "workstation-farmer-*"
+                ],
+                "demand": 1
+            },
+            {
+                "validCodes": [
+                    "bed-*"
+                ],
+                "demand": 1
+            }
+        ],
         "gatherObjectives": [
             {
                 "validCodes": [
@@ -604,6 +618,20 @@
         "predecessor": "vsvillage:quest-foundvillage-final",
         "cooldown": 5,
         "perPlayer": false,
+        "blockPlaceObjectives":[
+            {
+                "validCodes": [
+                    "workstation-shepherd-*"
+                ],
+                "demand": 1
+            },
+            {
+                "validCodes": [
+                    "bed-*"
+                ],
+                "demand": 1
+            }
+        ],
         "gatherObjectives": [
             {
                 "validCodes": [
@@ -629,6 +657,20 @@
         "cooldown": 5,
         "perPlayer": false,
         "onAcceptedActions": [],
+        "blockPlaceObjectives":[
+            {
+                "validCodes": [
+                    "workstation-soldier-*"
+                ],
+                "demand": 1
+            },
+            {
+                "validCodes": [
+                    "bed-*"
+                ],
+                "demand": 1
+            }
+        ],
         "gatherObjectives": [
             {
                 "validCodes": [
@@ -653,6 +695,20 @@
         "predecessor": "vsvillage:quest-foundvillage-final",
         "cooldown": 15,
         "perPlayer": false,
+        "blockPlaceObjectives":[
+            {
+                "validCodes": [
+                    "workstation-smith-*"
+                ],
+                "demand": 1
+            },
+            {
+                "validCodes": [
+                    "bed-*"
+                ],
+                "demand": 1
+            }
+        ],
         "gatherObjectives": [
             {
                 "validCodes": [
@@ -673,9 +729,105 @@
         ]
     },
     {
+        "id": "vsvillage:quest-recruit1herbalist",
+        "predecessor": "vsvillage:quest-foundvillage-final",
+        "cooldown": 15,
+        "perPlayer": false,
+        "blockPlaceObjectives":[
+            {
+                "validCodes": [
+                    "workstation-herbalist-*"
+                ],
+                "demand": 1
+            },
+            {
+                "validCodes": [
+                    "bed-*"
+                ],
+                "demand": 1
+            }
+        ],
+        "gatherObjectives": [
+            {
+                "validCodes": [
+                    "gear-rusty"
+                ],
+                "demand": 6
+            }
+        ],
+        "actionObjectives": [],
+        "actionRewards": [
+            {
+                "id": "spawnany",
+                "args": [
+                    "vsvillage:humanoid-villager-male-herbalist",
+                    "vsvillage:humanoid-villager-female-herbalist"
+                ]
+            }
+        ]
+    },
+    {
+        "id": "vsvillage:quest-recruit1trader",
+        "predecessor": "vsvillage:quest-foundvillage-final",
+        "cooldown": 15,
+        "perPlayer": false,
+        "blockPlaceObjectives":[
+            {
+                "validCodes": [
+                    "workstation-trader-*"
+                ],
+                "demand": 1
+            },
+            {
+                "validCodes": [
+                    "bed-*"
+                ],
+                "demand": 1
+            }
+        ],
+        "gatherObjectives": [
+            {
+                "validCodes": [
+                    "gear-rusty"
+                ],
+                "demand": 6
+            }
+        ],
+        "actionObjectives": [],
+        "actionRewards": [
+            {
+                "id": "spawnany",
+                "args": [
+                    "vsvillage:humanoid-villager-male-trader",
+                    "vsvillage:humanoid-villager-female-trader"
+                ]
+            }
+        ]
+    },
+    {
         "id": "vsvillage:quest-foundvillage-start",
         "cooldown": 1000000000,
         "perPlayer": false,
+        "blockPlaceObjectives":[
+            {
+                "validCodes": [
+                    "workstation-farmer-*"
+                ],
+                "demand": 2
+            },
+            {
+                "validCodes": [
+                    "workstation-trader-*"
+                ],
+                "demand": 1
+            },
+            {
+                "validCodes": [
+                    "bed-*"
+                ],
+                "demand": 3
+            }
+        ],
         "gatherObjectives": [
             {
                 "validCodes": [
@@ -732,18 +884,27 @@
                 "demand": 30
             }
         ],
+        "onAcceptedActions": [
+            {
+                "id": "giveitem",
+                "args": [
+                    "vsvillage:workstation-trader-east",
+                    "1"
+                ]
+            },
+            {
+                "id": "giveitem",
+                "args": [
+                    "vsvillage:workstation-farmer-east",
+                    "2"
+                ]
+            }
+        ],
         "actionObjectives": [],
         "actionRewards": [
             {
                 "id": "spawnany",
                 "args": [
-                    "vsvillage:humanoid-villager-male-shepherd",
-                    "vsvillage:humanoid-villager-female-shepherd"
-                ]
-            },
-            {
-                "id": "spawnany",
-                "args": [
                     "vsvillage:humanoid-villager-male-farmer",
                     "vsvillage:humanoid-villager-female-farmer"
                 ]
@@ -753,6 +914,13 @@
                 "args": [
                     "vsvillage:humanoid-villager-male-farmer",
                     "vsvillage:humanoid-villager-female-farmer"
+                ]
+            },
+            {
+                "id": "spawnany",
+                "args": [
+                    "vsvillage:humanoid-villager-male-trader",
+                    "vsvillage:humanoid-villager-female-trader"
                 ]
             }
         ]
@@ -762,6 +930,20 @@
         "predecessor": "vsvillage:quest-foundvillage-start",
         "cooldown": 1000000000,
         "perPlayer": false,
+        "blockPlaceObjectives":[
+            {
+                "validCodes": [
+                    "workstation-soldier-*"
+                ],
+                "demand": 2
+            },
+            {
+                "validCodes": [
+                    "bed-*"
+                ],
+                "demand": 2
+            }
+        ],
         "gatherObjectives": [
             {
                 "validCodes": [
@@ -778,6 +960,13 @@
                     "vsvillage:humanoid-villager-male-soldier",
                     "vsvillage:humanoid-villager-female-soldier"
                 ]
+            },
+            {
+                "id": "spawnany",
+                "args": [
+                    "vsvillage:humanoid-villager-male-soldier",
+                    "vsvillage:humanoid-villager-female-soldier"
+                ]
             }
         ]
     },
@@ -786,47 +975,24 @@
         "predecessor": "vsvillage:quest-foundvillage-1",
         "cooldown": 1000000000,
         "perPlayer": false,
-        "gatherObjectives": [
+        "blockPlaceObjectives":[
             {
                 "validCodes": [
-                    "grain-spelt",
-                    "grain-rice",
-                    "grain-flax",
-                    "grain-rye",
-                    "grain-amaranth",
-                    "grain-sunflower"
+                    "flower-*"
                 ],
-                "demand": 128
+                "demand": 16
             },
             {
                 "validCodes": [
-                    "vegetable-carrot",
-                    "vegetable-cabbage",
-                    "vegetable-onion",
-                    "vegetable-turnip",
-                    "vegetable-parsnip",
-                    "vegetable-cookedcattailroot",
-                    "vegetable-pumpkin",
-                    "vegetable-cassava",
-                    "vegetable-cookedpapyrusroot",
-                    "vegetable-bellpepper",
-                    "vegetable-olive"
+                    "workstation-herbalist-*"
                 ],
-                "demand": 64
+                "demand": 1
             },
             {
                 "validCodes": [
-                    "bushmeat-raw",
-                    "bushmeat-cooked",
-                    "bushmeat-cured",
-                    "redmeat-raw",
-                    "redmeat-cooked",
-                    "redmeat-cured",
-                    "poultry-raw",
-                    "poultry-cooked",
-                    "poultry-cured"
+                    "bed-*"
                 ],
-                "demand": 32
+                "demand": 1
             }
         ],
         "actionObjectives": [],
@@ -834,15 +1000,8 @@
             {
                 "id": "spawnany",
                 "args": [
-                    "vsvillage:humanoid-villager-male-farmer",
-                    "vsvillage:humanoid-villager-female-farmer"
-                ]
-            },
-            {
-                "id": "spawnany",
-                "args": [
-                    "vsvillage:humanoid-villager-male-shepherd",
-                    "vsvillage:humanoid-villager-female-shepherd"
+                    "vsvillage:humanoid-villager-male-herbalist",
+                    "vsvillage:humanoid-villager-female-herbalist"
                 ]
             }
         ]
@@ -852,6 +1011,20 @@
         "predecessor": "vsvillage:quest-foundvillage-2",
         "cooldown": 1000000000,
         "perPlayer": false,
+        "blockPlaceObjectives":[
+            {
+                "validCodes": [
+                    "workstation-smith-*"
+                ],
+                "demand": 1
+            },
+            {
+                "validCodes": [
+                    "bed-*"
+                ],
+                "demand": 1
+            }
+        ],
         "gatherObjectives": [
             {
                 "validCodes": [
@@ -859,13 +1032,13 @@
                     "ingot-blackbronze",
                     "ingot-bismuthbronze"
                 ],
-                "demand": 32
+                "demand": 8
             },
             {
                 "validCodes": [
                     "charcoal"
                 ],
-                "demand": 64
+                "demand": 16
             },
             {
                 "validCodes": [
@@ -881,7 +1054,7 @@
                     "leather-gray",
                     "leather-green"
                 ],
-                "demand": 32
+                "demand": 8
             }
         ],
         "actionObjectives": [],
@@ -900,24 +1073,27 @@
         "predecessor": "vsvillage:quest-foundvillage-3",
         "cooldown": 1000000000,
         "perPlayer": false,
-        "killObjectives": [
+        "blockPlaceObjectives":[
             {
                 "validCodes": [
-                    "drifter-double-headed"
+                    "workstation-soldier-*"
                 ],
                 "demand": 1
             },
             {
                 "validCodes": [
-                    "drifter-nightmare"
+                    "bed-*"
                 ],
-                "demand": 10
-            },
+                "demand": 1
+            }
+        ],
+        "killObjectives": [
             {
                 "validCodes": [
-                    "locust-corrupt-sawblade"
+                    "drifter-nightmare",
+                    "drifter-double-headed"
                 ],
-                "demand": 5
+                "demand": 10
             }
         ],
         "actionRewards": [
