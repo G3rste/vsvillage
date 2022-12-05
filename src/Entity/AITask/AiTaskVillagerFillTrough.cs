@@ -21,10 +21,10 @@ namespace VsVillage
 
         protected override void ApplyInteractionEffect()
         {
-            var troughContent = nearestTrough.Inventory[0].Empty ? entity.World.GetItem(new AssetLocation("grain-flax")) : nearestTrough.Inventory[0].Itemstack.Item;
+            Item troughContent = nearestTrough.Inventory[0].Empty ? entity.World.GetItem(new AssetLocation("grain-flax")) : nearestTrough.Inventory[0].Itemstack.Item;
             ItemSlot slot = new DummySlot(new ItemStack(troughContent, 16));
             var contentConfig = ItemSlotTrough.getContentConfig(entity.Api.World, nearestTrough.contentConfigs, slot);
-            if (contentConfig != null)
+            if (contentConfig != null && troughContent != null)
             {
                 slot.TryPutInto(entity.World, nearestTrough.Inventory[0], contentConfig.QuantityPerFillLevel);
                 nearestTrough.Inventory[0].MarkDirty();
