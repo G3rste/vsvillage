@@ -27,6 +27,7 @@ namespace VsVillage
             api.RegisterEntityBehaviorClass("AlternatePathTraverser", typeof(EntityBehaviorAlternatePathtraverser));
 
             api.RegisterItemClass("ItemVillagerGear", typeof(ItemVillagerGear));
+            api.RegisterItemClass("ItemVillagerHorn", typeof(ItemVillagerHorn));
 
             api.RegisterBlockEntityBehaviorClass("VillagerBed", typeof(BlockEntityBehaviorVillagerBed));
 

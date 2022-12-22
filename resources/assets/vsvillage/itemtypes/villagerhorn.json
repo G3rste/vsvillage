@@ -1,0 +1,86 @@
+{
+	"code": "villagerhorn",
+	"class": "ItemVillagerHorn",
+	"shape": {
+		"base": "items/horn"
+	},
+	"maxstacksize": 1,
+	"creativeinventory": {
+		"general": [
+			"*"
+		],
+		"items": [
+			"*"
+		],
+		"clothing": [
+			"*"
+		]
+	},
+	"fpHandTransform": {
+		"translation": {
+			"x": 0,
+			"y": 0,
+			"z": 0
+		},
+		"rotation": {
+			"x": 1,
+			"y": 90,
+			"z": 0
+		},
+		"scale": 2
+	},
+	"guiTransform": {
+		"translation": {
+			"x": 1,
+			"y": 1,
+			"z": 0
+		},
+		"rotation": {
+			"x": -152,
+			"y": -12,
+			"z": -39
+		},
+		"origin": {
+			"x": 0.5,
+			"y": 0.25,
+			"z": 0.5
+		},
+		"scale": 3.65
+	},
+	"tpHandTransform": {
+		"translation": {
+			"x": -0.51,
+			"y": -0.15,
+			"z": -0.61
+		},
+		"rotation": {
+			"x": 90,
+			"y": 270,
+			"z": 0
+		},
+		"origin": {
+			"x": 0.51,
+			"y": 0.15,
+			"z": 0.61
+		},
+		"scale": 1
+	},
+	"groundTransform": {
+		"translation": {
+			"x": 0,
+			"y": 0,
+			"z": 0
+		},
+		"rotation": {
+			"x": 90,
+			"y": 0,
+			"z": 0
+		},
+		"origin": {
+			"x": 0.5,
+			"y": 0.22,
+			"z": 0.54
+		},
+		"scale": 4.5
+	}
+}
