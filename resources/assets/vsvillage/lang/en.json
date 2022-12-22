@@ -28,6 +28,10 @@
     "item-dead-creature-humanoid-villager-male-trader": "Dead Trader (male)",
     "item-dead-creature-humanoid-villager-female-trader": "Dead Trader (female)",
 
+    "item-villagerhorn": "Summoning Horn",
+    "itemdesc-villagerhorn": "Can be used to call for help",
+    "interact-villager-horn": "Aim at the ground nearby and blow it to call for help by freeing a villager from the rust world!",
+
     "block-workstation-soldier-*": "Workstation (soldier)",
     "block-workstation-smith-*": "Workstation (smith)",
     "block-workstation-farmer-*": "Workstation (farmer)",

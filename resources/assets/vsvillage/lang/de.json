@@ -13,6 +13,10 @@
     "item-creature-humanoid-villager-female-mayor": "Bürgermeister (weiblich)",
     "item-creature-humanoid-villager-male-trader": "Händler (männlich)",
     "item-creature-humanoid-villager-female-trader": "Händler (weiblich)",
+    
+    "item-villagerhorn": "Beschwörungshorn",
+    "itemdesc-villagerhorn": "Kann verwendet werden, um Hilfe herbeizurufen.",
+    "interact-villager-horn": "Lass das Horn ertönen, um einen Dorfbewohner aus der Scherbenwelt zu befreien!",
 
     "block-workstation-soldier-*": "Werkbank (Soldat)",
     "block-workstation-smith-*": "Werkbank (Schmied)",

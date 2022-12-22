@@ -74,7 +74,7 @@ namespace VsVillage
                     new Vec3d(2, 1, 2),
                     new Vec3f(-0.25f, 0f, -0.25f),
                     new Vec3f(0.25f, 0f, 0.25f),
-                    0.6f,
+                    3f,
                     -0.075f,
                     0.5f,
                     3f,
