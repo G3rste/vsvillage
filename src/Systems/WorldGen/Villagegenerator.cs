@@ -78,7 +78,7 @@ namespace VsVillage
             var start = player.Entity.ServerPos.XYZInt.ToBlockPos();
             if (args.Length > 1 && args[1] == "probe" && !probeTerrain(start, grid, sapi.World.BlockAccessor))
             {
-                player.SendMessage(GlobalConstants.AllChatGroups, "Terrain is too steep for generating a village", EnumChatType.CommandError);
+                player.SendMessage(GlobalConstants.AllChatGroups, "Terrain is too steep/ damp for generating a village", EnumChatType.CommandError);
             }
             else
             {
@@ -124,6 +124,7 @@ namespace VsVillage
             int min;
             int current;
             int tolerance = (grid.width * grid.height) * 4;
+            int waterspots = 0;
             for (int x = 0; x < grid.width - 1; x++)
             {
                 for (int z = 0; z < grid.height - 1; z++)
@@ -138,16 +139,17 @@ namespace VsVillage
                             current = blockAccessor.GetTerrainMapheightAt(start.AddCopy(coords.X, 0, coords.Y));
                             max = Math.Max(max, current);
                             min = Math.Min(min, current);
-                            if (blockAccessor.GetBlock(coords.X, current + 1, coords.Y, BlockLayersAccess.Fluid).Id != 0)
+                            if (i == 0 && k == 0 &&
+                                blockAccessor.GetBlock(start.X + coords.X, current + 1, start.Z + coords.Y, BlockLayersAccess.Fluid).Id != 0)
                             {
-                                tolerance -= grid.width * grid.height;
+                                waterspots++;
                             }
                         }
                     }
                     tolerance -= (max - min);
                 }
             }
-            return tolerance > 0;
+            return tolerance > 0 && waterspots < grid.width * grid.height / 2;
         }
 
         private void handler(IServerChunk[] chunks, int chunkX, int chunkZ, ITreeAttribute chunkGenParams)
