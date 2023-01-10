@@ -4,13 +4,15 @@
     "maxstacksize": 1,
     "attributes": {
         "weaponAssetLocationByType": {
-            "*-spear": "spear-blackbronze",
             "*-spear-gold": "spear-ornate-gold",
             "*-spear-silver": "spear-ornate-silver",
             "*-scrap-spear": "spear-scrap",
             "*-scrap-blade": "blade-curved-scrap",
             "*-scrap-axe": "axe-scrap",
-            "*-dagger": "knife-meteoriciron"
+            "*-scrap-club": "woodenclub-scrap",
+            "*-scrap-mace": "woodenclub-scrapmace",
+            "*-dagger": "knife-meteoriciron",
+            "*-sword-blackguard": "blade-short-blackguard"
         },
         "wearableAttachment": true,
         "handbook": {
@@ -21,7 +23,7 @@
         {
             "code": "type",
             "states": [
-                "back"
+                "weapon"
             ]
         },
         {
@@ -29,9 +31,14 @@
             "states": [
                 "bow",
                 "dagger",
-                "pickaxe",
-                "spear",
-                "backpack"
+                "spear-silver",
+                "spear-gold",
+                "scrap-spear",
+                "scrap-blade",
+                "scrap-axe",
+                "scrap-club",
+                "scrap-mace",
+                "sword-blackguard"
             ]
         }
     ],
@@ -42,14 +49,8 @@
         "*-dagger": {
             "base": "game:entity/humanoid/traderaccessories/tools/dagger"
         },
-        "*-pickaxe": {
-            "base": "game:entity/humanoid/traderaccessories/tools/pickaxe"
-        },
-        "*-spear": {
-            "base": "game:entity/humanoid/traderaccessories/tools/spear"
-        },
-        "*-backpack": {
-            "base": "game:entity/humanoid/traderaccessories/backpack"
+        "*": {
+            "base": "villagergear/{name}"
         }
     }
 }

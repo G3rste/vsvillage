@@ -9,14 +9,15 @@
 			"profession": "soldier",
 			"validGear": {
 				"arms": ["armor", "armor-hallowcroft", "armor", "armor-hallowcroft", "bandage-left", "bandage-right"],
-				"back": ["dagger", "spear", "spear", "spear", "spear"],
+				"back": [],
 				"belt": [],
-				"beltslot": ["sword", "sword", "sword", "sword", "sack", "spyglass"],
+				"beltslot": ["jewelry-pouch", "jewelry-pouch-copper", "sack", "spyglass"],
 				"chest": ["armor", "armor-hallowcroft", "armor", "armor-hallowcroft", "bandage"],
 				"feet": ["armor", "armor-hallowcroft", "armor", "armor-hallowcroft", "armor", "armor-hallowcroft", "armor", "armor-hallowcroft", "bandage-left", "bandage-right", "knife"],
 				"head": ["armor", "armor", "armor", "armor", "armor", "armor-hallowcroft", "bandage", "bandage-eye", "bandage-eye"],
 				"shoulders": ["armor", "armor-hallowcroft", "armor", "armor-hallowcroft", "armor", "armor-hallowcroft", "bandage-left", "bandage-right"],
-				"thigh": ["armor", "armor-hallowcroft", "armor", "armor-hallowcroft", "armor", "armor-hallowcroft", "bandage-left", "bandage-right"]
+				"thigh": ["armor", "armor-hallowcroft", "armor", "armor-hallowcroft", "armor", "armor-hallowcroft", "bandage-left", "bandage-right"],
+				"weapon": ["spear-silver", "spear-gold", "scrap-spear", "scrap-blade", "scrap-axe", "scrap-club", "scrap-mace", "sword-blackguard"]
 			}
 		},
 		"*-smith": {
@@ -30,7 +31,8 @@
 				"feet": [],
 				"head": ["miner-hat"],
 				"shoulders": ["jewelry-necklace", "jewelry-necklace-copper", "jewelry-necklace-gold", "scarf"],
-				"thigh": []
+				"thigh": [],
+				"weapon": []
 			}
 		},
 		"*-farmer": {
@@ -44,7 +46,8 @@
 				"feet": ["boots"],
 				"head": ["beret", "fez"],
 				"shoulders": [],
-				"thigh": []
+				"thigh": [],
+				"weapon": []
 			}
 		},
 		"*-shepherd": {
@@ -58,7 +61,8 @@
 				"feet": ["boots"],
 				"head": ["keffiyeh"],
 				"shoulders": ["scarf"],
-				"thigh": []
+				"thigh": [],
+				"weapon": []
 			}
 		},
 		"*-herbalist": {
@@ -72,7 +76,8 @@
 				"feet": ["knife"],
 				"head": ["chaperon"],
 				"shoulders": [],
-				"thigh": []
+				"thigh": [],
+				"weapon": []
 			}
 		},
 		"*-mayor": {
@@ -86,7 +91,8 @@
 				"feet": [],
 				"head": ["jewelry-monocle",	"jewelry-monocle-copper", "jewelry-monocle-gold"],
 				"shoulders": ["jewelry-necklace", "jewelry-necklace-copper", "jewelry-necklace-gold"],
-				"thigh": []
+				"thigh": [],
+				"weapon": []
 			}
 		}
 	},
