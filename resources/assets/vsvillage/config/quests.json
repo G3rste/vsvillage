@@ -337,6 +337,126 @@
         ]
     },
     {
+        "id": "vsvillage:quest-gather16HayFor1BlueCheesewheel",
+        "cooldown": 25,
+        "perPlayer": false,
+        "gatherObjectives": [
+            {
+                "validCodes": [
+                    "hay-*"
+                ],
+                "demand": 16
+            }
+        ],
+        "killObjectives": [],
+        "itemRewards": [
+            {
+                "itemCode": "game:cheese-blue-4slice",
+                "amount": 1
+            }
+        ]
+    },
+    {
+        "id": "vsvillage:quest-gather16HayFor1CheddarCheesewheel",
+        "cooldown": 25,
+        "perPlayer": false,
+        "gatherObjectives": [
+            {
+                "validCodes": [
+                    "hay-*"
+                ],
+                "demand": 16
+            }
+        ],
+        "killObjectives": [],
+        "itemRewards": [
+            {
+                "itemCode": "game:cheese-cheddar-4slice",
+                "amount": 1
+            }
+        ]
+    },
+    {
+        "id": "vsvillage:quest-gather6GrainFor12Eggs",
+        "cooldown": 10,
+        "perPlayer": false,
+        "gatherObjectives": [
+            {
+                "validCodes": [
+                    "grain-*"
+                ],
+                "demand": 6
+            }
+        ],
+        "killObjectives": [],
+        "itemRewards": [
+            {
+                "itemCode": "game:egg-chicken-raw",
+                "amount": 12
+            }
+        ]
+    },
+    {
+        "id": "vsvillage:quest-gather24GrainFor18Poultry",
+        "cooldown": 20,
+        "perPlayer": false,
+        "gatherObjectives": [
+            {
+                "validCodes": [
+                    "grain-*"
+                ],
+                "demand": 24
+            }
+        ],
+        "killObjectives": [],
+        "itemRewards": [
+            {
+                "itemCode": "game:poultry-raw",
+                "amount": 18
+            }
+        ]
+    },
+    {
+        "id": "vsvillage:quest-gather24GrainFor18Redmeat",
+        "cooldown": 20,
+        "perPlayer": false,
+        "gatherObjectives": [
+            {
+                "validCodes": [
+                    "grain-*"
+                ],
+                "demand": 24
+            }
+        ],
+        "killObjectives": [],
+        "itemRewards": [
+            {
+                "itemCode": "game:redmeat-raw",
+                "amount": 18
+            }
+        ]
+    },
+    {
+        "id": "vsvillage:quest-gather12CharcoalFor4Gears",
+        "cooldown": 30,
+        "perPlayer": false,
+        "gatherObjectives": [
+            {
+                "validCodes": [
+                    "charcoal"
+                ],
+                "demand": 12
+            }
+        ],
+        "killObjectives": [],
+        "itemRewards": [
+            {
+                "itemCode": "game:gear-rusty",
+                "amount": 4
+            }
+        ]
+    },
+    {
         "id": "vsvillage:quest-cull2HaresFor20Carrots",
         "cooldown": 10,
         "perPlayer": false,
@@ -451,7 +571,7 @@
         ]
     },
     {
-        "id": "vsvillage:quest-kill1FoxesFor4Gear",
+        "id": "vsvillage:quest-kill3FoxesFor8Gear",
         "cooldown": 30,
         "perPlayer": false,
         "gatherObjectives": [],
@@ -465,26 +585,73 @@
                     "fox-arctic-male",
                     "fox-arctic-female"
                 ],
-                "demand": 1
+                "demand": 3
             }
         ],
         "itemRewards": [
             {
                 "itemCode": "game:gear-rusty",
-                "amount": 4
+                "amount": 8
             }
         ]
     },
     {
-        "id": "vsvillage:quest-gather20CharcoalFor4Gears",
-        "cooldown": 30,
+        "id": "vsvillage:quest-upgradeGambison",
+        "cooldown": 99999999,
+        "perPlayer": true,
+        "gatherObjectives": [
+            {
+                "validCodes": [
+                    "armor-head-sewn-linen"
+                ],
+                "demand": 1
+            },
+            {
+                "validCodes": [
+                    "armor-body-sewn-linen"
+                ],
+                "demand": 1
+            },
+            {
+                "validCodes": [
+                    "armor-legs-sewn-linen"
+                ],
+                "demand": 1
+            },
+            {
+                "validCodes": [
+                    "gear-rusty"
+                ],
+                "demand": 32
+            }
+        ],
+        "killObjectives": [],
+        "itemRewards": [
+            {
+                "itemCode": "game:armor-head-tailored-plain-linen",
+                "amount": 1
+            },
+            {
+                "itemCode": "game:armor-body-tailored-plain-linen",
+                "amount": 1
+            },
+            {
+                "itemCode": "game:armor-legs-tailored-plain-linen",
+                "amount": 1
+            }
+        ]
+    },
+    {
+        "id": "vsvillage:quest-sell1CheesewheelFor4Gears",
+        "cooldown": 25,
         "perPlayer": false,
         "gatherObjectives": [
             {
                 "validCodes": [
-                    "charcoal"
+                    "cheese-blue-4slice",
+                    "cheese-cheddar-4slice"
                 ],
-                "demand": 20
+                "demand": 1
             }
         ],
         "killObjectives": [],
@@ -528,7 +695,162 @@
         ]
     },
     {
+        "id": "vsvillage:quest-repairingAnOldSet1",
+        "cooldown": 99999999,
+        "perPlayer": false,
+        "gatherObjectives": [
+            {
+                "validCodes": [
+                    "ingot-copper"
+                ],
+                "demand": 1
+            }
+        ],
+        "killObjectives": [],
+        "itemRewards": [
+            {
+                "itemCode": "game:armor-head-sewn-linen",
+                "amount": 1
+            }
+        ]
+    },
+    {
+        "id": "vsvillage:quest-repairingAnOldSet2",
+        "predecessor": "vsvillage:quest-repairingAnOldSet1",
+        "cooldown": 99999999,
+        "perPlayer": false,
+        "gatherObjectives": [
+            {
+                "validCodes": [
+                    "flaxtwine"
+                ],
+                "demand": 12
+            }
+        ],
+        "killObjectives": [],
+        "itemRewards": [
+            {
+                "itemCode": "game:armor-legs-sewn-linen",
+                "amount": 1
+            }
+        ]
+    },
+    {
+        "id": "vsvillage:quest-repairingAnOldSet3",
+        "predecessor": "vsvillage:quest-repairingAnOldSet2",
+        "cooldown": 99999999,
+        "perPlayer": false,
+        "gatherObjectives": [
+            {
+                "validCodes": [
+                    "vegetable-*"
+                ],
+                "demand": 32
+            }
+        ],
+        "killObjectives": [],
+        "itemRewards": [
+            {
+                "itemCode": "game:armor-body-sewn-linen",
+                "amount": 1
+            }
+        ]
+    },
+    {
+        "id": "vsvillage:quest-sell24HorsetailFor3Gears",
+        "predecessor": "vsvillage:quest-repairingAnOldSet3",
+        "cooldown": 20,
+        "perPlayer": false,
+        "gatherObjectives": [
+            {
+                "validCodes": [
+                    "flower-horsetail-free"
+                ],
+                "demand": 24
+            }
+        ],
+        "killObjectives": [],
+        "itemRewards": [
+            {
+                "itemCode": "game:gear-rusty",
+                "amount": 3
+            }
+        ]
+    },
+    {
+        "id": "vsvillage:quest-healplayersetup",
+        "cooldown": 99999999,
+        "perPlayer": true,
+        "onAcceptedActions": [],
+        "gatherObjectives": [
+            {
+                "validCodes": [
+                    "flower-horsetail-free"
+                ],
+                "demand": 12
+            },
+            {
+                "validCodes": [
+                    "stone-*"
+                ],
+                "demand": 1
+            },
+            {
+                "validCodes": [
+                    "stick"
+                ],
+                "demand": 1
+            },
+            {
+                "validCodes": [
+                    "honeycomb"
+                ],
+                "demand": 2
+            },            
+            {
+                "validCodes": [
+                    "cattailtops"
+                ],
+                "demand": 12
+            }
+        ],
+        "itemRewards": [
+            {
+                "itemCode": "game:rusty-gear",
+                "amount": 4
+            }
+        ],
+        "actionRewards": [
+            {
+                "id": "healplayer",
+                "args": []
+            }
+        ]
+    },
+    {
+        "id": "vsvillage:quest-sell10PowderedSulfurFor2Gears",
+        "predecessor": "vsvillage:quest-healplayersetup",
+        "cooldown": 10,
+        "perPlayer": true,
+        "onAcceptedActions": [],
+        "gatherObjectives": [
+            {
+                "validCodes": [
+                    "powderedsulfur"
+                ],
+                "demand": 10
+            }
+        ],
+        "itemRewards": [
+            {
+                "itemCode": "game:rusty-gear",
+                "amount": 2
+            }
+        ]
+    },
+    {
         "id": "vsvillage:quest-healplayer",
+        "predecessor": "vsvillage:quest-healplayersetup",
         "cooldown": 1,
         "perPlayer": true,
         "onAcceptedActions": [],
@@ -1082,7 +1404,7 @@
         ]
     },
     {
-        "id": "vsvillage:quest-kill40DriftersFor20Gears",
+        "id": "vsvillage:quest-kill50DriftersFor20Gears",
         "predecessor": "vsvillage:quest-foundvillage-final",
         "cooldown": 40,
         "perPlayer": false,
@@ -1097,7 +1419,7 @@
                     "drifter-nightmare",
                     "drifter-double-headed"
                 ],
-                "demand": 40
+                "demand": 50
             }
         ],
         "itemRewards": [
