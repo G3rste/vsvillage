@@ -47,7 +47,6 @@ namespace VsVillage
                 else
                 {
                     targetEntity = null;
-                    (entity as EntityVillager)?.UndrawWeapon();
                 }
             }
 

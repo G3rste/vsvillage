@@ -23,6 +23,7 @@ namespace VsVillage
 
         float startTimeStamp = 0;
         bool didThrow;
+        bool didRenderswitch;
 
         float minTurnAnglePerSec;
         float maxTurnAnglePerSec;
@@ -76,7 +77,7 @@ namespace VsVillage
         public override bool ShouldExecute()
         {
             if (cooldownUntilMs > entity.World.ElapsedMilliseconds) return false;
-            if (lastSearchTotalMs + searchWaitMs < entity.World.ElapsedMilliseconds && targetEntity?.Alive != true 
+            if (lastSearchTotalMs + searchWaitMs < entity.World.ElapsedMilliseconds && targetEntity?.Alive != true
                 || lastSearchTotalMs + searchWaitMs * 5 < entity.World.ElapsedMilliseconds)
             {
                 float range = maxDist;
@@ -89,8 +90,15 @@ namespace VsVillage
 
         public override void StartExecute()
         {
+            if (entity is EntityVillager villager)
+            {
+                villager?.DrawWeapon();
+                villager.RightHandItemSlot?.Itemstack?.Attributes?.SetInt("renderVariant", 1);
+                villager.RightHandItemSlot.MarkDirty();
+            }
             startTimeStamp = 0;
             didThrow = false;
+            didRenderswitch = false;
             animStarted = false;
 
             if (entity?.Properties.Server?.Attributes != null)
@@ -146,6 +154,13 @@ namespace VsVillage
 
             startTimeStamp += dt;
 
+            if (entity is EntityVillager && !didRenderswitch && startTimeStamp > releaseAtMs / 2000f)
+            {
+                entity.RightHandItemSlot?.Itemstack?.Attributes?.SetInt("renderVariant", 3);
+                entity.RightHandItemSlot.MarkDirty();
+                didRenderswitch = true;
+            }
+
             if (startTimeStamp > releaseAtMs / 1000f && !didThrow)
             {
                 didThrow = true;
@@ -195,7 +210,11 @@ namespace VsVillage
         public override void FinishExecute(bool cancelled)
         {
             base.FinishExecute(cancelled);
-
+            if (entity is EntityVillager)
+            {
+                entity.RightHandItemSlot?.Itemstack?.Attributes?.SetInt("renderVariant", 0);
+                entity.RightHandItemSlot.MarkDirty();
+            }
         }
 
 

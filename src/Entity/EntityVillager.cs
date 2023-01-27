@@ -61,8 +61,12 @@ namespace VsVillage
                 Personality = EntityTrader.Personalities.GetKeyAtIndex(World.Rand.Next(EntityTrader.Personalities.Count));
             }
             (AnimManager as TraderAnimationManager).Personality = Personality;
-            if(api is ICoreClientAPI capi) { talkUtil = new EntityTalkUtil(capi, this); }
+            if (api is ICoreClientAPI capi) { talkUtil = new EntityTalkUtil(capi, this); }
             this.Personality = this.Personality; // to update the talkutil
+            if (api is ICoreServerAPI sapi)
+            {
+                sapi.World.RegisterGameTickListener(dt => UndrawWeaponIfOutOfCombat(), 10000, 10000);
+            }
         }
 
         public override void OnInteract(EntityAgent byEntity, ItemSlot slot, Vec3d hitPosition, EnumInteractMode mode)
@@ -207,15 +211,21 @@ namespace VsVillage
             }
         }
 
-        public void UndrawWeapon()
+        public void UndrawWeaponIfOutOfCombat()
         {
-            if (RightHandItemSlot != null && !RightHandItemSlot.Empty && RightHandItemSlot.Itemstack.Attributes.HasAttribute("drawnFromGearType"))
+            var taskManager = GetBehavior<EntityBehaviorTaskAI>().TaskManager;
+            if (taskManager.GetTask<AiTaskVillagerMeleeAttack>()?.TargetEntity?.Alive != true
+                && taskManager.GetTask<AiTaskVillagerSeekEntity>()?.TargetEntity?.Alive != true
+                && taskManager.GetTask<AiTaskVillagerShoot>()?.TargetEntity?.Alive != true)
             {
-                var dummySlot = new DummySlot(new ItemStack(Api.World.GetItem(new AssetLocation(RightHandItemSlot.Itemstack.Attributes.GetString("drawnFromGearType")))));
-                var chosenSlot = gearInv.GetBestSuitedSlot(dummySlot)?.slot;
-                if (dummySlot.TryPutInto(World, chosenSlot) > 0)
+                if (RightHandItemSlot != null && !RightHandItemSlot.Empty && RightHandItemSlot.Itemstack.Attributes.HasAttribute("drawnFromGearType"))
                 {
-                    RightHandItemSlot.TakeOutWhole();
+                    var dummySlot = new DummySlot(new ItemStack(Api.World.GetItem(new AssetLocation(RightHandItemSlot.Itemstack.Attributes.GetString("drawnFromGearType")))));
+                    var chosenSlot = gearInv.GetBestSuitedSlot(dummySlot)?.slot;
+                    if (dummySlot.TryPutInto(World, chosenSlot) > 0)
+                    {
+                        RightHandItemSlot.TakeOutWhole();
+                    }
                 }
             }
         }

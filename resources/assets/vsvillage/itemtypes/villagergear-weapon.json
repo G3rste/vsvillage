@@ -12,7 +12,8 @@
             "*-scrap-club": "woodenclub-scrap",
             "*-scrap-mace": "woodenclub-scrapmace",
             "*-dagger": "knife-meteoriciron",
-            "*-sword-blackguard": "blade-short-blackguard"
+            "*-sword-blackguard": "blade-short-blackguard",
+            "*-bow": "bow-simple"
         },
         "wearableAttachment": true,
         "handbook": {

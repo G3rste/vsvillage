@@ -21,6 +21,21 @@
 				"weapon": ["spear-silver", "spear-gold", "scrap-spear", "scrap-blade", "scrap-axe", "scrap-club", "scrap-mace", "sword-blackguard"]
 			}
 		},
+		"*-archer": {
+			"profession": "soldier",
+			"validGear": {
+				"arms": ["armor", "armor-hallowcroft", "armor"],
+				"back": [],
+				"belt": [],
+				"beltslot": ["jewelry-pouch", "jewelry-pouch-copper", "sack", "spyglass"],
+				"chest": [],
+				"feet": ["armor", "armor-hallowcroft", "armor", "armor-hallowcroft", "armor", "armor-hallowcroft", "armor", "armor-hallowcroft", "bandage-left", "bandage-right", "knife"],
+				"head": ["armor"],
+				"shoulders": [],
+				"thigh": ["armor", "armor-hallowcroft", "armor", "armor-hallowcroft", "armor", "armor-hallowcroft", "bandage-left", "bandage-right"],
+				"weapon": ["bow"]
+			}
+		},
 		"*-smith": {
 			"profession": "smith",
 			"validGear": {
@@ -97,7 +112,7 @@
 			}
 		}
 	},
-	"variantGroups": [{"code": "sex", "states": ["male", "female"]}, {"code": "profession", "states": ["soldier", "smith", "farmer", "shepherd", "herbalist", "mayor"]}],
+	"variantGroups": [{"code": "sex", "states": ["male", "female"]}, {"code": "profession", "states": ["soldier", "smith", "farmer", "shepherd", "herbalist", "mayor", "archer"]}],
 	"client": {
 		"renderer": "Shape",
 		"shape": { "base": "villager" },
