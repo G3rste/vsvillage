@@ -2,6 +2,7 @@
 	"code": "humanoid-villager",
 	"class": "EntityVillager",
 	"canClimb": true,
+	"eyeHeight": 1.4,
 	"hitboxSize": { "x": 0.6, "y": 1.75 },
 	"deadHitboxSize": { "x": 0.75, "y": 0.5 },
 	"attributesByType": {
@@ -288,6 +289,24 @@
 						"animationSpeedByType": { "*-soldier": 1.75, "*": 1 },
 						"priorityByType": { "*-soldier": 1.5, "*": 1.4 },
 						"movespeedByType": { "*-soldier": 0.035, "*": 0.01 }
+					},
+					{
+						"code": "shootprojectile",
+						"entityCodes": ["player", "hare-*", "drifter-*"],
+						"priority": 1.5,
+						"priorityForCancel": 9,
+						"mincooldown": 3000, 
+						"maxcooldown": 7000, 
+						"durationMs": 1300,
+						"releaseAtMs": 1000,
+						"seekingRange": 25,
+						"animationSpeed": 1,
+						"damage": 6,
+						"animation": "BowAim",
+						"animationRelase": "BowHit",
+						"drawingsound": "game:sounds/bow-draw.ogg",
+						"shootingsound": "game:sounds/bow-release.ogg",
+						"projectile": "game:arrow-iron"
 					}
 				]
 			}

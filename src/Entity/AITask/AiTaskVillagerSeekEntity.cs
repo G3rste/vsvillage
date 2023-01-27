@@ -72,6 +72,7 @@ namespace VsVillage
                     var taskManager = villager.GetBehavior<EntityBehaviorTaskAI>().TaskManager;
                     taskManager.GetTask<AiTaskVillagerSeekEntity>().OnAllyAttacked(source.SourceEntity);
                     taskManager.GetTask<AiTaskVillagerMeleeAttack>().OnAllyAttacked(source.SourceEntity);
+                    taskManager.GetTask<AiTaskVillagerShoot>().OnAllyAttacked(source.SourceEntity);
                 }
             }
         }

@@ -1292,44 +1292,29 @@
 		{
 			"name": "BowHit",
 			"code": "bowhit",
-			"quantityframes": 30,
+			"quantityframes": 10,
 			"onActivityStopped": "PlayTillEnd",
 			"onAnimationEnd": "Stop",
 			"keyframes": [
 				{
 					"frame": 0,
-					"elements": {
-						"LowerTorso": { "rotationX": 0.0, "rotationY": 0.0, "rotationZ": 0.0 },
-						"UpperTorso": { "offsetX": 0.0, "offsetY": 0.0, "offsetZ": 0.5, "rotationX": 5.0, "rotationY": 15.0, "rotationZ": 0.0 },
-						"UpperArmR": { "offsetX": 0.8, "offsetY": 0.0, "offsetZ": 1.0, "rotationX": 3.0, "rotationY": -5.0, "rotationZ": -90.0 },
-						"LowerArmR": { "rotationX": 0.0, "rotationY": -3.0, "rotationZ": -5.0 },
-						"Neck": { "offsetX": 0.0, "offsetY": 0.0, "offsetZ": 0.2, "rotationX": 0.0, "rotationY": -15.0, "rotationZ": 0.0 },
-						"Head": { "rotationX": 0.0, "rotationY": 0.0, "rotationZ": 0.0 },
-						"UpperArmL": { "offsetX": 1.0, "offsetY": 0.0, "offsetZ": 1.0, "rotationX": -10.0, "rotationY": 112.5, "rotationZ": -90.0 },
-						"LowerArmL": { "offsetX": 0.0, "offsetY": 0.0, "offsetZ": 0.2, "rotationX": 135.0, "rotationY": 0.0, "rotationZ": -10.0 }
-					}
+					"elements": { }
 				},
 				{
 					"frame": 4,
 					"elements": {
-						"LowerTorso": {  },
-						"UpperTorso": { "rotationX": 3.0, "rotationY": 12.0, "rotationZ": 0.0 },
-						"UpperArmL": { "rotationX": -10.0, "rotationY": 112.5, "rotationZ": -90.0 },
-						"LowerArmL": { "rotationX": 135.0, "rotationY": 0.0, "rotationZ": -5.0 },
-						"Neck": {  },
+						"UpperTorso": { "rotationX": -2.0, "rotationY": -3.0, "rotationZ": 0.0 },
+						"LowerArmL": { "rotationX": 0.0, "rotationY": 0.0, "rotationZ": 5.0 },
 						"Head": { "rotationX": 0.0, "rotationY": 3.0, "rotationZ": -3.0 }
 					}
 				},
 				{
 					"frame": 8,
 					"elements": {
-						"LowerTorso": {  },
-						"UpperTorso": {  },
-						"UpperArmR": { "offsetX": 0.0, "offsetY": 0.0, "offsetZ": 0.0, "rotationX": 0.0, "rotationY": 0.0, "rotationZ": -78.0 },
-						"Neck": {  },
+						"UpperArmR": { "rotationX": 3.0, "rotationY": 5.0, "rotationZ": 12.0 },
 						"Head": { "rotationX": 0.0, "rotationY": 3.0, "rotationZ": -10.0 },
-						"UpperArmL": { "rotationX": -14.0, "rotationY": 114.0, "rotationZ": -50.0 },
-						"LowerArmL": { "rotationX": 102.0, "rotationY": -25.0, "rotationZ": 0.0 }
+						"UpperArmL": { "rotationX": -4.0, "rotationY": 1.5, "rotationZ": 40.0 },
+						"LowerArmL": { "rotationX": -33.0, "rotationY": -25.0, "rotationZ": 10.0 }
 					}
 				}
 			]
@@ -1391,6 +1376,90 @@
 						"Head": { "rotationX": 0.0, "rotationY": 0.0, "rotationZ": 0.0 },
 						"UpperArmL": { "offsetX": 1.0, "offsetY": 0.0, "offsetZ": 1.0, "rotationX": -10.0, "rotationY": 112.5, "rotationZ": -90.0 },
 						"LowerArmL": { "offsetX": 0.0, "offsetY": 0.0, "offsetZ": 0.2, "rotationX": 135.0, "rotationY": 0.0, "rotationZ": -10.0 }
+					}
+				}
+			]
+		},
+
+		{
+			"name": "BowAimAndHit",
+			"code": "bowaimandhit",
+			"quantityframes": 30,
+			"onActivityStopped": "EaseOut",
+			"onAnimationEnd": "Stop",
+			"keyframes": [
+				{
+					"frame": 0,
+					"elements": {
+						"LowerTorso": {  },
+						"UpperTorso": { "offsetX": 0.0, "offsetY": 0.0, "offsetZ": 0.0, "rotationX": 0.0, "rotationY": 0.0, "rotationZ": 0.0 },
+						"Neck": { "offsetX": 0.0, "offsetY": 0.0, "offsetZ": 0.0, "rotationX": 0.0, "rotationY": 0.0, "rotationZ": 0.0 },
+						"Head": { "rotationX": 0.0, "rotationY": 0.0, "rotationZ": 8.0 },
+						"UpperArmR": { "offsetX": 0.0, "offsetY": 0.0, "offsetZ": 0.0, "rotationX": 0.0, "rotationY": 0.0, "rotationZ": 0.0 },
+						"LowerArmR": { "offsetX": 0.0, "offsetY": 0.0, "offsetZ": 0.0, "rotationX": 0.0, "rotationY": 0.0, "rotationZ": 0.0 },
+						"UpperArmL": { "offsetX": 0.0, "offsetY": 0.0, "offsetZ": 0.0, "rotationX": 0.0, "rotationY": 0.0, "rotationZ": 0.0 },
+						"LowerArmL": { "offsetX": 0.0, "offsetY": 0.0, "offsetZ": 0.0, "rotationX": 0.0, "rotationY": 0.0, "rotationZ": 0.0 }
+					}
+				},
+				{
+					"frame": 6,
+					"elements": {
+						"LowerTorso": {  },
+						"UpperTorso": {  },
+						"UpperArmL": { "rotationX": 0.0, "rotationY": 0.0, "rotationZ": -45.0 }
+					}
+				},
+				{
+					"frame": 10,
+					"elements": {
+						"LowerTorso": {  },
+						"UpperTorso": {  },
+						"UpperArmR": { "offsetX": 0.8, "offsetY": 0.0, "offsetZ": 1.0, "rotationX": 3.0, "rotationY": -5.0, "rotationZ": -85.0 },
+						"UpperArmL": { "offsetX": 1.0, "offsetY": 0.0, "offsetZ": -1.0, "rotationX": -10.0, "rotationY": 50.0, "rotationZ": -90.0 }
+					}
+				},
+				{
+					"frame": 13,
+					"elements": {
+						"LowerTorso": {  },
+						"UpperTorso": {  },
+						"UpperArmR": { "rotationX": 3.0, "rotationY": -5.0, "rotationZ": -90.0 }
+					}
+				},
+				{
+					"frame": 15,
+					"elements": {
+						"LowerTorso": { "rotationX": 0.0, "rotationY": 0.0, "rotationZ": 0.0 },
+						"UpperTorso": { "offsetX": 0.0, "offsetY": 0.0, "offsetZ": 0.5, "rotationX": 5.0, "rotationY": 15.0, "rotationZ": 0.0 },
+						"UpperArmR": { "offsetX": 0.8, "offsetY": 0.0, "offsetZ": 1.0, "rotationX": 3.0, "rotationY": -5.0, "rotationZ": -90.0 },
+						"LowerArmR": { "rotationX": 0.0, "rotationY": -3.0, "rotationZ": -5.0 },
+						"Neck": { "offsetX": 0.0, "offsetY": 0.0, "offsetZ": 0.2, "rotationX": 0.0, "rotationY": -15.0, "rotationZ": 0.0 },
+						"Head": { "rotationX": 0.0, "rotationY": 0.0, "rotationZ": 0.0 },
+						"UpperArmL": { "offsetX": 1.0, "offsetY": 0.0, "offsetZ": 1.0, "rotationX": -10.0, "rotationY": 112.5, "rotationZ": -90.0 },
+						"LowerArmL": { "offsetX": 0.0, "offsetY": 0.0, "offsetZ": 0.2, "rotationX": 135.0, "rotationY": 0.0, "rotationZ": -10.0 }
+					}
+				},
+				{
+					"frame": 24,
+					"elements": {
+						"LowerTorso": {  },
+						"UpperTorso": { "rotationX": 3.0, "rotationY": 12.0, "rotationZ": 0.0 },
+						"UpperArmL": { "rotationX": -10.0, "rotationY": 112.5, "rotationZ": -90.0 },
+						"LowerArmL": { "rotationX": 135.0, "rotationY": 0.0, "rotationZ": -5.0 },
+						"Neck": {  },
+						"Head": { "rotationX": 0.0, "rotationY": 3.0, "rotationZ": -3.0 }
+					}
+				},
+				{
+					"frame": 28,
+					"elements": {
+						"LowerTorso": {  },
+						"UpperTorso": {  },
+						"UpperArmR": { "offsetX": 0.0, "offsetY": 0.0, "offsetZ": 0.0, "rotationX": 0.0, "rotationY": 0.0, "rotationZ": -78.0 },
+						"Neck": {  },
+						"Head": { "rotationX": 0.0, "rotationY": 3.0, "rotationZ": -10.0 },
+						"UpperArmL": { "rotationX": -14.0, "rotationY": 114.0, "rotationZ": -50.0 },
+						"LowerArmL": { "rotationX": 102.0, "rotationY": -25.0, "rotationZ": 0.0 }
 					}
 				}
 			]
