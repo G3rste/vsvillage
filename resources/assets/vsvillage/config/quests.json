@@ -691,6 +691,45 @@
         ]
     },
     {
+        "id": "vsvillage:quest-recruit1archer",
+        "predecessor": "vsvillage:quest-foundvillage-final",
+        "cooldown": 5,
+        "perPlayer": false,
+        "onAcceptedActions": [],
+        "blockPlaceObjectives":[
+            {
+                "validCodes": [
+                    "workstation-soldier-*"
+                ],
+                "demand": 1
+            },
+            {
+                "validCodes": [
+                    "bed-*"
+                ],
+                "demand": 1
+            }
+        ],
+        "gatherObjectives": [
+            {
+                "validCodes": [
+                    "gear-rusty"
+                ],
+                "demand": 8
+            }
+        ],
+        "actionObjectives": [],
+        "actionRewards": [
+            {
+                "id": "spawnany",
+                "args": [
+                    "vsvillage:humanoid-villager-male-archer",
+                    "vsvillage:humanoid-villager-female-archer"
+                ]
+            }
+        ]
+    },
+    {
         "id": "vsvillage:quest-recruit1smith",
         "predecessor": "vsvillage:quest-foundvillage-final",
         "cooldown": 15,

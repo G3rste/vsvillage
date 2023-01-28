@@ -5,7 +5,7 @@
         "value": {
             "code": "questgiver",
             "questsByType": {
-                "*-soldier": [
+                "@.*-(soldier|archer)": [
                     "vsvillage:quest-recruitvillager"
                 ],
                 "*-farmer": [
@@ -31,6 +31,7 @@
                     "vsvillage:quest-recruit1farmer",
                     "vsvillage:quest-recruit1shepherd",
                     "vsvillage:quest-recruit1soldier",
+                    "vsvillage:quest-recruit1archer",
                     "vsvillage:quest-recruit1smith",
                     "vsvillage:quest-recruit1herbalist",
                     "vsvillage:quest-recruit1trader",
