@@ -176,7 +176,7 @@ namespace VsVillage
                 Vec3d aheadPos = targetEntity.ServerPos.XYZ.AddCopy(0, targetEntity.LocalEyePos.Y, 0);
 
                 double distf = Math.Pow(pos.SquareDistanceTo(aheadPos), 0.1);
-                Vec3d velocity = (aheadPos - pos + new Vec3d(0, Math.Sqrt(distf / 4), 0)).Normalize() * GameMath.Clamp(distf - 1f, 0.1f, 1f);
+                Vec3d velocity = (aheadPos - pos + new Vec3d(0, pos.DistanceTo(aheadPos) / 16, 0)).Normalize() * GameMath.Clamp(distf - 1f, 0.1f, 1f);
 
                 projectile.ServerPos.SetPos(
                     entity.ServerPos.AheadCopy(0.5).XYZ.Add(0, entity.LocalEyePos.Y, 0)
