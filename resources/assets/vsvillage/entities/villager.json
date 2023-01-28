@@ -33,7 +33,7 @@
 				"head": ["armor"],
 				"shoulders": [],
 				"thigh": ["armor", "armor-hallowcroft", "armor", "armor-hallowcroft", "armor", "armor-hallowcroft", "bandage-left", "bandage-right"],
-				"weapon": ["bow"]
+				"weapon": ["bow-simple", "bow-long", "bow-recurve"]
 			}
 		},
 		"*-smith": {
