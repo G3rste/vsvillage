@@ -181,21 +181,28 @@
 				"code": "taskai",
 				"aitasks": [
 					{
-						"code": "villagermeleeattack",
+						"codeByType": { "*-archer": "shootprojectile", "*": "villagermeleeattack" },
 						"entityCodes": ["drifter-*", "locust-*", "bear-*", "wolf-male", "wolf-female", "looter", "hound-*", "bandit-*", "poacher-*", "yeoman-archer"],
 						"priority": 2,
-						"damage": 0.5,
+						"damageByType": { "*-soldier": 12, "*-archer": 6, "*": 1 },
 						"damageTier": 3,
 						"mincooldown": 1500,
 						"maxcooldown": 2500,
 						"attackDurationMs": 900,
 						"damagePlayerAtMs": 300,
-						"animation": "Attack",
+						"animationByType": { "*-archer": "BowAim", "*": "Attack" },
 						"stabanimation": "SpearStab",
 						"stabanimationspeed": 0.7,
 						"slashanimation": "SwordHit",
 						"slashanimationspeed": 0.7,
-						"animationSpeed": 2
+						"animationSpeedByType": { "*-archer": 1, "*":  2 },
+						"durationMs": 1300,
+						"releaseAtMs": 1000,
+						"seekingRange": 25,
+						"animationRelase": "BowHit",
+						"drawingsound": "game:sounds/bow-draw.ogg",
+						"shootingsound": "game:sounds/bow-release.ogg",
+						"projectile": "game:arrow-iron"
 					},
 					{
 						"code": "villagerseekentity",
@@ -219,7 +226,7 @@
 						},
 						"priority": 1.5,
 						"movespeed": 0.035,
-						"seekingRange": 12,
+						"seekingRangeByType": { "*-archer": 7, "*": 12 },
 						"animation": "FormalRun",
 						"animationSpeed": 1.75
 					},
@@ -304,24 +311,6 @@
 						"animationSpeedByType": { "*-soldier": 1.75, "*": 1 },
 						"priorityByType": { "*-soldier": 1.5, "*": 1.4 },
 						"movespeedByType": { "*-soldier": 0.035, "*": 0.01 }
-					},
-					{
-						"code": "shootprojectile",
-						"entityCodes": ["player", "hare-*", "drifter-*"],
-						"priority": 1.5,
-						"priorityForCancel": 9,
-						"mincooldown": 3000, 
-						"maxcooldown": 7000, 
-						"durationMs": 1300,
-						"releaseAtMs": 1000,
-						"seekingRange": 25,
-						"animationSpeed": 1,
-						"damage": 6,
-						"animation": "BowAim",
-						"animationRelase": "BowHit",
-						"drawingsound": "game:sounds/bow-draw.ogg",
-						"shootingsound": "game:sounds/bow-release.ogg",
-						"projectile": "game:arrow-iron"
 					}
 				]
 			}
