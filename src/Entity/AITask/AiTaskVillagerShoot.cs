@@ -161,7 +161,7 @@ namespace VsVillage
                 didRenderswitch = true;
             }
 
-            if (startTimeStamp > releaseAtMs / 1000f && !didThrow)
+            if (startTimeStamp > releaseAtMs / 1000f && !didThrow && !entityInTheWay())
             {
                 didThrow = true;
 
@@ -204,8 +204,13 @@ namespace VsVillage
             return startTimeStamp < durationMs / 1000f;
         }
 
-
-
+        private bool entityInTheWay()
+        {
+            var entitySel = new EntitySelection();
+            var blockSel = new BlockSelection();
+            entity.World.RayTraceForSelection(entity.ServerPos.XYZ.AddCopy(entity.LocalEyePos), targetEntity.ServerPos.XYZ.AddCopy(targetEntity.LocalEyePos), ref blockSel, ref entitySel);
+            return entitySel?.Entity != targetEntity;
+        }
 
         public override void FinishExecute(bool cancelled)
         {
