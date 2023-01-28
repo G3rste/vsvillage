@@ -214,6 +214,7 @@
 						"mincooldown": 1000,
 						"maxcooldown": 1500,
 						"seekingRange": 20,
+						"minRangeByType": { "*-archer": 8, "*": 0 },
 						"movespeed": 0.035,
 						"animation": "RowdyRun",
 						"animationSpeed": 1.75
