@@ -216,7 +216,7 @@ namespace VsVillage
             var taskManager = GetBehavior<EntityBehaviorTaskAI>().TaskManager;
             if (taskManager.GetTask<AiTaskVillagerMeleeAttack>()?.TargetEntity?.Alive != true
                 && taskManager.GetTask<AiTaskVillagerSeekEntity>()?.TargetEntity?.Alive != true
-                && taskManager.GetTask<AiTaskVillagerShoot>()?.TargetEntity?.Alive != true)
+                && taskManager.GetTask<AiTaskVillagerRangedAttack>()?.TargetEntity?.Alive != true)
             {
                 if (RightHandItemSlot != null && !RightHandItemSlot.Empty && RightHandItemSlot.Itemstack.Attributes.HasAttribute("drawnFromGearType"))
                 {

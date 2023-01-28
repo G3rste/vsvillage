@@ -181,7 +181,7 @@
 				"code": "taskai",
 				"aitasks": [
 					{
-						"codeByType": { "*-archer": "shootprojectile", "*": "villagermeleeattack" },
+						"codeByType": { "*-archer": "villagerrangedattack", "*": "villagermeleeattack" },
 						"entityCodes": ["drifter-*", "locust-*", "bear-*", "wolf-male", "wolf-female", "looter", "hound-*", "bandit-*", "poacher-*", "yeoman-archer"],
 						"priority": 2,
 						"damageByType": { "*-soldier": 12, "*-archer": 6, "*": 1 },

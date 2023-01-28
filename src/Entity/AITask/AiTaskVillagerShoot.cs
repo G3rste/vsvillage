@@ -7,7 +7,7 @@ using Vintagestory.GameContent;
 
 namespace VsVillage
 {
-    public class AiTaskVillagerShoot : AiTaskBaseTargetable
+    public class AiTaskVillagerRangedAttack : AiTaskBaseTargetable
     {
         int durationMs;
         int releaseAtMs;
@@ -37,7 +37,7 @@ namespace VsVillage
 
         bool animStarted = false;
         float damage;
-        public AiTaskVillagerShoot(EntityAgent entity) : base(entity)
+        public AiTaskVillagerRangedAttack(EntityAgent entity) : base(entity)
         {
         }
         public override void LoadConfig(JsonObject taskConfig, JsonObject aiConfig)
