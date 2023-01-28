@@ -14,7 +14,8 @@
             "code": "burnstate",
             "states": [
                 "extinct",
-                "lit"
+                "lit",
+                ""
             ]
         }
     ],
@@ -22,7 +23,8 @@
         "handbook": {
             "excludeByType": {
                 "brazier-lit": true,
-                "brazier-extinct": false
+                "brazier-extinct": false,
+                "brazier": false
             }
         }
     },

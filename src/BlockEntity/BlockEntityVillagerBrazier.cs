@@ -25,7 +25,7 @@ namespace VsVillage
 
         public void Extinguish()
         {
-            if (Block.Variant["burnstate"] == "lit")
+            if (Block.Variant["burnstate"] != "extinct")
             {
                 var brazierExtinct = Api.World.GetBlock(Block.CodeWithVariant("burnstate", "extinct"));
                 Api.World.BlockAccessor.ExchangeBlock(brazierExtinct.Id, Pos);
@@ -34,7 +34,7 @@ namespace VsVillage
         }
         public void Ignite()
         {
-            if (Block.Variant["burnstate"] == "extinct")
+            if (Block.Variant["burnstate"] != "lit")
             {
                 var brazierLit = Api.World.GetBlock(Block.CodeWithVariant("burnstate", "lit"));
                 Api.World.BlockAccessor.ExchangeBlock(brazierLit.Id, Pos);
