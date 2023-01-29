@@ -39,7 +39,7 @@ namespace VsVillage
             else
             {
                 string sex = new string[] { "male", "female" }[sapi.World.Rand.Next(2)];
-                string profession = new string[] { "soldier", "smith", "farmer", "shepherd", "herbalist", "mayor", "trader" }[sapi.World.Rand.Next(2)];
+                string profession = new string[] { "soldier", "smith", "farmer", "shepherd", "herbalist", "mayor", "trader", "archer" }[sapi.World.Rand.Next(8)];
                 villagerId = "vsvillage:humanoid-villager-" + sex + "-" + profession;
             }
             AssetLocation location = new AssetLocation(villagerId);
