@@ -228,7 +228,7 @@
 						"priority": 1.5,
 						"movespeed": 0.035,
 						"seekingRangeByType": { "*-archer": 7, "*": 12 },
-						"animation": "FormalRun",
+						"animationByType": { "*-archer": "BalancedRun", "*": "FormalRun" },
 						"animationSpeed": 1.75
 					},
 					{
