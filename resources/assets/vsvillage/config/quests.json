@@ -102,11 +102,6 @@
                     "itemCode": "game:seeds-sunflower",
                     "minAmount": 3,
                     "maxAmount": 6
-                },
-                {
-                    "itemCode": "game:seeds-bellpepper",
-                    "minAmount": 3,
-                    "maxAmount": 6
                 }
             ]
         }
