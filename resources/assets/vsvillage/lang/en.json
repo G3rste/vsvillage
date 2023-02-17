@@ -57,7 +57,7 @@
     "quest-gatherMeatForSeed-obj": "Gathered meat: {0}/25",
     "quest-gatherMeatForGrain-title": "Gainz over grains",
     "quest-gatherMeatForGrain-desc": "My diet could use a little bit more variation. If you provide 20 meat of any kind, I could offer you some grain in return.",
-    "quest-gatherMeatForGrain-obj": "Gathered meat: {0}/25",
+    "quest-gatherMeatForGrain-obj": "Gathered meat: {0}/20",
     "quest-gather10MeatFor4FlaxSeeds-title": "There is no protein in flax fibre",
     "quest-gather10MeatFor4FlaxSeeds-desc": "My diet could use a little bit more variation. If you provide 10 meat of any kind, I could offer you some seeds in return.",
     "quest-gather10MeatFor4FlaxSeeds-obj": "Gathered meat: {0}/10",
