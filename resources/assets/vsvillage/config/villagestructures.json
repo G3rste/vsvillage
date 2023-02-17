@@ -194,5 +194,124 @@
         "AttachmentPoint": 0,
         "VerticalOffset": -1,
         "Size": "LARGE"
+    },
+    {
+        "Code": "major1-o4-LARGE",
+        "Group": "aged-mayor",
+        "AttachmentPoint": 0,
+        "VerticalOffset": -3,
+        "Size": "LARGE"
+    },
+    {
+        "Code": "farmer4-o2-LARGE",
+        "Group": "aged-farmer-large",
+        "AttachmentPoint": 0,
+        "VerticalOffset": -1,
+        "Size": "LARGE"
+    },
+    {
+        "Code": "soldier4-o10-SMALL",
+        "Group": "aged-soldier-well",
+        "AttachmentPoint": 0,
+        "VerticalOffset": -9,
+        "Size": "SMALL"
+    },
+    {
+        "Code": "soldier3-o2-MEDIUM",
+        "Group": "aged-soldier",
+        "AttachmentPoint": 0,
+        "VerticalOffset": -1,
+        "Size": "MEDIUM"
+    },
+    {
+        "Code": "farmer2-o2-MEDIUM",
+        "Group": "aged-farmer",
+        "AttachmentPoint": 0,
+        "VerticalOffset": -1,
+        "Size": "MEDIUM"
+    },
+    {
+        "Code": "farmer3-o1-MEDIUM",
+        "Group": "aged-farmer",
+        "AttachmentPoint": 0,
+        "VerticalOffset": 0,
+        "Size": "MEDIUM"
+    },
+    {
+        "Code": "trader1-o2-MEDIUM",
+        "Group": "aged-trader",
+        "AttachmentPoint": 0,
+        "VerticalOffset": -1,
+        "Size": "MEDIUM"
+    },
+    {
+        "Code": "soldier2-o2-MEDIUM",
+        "Group": "aged-soldier",
+        "AttachmentPoint": 0,
+        "VerticalOffset": -1,
+        "Size": "MEDIUM"
+    },
+    {
+        "Code": "soldier1-o2-MEDIUM",
+        "Group": "aged-soldier",
+        "AttachmentPoint": 0,
+        "VerticalOffset": -1,
+        "Size": "MEDIUM"
+    },
+    {
+        "Code": "farmer1-o2-MEDIUM",
+        "Group": "aged-farmer",
+        "AttachmentPoint": 0,
+        "VerticalOffset": -1,
+        "Size": "MEDIUM"
+    },
+    {
+        "Code": "herbalist2-o2-MEDIUM",
+        "Group": "aged-herbalist",
+        "AttachmentPoint": 0,
+        "VerticalOffset": -1,
+        "Size": "MEDIUM"
+    },
+    {
+        "Code": "herbalist1-o2-MEDIUM",
+        "Group": "aged-herbalist",
+        "AttachmentPoint": 0,
+        "VerticalOffset": -1,
+        "Size": "MEDIUM"
+    },
+    {
+        "Code": "ruin3-MEDIUM",
+        "Group": "aged-ruin",
+        "AttachmentPoint": 0,
+        "VerticalOffset": -1,
+        "Size": "MEDIUM"
+    },
+    {
+        "Code": "ruin2-MEDIUM",
+        "Group": "aged-ruin",
+        "AttachmentPoint": 0,
+        "VerticalOffset": -1,
+        "Size": "MEDIUM"
+    },
+    {
+        "Code": "ruin1-MEDIUM",
+        "Group": "aged-ruin",
+        "AttachmentPoint": 0,
+        "VerticalOffset": -1,
+        "Size": "MEDIUM"
+    },
+    {
+        "Code": "wallseg2-SMALL",
+        "Group": "aged-wallseg",
+        "AttachmentPoint": 0,
+        "VerticalOffset": 0,
+        "Size": "SMALL"
+    },
+    {
+        "Code": "wallseg1-SMALL",
+        "Group": "aged-wallseg",
+        "AttachmentPoint": 0,
+        "VerticalOffset": 0,
+        "Size": "SMALL"
     }
 ]

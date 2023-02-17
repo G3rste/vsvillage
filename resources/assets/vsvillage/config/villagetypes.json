@@ -230,5 +230,66 @@
                 "MaxStructuresPerVillage": 1
             }
         ]
+    },
+    {
+        "Code": "aged-village1",
+        "Height": 3,
+        "Length": 3,
+        "StructureGroups": [
+            {
+                "Code": "aged-trader",
+                "Size": "MEDIUM",
+                "MinStructuresPerVillage": 0,
+                "MaxStructuresPerVillage": 1
+            },
+            {
+                "Code": "aged-soldier",
+                "Size": "MEDIUM",
+                "MinStructuresPerVillage": 1,
+                "MaxStructuresPerVillage": 3
+            },
+            {
+                "Code": "aged-soldier-well",
+                "Size": "SMALL",
+                "MinStructuresPerVillage": 1,
+                "MaxStructuresPerVillage": 1
+            },
+            {
+                "Code": "aged-mayor",
+                "Size": "LARGE",
+                "MinStructuresPerVillage": 1,
+                "MaxStructuresPerVillage": 1
+            },
+            {
+                "Code": "aged-herbalist",
+                "Size": "MEDIUM",
+                "MinStructuresPerVillage": 0,
+                "MaxStructuresPerVillage": 2
+            },
+            {
+                "Code": "aged-farmer",
+                "Size": "MEDIUM",
+                "MinStructuresPerVillage": 1,
+                "MaxStructuresPerVillage": 3
+            },
+            {
+                "Code": "aged-ruin",
+                "Size": "MEDIUM",
+                "MinStructuresPerVillage": 1,
+                "MaxStructuresPerVillage": 2
+            },
+            {
+                "Code": "aged-wallseg",
+                "Size": "SMALL",
+                "MinStructuresPerVillage": 0,
+                "MaxStructuresPerVillage": 2
+            },
+            {
+                "Code": "aged-farmer-large",
+                "Size": "LARGE",
+                "MinStructuresPerVillage": 0,
+                "MaxStructuresPerVillage": 1
+            }
+        ]
     }
 ]
