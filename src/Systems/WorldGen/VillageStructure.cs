@@ -39,7 +39,7 @@ namespace VsVillage
             Schematics[0] = schematic;
             for (int k = 1; k < 4; k++)
             {
-                Schematics[k] = schematic.Clone();
+                Schematics[k] = schematic.ClonePacked() as BlockSchematicStructure;
                 Schematics[k].TransformWhilePacked(api.World, EnumOrigin.BottomCenter, k * 90);
                 Schematics[k].Init(api.World.BlockAccessor);
                 Schematics[k].LoadMetaInformationAndValidate(api.World.BlockAccessor, api.World, schematic.FromFileName);

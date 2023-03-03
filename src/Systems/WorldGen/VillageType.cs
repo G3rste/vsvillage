@@ -14,7 +14,7 @@ namespace VsVillage
         [JsonProperty]
         public string StreetCode = "game:packeddirt";
         [JsonProperty]
-        public string BridgeCode = "game:planks-aged-hor";
+        public string BridgeCode = "game:planks-aged-ns";
 
         [JsonProperty]
         public int Height = 2;

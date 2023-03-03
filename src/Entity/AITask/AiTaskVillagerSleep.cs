@@ -111,9 +111,9 @@ namespace VsVillage
             if (bed != null && bed.MountedBy == null)
             {
                 entity.TryMount(bed);
-                if (bed.MountYaw != null && entity.ServerPos.SquareDistanceTo(bed.Pos.ToVec3d()) < 3)
+                if (bed.MountPosition != null && entity.ServerPos.SquareDistanceTo(bed.Pos.ToVec3d()) < 3)
                 {
-                    entity.ServerPos.Yaw = (float)bed.MountYaw;
+                    entity.ServerPos.Yaw = bed.MountPosition.Yaw;
                 }
             }
             entity.AnimManager.StopAnimation(animMeta.Code);
