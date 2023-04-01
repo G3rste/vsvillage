@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
 using Vintagestory.API.Common;
-using Vintagestory.API.Config;
-using Vintagestory.API.Datastructures;
 using Vintagestory.API.MathTools;
 using Vintagestory.API.Server;
 using Vintagestory.ServerMods;
@@ -28,9 +26,7 @@ namespace VsVillage
             api.Event.InitWorldGenerator(initWorldGen, "standard");
             api.Event.ChunkColumnGeneration(handler, EnumWorldGenPass.TerrainFeatures, "standard");
             api.Event.GetWorldgenBlockAccessor(chunkProvider => worldgenBlockAccessor = chunkProvider.GetBlockAccessor(false));
-
-            api.RegisterCommand("genvillage", "debug command for printing village layout", "[square|village]", (player, groupId, args) => onCmdDebugVillage(player, groupId, args, api), Privilege.controlserver);
-
+            
             try
             {
                 Config = api.LoadModConfig<VillageConfig>("villageconfig.json");
@@ -55,38 +51,37 @@ namespace VsVillage
             }
         }
 
-        private void onCmdDebugVillage(IServerPlayer player, int groupId, CmdArgs args, ICoreServerAPI sapi)
+        private TextCommandResult onCmdDebugVillage(TextCommandCallingArgs args)
         {
             VillageType village;
-            if (args.Length < 1)
+            if (args.ArgCount < 1)
             {
                 village = villages[sapi.World.Rand.Next(0, villages.Count)];
             }
             else
             {
-                string villageName = args[0];
+                string villageName = (string)args[0];
                 village = villages.Find(match => match.Code == villageName);
                 if (village == null)
                 {
-                    sapi.SendMessage(player, GlobalConstants.AllChatGroups, string.Format("Could not find village with name {0}.", villageName), EnumChatType.CommandError);
-                    return;
+                    return TextCommandResult.Error(string.Format("Could not find village with name {0}.", villageName));
                 }
             }
 
             var grid = new VillageGrid(village.Length, village.Height);
             grid.Init(village, rand);
-            var start = player.Entity.ServerPos.XYZInt.ToBlockPos();
-            if (args.Length > 1 && args[1] == "probe" && !probeTerrain(start, grid, sapi.World.BlockAccessor))
+            var start = args.Caller.Player.Entity.ServerPos.XYZInt.ToBlockPos();
+            if (args.ArgCount > 1 && (string)args[1] == "probeTerrain" && !probeTerrain(start, grid, sapi.World.BlockAccessor))
             {
-                player.SendMessage(GlobalConstants.AllChatGroups, "Terrain is too steep/ damp for generating a village", EnumChatType.CommandError);
+                return TextCommandResult.Error("Terrain is too steep/ damp for generating a village");
             }
             else
             {
                 grid.connectStreets();
-                player.SendMessage(GlobalConstants.AllChatGroups, grid.debugPrintGrid(), EnumChatType.CommandSuccess);
 
                 grid.GenerateHouses(start, sapi.World.BlockAccessor, sapi.World);
                 grid.GenerateStreets(start, sapi.World.BlockAccessor, sapi.World);
+                return TextCommandResult.Success();
             }
         }
 
@@ -116,6 +111,17 @@ namespace VsVillage
             {
                 village.StructureGroups.Sort((a, b) => ((int)b.Size).CompareTo((int)a.Size));
             }
+
+            
+            var cmdApi = sapi.ChatCommands;
+            var parsers = cmdApi.Parsers;
+            cmdApi
+                .Create("genvillage")
+                .WithDescription("Generate a village right where you are standing right now.")
+                .WithArgs(parsers.OptionalWordRange("villagetype", villages.ConvertAll<string>(type => type.Code).ToArray()), parsers.OptionalWord("probeTerrain"))
+                .RequiresPrivilege(Privilege.root)
+                .WithExamples("genvillage tiny probeTerrain", "genvillage aged-village1")
+                .HandleWith(onCmdDebugVillage);
         }
 
         private bool probeTerrain(BlockPos start, VillageGrid grid, IBlockAccessor blockAccessor)
@@ -152,18 +158,18 @@ namespace VsVillage
             return tolerance > 0 && waterspots < grid.width * grid.height / 2;
         }
 
-        private void handler(IServerChunk[] chunks, int chunkX, int chunkZ, ITreeAttribute chunkGenParams)
+        private void handler(IChunkColumnGenerateRequest request)
         {
-            IMapRegion region = chunks[0].MapChunk.MapRegion;
+            IMapRegion region = request.Chunks[0].MapChunk.MapRegion;
 
-            if (chunkX % 4 != 0 || chunkZ % 4 != 0) { return; }
+            if (request.ChunkX % 4 != 0 || request.ChunkZ % 4 != 0) { return; }
             if (rand.NextFloat() > Config.VillageChance) { return; }
             if (region.GeneratedStructures.Find(structure => structure.Group == "village") != null) { return; }
 
             var village = villages[rand.NextInt(villages.Count)];
             // we mock the grid here and do the expensive generation later
             var grid = new VillageGrid(village.Length, village.Height);
-            var start = new BlockPos(chunksize * chunkX, 0, chunksize * chunkZ);
+            var start = new BlockPos(chunksize * request.ChunkX, 0, chunksize * request.ChunkZ);
             var end = grid.getEnd(start);
 
             // check if all chunks are generated, still throws a bunch of exceptions when travelling south but I dont know how to properly check if a chunk is generated/ loaded
