@@ -64,6 +64,10 @@
             },
             {
                 "code": "interpolateposition"
+            },
+            {
+                "code": "conversable",
+                "dialogue": "game:config/dialogue/trader"
             }
         ],
         "animations": [
@@ -563,6 +567,10 @@
                         "priority": 0.5
                     }
                 ]
+            },
+            {
+                "code": "conversable",
+                "dialogue": "game:config/dialogue/trader"
             }
         ]
     },
