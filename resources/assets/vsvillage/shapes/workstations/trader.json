@@ -15,7 +15,7 @@
 		"legs": "game:block/wood/table/aged/legs",
 		"sides": "game:block/wood/table/aged/sides",
 		"iron": "game:block/metal/ingot/iron",
-		"rusty-iron": "game:block/currency/rusty-iron",
+		"rusty-iron": "game:block/metal/tarnished/rusty-iron",
 		"brass4": "game:block/metal/ingot/brass",
 		"brass2": "game:block/metal/ingot/brass",
 		"emerald": "game:block/stone/gem/emerald",

@@ -12,7 +12,7 @@
 		"string": "game:item/tool/material/string",
 		"oak": "game:block/wood/debarked/oak",
 		"handle": "game:item/tool/material/handle",
-		"rusty-iron": "game:block/currency/rusty-iron"
+		"rusty-iron": "game:block/metal/tarnished/rusty-iron"
 	},
 	"elements": [
 		{

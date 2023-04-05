@@ -11,7 +11,7 @@
 	"textures": {
 		"string": "game:item/tool/material/string",
 		"handle": "game:item/tool/material/handle",
-		"rusty-iron": "game:block/currency/rusty-iron"
+		"rusty-iron": "game:block/metal/tarnished/rusty-iron"
 	},
 	"elements": [
 		{
