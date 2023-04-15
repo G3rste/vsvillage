@@ -32,12 +32,21 @@ namespace VsVillage
             base.StartServerSide(api);
             sapi = api;
 
-            api.RegisterCommand("villagerpath", "A* path finding debug testing for villagers", "[start|end|command]", onCmdAStar, Privilege.controlserver);
+            var cmdApi = sapi.ChatCommands;
+            var parsers = cmdApi.Parsers;
+            cmdApi
+                .Create("villagerpath")
+                .WithDescription("A* path finding debug testing for villagers")
+                .WithArgs(parsers.WordRange("stage", "start", "end"))
+                .RequiresPrivilege(Privilege.root)
+                .WithExamples("villagerpath start", "villagerpath end")
+                .HandleWith(onCmdAStar);
         }
 
-        private void onCmdAStar(IServerPlayer player, int groupId, CmdArgs args)
+        private TextCommandResult onCmdAStar(TextCommandCallingArgs args)
         {
-            string subcmd = args.PopWord();
+            string subcmd = (string)args[0];
+            var player = args.Caller.Player;
 
             BlockPos plrPos = player.Entity.ServerPos.XYZ.AsBlockPos;
             VillagerAStar villagerAStar = new VillagerAStar(sapi);
@@ -62,7 +71,7 @@ namespace VsVillage
                     sapi.World.HighlightBlocks(player, 27, new List<BlockPos>() { end }, new List<int>() { ColorUtil.ColorFromRgba(255, 0, 255, 128) }, EnumHighlightBlocksMode.Absolute, EnumHighlightShape.Arbitrary);
                     break;
                 case "bench":
-                    if (start == null || end == null) return;
+                    if (start == null || end == null) return TextCommandResult.Deferred;
 
                     Stopwatch sw = new Stopwatch();
                     sw.Start();
@@ -75,8 +84,7 @@ namespace VsVillage
                     sw.Stop();
                     float timeMs = (float)sw.ElapsedMilliseconds / 15f;
 
-                    player.SendMessage(groupId, string.Format("15 searches average: {0} ms", (int)timeMs), EnumChatType.Notification);
-                    return;
+                    return TextCommandResult.Success(string.Format("15 searches average: {0} ms", (int)timeMs));
 
                 case "clear":
                     start = null;
@@ -112,15 +120,12 @@ namespace VsVillage
                 sw.Stop();
                 int timeMs = (int)sw.ElapsedMilliseconds;
 
-                player.SendMessage(groupId, string.Format("Search took {0} ms, {1} nodes checked", timeMs, villagerAStar.NodesChecked), EnumChatType.Notification);
-
                 if (nodes == null)
                 {
-                    player.SendMessage(groupId, "No path found", EnumChatType.CommandError);
 
                     sapi.World.HighlightBlocks(player, 2, new List<BlockPos>(), EnumHighlightBlocksMode.Absolute, EnumHighlightShape.Arbitrary);
                     sapi.World.HighlightBlocks(player, 3, new List<BlockPos>(), EnumHighlightBlocksMode.Absolute, EnumHighlightShape.Arbitrary);
-                    return;
+                    return TextCommandResult.Error("No path found");
                 }
 
                 List<BlockPos> poses = new List<BlockPos>();
@@ -140,7 +145,10 @@ namespace VsVillage
                 }
 
                 sapi.World.HighlightBlocks(player, 3, poses, new List<int>() { ColorUtil.ColorFromRgba(128, 0, 0, 100) }, EnumHighlightBlocksMode.Absolute, EnumHighlightShape.Arbitrary);
+
+                return TextCommandResult.Success(string.Format("Search took {0} ms, {1} nodes checked", timeMs, villagerAStar.NodesChecked));
             }
+            return TextCommandResult.Deferred;
         }
     }
 }
