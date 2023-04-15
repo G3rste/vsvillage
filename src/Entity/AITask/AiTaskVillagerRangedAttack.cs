@@ -19,8 +19,6 @@ namespace VsVillage
 
         protected int searchWaitMs = 7000;
 
-        EntityPartitioning partitionUtil;
-
         float startTimeStamp = 0;
         bool didThrow;
         bool didRenderswitch;
@@ -42,8 +40,6 @@ namespace VsVillage
         }
         public override void LoadConfig(JsonObject taskConfig, JsonObject aiConfig)
         {
-            partitionUtil = entity.Api.ModLoader.GetModSystem<EntityPartitioning>();
-
             base.LoadConfig(taskConfig, aiConfig);
 
             durationMs = taskConfig["durationMs"].AsInt(1500);
