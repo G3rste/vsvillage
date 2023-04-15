@@ -52,6 +52,9 @@
     "command-stay": "Stay here!",
     "command-follow": "Follow me!",
 
+    "tradingwindow-humanoid-villager-male-trader": "Village demand - {0} the supplier of useful stuff",
+    "tradingwindow-humanoid-villager-female-trader": "Village demand - {0} the supplier of useful stuff",
+
     "quest-gatherMeatForSeed-title": "Meat for seed",
     "quest-gatherMeatForSeed-desc": "My diet could use a little bit more variation. If you provide 25 meat of any kind, I could offer you some seeds in return.",
     "quest-gatherMeatForSeed-obj": "Gathered meat: {0}/25",

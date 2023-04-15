@@ -67,7 +67,7 @@
             },
             {
                 "code": "conversable",
-                "dialogue": "game:config/dialogue/trader"
+                "dialogue": "vsvillage:config/dialogue/trader"
             }
         ],
         "animations": [
@@ -570,7 +570,7 @@
             },
             {
                 "code": "conversable",
-                "dialogue": "game:config/dialogue/trader"
+                "dialogue": "vsvillage:config/dialogue/trader"
             }
         ]
     },

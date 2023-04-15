@@ -1,0 +1,65 @@
+{
+    "components": [
+        {
+            "code": "testhasmet",
+            "owner": "trader",
+            "type": "condition",
+            "variable": "entity.hasmet",
+            "isNotValue": "true",
+            "thenJumpTo": "firstmeet",
+            "elseJumpTo": "welcomeback"
+        },
+        {
+            "code": "firstmeet",
+            "owner": "trader",
+            "type": "talk",
+            "setVariables": {
+                "entity.hasmet": "true"
+            },
+            "text": [
+                {
+                    "value": "Haven't seen you around before. What are you up to?",
+                    "jumpTo": "main"
+                }
+            ]
+        },
+        {
+            "code": "welcomeback",
+            "owner": "trader",
+            "type": "talk",
+            "text": [
+                {
+                    "value": "Welcome back {playername}! What can I do for you?",
+                    "jumpTo": "main"
+                }
+            ]
+        },
+        {
+            "code": "main",
+            "owner": "player",
+            "type": "talk",
+            "text": [
+                {
+                    "value": "Got anything to trade, {npcname}?",
+                    "jumpTo": "opentrade"
+                }
+            ]
+        },
+        {
+            "code": "opentrade",
+            "owner": "trader",
+            "trigger": "opentrade"
+        },
+        {
+            "code": "quests",
+            "owner": "trader",
+            "type": "talk",
+            "text": [
+                {
+                    "value": "I am only trading stuff, but you can go ask one of the other people around, they usually can use a helping hand?",
+                    "jumpTo": "main"
+                }
+            ]
+        }
+    ]
+}
