@@ -3,7 +3,30 @@
         "op": "add",
         "path": "/attributes/tradeProps/selling/list/-",
         "value": {
-            "code": "wolftaming:creature-tame-wolf-pup",
+            "code": "wolftaming:creature-dog-wolf-pup",
+            "type": "item",
+            "stacksize": 1,
+            "stock": {
+                "avg": 2,
+                "var": 1
+            },
+            "price": {
+                "avg": 6,
+                "var": 2
+            }
+        },
+        "file": "vsvillage:entities/villagertrader.json",
+        "dependsOn": [
+            {
+                "modid": "wolftaming"
+            }
+        ]
+    },
+    {
+        "op": "add",
+        "path": "/attributes/tradeProps/selling/list/-",
+        "value": {
+            "code": "wolftaming:creature-dog-hunting-pup",
             "type": "item",
             "stacksize": 1,
             "stock": {
