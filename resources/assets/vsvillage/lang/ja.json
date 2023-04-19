@@ -1,4 +1,8 @@
 {
+    "comment_description": "Japanese localization file for 'VS Village'.",
+    "comment_version": "Mod Version: v0.7.2",
+    "comment_author": "Translated By: Macoto Hino",
+    "comment_technical_details": "Machine translation using PCOT and DeepL.",
     "item-creature-humanoid-villager-male-soldier": "兵士(男)",
     "item-creature-humanoid-villager-female-soldier": "兵士(女)",
     "item-creature-humanoid-villager-male-archer": "弓兵(男)",
