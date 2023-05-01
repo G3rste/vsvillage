@@ -57,6 +57,9 @@
     "command-stay": "ここに居て！",
     "command-follow": "付いて来て！",
 
+    "tradingwindow-humanoid-villager-male-trader": "村の需要 - {0} 役立つ物の提供者",
+    "tradingwindow-humanoid-villager-female-trader": "村の需要 - {0} {0} 役立つ物の提供者",
+
     "quest-gatherMeatForSeed-title": "種の為にお肉を！",
     "quest-gatherMeatForSeed-desc": "食事にもうちょっとバリエーションが欲しいと思っているんだ。もし、25個の肉を持って来てくれるなら、お礼に種をあげるよ。",
     "quest-gatherMeatForSeed-obj": "集めた肉: {0}/25",
@@ -173,7 +176,7 @@
     "quest-repairingAnOldSet1-title": "新しい銅の針",
     "quest-repairingAnOldSet1-desc": "新しい医療用針に使う銅のインゴットが必要なんだ。古い防具の一式があるんだが...仕事を受けてくれるなら、一個ずつあげるよ。",
     "quest-repairingAnOldSet1-obj": "集めた銅のインゴット {0}/1",
-    "quest-repairingAnOldSet2-title": "Flaxtwine for holes",
+    "quest-repairingAnOldSet2-title": "穴埋め用の亜麻のより糸",
     "quest-repairingAnOldSet2-desc": "包帯を作るのと鎧の穴を直すのに、亜麻のより糸が必要なんだ。防具の一式をあげるよ。",
     "quest-repairingAnOldSet2-obj": "集めた亜麻のより糸 {0}/12",
     "quest-repairingAnOldSet3-title": "冬への備え",
@@ -185,7 +188,7 @@
     "quest-sell10PowderedSulfurFor2Gears-title": "硫黄の粉末が欲しい！",
     "quest-sell10PowderedSulfurFor2Gears-desc": "物資が不足していて、硫黄の粉末が欲しいんだ。報酬を払うからさ。",
     "quest-sell10PowderedSulfurFor2Gears-obj": "集めた硫黄の粉末: {0}/10",
-    "quest-healplayersetup-title": "Supply setup before healing",
+    "quest-healplayersetup-title": "治療前の供給体制",
     "quest-healplayersetup-desc": "治療師として活動するのに、いくつかの適当なものが必要なんだ。包帯の材料、薬草を砕く為の石と棒、傷の治療に使うハニカム。用意してくれれば、自給自足が出来るんだ。",
     "quest-healplayersetup-obj": "集めたスギナ: {0}/12\n集めた石: {1}/1\n集めた棒: {2}/1\n集めたハニカム: {3}/2\n集めたガマ: {0}/12",
     "quest-healplayer-title": "ドクターへの訪問",
