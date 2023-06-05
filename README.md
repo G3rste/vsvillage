@@ -2,11 +2,6 @@
 
 VS Village is an attempt to bring a village system right into Vintage Story. It introduces a wide variety of villagers, each of them with different day time routines. There are __soldiers__ who defend the village, __farmers__ who will watch the field, __shepherds__ that will take care of cattle, and a small selection of other professions. Each of these villagers will need a __workstation__ and a __place to sleep__ at night.
 
-## Village Generator
-
-This mod comes with its own simple village generation system. The approach we follow in this mod to generate a village is simple yet powerful. Due to its simplicity however it comes with a couple of drawbacks that hopefully become clear when talking about its functionality.\
-To generate a village during worldgen or via command (try `/genvillage`), a grid system is used which operates as follows:
-
 <style type="text/css">
 .table  {border-collapse:collapse;border-width:0px;}
 .row{border-color:black;border-style:solid;border-width:0px;}
@@ -17,6 +12,11 @@ To generate a village during worldgen or via command (try `/genvillage`), a grid
 .green {background-color: #195911;}
 .brown {background-color: #52270e;}
 </style>
+## Village Generator
+
+This mod comes with its own simple village generation system. The approach we follow in this mod to generate a village is simple yet powerful. Due to its simplicity however it comes with a couple of drawbacks that hopefully become clear when talking about its functionality.\
+To generate a village during worldgen or via command (try `/genvillage`), a grid system is used which operates as follows:
+
 <table class="table">
     <tr class="row">
         <td class="cell">
