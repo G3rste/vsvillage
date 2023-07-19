@@ -46,7 +46,7 @@ namespace VsVillage
             if (lastSearchTotalMs + searchWaitMs < entity.World.ElapsedMilliseconds)
             {
                 lastSearchTotalMs = entity.World.ElapsedMilliseconds;
-                targetEntity = partitionUtil.GetNearestEntity(entity.ServerPos.XYZ, seekingRange, potentialTarget => IsTargetableEntity(potentialTarget, seekingRange));
+                targetEntity = partitionUtil.GetNearestInteractableEntity(entity.ServerPos.XYZ, seekingRange, potentialTarget => IsTargetableEntity(potentialTarget, seekingRange));
 
                 if (targetEntity != null && targetEntity.Alive && entityInReach(targetEntity))
                 {

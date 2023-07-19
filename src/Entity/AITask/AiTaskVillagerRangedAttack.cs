@@ -79,7 +79,7 @@ namespace VsVillage
                 float range = maxDist;
                 lastSearchTotalMs = entity.World.ElapsedMilliseconds;
 
-                targetEntity = partitionUtil.GetNearestEntity(entity.ServerPos.XYZ, range, (e) => IsTargetableEntity(e, range * 4) && hasDirectContact(e, range * 4, range / 2f));
+                targetEntity = partitionUtil.GetNearestInteractableEntity(entity.ServerPos.XYZ, range, (e) => IsTargetableEntity(e, range * 4) && hasDirectContact(e, range * 4, range / 2f));
             }
             return targetEntity?.Alive == true;
         }
