@@ -208,7 +208,7 @@
 						"code": "villagerseekentity",
 						"entityCodesByType": {
 							"*-soldier": ["drifter-*", "locust-*", "bear-*", "wolf-male", "wolf-female", "looter", "hound-*", "bandit-*", "poacher-*", "yeoman-archer"],
-							"*": []
+							"*": ["dont attack by yourself"]
 						},
 						"priority": 1.6,
 						"mincooldown": 1000,
