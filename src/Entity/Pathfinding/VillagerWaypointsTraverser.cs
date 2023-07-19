@@ -164,7 +164,7 @@ namespace VsVillage
             {
                 prevPosAccum = 0;
 
-                CanBeOpenedOrClosed(prevPrevPrevPos.AsBlockPos, "opened");
+                toggleDoor(prevPrevPrevPos.AsBlockPos, true);
                 prevPrevPrevPos.Set(prevPrevPos);
                 prevPrevPos.Set(prevPos);
                 prevPos.Set(entity.ServerPos.X, entity.ServerPos.Y, entity.ServerPos.Z);
@@ -173,9 +173,9 @@ namespace VsVillage
             stuckCounter = stuck ? (stuckCounter + 1) : 0;
             if (stuck)
             {
-                if (!CanBeOpenedOrClosed(target.AsBlockPos, "closed"))
+                if (!toggleDoor(target.AsBlockPos, false))
                 {
-                    CanBeOpenedOrClosed(prevPos.AsBlockPos, "closed");
+                    toggleDoor(prevPos.AsBlockPos, false);
                 }
                 if (GlobalConstants.OverallSpeedMultiplier > 0 && stuckCounter > 60 / GlobalConstants.OverallSpeedMultiplier)
                 {
@@ -282,24 +282,15 @@ namespace VsVillage
             }
         }
 
-        private bool CanBeOpenedOrClosed(BlockPos pos, string state)
+        private bool toggleDoor(BlockPos pos, bool shouldBeOpen)
         {
-            var block = entity.World.BlockAccessor.GetBlock(pos);
-            if (block is BlockBaseDoor && block.Variant["state"] == state)
+            var door = BlockBehaviorDoor.getDoorAt(entity.World, pos);
+            if (door != null && door.Opened == shouldBeOpen)
             {
-                OpenOrClose(pos, state);
+                door.ToggleDoorState(null, !shouldBeOpen);
                 return true;
             }
             return false;
-        }
-
-        private void OpenOrClose(BlockPos pos, string state)
-        {
-            var block = entity.World.BlockAccessor.GetBlock(pos);
-            if (block is BlockBaseDoor && block.Variant["state"] == state)
-            {
-                block.OnBlockInteractStart(entity.World, null, new BlockSelection() { Position = pos });
-            }
         }
 
         bool IsNearTarget(int waypointOffset, ref bool nearHorizontally)
