@@ -55,7 +55,7 @@ namespace VsVillage
 
         public override bool ShouldExecute()
         {
-            if (lastCheck + 10000 < entity.World.ElapsedMilliseconds)
+            if (lastCheck + 10000 < entity.World.ElapsedMilliseconds) 
             {
                 lastCheck = entity.World.ElapsedMilliseconds;
                 if(bed == null || bed.GetBehavior<BlockEntityBehaviorVillagerBed>()?.ownerId != entity.EntityId){
@@ -113,6 +113,7 @@ namespace VsVillage
                 entity.TryMount(bed);
                 if (bed.MountPosition != null && entity.ServerPos.SquareDistanceTo(bed.Pos.ToVec3d()) < 3)
                 {
+                    entity.TeleportTo(bed.Pos);
                     entity.ServerPos.Yaw = bed.MountPosition.Yaw;
                 }
             }

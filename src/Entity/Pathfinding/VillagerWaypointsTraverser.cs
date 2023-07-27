@@ -164,6 +164,7 @@ namespace VsVillage
             {
                 prevPosAccum = 0;
 
+                CanBeOpenedOrClosed(prevPrevPrevPos.AsBlockPos, "opened");
                 toggleDoor(prevPrevPrevPos.AsBlockPos, true);
                 prevPrevPrevPos.Set(prevPrevPos);
                 prevPrevPos.Set(prevPos);
@@ -173,6 +174,12 @@ namespace VsVillage
             stuckCounter = stuck ? (stuckCounter + 1) : 0;
             if (stuck)
             {
+                // if the old-style door or fence is not closed
+                if (!CanBeOpenedOrClosed(target.AsBlockPos, "closed")) 
+                {
+                    // close it
+                    CanBeOpenedOrClosed(prevPos.AsBlockPos, "closed");
+                }
                 if (!toggleDoor(target.AsBlockPos, false))
                 {
                     toggleDoor(prevPos.AsBlockPos, false);
@@ -282,6 +289,44 @@ namespace VsVillage
             }
         }
 
+        /// <summary>
+        /// Function that tests opened/closed state of old style "wooden doors" (obsolete) and fences
+        /// </summary>
+        /// <param name="pos">Door position in world</param>
+        /// <param name="state">"opened" or "closed"</param>
+        /// <returns>true on state change, false when state not changed</returns>
+        private bool CanBeOpenedOrClosed(BlockPos pos, string state)
+        {            
+            var block = entity.World.BlockAccessor.GetBlock(pos);
+            if (block is BlockBaseDoor && block.Variant["state"] == state) // is some state
+            {
+                OpenOrClose(pos, state); 
+                return true; 
+            }
+            return false; 
+        }
+
+        /// <summary>
+        /// Function that interacts with an old style "wooden door" (obsolete) or fence to toggle
+        /// its state from opened to closed and vice versa.
+        /// </summary>
+        /// <param name="pos">Door position in world</param>
+        /// <param name="state">"opened" or "closed"</param>
+        private void OpenOrClose(BlockPos pos, string state)
+        {
+            var block = entity.World.BlockAccessor.GetBlock(pos);
+            if (block is BlockBaseDoor && block.Variant["state"] == state)
+            {
+                block.OnBlockInteractStart(entity.World, null, new BlockSelection() { Position = pos });
+            }
+        }
+
+        /// <summary>
+        /// Function that toggles new style doors from opened to closed.
+        /// </summary>
+        /// <param name="pos">Door position in world</param>
+        /// <param name="shouldBeOpen">bool</param>
+        /// <returns>true when open, false when closed</returns>
         private bool toggleDoor(BlockPos pos, bool shouldBeOpen)
         {
             var door = BlockBehaviorDoor.getDoorAt(entity.World, pos);
