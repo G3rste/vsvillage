@@ -1,15 +1,14 @@
 {
 	"version": "0.2.0",
 	"configurations": [{
-		"name": "Launch Client (Mono)",
-		"type": "mono",
+		"name": "Launch Client (Core .NET7)",
+		"type": "coreclr",
 		"request": "launch",
 		"preLaunchTask": "Build (Debug)",
 		"program": "${env:VINTAGE_STORY}/Vintagestory.exe",
 		"args": [
 			"--playStyle" , "preset-surviveandbuild",
-			"--openWorld" , "modding test world",
-			"--addModPath", "${workspaceFolder}/bin/Debug/net461",
+			"--addModPath", "${workspaceFolder}/bin/Debug/Net7.0",
 			"--addOrigin" , "${workspaceFolder}/resources/assets",
 		],
 		"console": "internalConsole",
@@ -22,7 +21,7 @@
 		"program": "${env:VINTAGE_STORY}/Vintagestory.exe",
 		"args": [
 			"--playStyle" , "preset-surviveandbuild",
-			"--addModPath", "${workspaceFolder}/bin/Debug/net461",
+			"--addModPath", "${workspaceFolder}/bin/Debug/Net7.0",
 			"--addOrigin" , "${workspaceFolder}/resources/assets",
 		],
 		"console": "internalConsole",
