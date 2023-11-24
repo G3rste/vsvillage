@@ -1,9 +1,4 @@
 {
-	"comment_description" : "Japanese localization file for 'VS Village'.",
-	"comment_version" : "Mod Version: v0.7.2",
-    "comment_author" : "Translated By: Macoto Hino",
-    "comment_technical_details" : "Machine translation using PCOT and DeepL.",
-
     "item-creature-humanoid-villager-male-soldier": "兵士(男)",
     "item-creature-humanoid-villager-female-soldier": "兵士(女)",
     "item-creature-humanoid-villager-male-archer": "弓兵(男)",
@@ -36,14 +31,11 @@
     "item-dead-creature-humanoid-villager-female-mayor": "死んだ村長(女)",
     "item-dead-creature-humanoid-villager-male-trader": "死んだ商人(男)",
     "item-dead-creature-humanoid-villager-female-trader": "死んだ商人(女)",
-
     "item-villagerhorn": "召喚の角笛",
     "itemdesc-villagerhorn": "助けを呼ぶことが出来る。",
     "interact-villager-horn": "近くの地面を狙って吹くと、錆びた世界から村人を解放する助けを呼ぶことが出来る！",
-
     "villagerguide-title": "VS Village:村と村人",
     "villagerguide-text": "<strong>村と村人</strong>\n\n世界中を旅していると村を見付けることがある。これらの村に住む人々は、刺激しない限り、概して友好的です。ある者はあなたと交易し、またある者はあなたを邪悪な敵から守ってくれるかもしれません。彼らの多くは、職業に応じて日中に小さな仕事をしています。\n\nまた、自分だけの村を作ることも出来ます。 <a href=\"handbook://item-vsvillage:villagerhorn\">角笛</a>を作り、それを使って村人を呼び出すだけです。 <a href=\"https://mods.vintagestory.at/vsquest\">VS Quest</a>をインストールすれば、様々な村人からミッションを受けることも出来るようになります。 また、VS Questでは、村の運営を手伝ってくれる新しいタイプの村人「村長」も登場する為、村の人口増加に役立つことでしょう。\n\n村人を何人か呼び出したら、彼らの為に避難所を用意する必要があります。 村人たちはそれぞれ、夜寝る為のベッドと、日中忙しく過ごす為の<a href=\"handbooksearch://ワークステーション\">ワークステーション</a>が必要になります。\nまた、村人たちは夜になると<a href=\"handbook://block-vsvillage:brazier-extinct\">火鉢</a>に集まり、交流するのが好きです。",
-
     "block-workstation-soldier-*": "ワークステーション(兵士)",
     "block-workstation-smith-*": "ワークステーション(鍛冶師)",
     "block-workstation-farmer-*": "ワークステーション(農家)",
@@ -51,15 +43,11 @@
     "block-workstation-herbalist-*": "ワークステーション(薬師)",
     "block-workstation-mayor-*": "ワークステーション(村長)",
     "block-workstation-trader-*": "ワークステーション(商人)",
-
     "block-brazier-*": "火鉢",
-
     "command-stay": "ここに居て！",
     "command-follow": "付いて来て！",
-
     "tradingwindow-humanoid-villager-male-trader": "村の需要 - {0} 役立つ物の提供者",
     "tradingwindow-humanoid-villager-female-trader": "村の需要 - {0} {0} 役立つ物の提供者",
-
     "quest-gatherMeatForSeed-title": "種の為にお肉を！",
     "quest-gatherMeatForSeed-desc": "食事にもうちょっとバリエーションが欲しいと思っているんだ。もし、25個の肉を持って来てくれるなら、お礼に種をあげるよ。",
     "quest-gatherMeatForSeed-obj": "集めた肉: {0}/25",
@@ -93,7 +81,6 @@
     "quest-sell1CheesewheelFor4Gears-title": "パンに塗るチーズが欲しい",
     "quest-sell1CheesewheelFor4Gears-desc": "通りすがりの旅人から歯車を作ってみた。ホールの予備があれば、チーズを買ってきてくれると嬉しいな。",
     "quest-sell1CheesewheelFor4Gears-obj": "集めたホールチーズ: {0}/1",
-
     "quest-gather12CharcoalFor4Gears-title": "鍛冶場は今日も寒いまま",
     "quest-gather12CharcoalFor4Gears-desc": "新しい鉄の道具を作りたいんだけど、木炭を用意するのを忘れちゃったんだ。木炭を集めるのを手伝ってくれないか？お金を払うからさ。",
     "quest-gather12CharcoalFor4Gears-obj": "集めた木炭: {0}/12",
@@ -103,7 +90,6 @@
     "quest-upgradeGambison-title": "ギャンベゾンのアップグレード",
     "quest-upgradeGambison-desc": "対価とギャンベゾンのセットがあれば、もっといい感じに仕立てることが出来るよ。",
     "quest-upgradeGambison-obj": "ギャンベゾンヘルム: {0}/1\nギャンベゾンボディアーマー: {1}/1\nギャンベゾンレッグアーマー: {2}/1\n集めた錆びた歯車: {3}/32",
-
     "quest-gather16HayFor1BlueCheesewheel-title": "ブルーチーズホールの為に干し草を！",
     "quest-gather16HayFor1BlueCheesewheel-desc": "家畜の為の干し草を集めるのを手伝って欲しいんだ。16個集めてくれれば、備蓄してあるチーズを分けてあげるよ。",
     "quest-gather16HayFor1BlueCheesewheel-obj": "集めた干し草: {0}/16",
@@ -125,14 +111,12 @@
     "quest-kill3FoxesFor8Gear-title": "ニワトリを守れ",
     "quest-kill3FoxesFor8Gear-desc": "最近、鶏小屋にキツネが侵入して、家畜がやられちまったんだ。こんな事はもう二度とご免だ。キツネを3匹狩れる人がいたら、喜んでギアを払うよ。",
     "quest-kill3FoxesFor8Gear-obj": "倒したキツネ: {0}/3",
-
     "quest-kill50DriftersFor20Gears-title": "別世界からの来訪者",
     "quest-kill50DriftersFor20Gears-desc": "森はもう安全じゃない。ドリフターが至る所にいる。この辺り一帯のドリフターを退治してくれたら、それなりの報酬を払えるんだが...。",
     "quest-kill50DriftersFor20Gears-obj": "倒したドリフター: {0}/50",
     "quest-kill2NightmareDriftersFor12Gears-title": "表現しがたい深淵からの唸り声",
     "quest-kill2NightmareDriftersFor12Gears-desc": "山から鉱物が採れなくなったのは、地下深くにある洞窟に潜む生物のせいだ。洞窟に濳むナイトメア・ドリフターを退治してくれる人がいたら、報酬を払うよ。",
     "quest-kill2NightmareDriftersFor12Gears-obj": "倒したナイトメア・ドリフター: {0}/12",
-    
     "quest-recruit1farmer-title": "畑に農家を増やしたい！",
     "quest-recruit1farmer-desc": "家と働く場所と少しの報酬があったら、村にもう一人農家を雇えるんだ。",
     "quest-recruit1farmer-obj": "錆びた歯車: {0}/6\nワークステーションの設置: {1}/1\nベッドの設置: {2}/1",
@@ -172,7 +156,6 @@
     "quest-recruitvillager-title": "お望み通りに",
     "quest-recruitvillager-desc": "わずかな報酬で、一日護衛をするよ。",
     "quest-recruitvillager-obj": "錆びた歯車: {0}/2",
-
     "quest-repairingAnOldSet1-title": "新しい銅の針",
     "quest-repairingAnOldSet1-desc": "新しい医療用針に使う銅のインゴットが必要なんだ。古い防具の一式があるんだが...仕事を受けてくれるなら、一個ずつあげるよ。",
     "quest-repairingAnOldSet1-obj": "集めた銅のインゴット {0}/1",
@@ -192,6 +175,5 @@
     "quest-healplayersetup-desc": "治療師として活動するのに、いくつかの適当なものが必要なんだ。包帯の材料、薬草を砕く為の石と棒、傷の治療に使うハニカム。用意してくれれば、自給自足が出来るんだ。",
     "quest-healplayersetup-obj": "集めたスギナ: {0}/12\n集めた石: {1}/1\n集めた棒: {2}/1\n集めたハニカム: {3}/2\n集めたガマ: {0}/12",
     "quest-healplayer-title": "ドクターへの訪問",
-    "quest-healplayer-desc": "傷付いたら、傷口を診てあげるよ。",
-    "quest-healplayer-obj": ""
+    "quest-healplayer-desc": "傷付いたら、傷口を診てあげるよ。"
 }
