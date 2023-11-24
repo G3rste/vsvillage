@@ -26,7 +26,7 @@ namespace VsVillage
             api.Event.InitWorldGenerator(initWorldGen, "standard");
             api.Event.ChunkColumnGeneration(handler, EnumWorldGenPass.TerrainFeatures, "standard");
             api.Event.GetWorldgenBlockAccessor(chunkProvider => worldgenBlockAccessor = chunkProvider.GetBlockAccessor(false));
-            
+
             try
             {
                 Config = api.LoadModConfig<VillageConfig>("villageconfig.json");
@@ -112,7 +112,7 @@ namespace VsVillage
                 village.StructureGroups.Sort((a, b) => ((int)b.Size).CompareTo((int)a.Size));
             }
 
-            
+
             var cmdApi = sapi.ChatCommands;
             var parsers = cmdApi.Parsers;
             cmdApi
@@ -146,7 +146,7 @@ namespace VsVillage
                             max = Math.Max(max, current);
                             min = Math.Min(min, current);
                             if (i == 0 && k == 0 &&
-                                blockAccessor.GetBlock(start.X + coords.X, current + 1, start.Z + coords.Y, BlockLayersAccess.Fluid).Id != 0)
+                                blockAccessor.GetBlock(new BlockPos(start.X + coords.X, current + 1, start.Z + coords.Y, 0), BlockLayersAccess.Fluid).Id != 0)
                             {
                                 waterspots++;
                             }
@@ -169,7 +169,7 @@ namespace VsVillage
             var village = villages[rand.NextInt(villages.Count)];
             // we mock the grid here and do the expensive generation later
             var grid = new VillageGrid(village.Length, village.Height);
-            var start = new BlockPos(chunksize * request.ChunkX, 0, chunksize * request.ChunkZ);
+            var start = new BlockPos(chunksize * request.ChunkX, 0, chunksize * request.ChunkZ, 0);
             var end = grid.getEnd(start);
 
             // check if all chunks are generated, still throws a bunch of exceptions when travelling south but I dont know how to properly check if a chunk is generated/ loaded

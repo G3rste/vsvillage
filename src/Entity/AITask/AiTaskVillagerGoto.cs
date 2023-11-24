@@ -38,7 +38,7 @@ namespace VsVillage
             int tries = 5;
             while (tries-- > 0)
             {
-                Block block = world.BlockAccessor.GetBlock(x, (int)y, z);
+                Block block = world.BlockAccessor.GetBlock(new BlockPos(x, (int)y, z, 0));
                 if (block.SideSolid[BlockFacing.UP.Index]) return y + 1;
                 y--;
             }

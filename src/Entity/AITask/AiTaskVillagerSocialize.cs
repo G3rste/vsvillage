@@ -14,11 +14,6 @@ namespace VsVillage
 
         public Entity other { get; set; }
 
-        public AiTaskGotoEntity gotoTask;
-        public AiTaskLookAtEntity lookAtTask;
-
-        public bool lookAtTaskStarted;
-
         public AiTaskVillagerSocialize(EntityAgent entity) : base(entity)
         {
         }
@@ -39,9 +34,11 @@ namespace VsVillage
             bool closeEnough = entity.ServerPos.SquareDistanceTo(other.ServerPos) < 2 * 2;
             if (closeEnough)
             {
-                var message = new TalkUtilMessage();
-                message.entityId = entity.EntityId;
-                message.talkType = EnumTalkType.Meet;
+                var message = new TalkUtilMessage
+                {
+                    entityId = entity.EntityId,
+                    talkType = EnumTalkType.Meet
+                };
 
                 IServerPlayer[] relevantPlayers = new List<Entity>(entity.World.GetEntitiesAround(entity.ServerPos.XYZ, 30, 10, player => player is EntityPlayer))
                     .ConvertAll<IServerPlayer>(player => (player as EntityPlayer).Player as IServerPlayer).ToArray();

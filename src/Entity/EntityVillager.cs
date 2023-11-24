@@ -221,7 +221,7 @@ namespace VsVillage
                 if (RightHandItemSlot != null && !RightHandItemSlot.Empty && RightHandItemSlot.Itemstack.Attributes.HasAttribute("drawnFromGearType"))
                 {
                     var dummySlot = new DummySlot(new ItemStack(Api.World.GetItem(new AssetLocation(RightHandItemSlot.Itemstack.Attributes.GetString("drawnFromGearType")))));
-                    var chosenSlot = gearInv.GetBestSuitedSlot(dummySlot)?.slot;
+                    var chosenSlot = gearInv.GetBestSuitedSlot(dummySlot, new ItemStackMoveOperation(World, EnumMouseButton.Left, EnumModifierKey.CTRL, EnumMergePriority.AutoMerge))?.slot;
                     if (dummySlot.TryPutInto(World, chosenSlot) > 0)
                     {
                         RightHandItemSlot.TakeOutWhole();

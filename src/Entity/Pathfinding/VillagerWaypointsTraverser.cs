@@ -239,8 +239,8 @@ namespace VsVillage
                 controls.FlyVector.Set(controls.WalkVector);
 
                 Vec3d pos = entity.Pos.XYZ;
-                Block inblock = entity.World.BlockAccessor.GetBlock((int)pos.X, (int)(pos.Y), (int)pos.Z);
-                Block aboveblock = entity.World.BlockAccessor.GetBlock((int)pos.X, (int)(pos.Y + 1), (int)pos.Z);
+                Block inblock = entity.World.BlockAccessor.GetBlock(new BlockPos((int)pos.X, (int)(pos.Y), (int)pos.Z, 0));
+                Block aboveblock = entity.World.BlockAccessor.GetBlock(new BlockPos((int)pos.X, (int)(pos.Y + 1), (int)pos.Z, 0));
                 float waterY = (int)pos.Y + inblock.LiquidLevel / 8f + (aboveblock.IsLiquid() ? 9 / 8f : 0);
                 float bottomSubmergedness = waterY - (float)pos.Y;
 
@@ -263,8 +263,8 @@ namespace VsVillage
                 controls.FlyVector.Set(controls.WalkVector);
 
                 Vec3d pos = entity.Pos.XYZ;
-                Block inblock = entity.World.BlockAccessor.GetBlock((int)pos.X, (int)(pos.Y), (int)pos.Z);
-                Block aboveblock = entity.World.BlockAccessor.GetBlock((int)pos.X, (int)(pos.Y + 1), (int)pos.Z);
+                Block inblock = entity.World.BlockAccessor.GetBlock(new BlockPos((int)pos.X, (int)(pos.Y), (int)pos.Z, 0));
+                Block aboveblock = entity.World.BlockAccessor.GetBlock(new BlockPos((int)pos.X, (int)(pos.Y + 1), (int)pos.Z, 0));
                 float waterY = (int)pos.Y + inblock.LiquidLevel / 8f + (aboveblock.IsLiquid() ? 9 / 8f : 0);
                 float bottomSubmergedness = waterY - (float)pos.Y;
 

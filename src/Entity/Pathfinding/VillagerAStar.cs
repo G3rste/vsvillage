@@ -96,7 +96,7 @@ namespace VsVillage
 
         protected virtual IEnumerable<PathNode> findValidNeighbourNodes(PathNode nearestNode, PathNode targetNode, float stepHeight, int maxFallHeight)
         {
-            Block current = blockAccess.GetBlock(nearestNode.X, nearestNode.Y, nearestNode.Z);
+            Block current = blockAccess.GetBlock(new BlockPos(nearestNode.X, nearestNode.Y, nearestNode.Z, 0));
             if (climbableCodes.Exists(code => current.Code.Path.Contains(code)))
             {
                 Cardinal climbableCard;
@@ -121,7 +121,7 @@ namespace VsVillage
                         break;
                 }
                 int i = 1;
-                while (traversableCodes.Exists(code => blockAccess.GetBlock(nearestNode.X, nearestNode.Y + i, nearestNode.Z).Code.Path.Contains(code)))
+                while (traversableCodes.Exists(code => blockAccess.GetBlock(new BlockPos(nearestNode.X, nearestNode.Y + i, nearestNode.Z, 0)).Code.Path.Contains(code)))
                 {
                     i++;
                 }
@@ -151,19 +151,19 @@ namespace VsVillage
         protected virtual bool traversable(PathNode node, PathNode target, float stepHeight, int maxFallHeight)
         {
             if (target.X == node.X && target.Z == node.Z && target.Y == node.Y) { return true; }
-            if (traversable(blockAccess.GetBlock(node.X, node.Y, node.Z))
-                && traversable(blockAccess.GetBlock(node.X, node.Y + 1, node.Z)))
+            if (traversable(blockAccess.GetBlock(new BlockPos(node.X, node.Y, node.Z, 0)))
+                && traversable(blockAccess.GetBlock(new BlockPos(node.X, node.Y + 1, node.Z, 0))))
             {
                 for (; 0 <= maxFallHeight; maxFallHeight--)
                 {
-                    Block belowBlock = blockAccess.GetBlock(node.X, node.Y - 1, node.Z);
+                    Block belowBlock = blockAccess.GetBlock(new BlockPos(node.X, node.Y - 1, node.Z, 0));
                     if (canStep(belowBlock)) { return true; }
                     if (!traversable(belowBlock)) { return false; };
                     node.Y--;
                 }
-                while (climbableCodes.Exists(code => blockAccess.GetBlock(node.X, node.Y, node.Z).Code.Path.Contains(code)))
+                while (climbableCodes.Exists(code => blockAccess.GetBlock(new BlockPos(node.X, node.Y, node.Z, 0)).Code.Path.Contains(code)))
                 {
-                    Block belowBlock = blockAccess.GetBlock(node.X, node.Y - 1, node.Z);
+                    Block belowBlock = blockAccess.GetBlock(new BlockPos(node.X, node.Y - 1, node.Z, 0));
                     if (canStep(belowBlock)) { return true; }
                     node.Y--;
                 }
@@ -173,7 +173,7 @@ namespace VsVillage
                 for (; 1f < stepHeight; stepHeight--)
                 {
                     node.Y++;
-                    if (canStep(blockAccess.GetBlock(node.X, node.Y - 1, node.Z)) && traversable(blockAccess.GetBlock(node.X, node.Y, node.Z)) && traversable(blockAccess.GetBlock(node.X, node.Y + 1, node.Z)))
+                    if (canStep(blockAccess.GetBlock(new BlockPos(node.X, node.Y - 1, node.Z,0))) && traversable(blockAccess.GetBlock(new BlockPos(node.X, node.Y, node.Z,0))) && traversable(blockAccess.GetBlock(new BlockPos(node.X, node.Y + 1, node.Z, 0))))
                     {
                         return true;
                     }
