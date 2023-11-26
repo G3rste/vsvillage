@@ -8,6 +8,9 @@ namespace VsVillage
 {
     public class VillageGrid
     {
+        public const int pathWidth = 3;
+        public const int squareSize = 7;
+
         public EnumgGridSlot[,] grid;
 
         public List<StructureWithOrientation> structures = new List<StructureWithOrientation>();
@@ -341,12 +344,12 @@ namespace VsVillage
 
         public Vec2i GridCoordsToMapCoords(int x, int y)
         {
-            return new Vec2i(x * 3 + (x / 2) * 4, y * 3 + (y / 2) * 4);
+            return new Vec2i(x * pathWidth + (x / 2) * (squareSize - pathWidth), y * pathWidth + (y / 2) * (squareSize - pathWidth));
         }
 
         public Vec2i GridCoordsToMapSize(int x, int y)
         {
-            return new Vec2i(x % 2 == 0 ? 3 : 7, y % 2 == 0 ? 3 : 7);
+            return new Vec2i(x % 2 == 0 ? pathWidth : squareSize, y % 2 == 0 ? pathWidth : squareSize);
         }
 
         public void GenerateStreets(BlockPos start, IBlockAccessor blockAccessor, IWorldAccessor worldForCollectibleResolve)
@@ -431,9 +434,10 @@ namespace VsVillage
         {
             switch (size)
             {
-                case EnumVillageStructureSize.SMALL: return 7;
-                case EnumVillageStructureSize.MEDIUM: return 17;
-                default: return 37;
+                case EnumVillageStructureSize.SMALL: return squareSize;
+                case EnumVillageStructureSize.MEDIUM: return squareSize + pathWidth + squareSize;
+                case EnumVillageStructureSize.LARGE: return squareSize + pathWidth + squareSize + pathWidth + squareSize + pathWidth + squareSize;
+                default: throw new ArgumentException("House has invalid size.");
             }
         }
 
