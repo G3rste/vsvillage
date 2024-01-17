@@ -10,8 +10,6 @@ namespace VsVillage
     public class AiTaskVillagerGotoWork : AiTaskGotoAndInteract
     {
 
-        BlockEntityVillagerWorkstation workstation = null;
-
         float offset;
         DayTimeFrame[] duringDayTimeFrames;
 
@@ -46,8 +44,13 @@ namespace VsVillage
             var villager = entity as EntityVillager;
             var village = villager?.Village;
             var workstation = villager?.Workstation != null ? blockAccessor.GetBlockEntity<BlockEntityVillagerWorkstation>(villager.Workstation) : null;
-            if(workstation == null && villager != null){
-                villager.Workstation = village?.FindFreeWorkstation(entity.EntityId);
+            if (workstation == null && villager != null)
+            {
+                var workPos = village?.FindFreeWorkstation(entity.EntityId);
+                if (workPos != null)
+                {
+                    villager.Workstation = workPos;
+                }
                 workstation = villager?.Workstation != null ? blockAccessor.GetBlockEntity<BlockEntityVillagerWorkstation>(villager.Workstation) : null;
             }
             return getRandomPosNearby(workstation?.Position);

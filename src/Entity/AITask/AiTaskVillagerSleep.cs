@@ -129,7 +129,11 @@ namespace VsVillage
             bed = villager?.Bed != null ? blockAccessor.GetBlockEntity<BlockEntityBed>(villager.Bed) : null;
             if (bed == null && villager != null)
             {
-                villager.Bed = village?.FindFreeBed(entity.EntityId);
+                var bedPos = village?.FindFreeBed(entity.EntityId);
+                if (bedPos != null)
+                {
+                    villager.Bed = bedPos;
+                }
                 bed = villager?.Bed != null ? blockAccessor.GetBlockEntity<BlockEntityBed>(villager.Bed) : null;
             }
         }

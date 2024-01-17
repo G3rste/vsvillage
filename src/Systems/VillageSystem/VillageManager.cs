@@ -42,15 +42,18 @@ namespace VsVillage
                 {
                     byte[] data = sapi.WorldManager.SaveGame.GetData(id);
                     villageData = data == null ? null : SerializerUtil.Deserialize<Village>(data);
-                    villageData.Api = sapi;
+                    villageData?.Init(sapi);
                 }
             }
             return villageData;
         }
 
-        public Village GetVillage(BlockPos pos){
-            foreach(var village in Villages.Values){
-                if(village.Pos.HorDistanceSqTo(pos.X, pos.Z) < village.Radius * village.Radius){
+        public Village GetVillage(BlockPos pos)
+        {
+            foreach (var village in Villages.Values)
+            {
+                if (village.Pos.HorDistanceSqTo(pos.X, pos.Z) < village.Radius * village.Radius)
+                {
                     return village;
                 }
             }
