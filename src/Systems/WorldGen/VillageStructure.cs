@@ -52,7 +52,7 @@ namespace VsVillage
 
         public void Generate(IBlockAccessor blockAccessor, IWorldAccessor worldForCollectibleResolve, BlockPos pos, int orientation)
         {
-            Schematics[orientation].PlaceReplacingBlocks(blockAccessor, worldForCollectibleResolve, pos, EnumReplaceMode.ReplaceAllNoAir, new Dictionary<int, Dictionary<int, int>>());
+            Schematics[orientation].PlaceReplacingBlocks(blockAccessor, worldForCollectibleResolve, pos, EnumReplaceMode.ReplaceAllNoAir, new Dictionary<int, Dictionary<int, int>>(), null);
             if (orientation % 2 == 0)
             {
                 orientation = (orientation + 2) % 4; // has something to do with the rotation by 180° a couple lines earlier, needs to be done for some reason...

@@ -53,23 +53,23 @@ namespace VsVillage
 
         private TextCommandResult onCmdDebugVillage(TextCommandCallingArgs args)
         {
-            VillageType village;
+            VillageType villageType;
             if (args.ArgCount < 1)
             {
-                village = villages[sapi.World.Rand.Next(0, villages.Count)];
+                villageType = villages[sapi.World.Rand.Next(0, villages.Count)];
             }
             else
             {
                 string villageName = (string)args[0];
-                village = villages.Find(match => match.Code == villageName);
-                if (village == null)
+                villageType = villages.Find(match => match.Code == villageName);
+                if (villageType == null)
                 {
                     return TextCommandResult.Error(string.Format("Could not find village with name {0}.", villageName));
                 }
             }
 
-            var grid = new VillageGrid(village.Length, village.Height);
-            grid.Init(village, rand);
+            var grid = new VillageGrid(villageType.Length, villageType.Height);
+            grid.Init(villageType, rand);
             var start = args.Caller.Player.Entity.ServerPos.XYZInt.ToBlockPos();
             if (args.ArgCount > 1 && (string)args[1] == "probeTerrain" && !probeTerrain(start, grid, sapi.World.BlockAccessor))
             {
@@ -79,6 +79,17 @@ namespace VsVillage
             {
                 grid.connectStreets();
 
+                Village village = new()
+                {
+                    Pos = grid.getMiddle(start),
+                    Api = sapi,
+                    Gatherplaces = new(),
+                    Workstations = new(),
+                    Beds = new(),
+                    VillagerIds = new(),
+                    Radius = VillageGrid.GridDistToMapDist(grid.width)
+                };
+                sapi.ModLoader.GetModSystem<VillageManager>().Villages.TryAdd(village.Id, village);
                 grid.GenerateHouses(start, sapi.World.BlockAccessor, sapi.World);
                 grid.GenerateStreets(start, sapi.World.BlockAccessor, sapi.World);
                 return TextCommandResult.Success();
@@ -88,7 +99,6 @@ namespace VsVillage
         private void initWorldGen()
         {
             LoadGlobalConfig(sapi);
-            chunksize = sapi.World.BlockAccessor.ChunkSize;
 
             structures = sapi.Assets.Get<List<WorldGenVillageStructure>>(new AssetLocation("vsvillage", "config/villagestructures.json"));
             villages = sapi.Assets.Get<List<VillageType>>(new AssetLocation("vsvillage", "config/villagetypes.json"));
@@ -166,9 +176,9 @@ namespace VsVillage
             if (rand.NextFloat() > Config.VillageChance) { return; }
             if (region.GeneratedStructures.Find(structure => structure.Group == "village") != null) { return; }
 
-            var village = villages[rand.NextInt(villages.Count)];
+            var villageType = villages[rand.NextInt(villages.Count)];
             // we mock the grid here and do the expensive generation later
-            var grid = new VillageGrid(village.Length, village.Height);
+            var grid = new VillageGrid(villageType.Length, villageType.Height);
             var start = new BlockPos(chunksize * request.ChunkX, 0, chunksize * request.ChunkZ, 0);
             var end = grid.getEnd(start);
 
@@ -181,9 +191,20 @@ namespace VsVillage
             worldgenBlockAccessor.BeginColumn();
             if (probeTerrain(start, grid, worldgenBlockAccessor))
             {
-                grid.Init(village, rand);
+                grid.Init(villageType, rand);
                 region.GeneratedStructures.Add(new GeneratedStructure() { Code = grid.VillageType.Code, Group = "village", Location = new Cuboidi(start, end) });
                 grid.connectStreets();
+                Village village = new()
+                {
+                    Pos = grid.getMiddle(start),
+                    Api = sapi,
+                    Gatherplaces = new(),
+                    Workstations = new(),
+                    Beds = new(),
+                    VillagerIds = new(),
+                    Radius = VillageGrid.GridDistToMapDist(grid.width)
+                };
+                sapi.ModLoader.GetModSystem<VillageManager>().Villages.TryAdd(village.Id, village);
                 grid.GenerateHouses(start, worldgenBlockAccessor, sapi.World);
                 grid.GenerateStreets(start, worldgenBlockAccessor, sapi.World);
             }

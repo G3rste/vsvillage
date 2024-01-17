@@ -234,6 +234,12 @@ namespace VsVillage
             return start.AddCopy(end.X + 3, 20, end.Y + 3);
         }
 
+        public BlockPos getMiddle(BlockPos start)
+        {
+            var end = GridCoordsToMapCoords(width, height);
+            return start.AddCopy((end.X + 3) / 2, 20, (end.Y + 3) / 2);
+        }
+
         public void connectStreets()
         {
             var connectedStreets = new List<Vec2i>();
@@ -344,7 +350,12 @@ namespace VsVillage
 
         public Vec2i GridCoordsToMapCoords(int x, int y)
         {
-            return new Vec2i(x * pathWidth + (x / 2) * (squareSize - pathWidth), y * pathWidth + (y / 2) * (squareSize - pathWidth));
+            return new Vec2i(GridDistToMapDist(x), GridDistToMapDist(y));
+        }
+
+        public static int GridDistToMapDist(int x)
+        {
+            return x * pathWidth + (x / 2) * (squareSize - pathWidth);
         }
 
         public Vec2i GridCoordsToMapSize(int x, int y)

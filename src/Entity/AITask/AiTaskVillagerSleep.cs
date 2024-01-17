@@ -58,7 +58,8 @@ namespace VsVillage
             if (lastCheck + 10000 < entity.World.ElapsedMilliseconds)
             {
                 lastCheck = entity.World.ElapsedMilliseconds;
-                if(bed == null || bed.GetBehavior<BlockEntityBehaviorVillagerBed>()?.ownerId != entity.EntityId){
+                if (bed == null)
+                {
                     retrieveBed();
                 }
                 return IntervalUtil.matchesCurrentTime(duringDayTimeFrames, entity.World);
@@ -72,7 +73,7 @@ namespace VsVillage
 
         public override void StartExecute()
         {
-            if (bed == null || bed.GetBehavior<BlockEntityBehaviorVillagerBed>()?.owner != entity) { retrieveBed(); }
+            if (bed == null) { retrieveBed(); }
 
             if (bed != null)
             {
@@ -122,25 +123,14 @@ namespace VsVillage
 
         private void retrieveBed()
         {
-            if (entity.Attributes.HasAttribute("villagerBed"))
+            var blockAccessor = entity.World.BlockAccessor;
+            var villager = entity as EntityVillager;
+            var village = villager?.Village;
+            bed = villager?.Bed != null ? blockAccessor.GetBlockEntity<BlockEntityBed>(villager.Bed) : null;
+            if (bed == null && villager != null)
             {
-                bed = entity.World.BlockAccessor.GetBlockEntity(entity.Attributes.GetBlockPos("villagerBed")) as BlockEntityBed;
-                if (bed != null && bed.GetBehavior<BlockEntityBehaviorVillagerBed>()?.owner?.EntityId == entity.EntityId) { return; }
-            }
-            var villagerBed = (entity.Api as ICoreServerAPI)?.ModLoader.GetModSystem<POIRegistry>().GetNearestPoi(entity.ServerPos.XYZ, 75, poi =>
-            {
-                var behaviorBed = poi as BlockEntityBehaviorVillagerBed;
-
-                // sometimes the worldgen overwrites some bed blocks without deleting the bed entity properly
-                // we shall avoid those bed entities
-                bool isNotRiggedByWorldGen = entity.World.BlockAccessor.GetBlock(poi.Position.AsBlockPos).Code.Path.StartsWith("bed-");
-
-                return behaviorBed != null && isNotRiggedByWorldGen && (behaviorBed.owner == null || !behaviorBed.owner.Alive || behaviorBed.owner == entity);
-            }) as BlockEntityBehaviorVillagerBed;
-            if (villagerBed?.setOwnerIfFree(entity.EntityId) == true)
-            {
-                entity.Attributes.SetBlockPos("villagerBed", villagerBed.Position.AsBlockPos);
-                bed = villagerBed.Blockentity as BlockEntityBed;
+                villager.Bed = village?.FindFreeBed(entity.EntityId);
+                bed = villager?.Bed != null ? blockAccessor.GetBlockEntity<BlockEntityBed>(villager.Bed) : null;
             }
         }
     }

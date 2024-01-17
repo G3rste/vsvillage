@@ -8,54 +8,36 @@ using Vintagestory.GameContent;
 
 namespace VsVillage
 {
-    public class BlockEntityVillagerWorkstation : BlockEntity, IPointOfInterest
+    public class BlockEntityVillagerWorkstation : BlockEntity
     {
 
-        public long? ownerId { get; protected set; }
-        public Entity owner { get => ownerId == null ? null : Api.World.GetEntityById((long)ownerId); }
+        public string villageId { get; set; }
 
         public Vec3d Position => Pos.ToVec3d();
 
         public string Type => Block.Variant["profession"];
-        public override void Initialize(ICoreAPI api)
+        public override void OnBlockPlaced(ItemStack byItemStack = null)
         {
-            base.Initialize(api);
-            if (api is ICoreServerAPI sapi)
-            {
-                sapi.ModLoader.GetModSystem<POIRegistry>().AddPOI(this);
-            }
+            base.OnBlockPlaced(byItemStack);
+            Api.ModLoader.GetModSystem<VillageManager>().GetVillage(Pos)?.Workstations.Add(new(){Pos = Pos});
         }
 
         public override void OnBlockBroken(IPlayer byPlayer = null)
         {
             base.OnBlockBroken(byPlayer);
-            if (Api is ICoreServerAPI sapi) { sapi.ModLoader.GetModSystem<POIRegistry>().RemovePOI(this); }
+            Api.ModLoader.GetModSystem<VillageManager>().GetVillage(villageId)?.Workstations.RemoveAll(workstation => workstation.Pos.Equals(Pos));
         }
 
         public override void FromTreeAttributes(ITreeAttribute tree, IWorldAccessor worldAccessForResolve)
         {
             base.FromTreeAttributes(tree, worldAccessForResolve);
-            if (tree.HasAttribute("ownerId")) { ownerId = tree.GetLong("ownerId"); }
+            villageId = tree.GetString("villageId");
         }
 
         public override void ToTreeAttributes(ITreeAttribute tree)
         {
             base.ToTreeAttributes(tree);
-            if (ownerId != null) { tree.SetLong("ownerId", (long)ownerId); }
-        }
-
-        [MethodImpl(MethodImplOptions.Synchronized)]
-        public bool setOwnerIfFree(long newOwner)
-        {
-            if (ownerId == null || ownerId == newOwner || Api.World.GetEntityById((long)ownerId)?.Alive != true)
-            {
-                ownerId = newOwner;
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            tree.SetString("villageId", villageId);
         }
     }
 }

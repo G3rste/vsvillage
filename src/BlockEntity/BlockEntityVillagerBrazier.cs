@@ -5,22 +5,25 @@ using Vintagestory.GameContent;
 
 namespace VsVillage
 {
-    public class BlockEntityVillagerBrazier : BlockEntity, IPointOfInterest
+    public class BlockEntityVillagerBrazier : BlockEntity
     {
+
+        public string villageId { get; set; }
+
         public Vec3d Position => Pos.ToVec3d();
 
         public string Type => "freetime";
-        public override void Initialize(ICoreAPI api)
+        public override void OnBlockPlaced(ItemStack byItemStack = null)
         {
-            base.Initialize(api);
-            if (api is ICoreServerAPI sapi) { sapi.ModLoader.GetModSystem<POIRegistry>().AddPOI(this); }
-            RegisterGameTickListener(dt => { if (Api.World.Calendar.FullHourOfDay < 17) Extinguish(); }, 5000);
+            base.OnBlockPlaced(byItemStack);
+            Api.ModLoader.GetModSystem<VillageManager>().GetVillage(Pos)?.Gatherplaces.Add(Pos);
+
         }
 
         public override void OnBlockBroken(IPlayer byPlayer = null)
         {
             base.OnBlockBroken(byPlayer);
-            if (Api is ICoreServerAPI sapi) { sapi.ModLoader.GetModSystem<POIRegistry>().RemovePOI(this); }
+            Api.ModLoader.GetModSystem<VillageManager>().GetVillage(villageId)?.Gatherplaces.Remove(Pos);
         }
 
         public void Extinguish()

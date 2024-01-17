@@ -9,6 +9,7 @@ using Vintagestory.API.Util;
 using Vintagestory.API.Client;
 using Vintagestory.API.Server;
 using Vintagestory.API.MathTools;
+using System.Linq;
 
 namespace VsVillage
 {
@@ -30,6 +31,38 @@ namespace VsVillage
         public EntityTalkUtil talkUtil { get; set; }
 
         public string profession => Properties.Attributes["profession"].AsString();
+        public string VillageId
+        {
+            get => WatchedAttributes.GetString("villageId");
+            set
+            {
+                WatchedAttributes.SetString("villageId", value);
+                WatchedAttributes.MarkPathDirty("villageId");
+            }
+        }
+        public BlockPos Workstation
+        {
+            get => WatchedAttributes.GetBlockPos("workstation");
+            set => WatchedAttributes.SetBlockPos("workstation", value);
+        }
+        public BlockPos Bed
+        {
+            get => WatchedAttributes.GetBlockPos("bed");
+            set => WatchedAttributes.SetBlockPos("bed", value);
+        }
+
+        private Village _village;
+        public Village Village
+        {
+            get
+            {
+                if (_village == null && !string.IsNullOrEmpty(VillageId))
+                {
+                    _village = Api.ModLoader.GetModSystem<VillageManager>().GetVillage(VillageId);
+                }
+                return _village;
+            }
+        }
         public string Personality
         {
             get { return WatchedAttributes.GetString("personality", "formal"); }
@@ -109,6 +142,12 @@ namespace VsVillage
                     var slot = new DummySlot(new ItemStack(Api.World.GetItem(new AssetLocation("vsvillage", String.Format("villagergear-{0}-{1}", gear.ToLower(), possibleGear[World.Rand.Next(0, possibleGear.Length)])))));
                     slot.TryPutInto(World, GearInventory.GetBestSuitedSlot(slot).slot);
                 }
+            }
+            if (string.IsNullOrEmpty(VillageId))
+            {
+                var village = Api.ModLoader.GetModSystem<VillageManager>().GetVillage(SidedPos.AsBlockPos);
+                VillageId = village?.Id;
+                village?.VillagerIds.Add(EntityId);
             }
         }
 
@@ -262,6 +301,11 @@ namespace VsVillage
             {
                 sapi.Network.BroadcastEntityPacket(EntityId, 1235, SerializerUtil.ToBytes((w) => tree.ToBytes(w)));
             }
+        }
+
+        public override string GetInfoText()
+        {
+            return base.GetInfoText() + "\nLives in: " + VillageId;
         }
     }
 }
