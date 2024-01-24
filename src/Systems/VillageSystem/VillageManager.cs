@@ -81,19 +81,19 @@ namespace VsVillage
     public class Village
     {
         public string Id => "village-" + Pos.ToString();
-        [ProtoMember(0)]
-        public BlockPos Pos;
         [ProtoMember(1)]
-        public int Radius;
+        public BlockPos Pos;
         [ProtoMember(2)]
-        public string Name;
+        public int Radius;
         [ProtoMember(3)]
-        public List<VillagerPOI> Beds = new();
+        public string Name;
         [ProtoMember(4)]
-        public List<VillagerPOI> Workstations = new();
+        public List<VillagerPOI> Beds = new();
         [ProtoMember(5)]
-        public List<BlockPos> Gatherplaces = new();
+        public List<VillagerPOI> Workstations = new();
         [ProtoMember(6)]
+        public List<BlockPos> Gatherplaces = new();
+        [ProtoMember(7)]
         public List<long> VillagerIds = new();
 
         public ICoreAPI Api;
