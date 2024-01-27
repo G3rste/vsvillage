@@ -28,11 +28,6 @@ namespace VsVillage
             api.Event.GameWorldSave += () => OnSave(api);
         }
 
-        public override bool ShouldLoad(EnumAppSide forSide)
-        {
-            return forSide == EnumAppSide.Server;
-        }
-
         public Village GetVillage(string id)
         {
             Village villageData;
