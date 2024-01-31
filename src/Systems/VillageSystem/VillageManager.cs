@@ -30,6 +30,7 @@ namespace VsVillage
 
         public Village GetVillage(string id)
         {
+            if (string.IsNullOrEmpty(id)) { return null; }
             Village villageData;
             if (!Villages.TryGetValue(id, out villageData))
             {
