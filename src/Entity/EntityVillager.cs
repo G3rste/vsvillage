@@ -227,7 +227,7 @@ namespace VsVillage
             foreach (var gear in gearInv)
             {
                 var assetString = assetStringFromSlot.Invoke(gear);
-                if (!String.IsNullOrEmpty(assetString) && (matcher == null || matcher.Invoke(gear?.Itemstack?.Item?.Code.Path)))
+                if (!string.IsNullOrEmpty(assetString) && (matcher == null || matcher.Invoke(gear?.Itemstack?.Item?.Code.Path)))
                 {
                     availableWeapons.Add(gear);
                 }

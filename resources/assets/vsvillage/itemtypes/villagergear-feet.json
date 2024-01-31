@@ -4,7 +4,7 @@
     "maxstacksize": 1,
     "attributesByType": {
         "*-knife": {
-            "weaponAssetLocation": "knife-tinbronze",
+            "weaponAssetLocation": "knife-generic-tinbronze",
             "wearableAttachment": true,
             "handbook": {
                 "exclude": true
