@@ -1,9 +1,8 @@
 using System.Text;
 using Vintagestory.API.Common;
+using Vintagestory.API.Config;
 using Vintagestory.API.Datastructures;
 using Vintagestory.API.MathTools;
-using Vintagestory.API.Server;
-using Vintagestory.GameContent;
 
 namespace VsVillage
 {
@@ -11,6 +10,7 @@ namespace VsVillage
     {
 
         public string VillageId { get; set; }
+        public string VillageName { get; set; }
 
         public Vec3d Position => Pos.ToVec3d();
 
@@ -20,6 +20,30 @@ namespace VsVillage
             var village = Api.ModLoader.GetModSystem<VillageManager>()?.GetVillage(Pos);
             village?.Gatherplaces.Add(Pos);
             VillageId = village?.Id;
+            VillageName = village?.Name;
+            MarkDirty();
+        }
+
+        public override void Initialize(ICoreAPI api)
+        {
+            base.Initialize(api);
+            if (string.IsNullOrEmpty(VillageId))
+            {
+                var village = Api.ModLoader.GetModSystem<VillageManager>()?.GetVillage(Pos);
+                VillageId = village?.Id;
+                VillageName = village?.Name;
+                village?.Gatherplaces.Add(Pos);
+            }
+            else
+            {
+                //load the village if not loaded
+                Api.ModLoader.GetModSystem<VillageManager>()?.GetVillage(VillageId);
+            }
+        }
+
+        public void RemoveVillage(){
+            VillageId = null;
+            VillageName = null;
             MarkDirty();
         }
 
@@ -52,18 +76,23 @@ namespace VsVillage
         {
             base.FromTreeAttributes(tree, worldAccessForResolve);
             VillageId = tree.GetString("villageId");
+            VillageName = tree.GetString("villageName");
         }
 
         public override void ToTreeAttributes(ITreeAttribute tree)
         {
             base.ToTreeAttributes(tree);
             tree.SetString("villageId", VillageId);
+            tree.SetString("villageName", VillageName);
         }
 
         public override void GetBlockInfo(IPlayer forPlayer, StringBuilder dsc)
         {
             base.GetBlockInfo(forPlayer, dsc);
-            dsc.AppendLine().Append("Resides in: " + VillageId);
+            if (!string.IsNullOrEmpty(VillageName))
+            {
+                dsc.AppendLine().Append(Lang.Get("vsvillage:resides-in", VillageName));
+            }
         }
     }
 }

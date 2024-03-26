@@ -46,7 +46,7 @@ namespace VsVillage
             var workstation = villager?.Workstation != null ? blockAccessor.GetBlockEntity<BlockEntityVillagerWorkstation>(villager.Workstation) : null;
             if (workstation == null && villager != null)
             {
-                var workPos = village?.FindFreeWorkstation(entity.EntityId);
+                var workPos = village?.FindFreeWorkstation(entity.EntityId, villager.Profession);
                 if (workPos != null)
                 {
                     villager.Workstation = workPos;

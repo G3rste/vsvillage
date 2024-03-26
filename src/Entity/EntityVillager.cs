@@ -10,6 +10,7 @@ using Vintagestory.API.Client;
 using Vintagestory.API.Server;
 using Vintagestory.API.MathTools;
 using System.Linq;
+using Vintagestory.API.Config;
 
 namespace VsVillage
 {
@@ -30,7 +31,7 @@ namespace VsVillage
 
         public EntityTalkUtil talkUtil { get; set; }
 
-        public string profession => Properties.Attributes["profession"].AsString();
+        public string Profession => Properties.Attributes["profession"].AsString();
         public string VillageId
         {
             get => WatchedAttributes.GetString("villageId");
@@ -38,6 +39,15 @@ namespace VsVillage
             {
                 WatchedAttributes.SetString("villageId", value);
                 WatchedAttributes.MarkPathDirty("villageId");
+            }
+        }
+        public string VillageName
+        {
+            get => WatchedAttributes.GetString("villageName");
+            set
+            {
+                WatchedAttributes.SetString("villageName", value);
+                WatchedAttributes.MarkPathDirty("villageName");
             }
         }
         public BlockPos Workstation
@@ -58,7 +68,7 @@ namespace VsVillage
             {
                 if (_village == null && !string.IsNullOrEmpty(VillageId))
                 {
-                    _village = Api.ModLoader.GetModSystem<VillageManager>().GetVillage(VillageId);
+                    _village = Api.ModLoader.GetModSystem<VillageManager>()?.GetVillage(VillageId);
                 }
                 return _village;
             }
@@ -100,6 +110,30 @@ namespace VsVillage
             {
                 sapi.World.RegisterGameTickListener(dt => UndrawWeaponIfOutOfCombat(), 10000, 10000);
             }
+            if (string.IsNullOrEmpty(VillageId))
+            {
+                var village = Api.ModLoader.GetModSystem<VillageManager>()?.GetVillage(SidedPos.AsBlockPos);
+                VillageId = village?.Id;
+                VillageName = village?.Name;
+                village?.VillagerSaveData.Add(new()
+                {
+                    Id = EntityId,
+                    Profession = Profession,
+                    Name = GetBehavior<EntityBehaviorNameTag>()?.DisplayName ?? "S̷̡̪̦̮̜̮̳͑̅̀͛̓̋̌e̸̲̦̻̗͉̅̃ř̷͔̮̮̗̆͆̕͜v̵͈̥̩̳͊̄͘̕͠à̶̞̱̱̻́̀̈́͜͜n̷̫͕̣̓̇͘͜t̴̻̫̹̺̻͖͂̓ͅ"
+                });
+            }
+            else
+            {
+                //load the village if not loaded
+                Api.ModLoader.GetModSystem<VillageManager>()?.GetVillage(VillageId);
+            }
+        }
+
+        public void RemoveVillage()
+        {
+            VillageId = null;
+            VillageName = null;
+            _village = null;
         }
 
         public override void OnInteract(EntityAgent byEntity, ItemSlot slot, Vec3d hitPosition, EnumInteractMode mode)
@@ -142,12 +176,6 @@ namespace VsVillage
                     var slot = new DummySlot(new ItemStack(Api.World.GetItem(new AssetLocation("vsvillage", String.Format("villagergear-{0}-{1}", gear.ToLower(), possibleGear[World.Rand.Next(0, possibleGear.Length)])))));
                     slot.TryPutInto(World, GearInventory.GetBestSuitedSlot(slot).slot);
                 }
-            }
-            if (string.IsNullOrEmpty(VillageId))
-            {
-                var village = Api.ModLoader.GetModSystem<VillageManager>().GetVillage(SidedPos.AsBlockPos);
-                VillageId = village?.Id;
-                village?.VillagerIds.Add(EntityId);
             }
         }
 
@@ -305,7 +333,11 @@ namespace VsVillage
 
         public override string GetInfoText()
         {
-            return base.GetInfoText() + "\nLives in: " + VillageId;
+            if (!string.IsNullOrEmpty(VillageName))
+            {
+                return base.GetInfoText() + "\n" + Lang.Get("vsvillage:lives-in", VillageName);
+            }
+            return base.GetInfoText();
         }
     }
 }

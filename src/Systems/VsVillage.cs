@@ -1,4 +1,5 @@
-﻿using HarmonyLib;
+﻿using System;
+using HarmonyLib;
 using ProtoBuf;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
@@ -15,6 +16,11 @@ namespace VsVillage
         private ICoreServerAPI serverAPI;
 
         private Harmony harmony = new Harmony("gerste.vsvillage");
+
+        public override double ExecuteOrder()
+        {
+            return 0.1;
+        }
 
         public override void Start(ICoreAPI api)
         {
@@ -33,6 +39,8 @@ namespace VsVillage
 
             api.RegisterBlockEntityClass("VillagerWorkstation", typeof(BlockEntityVillagerWorkstation));
             api.RegisterBlockEntityClass("VillagerBrazier", typeof(BlockEntityVillagerBrazier));
+
+            api.RegisterBlockClass("MayorWorkstation", typeof(BlockMayorWorkstation));
 
             AiTaskRegistry.Register<AiTaskVillagerMeleeAttack>("villagermeleeattack");
             AiTaskRegistry.Register<AiTaskVillagerSeekEntity>("villagerseekentity");
@@ -54,14 +62,15 @@ namespace VsVillage
             base.StartClientSide(api);
             this.clientAPI = api;
 
-            api.Network.RegisterChannel("vsvillagenetwork")
+            api.Network.RegisterChannel("villagertalknetwork")
                 .RegisterMessageType<TalkUtilMessage>().SetMessageHandler<TalkUtilMessage>(OnTalkMessageClient);
         }
+
         public override void StartServerSide(ICoreServerAPI api)
         {
             base.StartServerSide(api);
             this.serverAPI = api;
-            api.Network.RegisterChannel("vsvillagenetwork")
+            api.Network.RegisterChannel("villagertalknetwork")
                 .RegisterMessageType<TalkUtilMessage>();
         }
 

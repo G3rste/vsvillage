@@ -45,7 +45,7 @@ namespace VsVillage
 
                 if (relevantPlayers.Length > 0)
                 {
-                    (entity.Api as ICoreServerAPI).Network.GetChannel("vsvillagenetwork").SendPacket<TalkUtilMessage>(message, relevantPlayers);
+                    (entity.Api as ICoreServerAPI).Network.GetChannel("villagertalknetwork").SendPacket<TalkUtilMessage>(message, relevantPlayers);
                 }
             }
             return closeEnough;

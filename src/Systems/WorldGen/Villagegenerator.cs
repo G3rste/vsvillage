@@ -82,11 +82,12 @@ namespace VsVillage
                 Village village = new()
                 {
                     Pos = grid.getMiddle(start),
+                    Name = Config.VillageNames[rand.NextInt(Config.VillageNames.Length)],
                     Api = sapi,
                     Gatherplaces = new(),
                     Workstations = new(),
                     Beds = new(),
-                    VillagerIds = new(),
+                    VillagerSaveData = new(),
                     Radius = VillageGrid.GridDistToMapDist(grid.width)
                 };
                 sapi.ModLoader.GetModSystem<VillageManager>().Villages.TryAdd(village.Id, village);
@@ -197,11 +198,12 @@ namespace VsVillage
                 Village village = new()
                 {
                     Pos = grid.getMiddle(start),
+                    Name = Config.VillageNames[rand.NextInt(Config.VillageNames.Length)],
                     Api = sapi,
                     Gatherplaces = new(),
                     Workstations = new(),
                     Beds = new(),
-                    VillagerIds = new(),
+                    VillagerSaveData = new(),
                     Radius = VillageGrid.GridDistToMapDist(grid.width)
                 };
                 sapi.ModLoader.GetModSystem<VillageManager>().Villages.TryAdd(village.Id, village);
@@ -214,5 +216,18 @@ namespace VsVillage
     public class VillageConfig
     {
         public float VillageChance = 0.05f;
+        public string[] VillageNames = new string[]{
+            "Woolhampton", "Loxleigh", "Blackington", "Henwike", "Northfold", "Heath",
+            "Hartford", "Eastholm", "Keldworth", "Westlea", "Barmarsh", "Lake", "Keldbury",
+            "Southpool", "Newburgh", "Otterchester", "Overmoor", "Lower", "Thorndon",
+            "Oakbury", "Heath", "Redhey", "Market", "Kirhurst", "Hazelham", "Hindburn",
+            "Loxdon", "Northhurst", "Little", "Keldfield", "Little", "Loxdale", "Redwick",
+            "Woolwell", "Green", "Newwick", "Little", "Blackwick", "Thornhalgh", "Little",
+            "Oulhall", "Northdale", "Loxbury", "Foxden", "Oakmoor", "Kinhalgh", "Oakhurst",
+            "Lake", "Great", "Guildholm", "Lower", "Northden", "Great", "Hopmere", "Kinburn",
+            "Oulholm", "Marsburn", "Middleley", "Oakcaster", "Lake", "Harthey", "Whitemouth",
+            "Overwick", "Kinwood", "Oakport", "Heath", "Hartmere", "Northbury", "Guildhey", "Ashhall",
+            "Redport", "Little", "Loxdon", "Hendon", "Oxthwaite", "Portspool", "Oakfold", "Lauras little World"
+            };
     }
 }
