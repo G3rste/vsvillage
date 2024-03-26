@@ -1,6 +1,9 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using HarmonyLib;
+using Vintagestory.API.Client;
 using Vintagestory.API.Common;
 using Vintagestory.API.Common.Entities;
 using Vintagestory.API.Datastructures;
@@ -13,7 +16,7 @@ namespace VsVillage
         public static void Patch(Harmony harmony)
         {
             harmony.Patch(methodInfo(),
-                prefix: new HarmonyMethod(typeof (BedPatch)
+                prefix: new HarmonyMethod(typeof(BedPatch)
                         .GetMethod("Prefix",
                         BindingFlags.Static | BindingFlags.Public)));
         }
@@ -27,7 +30,7 @@ namespace VsVillage
 
         public static MethodInfo methodInfo()
         {
-            return typeof (BlockEntityBed).GetMethod("DidMount",
+            return typeof(BlockEntityBed).GetMethod("DidMount",
                 BindingFlags.Instance | BindingFlags.Public);
         }
 

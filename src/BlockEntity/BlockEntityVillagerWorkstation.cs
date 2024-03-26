@@ -1,60 +1,80 @@
-using System.Runtime.CompilerServices;
+using System.Text;
 using Vintagestory.API.Common;
-using Vintagestory.API.Common.Entities;
+using Vintagestory.API.Config;
 using Vintagestory.API.Datastructures;
 using Vintagestory.API.MathTools;
-using Vintagestory.API.Server;
-using Vintagestory.GameContent;
 
 namespace VsVillage
 {
-    public class BlockEntityVillagerWorkstation : BlockEntity, IPointOfInterest
+    public class BlockEntityVillagerWorkstation : BlockEntity
     {
 
-        public long? ownerId { get; protected set; }
-        public Entity owner { get => ownerId == null ? null : Api.World.GetEntityById((long)ownerId); }
+        public string VillageId { get; set; }
+        public string VillageName { get; set; }
 
         public Vec3d Position => Pos.ToVec3d();
 
         public string Type => Block.Variant["profession"];
+        public override void OnBlockPlaced(ItemStack byItemStack = null)
+        {
+            base.OnBlockPlaced(byItemStack);
+            var village = Api.ModLoader.GetModSystem<VillageManager>()?.GetVillage(Pos);
+            village?.Workstations.Add(new() { OwnerId = -1, Pos = Pos, Profession = Type });
+            VillageId = village?.Id;
+            VillageName = village?.Name;
+            MarkDirty();
+        }
+
         public override void Initialize(ICoreAPI api)
         {
             base.Initialize(api);
-            if (api is ICoreServerAPI sapi)
+            if (string.IsNullOrEmpty(VillageId))
             {
-                sapi.ModLoader.GetModSystem<POIRegistry>().AddPOI(this);
+                var village = Api.ModLoader.GetModSystem<VillageManager>()?.GetVillage(Pos);
+                VillageId = village?.Id;
+                VillageName = village?.Name;
+                village?.Workstations.Add(new() { OwnerId = -1, Pos = Pos, Profession = Type });
             }
+            else
+            {
+                //load the village if not loaded
+                Api.ModLoader.GetModSystem<VillageManager>()?.GetVillage(VillageId);
+            }
+        }
+
+        public void RemoveVillage()
+        {
+            VillageId = null;
+            VillageName = null;
+            MarkDirty();
         }
 
         public override void OnBlockBroken(IPlayer byPlayer = null)
         {
             base.OnBlockBroken(byPlayer);
-            if (Api is ICoreServerAPI sapi) { sapi.ModLoader.GetModSystem<POIRegistry>().RemovePOI(this); }
+            Api.ModLoader.GetModSystem<VillageManager>()?.GetVillage(VillageId)?.Workstations.RemoveAll(workstation => workstation.Pos.Equals(Pos));
         }
 
         public override void FromTreeAttributes(ITreeAttribute tree, IWorldAccessor worldAccessForResolve)
         {
             base.FromTreeAttributes(tree, worldAccessForResolve);
-            if (tree.HasAttribute("ownerId")) { ownerId = tree.GetLong("ownerId"); }
+            VillageId = tree.GetString("villageId");
+            VillageName = tree.GetString("villageName");
         }
 
         public override void ToTreeAttributes(ITreeAttribute tree)
         {
             base.ToTreeAttributes(tree);
-            if (ownerId != null) { tree.SetLong("ownerId", (long)ownerId); }
+            tree.SetString("villageId", VillageId);
+            tree.SetString("villageName", VillageName);
         }
 
-        [MethodImpl(MethodImplOptions.Synchronized)]
-        public bool setOwnerIfFree(long newOwner)
+        public override void GetBlockInfo(IPlayer forPlayer, StringBuilder dsc)
         {
-            if (ownerId == null || ownerId == newOwner || Api.World.GetEntityById((long)ownerId)?.Alive != true)
+            base.GetBlockInfo(forPlayer, dsc);
+            if (!string.IsNullOrEmpty(VillageName))
             {
-                ownerId = newOwner;
-                return true;
-            }
-            else
-            {
-                return false;
+                dsc.AppendLine().Append(Lang.Get("vsvillage:resides-in", VillageName));
             }
         }
     }

@@ -87,7 +87,7 @@ namespace VsVillage
             if (source.Type != EnumDamageType.Heal && lastCallForHelp + 5000 < entity.World.ElapsedMilliseconds)
             {
                 lastCallForHelp = entity.World.ElapsedMilliseconds;
-                foreach (var villager in entity.World.GetEntitiesAround(entity.ServerPos.XYZ, 15, 4, entity => (entity as EntityVillager)?.profession == "soldier"))
+                foreach (var villager in entity.World.GetEntitiesAround(entity.ServerPos.XYZ, 15, 4, entity => (entity as EntityVillager)?.Profession == "soldier"))
                 {
                     var taskManager = villager.GetBehavior<EntityBehaviorTaskAI>().TaskManager;
                     taskManager.GetTask<AiTaskVillagerSeekEntity>()?.OnAllyAttacked(source.SourceEntity);

@@ -10,8 +10,6 @@ namespace VsVillage
     public class AiTaskVillagerGotoWork : AiTaskGotoAndInteract
     {
 
-        BlockEntityVillagerWorkstation workstation = null;
-
         float offset;
         DayTimeFrame[] duringDayTimeFrames;
 
@@ -42,20 +40,18 @@ namespace VsVillage
 
         protected override Vec3d GetTargetPos()
         {
-            var registry = (entity.Api as ICoreServerAPI)?.ModLoader.GetModSystem<POIRegistry>();
-            if (entity.Attributes.HasAttribute("workstation"))
+            var blockAccessor = entity.World.BlockAccessor;
+            var villager = entity as EntityVillager;
+            var village = villager?.Village;
+            var workstation = villager?.Workstation != null ? blockAccessor.GetBlockEntity<BlockEntityVillagerWorkstation>(villager.Workstation) : null;
+            if (workstation == null && villager != null)
             {
-                workstation = entity.World.BlockAccessor.GetBlockEntity(entity.Attributes.GetBlockPos("workstation")) as BlockEntityVillagerWorkstation;
-                if (workstation?.ownerId == entity.EntityId) { return getRandomPosNearby(workstation.Position); }
-            }
-            workstation = registry.GetNearestPoi(entity.ServerPos.XYZ, maxDistance, poi =>
-            {
-                var candidate = poi as BlockEntityVillagerWorkstation;
-                return candidate != null && candidate.Type == entity.Properties.Attributes["profession"].AsString() && (candidate.ownerId == null || candidate.owner == null || candidate.ownerId == entity.EntityId);
-            }) as BlockEntityVillagerWorkstation;
-            if (workstation?.setOwnerIfFree(entity.EntityId) == true)
-            {
-                entity.Attributes.SetBlockPos("workstation", workstation.Pos);
+                var workPos = village?.FindFreeWorkstation(entity.EntityId, villager.Profession);
+                if (workPos != null)
+                {
+                    villager.Workstation = workPos;
+                }
+                workstation = villager?.Workstation != null ? blockAccessor.GetBlockEntity<BlockEntityVillagerWorkstation>(villager.Workstation) : null;
             }
             return getRandomPosNearby(workstation?.Position);
         }

@@ -1,5 +1,9 @@
 {
     "code": "workstation",
+    "classByType": {
+        "workstation-mayor-*": "MayorWorkstation",
+        "*": "Block"
+    },
     "entityClass": "VillagerWorkstation",
     "behaviors": [
         {
