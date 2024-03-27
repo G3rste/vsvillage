@@ -17,11 +17,6 @@ namespace VsVillage
 
         private Harmony harmony = new Harmony("gerste.vsvillage");
 
-        public override double ExecuteOrder()
-        {
-            return 0.1;
-        }
-
         public override void Start(ICoreAPI api)
         {
             base.Start(api);
