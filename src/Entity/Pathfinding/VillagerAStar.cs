@@ -15,7 +15,7 @@ namespace VsVillage
         public List<string> traversableCodes { get; set; } = new List<string>() { "door", "gate", "ladder", "multiblock" };
 
         public List<string> climbableCodes { get; set; } = new List<string>() { "ladder" };
-        public List<string> steppableCodes { get; set; } = new List<string>() { "stair", "path", "bed-", "farmland" };
+        public List<string> steppableCodes { get; set; } = new List<string>() { "stair", "path", "bed-", "farmland", "slab" };
 
         public int NodesChecked;
 
