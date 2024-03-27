@@ -335,7 +335,7 @@ namespace VsVillage
         {
             if (!string.IsNullOrEmpty(VillageName))
             {
-                return base.GetInfoText() + "\n" + Lang.Get("vsvillage:lives-in", VillageName);
+                return base.GetInfoText() + "\n" + Lang.Get("vsvillage:lives-in", VillageName, Workstation != null ? ManagementGui.BlockPosToString(Workstation, Api) : Lang.Get("vsvillage:nowhere"), Bed != null ? ManagementGui.BlockPosToString(Bed, Api) : Lang.Get("vsvillage:nowhere"));
             }
             return base.GetInfoText();
         }

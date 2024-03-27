@@ -49,10 +49,10 @@ namespace VsVillage
         private void recompose(ICoreClientAPI capi, Village village, ElementBounds dialogBounds, ElementBounds bgBounds, int curTab = 0)
         {
             GuiTab[] tabs = new GuiTab[] {
-                new GuiTab() { Name = Lang.Get("vsvillage:tab-management-residents"), DataInt = 0 },
-                new GuiTab() { Name = Lang.Get("vsvillage:tab-management-structures"), DataInt = 1 },
-                new GuiTab() { Name = Lang.Get("vsvillage:tab-management-stats"), DataInt = 2 },
-                new GuiTab() { Name = Lang.Get("vsvillage:tab-management-destroy"), DataInt = 3 }
+                new GuiTab() { Name = Lang.Get("vsvillage:tab-management-residents"), DataInt = 0, Active = curTab == 0 },
+                new GuiTab() { Name = Lang.Get("vsvillage:tab-management-structures"), DataInt = 1, Active = curTab == 1 },
+                new GuiTab() { Name = Lang.Get("vsvillage:tab-management-stats"), DataInt = 2, Active = curTab == 2 },
+                new GuiTab() { Name = Lang.Get("vsvillage:tab-management-destroy"), DataInt = 3, Active = curTab == 3 }
             };
 
             SingleComposer = capi.Gui.CreateCompo("VillageManagementDialog-", dialogBounds)
@@ -69,8 +69,8 @@ namespace VsVillage
                     {
                         SingleComposer
                             .AddStaticText(Lang.Get("vsvillage:management-select-villager"), CairoFont.WhiteSmallishText(), ElementBounds.Fixed(0, 20, 200, 30))
-                            .AddDropDown(villagerIds, villagerNames, 0, (code, sel) => SingleComposer.GetDynamicText("villager-note").SetNewText(villagerNote(code, capi)), ElementBounds.Fixed(200, 20, 200, 30), "villagers")
-                            .AddButton(Lang.Get("vsvillage:management-remove-villager"), () => removeVillager(capi), ElementBounds.Fixed(420, 20, 200, 30))
+                            .AddDropDown(villagerIds, villagerNames, 0, (code, sel) => SingleComposer.GetDynamicText("villager-note").SetNewText(villagerNote(code, capi)), ElementBounds.Fixed(200, 20, 300, 30), "villagers")
+                            .AddButton(Lang.Get("vsvillage:management-remove-villager"), () => removeVillager(capi), ElementBounds.Fixed(520, 20, 200, 30))
                             .AddDynamicText(villagerNote(villagerIds[0], capi), CairoFont.WhiteSmallishText(), ElementBounds.Fixed(0, 60, 500, 150), "villager-note");
                     }
                     else
@@ -84,15 +84,15 @@ namespace VsVillage
                     structureIds.AddRange(village.Beds.ConvertAll(bed => bed.Pos.ToString()));
                     structureIds.AddRange(village.Gatherplaces.ConvertAll(gatherplace => gatherplace.ToString()));
 
-                    var structureNames = village.Workstations.ConvertAll(workstation => string.Format("{0}, {1}", Lang.Get(workstation.Profession), workstation.Pos.ToString()));
-                    structureNames.AddRange(village.Beds.ConvertAll(bed => string.Format("{0}, {1}", Lang.Get("bed"), bed.Pos.ToString())));
-                    structureNames.AddRange(village.Gatherplaces.ConvertAll(gatherplace => string.Format("{0}, {1}", Lang.Get("gatherplace"), gatherplace.ToString())));
+                    var structureNames = village.Workstations.ConvertAll(workstation => string.Format("{0}, {1}", Lang.Get(workstation.Profession), BlockPosToString(workstation.Pos, capi)));
+                    structureNames.AddRange(village.Beds.ConvertAll(bed => string.Format("{0}, {1}", Lang.Get("bed"), BlockPosToString(bed.Pos, capi))));
+                    structureNames.AddRange(village.Gatherplaces.ConvertAll(gatherplace => string.Format("{0}, {1}", Lang.Get("gatherplace"), BlockPosToString(gatherplace, capi))));
                     if (structureIds.Count > 0)
                     {
                         SingleComposer
                             .AddStaticText(Lang.Get("vsvillage:management-select-structure"), CairoFont.WhiteSmallishText(), ElementBounds.Fixed(0, 20, 200, 30))
-                            .AddDropDown(structureIds.ToArray(), structureNames.ToArray(), 0, (code, sel) => SingleComposer.GetDynamicText("structure-note").SetNewText(structureNote(village, code, capi)), ElementBounds.Fixed(200, 20, 200, 30), "structures")
-                            .AddButton(Lang.Get("vsvillage:management-remove-structure"), () => removeStructure(capi), ElementBounds.Fixed(420, 20, 200, 30))
+                            .AddDropDown(structureIds.ToArray(), structureNames.ToArray(), 0, (code, sel) => SingleComposer.GetDynamicText("structure-note").SetNewText(structureNote(village, code, capi)), ElementBounds.Fixed(200, 20, 300, 30), "structures")
+                            .AddButton(Lang.Get("vsvillage:management-remove-structure"), () => removeStructure(capi), ElementBounds.Fixed(520, 20, 200, 30))
                             .AddDynamicText(structureNote(village, structureIds[0], capi), CairoFont.WhiteSmallishText(), ElementBounds.Fixed(0, 60, 500, 150), "structure-note");
                     }
                     else
@@ -128,9 +128,9 @@ namespace VsVillage
                 return Lang.Get("vsvillage:management-villager-note",
                     villager.GetBehavior<EntityBehaviorNameTag>().DisplayName,
                     Lang.Get(villager.Profession),
-                    blockPosToString(villager.Pos.AsBlockPos, capi),
-                    blockPosToString(villager.Workstation, capi),
-                    blockPosToString(villager.Bed, capi));
+                    BlockPosToString(villager.Pos.AsBlockPos, capi),
+                    BlockPosToString(villager.Workstation, capi),
+                    BlockPosToString(villager.Bed, capi));
             }
             return Lang.Get("vsvillage:missing-in-action");
         }
@@ -143,7 +143,7 @@ namespace VsVillage
                 return Lang.Get("vsvillage:management-structure-note",
                     Lang.Get("vsvillage:" + workstation.Profession),
                     capi.World.GetEntityById(workstation.OwnerId)?.GetBehavior<EntityBehaviorNameTag>().DisplayName ?? Lang.Get("nobody"),
-                    blockPosToString(workstation.Pos, capi));
+                    BlockPosToString(workstation.Pos, capi));
             }
             var bed = village.Beds.Find(candidate => candidate.Pos.ToString().Equals(code));
             if (bed != null)
@@ -151,7 +151,7 @@ namespace VsVillage
                 return Lang.Get("vsvillage:management-structure-note",
                     Lang.Get("vsvillage:bed"),
                     capi.World.GetEntityById(bed.OwnerId)?.GetBehavior<EntityBehaviorNameTag>().DisplayName ?? Lang.Get("nobody"),
-                    blockPosToString(bed.Pos, capi));
+                    BlockPosToString(bed.Pos, capi));
             }
             var gatherplace = village.Gatherplaces.Find(candidate => candidate.ToString().Equals(code));
             if (gatherplace != null)
@@ -159,7 +159,7 @@ namespace VsVillage
                 return Lang.Get("vsvillage:management-structure-note",
                     Lang.Get("vsvillage:gatherplace"),
                     Lang.Get("vsvillage:everybody"),
-                    blockPosToString(gatherplace, capi));
+                    BlockPosToString(gatherplace, capi));
             }
             return null;
         }
@@ -191,7 +191,7 @@ namespace VsVillage
         private bool removeStructure(ICoreClientAPI capi)
         {
             managementMessage.Operation = EnumVillageManagementOperation.removeStructure;
-            managementMessage.StructureToRemove = blockPosFromString(SingleComposer.GetDropDown("structures").SelectedValue);
+            managementMessage.StructureToRemove = BlockPosFromString(SingleComposer.GetDropDown("structures").SelectedValue);
             capi.Network.GetChannel("villagemanagementnetwork").SendPacket(managementMessage);
             TryClose();
             return true;
@@ -206,13 +206,13 @@ namespace VsVillage
             return true;
         }
 
-        private string blockPosToString(BlockPos pos, ICoreClientAPI capi)
+        public static string BlockPosToString(BlockPos pos, ICoreAPI api)
         {
             return pos != null
-                ? string.Format("X={0}, Y={1}, Z={2}", pos.X - capi.World.BlockAccessor.MapSizeX / 2, pos.Y, pos.Z - capi.World.BlockAccessor.MapSizeZ / 2)
+                ? string.Format("X={0}, Y={1}, Z={2}", pos.X - api.World.BlockAccessor.MapSizeX / 2, pos.Y, pos.Z - api.World.BlockAccessor.MapSizeZ / 2)
                 : Lang.Get("not-found");
         }
-        private BlockPos blockPosFromString(string pos)
+        public static BlockPos BlockPosFromString(string pos)
         {
             var vector = new List<Match>(Regex.Matches(pos, "\\d+")).ConvertAll(match => int.Parse(match.Value));
             return new BlockPos(vector[0], vector[1], vector[2], vector.Count > 3 ? vector[3] : 0);

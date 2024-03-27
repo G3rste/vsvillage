@@ -85,7 +85,7 @@ namespace VsVillage
             base.GetBlockInfo(forPlayer, dsc);
             if (!string.IsNullOrEmpty(VillageName))
             {
-                dsc.AppendLine().Append(Lang.Get("vsvillage:resides-in", VillageName));
+                dsc.AppendLine().Append(Lang.Get("vsvillage:resides-in", VillageName)).AppendLine();
             }
         }
     }
