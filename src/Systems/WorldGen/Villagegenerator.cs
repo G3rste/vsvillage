@@ -12,8 +12,9 @@ namespace VsVillage
 
         public override double ExecuteOrder() => 0.45;
 
-        public List<WorldGenVillageStructure> structures;
-        public List<VillageType> villages;
+        public List<WorldGenVillageStructure> Structures;
+        public Dictionary<string, List<string>> VillageNames;
+        public List<VillageType> Villages;
         public VillageConfig Config;
         private ICoreServerAPI sapi;
 
@@ -56,12 +57,12 @@ namespace VsVillage
             VillageType villageType;
             if (args.ArgCount < 1)
             {
-                villageType = villages[sapi.World.Rand.Next(0, villages.Count)];
+                villageType = Villages[sapi.World.Rand.Next(0, Villages.Count)];
             }
             else
             {
                 string villageName = (string)args[0];
-                villageType = villages.Find(match => match.Code == villageName);
+                villageType = Villages.Find(match => match.Code == villageName);
                 if (villageType == null)
                 {
                     return TextCommandResult.Error(string.Format("Could not find village with name {0}.", villageName));
@@ -82,7 +83,7 @@ namespace VsVillage
                 Village village = new()
                 {
                     Pos = grid.getMiddle(start),
-                    Name = Config.VillageNames[rand.NextInt(Config.VillageNames.Length)],
+                    Name = VillageNames[villageType.Names][rand.NextInt(villageType.Names.Length)],
                     Api = sapi,
                     Gatherplaces = new(),
                     Workstations = new(),
@@ -101,13 +102,14 @@ namespace VsVillage
         {
             LoadGlobalConfig(sapi);
 
-            structures = sapi.Assets.Get<List<WorldGenVillageStructure>>(new AssetLocation("vsvillage", "config/villagestructures.json"));
-            villages = sapi.Assets.Get<List<VillageType>>(new AssetLocation("vsvillage", "config/villagetypes.json"));
-            foreach (var structure in structures)
+            Structures = sapi.Assets.Get<List<WorldGenVillageStructure>>(new AssetLocation("vsvillage", "config/villagestructures.json"));
+            Villages = sapi.Assets.Get<List<VillageType>>(new AssetLocation("vsvillage", "config/villagetypes.json"));
+            VillageNames = sapi.Assets.Get<Dictionary<string, List<string>>>(new AssetLocation("vsvillage", "config/villagenames.json"));
+            foreach (var structure in Structures)
             {
                 sapi.Logger.Event("Loading structure {0}", structure.Code);
                 structure.Init(sapi);
-                foreach (var village in villages)
+                foreach (var village in Villages)
                 {
                     foreach (var group in village.StructureGroups)
                     {
@@ -118,7 +120,7 @@ namespace VsVillage
                     }
                 }
             }
-            foreach (var village in villages)
+            foreach (var village in Villages)
             {
                 village.StructureGroups.Sort((a, b) => ((int)b.Size).CompareTo((int)a.Size));
             }
@@ -129,7 +131,7 @@ namespace VsVillage
             cmdApi
                 .Create("genvillage")
                 .WithDescription("Generate a village right where you are standing right now.")
-                .WithArgs(parsers.OptionalWordRange("villagetype", villages.ConvertAll<string>(type => type.Code).ToArray()), parsers.OptionalWord("probeTerrain"))
+                .WithArgs(parsers.OptionalWordRange("villagetype", Villages.ConvertAll<string>(type => type.Code).ToArray()), parsers.OptionalWord("probeTerrain"))
                 .RequiresPrivilege(Privilege.root)
                 .WithExamples("genvillage tiny probeTerrain", "genvillage aged-village1")
                 .HandleWith(onCmdDebugVillage);
@@ -177,7 +179,7 @@ namespace VsVillage
             if (rand.NextFloat() > Config.VillageChance) { return; }
             if (region.GeneratedStructures.Find(structure => structure.Group == "village") != null) { return; }
 
-            var villageType = villages[rand.NextInt(villages.Count)];
+            var villageType = Villages[rand.NextInt(Villages.Count)];
             // we mock the grid here and do the expensive generation later
             var grid = new VillageGrid(villageType.Length, villageType.Height);
             var start = new BlockPos(chunksize * request.ChunkX, 0, chunksize * request.ChunkZ, 0);
@@ -198,7 +200,7 @@ namespace VsVillage
                 Village village = new()
                 {
                     Pos = grid.getMiddle(start),
-                    Name = Config.VillageNames[rand.NextInt(Config.VillageNames.Length)],
+                    Name = VillageNames[villageType.Names][rand.NextInt(villageType.Names.Length)],
                     Api = sapi,
                     Gatherplaces = new(),
                     Workstations = new(),
@@ -216,18 +218,5 @@ namespace VsVillage
     public class VillageConfig
     {
         public float VillageChance = 0.05f;
-        public string[] VillageNames = new string[]{
-            "Woolhampton", "Loxleigh", "Blackington", "Henwike", "Northfold", "Heath",
-            "Hartford", "Eastholm", "Keldworth", "Westlea", "Barmarsh", "Lake", "Keldbury",
-            "Southpool", "Newburgh", "Otterchester", "Overmoor", "Lower", "Thorndon",
-            "Oakbury", "Heath", "Redhey", "Market", "Kirhurst", "Hazelham", "Hindburn",
-            "Loxdon", "Northhurst", "Little", "Keldfield", "Little", "Loxdale", "Redwick",
-            "Woolwell", "Green", "Newwick", "Little", "Blackwick", "Thornhalgh", "Little",
-            "Oulhall", "Northdale", "Loxbury", "Foxden", "Oakmoor", "Kinhalgh", "Oakhurst",
-            "Lake", "Great", "Guildholm", "Lower", "Northden", "Great", "Hopmere", "Kinburn",
-            "Oulholm", "Marsburn", "Middleley", "Oakcaster", "Lake", "Harthey", "Whitemouth",
-            "Overwick", "Kinwood", "Oakport", "Heath", "Hartmere", "Northbury", "Guildhey", "Ashhall",
-            "Redport", "Little", "Loxdon", "Hendon", "Oxthwaite", "Portspool", "Oakfold", "Lauras little World"
-            };
     }
 }

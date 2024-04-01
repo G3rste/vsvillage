@@ -8,7 +8,7 @@ namespace VsVillage
 {
     public class VillageGrid
     {
-        public const int pathWidth = 3;
+        public const int pathWidth = 2;
         public const int squareSize = 7;
 
         public EnumgGridSlot[,] grid;

@@ -1,6 +1,7 @@
 [
     {
         "Code": "tiny",
+        "Names": "english",
         "Height": 1,
         "Length": 1,
         "StructureGroups": [
@@ -50,6 +51,7 @@
     },
     {
         "Code": "small",
+        "Names": "english",
         "Height": 1,
         "Length": 2,
         "StructureGroups": [
@@ -117,6 +119,7 @@
     },
     {
         "Code": "small-herbalist",
+        "Names": "english",
         "Height": 1,
         "Length": 2,
         "StructureGroups": [
@@ -160,6 +163,7 @@
     },
     {
         "Code": "medium",
+        "Names": "english",
         "Height": 2,
         "Length": 2,
         "StructureGroups": [
@@ -233,6 +237,7 @@
     },
     {
         "Code": "aged-village1",
+        "Names": "english",
         "Height": 3,
         "Length": 3,
         "StructureGroups": [
