@@ -284,10 +284,15 @@ namespace VsVillage
 
         private bool toggleDoor(BlockPos pos, bool shouldBeOpen)
         {
-            var door = BlockBehaviorDoor.getDoorAt(entity.World, pos);
-            if (door != null && door.Opened == shouldBeOpen)
+            var doorBehavior = BlockBehaviorDoor.getDoorAt(entity.World, pos);
+            if (doorBehavior != null && doorBehavior.Opened == shouldBeOpen)
             {
-                door.ToggleDoorState(null, !shouldBeOpen);
+                doorBehavior.ToggleDoorState(null, !shouldBeOpen);
+                return true;
+            }
+            if (entity.World.BlockAccessor.GetBlock(pos) is BlockBaseDoor doorBlock && doorBlock.IsOpened() == shouldBeOpen)
+            {
+                doorBlock.OnBlockInteractStart(entity.World, null, new BlockSelection(pos, BlockFacing.UP, doorBlock));
                 return true;
             }
             return false;
