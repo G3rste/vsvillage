@@ -104,14 +104,12 @@ namespace VsVillage
             LoadGlobalConfig(sapi);
             foreach (var mod in sapi.ModLoader.Mods)
             {
-                Structures.AddRange(sapi.Assets.TryGet(new AssetLocation(mod.Info.ModID, "config/villagestructures.json"))?.ToObject<List<WorldGenVillageStructure>>() ?? new());
+                Structures.AddRange(sapi.Assets.TryGet(new AssetLocation(mod.Info.ModID, "config/villagestructures.json"))?.ToObject<List<WorldGenVillageStructure>>().ConvertAll(structure => structure.Init(sapi, mod.Info.ModID)) ?? new());
                 Villages.AddRange(sapi.Assets.TryGet(new AssetLocation(mod.Info.ModID, "config/villagetypes.json"))?.ToObject<List<VillageType>>() ?? new());
                 VillageNames.AddRange(sapi.Assets.TryGet(new AssetLocation(mod.Info.ModID, "config/villagenames.json"))?.ToObject<Dictionary<string, List<string>>>() ?? new());
             }
             foreach (var structure in Structures)
             {
-                sapi.Logger.Event("Loading structure {0}", structure.Code);
-                structure.Init(sapi);
                 foreach (var village in Villages)
                 {
                     foreach (var group in village.StructureGroups)
