@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Vintagestory.API.Common;
 using Vintagestory.API.MathTools;
 using Vintagestory.API.Server;
+using Vintagestory.API.Util;
 using Vintagestory.ServerMods;
 
 namespace VsVillage
@@ -12,9 +13,9 @@ namespace VsVillage
 
         public override double ExecuteOrder() => 0.45;
 
-        public List<WorldGenVillageStructure> Structures;
-        public Dictionary<string, List<string>> VillageNames;
-        public List<VillageType> Villages;
+        public List<WorldGenVillageStructure> Structures = new();
+        public Dictionary<string, List<string>> VillageNames = new();
+        public List<VillageType> Villages = new();
         public VillageConfig Config;
         private ICoreServerAPI sapi;
 
@@ -101,10 +102,12 @@ namespace VsVillage
         private void initWorldGen()
         {
             LoadGlobalConfig(sapi);
-
-            Structures = sapi.Assets.Get<List<WorldGenVillageStructure>>(new AssetLocation("vsvillage", "config/villagestructures.json"));
-            Villages = sapi.Assets.Get<List<VillageType>>(new AssetLocation("vsvillage", "config/villagetypes.json"));
-            VillageNames = sapi.Assets.Get<Dictionary<string, List<string>>>(new AssetLocation("vsvillage", "config/villagenames.json"));
+            foreach (var mod in sapi.ModLoader.Mods)
+            {
+                Structures.AddRange(sapi.Assets.TryGet(new AssetLocation(mod.Info.ModID, "config/villagestructures.json"))?.ToObject<List<WorldGenVillageStructure>>() ?? new());
+                Villages.AddRange(sapi.Assets.TryGet(new AssetLocation(mod.Info.ModID, "config/villagetypes.json"))?.ToObject<List<VillageType>>() ?? new());
+                VillageNames.AddRange(sapi.Assets.TryGet(new AssetLocation(mod.Info.ModID, "config/villagenames.json"))?.ToObject<Dictionary<string, List<string>>>() ?? new());
+            }
             foreach (var structure in Structures)
             {
                 sapi.Logger.Event("Loading structure {0}", structure.Code);
