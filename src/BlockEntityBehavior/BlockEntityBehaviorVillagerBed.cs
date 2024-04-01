@@ -50,15 +50,6 @@ namespace VsVillage
             VillageId = null;
             VillageName = null;
         }
-        public override void OnBlockPlaced(ItemStack byItemStack = null)
-        {
-            base.OnBlockPlaced(byItemStack);
-            var village = Api.ModLoader.GetModSystem<VillageManager>()?.GetVillage(Pos);
-            village?.Beds.Add(new() { OwnerId = -1, Pos = Pos });
-            VillageId = village?.Id;
-            VillageName = village?.Name;
-            Blockentity.MarkDirty();
-        }
 
         public override void OnBlockBroken(IPlayer byPlayer = null)
         {

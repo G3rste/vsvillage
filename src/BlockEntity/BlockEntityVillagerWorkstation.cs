@@ -15,15 +15,6 @@ namespace VsVillage
         public Vec3d Position => Pos.ToVec3d();
 
         public string Type => Block.Variant["profession"];
-        public override void OnBlockPlaced(ItemStack byItemStack = null)
-        {
-            base.OnBlockPlaced(byItemStack);
-            var village = Api.ModLoader.GetModSystem<VillageManager>()?.GetVillage(Pos);
-            village?.Workstations.Add(new() { OwnerId = -1, Pos = Pos, Profession = Type });
-            VillageId = village?.Id;
-            VillageName = village?.Name;
-            MarkDirty();
-        }
 
         public override void Initialize(ICoreAPI api)
         {

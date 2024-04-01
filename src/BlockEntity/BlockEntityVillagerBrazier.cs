@@ -14,16 +14,6 @@ namespace VsVillage
 
         public Vec3d Position => Pos.ToVec3d();
 
-        public override void OnBlockPlaced(ItemStack byItemStack = null)
-        {
-            base.OnBlockPlaced(byItemStack);
-            var village = Api.ModLoader.GetModSystem<VillageManager>()?.GetVillage(Pos);
-            village?.Gatherplaces.Add(Pos);
-            VillageId = village?.Id;
-            VillageName = village?.Name;
-            MarkDirty();
-        }
-
         public override void Initialize(ICoreAPI api)
         {
             base.Initialize(api);

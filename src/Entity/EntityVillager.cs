@@ -9,7 +9,6 @@ using Vintagestory.API.Util;
 using Vintagestory.API.Client;
 using Vintagestory.API.Server;
 using Vintagestory.API.MathTools;
-using System.Linq;
 using Vintagestory.API.Config;
 
 namespace VsVillage
