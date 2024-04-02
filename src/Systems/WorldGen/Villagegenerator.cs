@@ -73,7 +73,7 @@ namespace VsVillage
             var grid = new VillageGrid(villageType.Length, villageType.Height);
             grid.Init(villageType, rand);
             var start = args.Caller.Player.Entity.ServerPos.XYZInt.ToBlockPos();
-            if (args.ArgCount > 1 && (string)args[1] == "probeTerrain" && !probeTerrain(start, grid, sapi.World.BlockAccessor))
+            if (args.ArgCount > 1 && (string)args[1] == "probeTerrain" && !probeTerrain(start, grid, sapi.World.BlockAccessor, villageType))
             {
                 return TextCommandResult.Error("Terrain is too steep/ damp for generating a village");
             }
@@ -138,13 +138,19 @@ namespace VsVillage
                 .HandleWith(onCmdDebugVillage);
         }
 
-        private bool probeTerrain(BlockPos start, VillageGrid grid, IBlockAccessor blockAccessor)
+        private bool probeTerrain(BlockPos start, VillageGrid grid, IBlockAccessor blockAccessor, VillageType type)
         {
             int max;
             int min;
             int current;
-            int tolerance = (grid.width * grid.height) * 4;
+            int tolerance = grid.width * grid.height * 4;
             int waterspots = 0;
+            ClimateCondition climate = blockAccessor.GetClimateAt(start);
+            if (climate.Temperature > type.MaxTemp || climate.Temperature < type.MinTemp
+                || climate.Rainfall > type.MaxRain || climate.Rainfall < type.MinRain)
+            {
+                return false;
+            }
             for (int x = 0; x < grid.width - 1; x++)
             {
                 for (int z = 0; z < grid.height - 1; z++)
@@ -166,7 +172,7 @@ namespace VsVillage
                             }
                         }
                     }
-                    tolerance -= (max - min);
+                    tolerance -= max - min;
                 }
             }
             return tolerance > 0 && waterspots < grid.width * grid.height / 2;
@@ -193,7 +199,7 @@ namespace VsVillage
                 || worldgenBlockAccessor.GetChunk(end.X / chunksize, 0, end.Z / chunksize) == null) { return; }
 
             worldgenBlockAccessor.BeginColumn();
-            if (probeTerrain(start, grid, worldgenBlockAccessor))
+            if (probeTerrain(start, grid, worldgenBlockAccessor, villageType))
             {
                 grid.Init(villageType, rand);
                 region.GeneratedStructures.Add(new GeneratedStructure() { Code = grid.VillageType.Code, Group = "village", Location = new Cuboidi(start, end) });
