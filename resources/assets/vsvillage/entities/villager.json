@@ -3,7 +3,7 @@
 	"class": "EntityVillager",
 	"canClimb": true,
 	"eyeHeight": 1.4,
-	"hitboxSize": { "x": 0.6, "y": 1.75 },
+	"hitboxSize": { "x": 0.5, "y": 1.75 },
 	"deadHitboxSize": { "x": 0.75, "y": 0.5 },
 	"attributesByType": {
 		"*-soldier": {

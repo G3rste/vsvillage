@@ -3,7 +3,7 @@
     "class": "EntityTrader",
     "canClimb": true,
     "hitboxSize": {
-        "x": 0.6,
+        "x": 0.5,
         "y": 1.75
     },
     "deadHitboxSize": {
