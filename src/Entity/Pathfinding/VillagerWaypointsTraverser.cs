@@ -20,7 +20,7 @@ namespace VsVillage
         long lastWaypointIncTotalMs;
 
 
-        VillagerAStar villagerAstar;
+        VillagerPathfind villagerAstar;
 
         public override Vec3d CurrentTarget
         {
@@ -43,7 +43,7 @@ namespace VsVillage
                 maxTurnAnglePerSec = 450;
             }
 
-            villagerAstar = new VillagerAStar(entity.Api as ICoreServerAPI);
+            villagerAstar = new VillagerPathfind(entity.Api as ICoreServerAPI, (entity as EntityVillager)?.Village);
         }
         public override bool NavigateTo(Vec3d target, float movingSpeed, float targetDistance, Action OnGoalReached, Action OnStuck, bool giveUpWhenNoPath = false, int searchDepth = 999, int mhdistanceTolerance = 0)
         {
@@ -56,7 +56,7 @@ namespace VsVillage
 
             if (!entity.World.BlockAccessor.IsNotTraversable(startBlockPos))
             {
-                waypoints = villagerAstar.FindPathAsWaypoints(startBlockPos, target.AsBlockPos, canFallDamage ? 8 : 4, stepHeight, entity.CollisionBox, searchDepth);
+                waypoints = villagerAstar.FindPathAsWaypoints(startBlockPos, target.AsBlockPos, canFallDamage ? 8 : 4, stepHeight);
             }
 
             bool nopath = false;

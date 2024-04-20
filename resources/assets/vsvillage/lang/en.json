@@ -58,6 +58,7 @@
     "gatherplace": "gatherplace",
 
     "block-brazier-*": "Brazier",
+    "block-waypoint": "Waypoint",
 
     "command-stay": "Stay here!",
     "command-follow": "Follow me!",

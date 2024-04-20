@@ -36,11 +36,40 @@ namespace VsVillage
             var parsers = cmdApi.Parsers;
             cmdApi
                 .Create("villagerpath")
+                .WithAlias("vp")
                 .WithDescription("A* path finding debug testing for villagers")
                 .WithArgs(parsers.WordRange("stage", "start", "end"))
                 .RequiresPrivilege(Privilege.root)
                 .WithExamples("villagerpath start", "villagerpath end")
                 .HandleWith(onCmdAStar);
+            cmdApi
+                .Create("highlightvillagewaypoints")
+                .WithAlias("hvw")
+                .WithDescription("Highlight all paths between waypoints in your village")
+                .RequiresPrivilege(Privilege.root)
+                .WithExamples("highlightvillagewaypoints", "hvw")
+                .HandleWith(onCmdHighlightWaypoints);
+        }
+
+        private TextCommandResult onCmdHighlightWaypoints(TextCommandCallingArgs args)
+        {
+            var waypointAStar = new WaypointAStar(sapi);
+            var player = args.Caller.Player;
+            BlockPos plrPos = player.Entity.ServerPos.XYZ.AsBlockPos;
+            HashSet<BlockPos> allPaths = new();
+            var village = sapi.ModLoader.GetModSystem<VillageManager>().GetVillage(plrPos);
+            if (village == null) return TextCommandResult.Error("No village found");
+            foreach (var waypoint in village.Waypoints)
+            {
+                foreach (var neighbour in waypoint.Neighbours.Keys)
+                {
+                    var path = waypointAStar.FindPath(waypoint.Pos, neighbour.Pos, 5, 1);
+                    if (path != null) path.ForEach(x => allPaths.Add(x));
+                }
+            }
+
+            sapi.World.HighlightBlocks(player, 3, new List<BlockPos>(allPaths), new List<int>() { ColorUtil.ColorFromRgba(128, 0, 0, 100) }, EnumHighlightBlocksMode.Absolute, EnumHighlightShape.Arbitrary);
+            return TextCommandResult.Success("MORE PATHS!!!");
         }
 
         private TextCommandResult onCmdAStar(TextCommandCallingArgs args)
@@ -49,7 +78,8 @@ namespace VsVillage
             var player = args.Caller.Player;
 
             BlockPos plrPos = player.Entity.ServerPos.XYZ.AsBlockPos;
-            VillagerAStar villagerAStar = new VillagerAStar(sapi);
+            VillagerPathfind villagerAStar = new VillagerPathfind(sapi, sapi.ModLoader.GetModSystem<VillageManager>().GetVillage(plrPos));
+
 
             Cuboidf narrow = new Cuboidf(-0.4f, 0, -0.4f, 0.4f, 1.5f, 0.4f);
             Cuboidf narrower = new Cuboidf(-0.2f, 0, -0.2f, 0.2f, 1.5f, 0.2f);
@@ -77,8 +107,7 @@ namespace VsVillage
                     sw.Start();
 
                     for (int i = 0; i < 15; i++)
-                    {
-                        List<PathNode> nodes = villagerAStar.FindPath(start, end, maxFallHeight, stepHeight, collbox);
+                    {                        List<PathNode> nodes = villagerAStar.FindPath(start, end, maxFallHeight, stepHeight);
                     }
 
                     sw.Stop();
@@ -116,7 +145,8 @@ namespace VsVillage
                 Stopwatch sw = new Stopwatch();
                 sw.Start();
 
-                List<PathNode> nodes = villagerAStar.FindPath(start, end, maxFallHeight, stepHeight, collbox);
+                List<PathNode> nodes = villagerAStar.FindPath(start, end, maxFallHeight, stepHeight);
+
                 sw.Stop();
                 int timeMs = (int)sw.ElapsedMilliseconds;
 

@@ -19,8 +19,8 @@ namespace VsVillage
 
         public int NodesChecked;
 
-        public double centerOffsetX = 0.5;
-        public double centerOffsetZ = 0.5;
+        public const double centerOffsetX = 0.5;
+        public const double centerOffsetZ = 0.5;
 
         public VillagerAStar(ICoreServerAPI api)
         {
@@ -31,13 +31,7 @@ namespace VsVillage
         public PathNodeSet openSet = new PathNodeSet();
         public HashSet<PathNode> closedSet = new HashSet<PathNode>();
 
-        public List<Vec3d> FindPathAsWaypoints(BlockPos start, BlockPos end, int maxFallHeight, float stepHeight, Cuboidf entityCollBox, int searchDepth = 9999, bool allowReachAlmost = false)
-        {
-            List<PathNode> nodes = FindPath(start, end, maxFallHeight, stepHeight, entityCollBox, searchDepth, allowReachAlmost);
-            return nodes == null ? null : ToWaypoints(nodes);
-        }
-
-        public List<PathNode> FindPath(BlockPos start, BlockPos end, int maxFallHeight, float stepHeight, Cuboidf entityCollBox, int searchDepth = 9999, bool allowReachAlmost = false)
+        public List<PathNode> FindPath(BlockPos start, BlockPos end, int maxFallHeight, float stepHeight, int searchDepth = 999, bool allowReachAlmost = false)
         {
             blockAccess.Begin();
 
@@ -207,19 +201,5 @@ namespace VsVillage
 
             return path;
         }
-
-
-
-        public List<Vec3d> ToWaypoints(List<PathNode> path)
-        {
-            List<Vec3d> waypoints = new List<Vec3d>(path.Count + 1);
-            for (int i = 1; i < path.Count; i++)
-            {
-                waypoints.Add(path[i].ToWaypoint().Add(centerOffsetX, 0, centerOffsetZ));
-            }
-
-            return waypoints;
-        }
-
     }
 }

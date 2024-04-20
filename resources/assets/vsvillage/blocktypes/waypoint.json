@@ -1,0 +1,31 @@
+{
+    "code": "waypoint",
+    "entityClass": "VillagerWaypoint",
+    "shape": {
+        "base": "game:block/clutter/fence/wood/empty"
+    },
+    "sidesolid": {
+        "all": false
+    },
+    "sideopaque": {
+        "all": false
+    },
+    "creativeinventory": {
+        "general": [
+            "*"
+        ]
+    },
+    "lightAbsorption": 1,
+    "maxStackSize": 1,
+    "collisionBoxes": [],
+    "selectionBoxes": [
+        {
+            "x1": 0.25,
+            "y1": 0,
+            "z1": 0.25,
+            "x2": 0.75,
+            "y2": 1.0625,
+            "z2": 0.75
+        }
+    ]
+}

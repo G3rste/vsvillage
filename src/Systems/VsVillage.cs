@@ -33,6 +33,7 @@ namespace VsVillage
             api.RegisterBlockEntityBehaviorClass("VillagerBed", typeof(BlockEntityBehaviorVillagerBed));
 
             api.RegisterBlockEntityClass("VillagerWorkstation", typeof(BlockEntityVillagerWorkstation));
+            api.RegisterBlockEntityClass("VillagerWaypoint", typeof(BlockEntityVillagerWaypoint));
             api.RegisterBlockEntityClass("VillagerBrazier", typeof(BlockEntityVillagerBrazier));
 
             api.RegisterBlockClass("MayorWorkstation", typeof(BlockMayorWorkstation));

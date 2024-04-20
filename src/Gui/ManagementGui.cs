@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Xml;
 using Vintagestory.API.Client;
@@ -20,9 +21,9 @@ namespace VsVillage
             ElementBounds bgBounds = ElementBounds.Fill.WithFixedPadding(GuiStyle.ElementToDialogPadding);
             bgBounds.BothSizing = ElementSizing.FitToChildren;
 
-            if (village == null)
+            if (village == null || village.Pos == null)
             {
-                managementMessage.Pos = pos;
+                managementMessage.Pos = pos ?? capi.World.BlockAccessor.GetChunkAtBlockPos(capi.World.Player.Entity.Pos.AsBlockPos).BlockEntities.Where(entry => entry.Value.Block is BlockMayorWorkstation).First().Value.Pos;
                 SingleComposer = capi.Gui.CreateCompo("VillageManagementDialog-", dialogBounds)
                     .AddShadedDialogBG(bgBounds)
                     .AddDialogTitleBar(Lang.Get("vsvillage:management-title"), () => TryClose())
