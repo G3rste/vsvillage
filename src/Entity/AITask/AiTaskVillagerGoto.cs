@@ -30,7 +30,7 @@ namespace VsVillage
             {
                 moveSpeed = taskConfig["movespeed"].AsFloat(0.03f);
             }
-            villagerPathTraverser = entity.GetBehavior<EntityBehaviorAlternatePathtraverser>().villagerWaypointsTraverser;
+            villagerPathTraverser = entity.GetBehavior<EntityBehaviorVillager>().villagerWaypointsTraverser;
         }
 
         private double moveDownToFloor(int x, double y, int z)

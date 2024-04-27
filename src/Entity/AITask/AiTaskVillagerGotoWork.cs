@@ -41,7 +41,7 @@ namespace VsVillage
         protected override Vec3d GetTargetPos()
         {
             var blockAccessor = entity.World.BlockAccessor;
-            var villager = entity as EntityVillager;
+            var villager = entity.GetBehavior<EntityBehaviorVillager>();
             var village = villager?.Village;
             var workstation = villager?.Workstation != null ? blockAccessor.GetBlockEntity<BlockEntityVillagerWorkstation>(villager.Workstation) : null;
             if (workstation == null && villager != null)

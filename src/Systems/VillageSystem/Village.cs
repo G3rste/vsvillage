@@ -27,7 +27,7 @@ namespace VsVillage
         public List<VillageWaypoint> Waypoints = new();
 
         public ICoreAPI Api;
-        public List<EntityVillager> Villagers => VillagerSaveData.ConvertAll(data => Api.World.GetEntityById(data.Id) as EntityVillager);
+        public List<EntityBehaviorVillager> Villagers => VillagerSaveData.ConvertAll(data => Api.World.GetEntityById(data.Id)?.GetBehavior<EntityBehaviorVillager>());
 
         public void Init(ICoreAPI api)
         {

@@ -157,7 +157,7 @@ namespace VsVillage
                     village = GetVillage(message.Id);
 
                     var villagerIds = village.VillagerSaveData.FindAll(candidate => candidate.Id == message.VillagerToRemove);
-                    villagerIds.ConvertAll<EntityVillager>(candidate => Api.World.GetEntityById(candidate.Id) as EntityVillager).ForEach(villager => villager.RemoveVillage());
+                    villagerIds.ConvertAll<EntityBehaviorVillager>(candidate => Api.World.GetEntityById(candidate.Id)?.GetBehavior<EntityBehaviorVillager>()).ForEach(villager => villager?.RemoveVillage());
                     village.VillagerSaveData.RemoveAll(candidate => villagerIds.Contains(candidate));
                     break;
             }

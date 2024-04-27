@@ -124,12 +124,14 @@ namespace VsVillage
 
         private string villagerNote(string code, ICoreClientAPI capi)
         {
-            if (capi.World.GetEntityById(long.Parse(code)) is EntityVillager villager)
+            var entity = capi.World.GetEntityById(long.Parse(code));
+            var villager = entity?.GetBehavior<EntityBehaviorVillager>();
+            if (villager != null)
             {
                 return Lang.Get("vsvillage:management-villager-note",
-                    villager.GetBehavior<EntityBehaviorNameTag>().DisplayName,
+                    entity.GetBehavior<EntityBehaviorNameTag>().DisplayName,
                     Lang.Get(villager.Profession),
-                    BlockPosToString(villager.Pos.AsBlockPos, capi),
+                    BlockPosToString(entity.Pos.AsBlockPos, capi),
                     BlockPosToString(villager.Workstation, capi),
                     BlockPosToString(villager.Bed, capi));
             }

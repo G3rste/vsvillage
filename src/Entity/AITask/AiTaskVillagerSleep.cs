@@ -49,7 +49,7 @@ namespace VsVillage
                 }
             }
 
-            villagerPathTraverser = entity.GetBehavior<EntityBehaviorAlternatePathtraverser>().villagerWaypointsTraverser;
+            villagerPathTraverser = entity.GetBehavior<EntityBehaviorVillager>().villagerWaypointsTraverser;
             done = false;
         }
 
@@ -124,7 +124,7 @@ namespace VsVillage
         private void retrieveBed()
         {
             var blockAccessor = entity.World.BlockAccessor;
-            var villager = entity as EntityVillager;
+            var villager = entity.GetBehavior<EntityBehaviorVillager>();
             var village = villager?.Village;
             bed = villager?.Bed != null ? blockAccessor.GetBlockEntity<BlockEntityBed>(villager.Bed) : null;
             if (bed == null && villager != null)

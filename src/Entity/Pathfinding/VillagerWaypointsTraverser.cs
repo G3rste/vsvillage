@@ -43,7 +43,7 @@ namespace VsVillage
                 maxTurnAnglePerSec = 450;
             }
 
-            villagerAstar = new VillagerPathfind(entity.Api as ICoreServerAPI, (entity as EntityVillager)?.Village);
+            villagerAstar = new VillagerPathfind(entity.Api as ICoreServerAPI, entity.GetBehavior<EntityBehaviorVillager>()?.Village);
         }
         public override bool NavigateTo(Vec3d target, float movingSpeed, float targetDistance, Action OnGoalReached, Action OnStuck, bool giveUpWhenNoPath = false, int searchDepth = 999, int mhdistanceTolerance = 0)
         {

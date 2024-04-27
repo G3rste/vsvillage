@@ -43,7 +43,7 @@ namespace VsVillage
         protected override Vec3d GetTargetPos()
         {
             var api = entity.Api;
-            var village = (entity as EntityVillager)?.Village;
+            var village = entity.GetBehavior<EntityBehaviorVillager>()?.Village;
             var brazierPos = village?.FindRandomGatherplace();
             brazier = brazierPos != null ? api.World.BlockAccessor.GetBlockEntity<BlockEntityVillagerBrazier>(brazierPos) : null;
             return getRandomPosNearby(brazier?.Position);
