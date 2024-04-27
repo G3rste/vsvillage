@@ -7,6 +7,7 @@
 	"deadHitboxSize": { "x": 0.75, "y": 0.5 },
 	"attributesByType": {
 		"*-soldier": {
+			"poulticeRevive": true,
 			"profession": "soldier",
 			"validGear": {
 				"arms": ["armor", "armor-hallowcroft", "armor", "armor-hallowcroft", "bandage-left", "bandage-right"],
@@ -22,6 +23,7 @@
 			}
 		},
 		"*-archer": {
+			"poulticeRevive": true,
 			"profession": "soldier",
 			"validGear": {
 				"arms": ["armor", "armor-hallowcroft", "armor"],
@@ -37,6 +39,7 @@
 			}
 		},
 		"*-smith": {
+			"poulticeRevive": true,
 			"profession": "smith",
 			"validGear": {
 				"arms": ["gloves"],
@@ -52,6 +55,7 @@
 			}
 		},
 		"*-farmer": {
+			"poulticeRevive": true,
 			"profession": "farmer",
 			"validGear": {
 				"arms": ["jewelry-left-bracelet", "jewelry-right-bracelet", "jewelry-left-bracelet-copper", "jewelry-right-bracelet-copper", "jewelry-left-bracelet-gold", "jewelry-right-bracelet-gold", "jewelry-left-rings", "jewelry-right-rings", "jewelry-left-rings-copper", "jewelry-right-rings-copper", "jewelry-left-rings-gold", "jewelry-right-rings-gold","gloves"],
@@ -67,6 +71,7 @@
 			}
 		},
 		"*-shepherd": {
+			"poulticeRevive": true,
 			"profession": "shepherd",
 			"validGear": {
 				"arms": ["jewelry-left-bracelet", "jewelry-right-bracelet", "jewelry-left-bracelet-copper", "jewelry-right-bracelet-copper", "jewelry-left-bracelet-gold", "jewelry-right-bracelet-gold", "jewelry-left-rings", "jewelry-right-rings", "jewelry-left-rings-copper", "jewelry-right-rings-copper", "jewelry-left-rings-gold", "jewelry-right-rings-gold","gloves"],
@@ -82,6 +87,7 @@
 			}
 		},
 		"*-herbalist": {
+			"poulticeRevive": true,
 			"profession": "herbalist",
 			"validGear": {
 				"arms": [],
@@ -97,6 +103,7 @@
 			}
 		},
 		"*-mayor": {
+			"poulticeRevive": true,
 			"profession": "mayor",
 			"validGear": {
 				"arms": ["jewelry-left-bracelet", "jewelry-right-bracelet", "jewelry-left-bracelet-copper", "jewelry-right-bracelet-copper", "jewelry-left-bracelet-gold", "jewelry-right-bracelet-gold", "jewelry-left-rings", "jewelry-right-rings", "jewelry-left-rings-copper", "jewelry-right-rings-copper", "jewelry-left-rings-gold", "jewelry-right-rings-gold"],

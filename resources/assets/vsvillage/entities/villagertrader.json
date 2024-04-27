@@ -102,6 +102,7 @@
         ]
     },
     "attributes": {
+        "poulticeRevive": true,
         "profession": "trader",
         "tradeProps": {
             "money": {
@@ -212,6 +213,19 @@
                         },
                         "price": {
                             "avg": 8,
+                            "var": 2
+                        }
+                    },
+                    {
+                        "code": "vsvillage:waypoint",
+                        "type": "block",
+                        "stacksize": 8,
+                        "stock": {
+                            "avg": 2,
+                            "var": 1
+                        },
+                        "price": {
+                            "avg": 6,
                             "var": 2
                         }
                     }
