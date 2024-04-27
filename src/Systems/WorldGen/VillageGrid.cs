@@ -373,13 +373,13 @@ namespace VsVillage
                 {
                     if (grid[i, k] == EnumgGridSlot.STREET)
                     {
-                        GenerateStreetPart(start, i, k, blockAccessor, idpath, idbridge);
+                        GenerateStreetPart(start, i, k, blockAccessor, idpath, idbridge, i % 4 + k % 4 == 0);
                     }
                 }
             }
         }
 
-        private void GenerateStreetPart(BlockPos start, int x, int z, IBlockAccessor blockAccessor, int idpath, int idbridge)
+        private void GenerateStreetPart(BlockPos start, int x, int z, IBlockAccessor blockAccessor, int idpath, int idbridge, bool generateWaypoint)
         {
             var coords = GridCoordsToMapCoords(x, z);
             var size = GridCoordsToMapSize(x, z);
@@ -400,6 +400,10 @@ namespace VsVillage
                     blockAccessor.SetBlock(id, pos);
                     blockAccessor.SetBlock(0, pos.Add(0, 1, 0)); // can probably be removed when hooked properly into world gen
                     blockAccessor.SetBlock(0, pos.Add(0, 1, 0)); // can probably be removed when hooked properly into world gen
+                    if (generateWaypoint && i == 0 && k == 0)
+                    {
+                        blockAccessor.SetBlock(blockAccessor.GetBlock(new AssetLocation("vsvillage:waypoint")).Id, pos.Add(0, -1, 0));
+                    }
                 }
             }
         }
