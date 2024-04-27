@@ -72,7 +72,12 @@ namespace VsVillage
         {
             foreach (var village in Villages.Values)
             {
-                if (village.Pos.HorDistanceSqTo(pos.X, pos.Z) < village.Radius * village.Radius)
+                var villagePos = village.Pos;
+                var radius = village.Radius;
+                if (villagePos.X - radius <= pos.X
+                    && villagePos.X + radius >= pos.X
+                    && villagePos.Z - radius <= pos.Z
+                    && villagePos.Z + radius >= pos.Z)
                 {
                     return village;
                 }
@@ -110,7 +115,7 @@ namespace VsVillage
 
         private void OnManagementMessage(IServerPlayer fromPlayer, VillageManagementMessage message, ICoreServerAPI api)
         {
-            switch(message.Operation)
+            switch (message.Operation)
             {
                 case EnumVillageManagementOperation.create:
                     var village = new Village()
@@ -142,12 +147,12 @@ namespace VsVillage
                     workStructures.ForEach(candidate => Api.World.BlockAccessor.GetBlockEntity<BlockEntityVillagerWorkstation>(candidate.Pos)?.RemoveVillage());
                     village.Workstations.RemoveAll(candidate => workStructures.Contains(candidate));
 
-                    
+
                     var gatherStructures = village.Gatherplaces.FindAll(candidate => candidate == message.StructureToRemove);
                     gatherStructures.ForEach(candidate => Api.World.BlockAccessor.GetBlockEntity<BlockEntityVillagerBrazier>(candidate)?.RemoveVillage());
                     village.Gatherplaces.RemoveAll(candidate => gatherStructures.Contains(candidate));
 
-                    
+
                     var bedStructures = village.Beds.FindAll(candidate => candidate.Pos == message.StructureToRemove);
                     bedStructures.ForEach(candidate => Api.World.BlockAccessor.GetBlockEntity<BlockEntityBed>(candidate.Pos)?.GetBehavior<BlockEntityBehaviorVillagerBed>()?.RemoveVillage());
                     village.Beds.RemoveAll(candidate => bedStructures.Contains(candidate));

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using Vintagestory.API.Client;
@@ -9,7 +10,7 @@ using Vintagestory.GameContent;
 
 namespace VsVillage
 {
-    public class StolenPathFindDebug : ModSystem
+    public class VillageCommands : ModSystem
     {
 
         BlockPos start;
@@ -53,6 +54,65 @@ namespace VsVillage
                 .RequiresPrivilege(Privilege.root)
                 .WithExamples("highlightvillagewaypoints", "hvw")
                 .HandleWith(onCmdHighlightWaypoints);
+            cmdApi
+                .Create("highlightvillageplaces")
+                .WithAlias("hvp")
+                .WithDescription("Highlight this village center blue, the village border red, the beds yellow, the workstations green, the gather places purple and the waypoints turquoise")
+                .RequiresPrivilege(Privilege.root)
+                .WithExamples("highlightvillagewaypoints", "hvw")
+                .HandleWith(onCmdHighlightPlaces);
+        }
+
+        private TextCommandResult onCmdHighlightPlaces(TextCommandCallingArgs args)
+        {
+            var player = args.Caller.Player;
+            BlockPos plrPos = player.Entity.ServerPos.XYZ.AsBlockPos;
+            var village = sapi.ModLoader.GetModSystem<VillageManager>().GetVillage(plrPos);
+            if (village == null) return TextCommandResult.Error("No village found");
+
+            var pos = village.Pos.Copy();
+            pos.Y = sapi.World.BlockAccessor.GetTerrainMapheightAt(village.Pos);
+
+            var center = addBlockHeight(new List<BlockPos>() { pos }, 10);
+            var workstations = addBlockHeight(village.Workstations.ConvertAll(workstation => workstation.Pos), 10);
+            var beds = addBlockHeight(village.Beds.ConvertAll(bed => bed.Pos), 10);
+            var gatherplaces = addBlockHeight(village.Gatherplaces, 10);
+            var waypoints = addBlockHeight(village.Waypoints.ConvertAll(waypoint => waypoint.Pos));
+            var border = addBlockHeight(new List<BlockPos>());
+
+            for (var i = -village.Radius; i <= village.Radius; i++)
+            {
+                border.Add(pos.AddCopy(i, 0, -village.Radius));
+                border.Add(pos.AddCopy(i, 0, village.Radius));
+            }
+            for (var k = -village.Radius + 1; k < village.Radius; k++)
+            {
+                border.Add(pos.AddCopy(-village.Radius, 0, k));
+                border.Add(pos.AddCopy(village.Radius, 0, k));
+            }
+
+            border = addBlockHeight(border);
+
+            sapi.World.HighlightBlocks(player, 4, center, new List<int>() { ColorUtil.ColorFromRgba(0, 0, 128, 100) }, EnumHighlightBlocksMode.Absolute, EnumHighlightShape.Arbitrary);
+            sapi.World.HighlightBlocks(player, 5, workstations, new List<int>() { ColorUtil.ColorFromRgba(0, 128, 0, 100) }, EnumHighlightBlocksMode.Absolute, EnumHighlightShape.Arbitrary);
+            sapi.World.HighlightBlocks(player, 6, beds, new List<int>() { ColorUtil.ColorFromRgba(128, 128, 0, 100) }, EnumHighlightBlocksMode.Absolute, EnumHighlightShape.Arbitrary);
+            sapi.World.HighlightBlocks(player, 7, gatherplaces, new List<int>() { ColorUtil.ColorFromRgba(128, 0, 128, 100) }, EnumHighlightBlocksMode.Absolute, EnumHighlightShape.Arbitrary);
+            sapi.World.HighlightBlocks(player, 8, waypoints, new List<int>() { ColorUtil.ColorFromRgba(0, 128, 128, 100) }, EnumHighlightBlocksMode.Absolute, EnumHighlightShape.Arbitrary);
+            sapi.World.HighlightBlocks(player, 9, border, new List<int>() { ColorUtil.ColorFromRgba(128, 0, 0, 100) }, EnumHighlightBlocksMode.Absolute, EnumHighlightShape.Arbitrary);
+            return TextCommandResult.Success("Alle Points of interest in this village have been highlighted.");
+        }
+
+        private List<BlockPos> addBlockHeight(List<BlockPos> list, int height = 5)
+        {
+            var result = new List<BlockPos>();
+            foreach (var pos in list)
+            {
+                for (int i = 0; i < height; i++)
+                {
+                    result.Add(pos.UpCopy(i));
+                }
+            }
+            return result;
         }
 
         private TextCommandResult onCmdHighlightWaypoints(TextCommandCallingArgs args)
@@ -73,7 +133,7 @@ namespace VsVillage
             }
 
             sapi.World.HighlightBlocks(player, 3, new List<BlockPos>(allPaths), new List<int>() { ColorUtil.ColorFromRgba(128, 0, 0, 100) }, EnumHighlightBlocksMode.Absolute, EnumHighlightShape.Arbitrary);
-            return TextCommandResult.Success("MORE PATHS!!!");
+            return TextCommandResult.Success("All paths have been highlighted");
         }
 
         private TextCommandResult onCmdAStar(TextCommandCallingArgs args, WaypointAStar waypointAStar = null)
