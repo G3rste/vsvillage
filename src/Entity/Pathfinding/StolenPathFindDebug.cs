@@ -1,9 +1,5 @@
-using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
 using Vintagestory.API.MathTools;
@@ -41,7 +37,15 @@ namespace VsVillage
                 .WithArgs(parsers.WordRange("stage", "start", "end"))
                 .RequiresPrivilege(Privilege.root)
                 .WithExamples("villagerpath start", "villagerpath end")
-                .HandleWith(onCmdAStar);
+                .HandleWith(args => onCmdAStar(args));
+            cmdApi
+                .Create("waypointpath")
+                .WithAlias("wp")
+                .WithDescription("A* path finding debug testing for villagers")
+                .WithArgs(parsers.WordRange("stage", "start", "end"))
+                .RequiresPrivilege(Privilege.root)
+                .WithExamples("waypointpath start", "waypointpath end")
+                .HandleWith(args => onCmdAStar(args, new WaypointAStar(sapi)));
             cmdApi
                 .Create("highlightvillagewaypoints")
                 .WithAlias("hvw")
@@ -63,7 +67,7 @@ namespace VsVillage
             {
                 foreach (var neighbour in waypoint.Neighbours.Keys)
                 {
-                    var path = waypointAStar.FindPath(waypoint.Pos, neighbour.Pos, 5, 1);
+                    var path = waypointAStar.FindPath(waypoint.Pos, neighbour.Pos, 5, 1.01f);
                     if (path != null) path.ForEach(x => allPaths.Add(x));
                 }
             }
@@ -72,7 +76,7 @@ namespace VsVillage
             return TextCommandResult.Success("MORE PATHS!!!");
         }
 
-        private TextCommandResult onCmdAStar(TextCommandCallingArgs args)
+        private TextCommandResult onCmdAStar(TextCommandCallingArgs args, WaypointAStar waypointAStar = null)
         {
             string subcmd = (string)args[0];
             var player = args.Caller.Player;
@@ -107,7 +111,8 @@ namespace VsVillage
                     sw.Start();
 
                     for (int i = 0; i < 15; i++)
-                    {                        List<PathNode> nodes = villagerAStar.FindPath(start, end, maxFallHeight, stepHeight);
+                    {
+                        List<PathNode> nodes = waypointAStar?.FindPath(start, end, maxFallHeight, stepHeight) ?? villagerAStar.FindPath(start, end, maxFallHeight, stepHeight);
                     }
 
                     sw.Stop();
@@ -145,7 +150,7 @@ namespace VsVillage
                 Stopwatch sw = new Stopwatch();
                 sw.Start();
 
-                List<PathNode> nodes = villagerAStar.FindPath(start, end, maxFallHeight, stepHeight);
+                List<PathNode> nodes = waypointAStar?.FindPath(start, end, maxFallHeight, stepHeight) ?? villagerAStar.FindPath(start, end, maxFallHeight, stepHeight);
 
                 sw.Stop();
                 int timeMs = (int)sw.ElapsedMilliseconds;
@@ -176,7 +181,7 @@ namespace VsVillage
 
                 sapi.World.HighlightBlocks(player, 3, poses, new List<int>() { ColorUtil.ColorFromRgba(128, 0, 0, 100) }, EnumHighlightBlocksMode.Absolute, EnumHighlightShape.Arbitrary);
 
-                return TextCommandResult.Success(string.Format("Search took {0} ms, {1} nodes checked", timeMs, villagerAStar.NodesChecked));
+                return TextCommandResult.Success(string.Format("Search took {0} ms, {1} nodes checked", timeMs, waypointAStar?.NodesChecked ?? villagerAStar.NodesChecked));
             }
             return TextCommandResult.Deferred;
         }

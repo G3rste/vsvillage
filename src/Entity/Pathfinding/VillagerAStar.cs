@@ -31,7 +31,7 @@ namespace VsVillage
         public PathNodeSet openSet = new PathNodeSet();
         public HashSet<PathNode> closedSet = new HashSet<PathNode>();
 
-        public List<PathNode> FindPath(BlockPos start, BlockPos end, int maxFallHeight, float stepHeight, int searchDepth = 999, bool allowReachAlmost = false)
+        public List<PathNode> FindPath(BlockPos start, BlockPos end, int maxFallHeight, float stepHeight, int searchDepth = 999, bool allowReachAlmost = true)
         {
             blockAccess.Begin();
 
@@ -167,7 +167,7 @@ namespace VsVillage
                 for (; 1f < stepHeight; stepHeight--)
                 {
                     node.Y++;
-                    if (canStep(blockAccess.GetBlock(new BlockPos(node.X, node.Y - 1, node.Z,0))) && traversable(blockAccess.GetBlock(new BlockPos(node.X, node.Y, node.Z,0))) && traversable(blockAccess.GetBlock(new BlockPos(node.X, node.Y + 1, node.Z, 0))))
+                    if (canStep(blockAccess.GetBlock(new BlockPos(node.X, node.Y - 1, node.Z, 0))) && traversable(blockAccess.GetBlock(new BlockPos(node.X, node.Y, node.Z, 0))) && traversable(blockAccess.GetBlock(new BlockPos(node.X, node.Y + 1, node.Z, 0))))
                     {
                         return true;
                     }

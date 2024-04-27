@@ -32,10 +32,12 @@ namespace VsVillage
                     VillageName = village.Name;
                     var waypoint = new VillageWaypoint() { Pos = Pos };
                     var waypointAStar = new WaypointAStar(sapi);
-                    List<VillageWaypoint> potentialNeighbours = village.Waypoints.Where(waypoint => Pos.ManhattenDistance(waypoint.Pos)<50).ToList();
-                    foreach(var candidate in potentialNeighbours){
-                        var path = waypointAStar.FindPath(Pos, candidate.Pos, 1, 1f, 999);
-                        if(path != null){
+                    List<VillageWaypoint> potentialNeighbours = village.Waypoints.Where(waypoint => Pos.ManhattenDistance(waypoint.Pos) < 50).ToList();
+                    foreach (var candidate in potentialNeighbours)
+                    {
+                        var path = waypointAStar.FindPath(Pos, candidate.Pos, 2, 1.01f);
+                        if (path != null)
+                        {
                             waypoint.SetNeighbour(candidate, path.Count);
                             candidate.SetNeighbour(waypoint, path.Count);
                         }
@@ -67,7 +69,7 @@ namespace VsVillage
         public override void OnBlockBroken(IPlayer byPlayer = null)
         {
             base.OnBlockBroken(byPlayer);
-            Api.ModLoader.GetModSystem<VillageManager>()?.GetVillage(VillageId)?.Waypoints.RemoveAll(waypoint => waypoint.Pos.Equals(Pos));
+            Api.ModLoader.GetModSystem<VillageManager>()?.GetVillage(VillageId)?.RemoveWaypoint(Pos);
         }
 
         public override void FromTreeAttributes(ITreeAttribute tree, IWorldAccessor worldAccessForResolve)

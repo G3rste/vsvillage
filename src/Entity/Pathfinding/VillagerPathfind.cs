@@ -1,6 +1,4 @@
-using System;
 using System.Collections.Generic;
-using Vintagestory.API.Common;
 using Vintagestory.API.MathTools;
 using Vintagestory.API.Server;
 using Vintagestory.Essentials;
@@ -25,15 +23,16 @@ namespace VsVillage
 
         public List<PathNode> FindPath(BlockPos start, BlockPos end, int maxFallHeight, float stepHeight)
         {
-            var path = villagerAStar.FindPath(start, end, maxFallHeight, stepHeight, 999);
+            var path = villagerAStar.FindPath(start, end, maxFallHeight, stepHeight, 4999);
             if (path == null && village != null && village.Waypoints.Count > 0)
             {
                 var startWaypoint = village.FindNearesWaypoint(start);
-                var endWaypoint = village.FindNearesWaypoint(end);
+                var endWaypoint = startWaypoint?.FindNearestReachableWaypoint(end);
                 var stops = startWaypoint.FindPath(endWaypoint, village.Waypoints.Count);
 
-                path = villagerAStar.FindPath(start, startWaypoint.Pos, maxFallHeight, stepHeight, 9999);
-                if (path == null) return null;
+                if (startWaypoint == null || endWaypoint == null) return null;
+                path = villagerAStar.FindPath(start, startWaypoint.Pos, maxFallHeight, stepHeight, 4999);
+                if (path == null || stops == null) return null;
                 for (int i = 0; i < stops.Count - 1; i++)
                 {
                     var nextPath = waypointAStar.FindPath(stops[i].Pos, stops[i + 1].Pos, maxFallHeight, stepHeight);

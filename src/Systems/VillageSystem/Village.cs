@@ -2,10 +2,6 @@ using System.Collections.Generic;
 using ProtoBuf;
 using Vintagestory.API.Common;
 using Vintagestory.API.MathTools;
-using Vintagestory.API.Common.Entities;
-using System;
-using Vintagestory.GameContent;
-using System.Linq;
 
 namespace VsVillage
 {
@@ -100,13 +96,17 @@ namespace VsVillage
             var waypointDict = new Dictionary<BlockPos, VillageWaypoint>();
             foreach (var waypoint in Waypoints)
             {
-                waypointDict.Add(waypoint.Pos, waypoint);
+                waypointDict.TryAdd(waypoint.Pos, waypoint);
             }
             foreach (var waypoint in Waypoints)
             {
                 foreach (var neighbour in waypoint._Neighbours)
                 {
-                    waypoint.SetNeighbour(waypointDict[neighbour.Key], neighbour.Value);
+                    if (waypointDict.TryGetValue(neighbour.Key, out var node))
+                    {
+                        waypoint.SetNeighbour(node, neighbour.Value);
+                    }
+                    else { waypoint._Neighbours.Remove(neighbour.Key); }
                 }
                 foreach (var reachable in waypoint._ReachableNodes)
                 {
@@ -146,116 +146,5 @@ namespace VsVillage
             InitWayPoints();
             DoDijkstraSimilarStuff();
         }
-    }
-
-    [ProtoContract(ImplicitFields = ImplicitFields.None)]
-    public class VillageWaypoint
-    {
-        [ProtoMember(1)]
-        public BlockPos Pos;
-        [ProtoMember(2)]
-        public Dictionary<BlockPos, int> _Neighbours = new();
-        [ProtoMember(3)]
-        public Dictionary<BlockPos, VillageWaypointPath> _ReachableNodes = new();
-        public Dictionary<VillageWaypoint, int> Neighbours = new();
-
-        public void SetNeighbour(VillageWaypoint newNeighbour, int distance)
-        {
-            Neighbours[newNeighbour] = distance;
-            _Neighbours[newNeighbour.Pos] = distance;
-        }
-        public void RemoveNeighbour(VillageWaypoint waypoint)
-        {
-            Neighbours.Remove(waypoint);
-            _Neighbours.Remove(waypoint.Pos);
-        }
-        public Dictionary<VillageWaypoint, VillageWaypointPath> ReachableNodes = new();
-        public void SetReachableNode(VillageWaypoint waypoint, VillageWaypointPath path)
-        {
-            ReachableNodes[waypoint] = path;
-            _ReachableNodes[waypoint.Pos] = path;
-        }
-
-        public List<VillageWaypoint> FindPath(VillageWaypoint target, int maxSearchDepth)
-        {
-            var current = this;
-            var result = new List<VillageWaypoint>() { current };
-            int searchDepth = 0;
-            while (!current.Equals(target) && searchDepth++ < maxSearchDepth)
-            {
-                var next = current.GetNextWaypoint(target);
-                if (next == null)
-                {
-                    return null;
-                }
-                result.Add(next);
-                current = next;
-            }
-            return result;
-        }
-
-        public VillageWaypoint GetNextWaypoint(VillageWaypoint target)
-        {
-            if (Neighbours.ContainsKey(target))
-            {
-                return target;
-            }
-            ReachableNodes.TryGetValue(target, out var next);
-            return next?.NextWaypoint;
-        }
-
-        // not optimal, but good enough, hoping that people wont do more than 20 per village
-        public void UpdateReachableNodes()
-        {
-            foreach (var neighbour in Neighbours)
-            {
-                foreach (var neighbourReachableNode in neighbour.Key.Neighbours)
-                {
-                    ReachableNodes.TryGetValue(neighbourReachableNode.Key, out var reachableNode);
-                    if (neighbourReachableNode.Key != this && (reachableNode == null || reachableNode.Distance > neighbourReachableNode.Value + neighbour.Value))
-                    {
-                        SetReachableNode(neighbourReachableNode.Key, new VillageWaypointPath()
-                        {
-                            NextWaypoint = neighbour.Key,
-                            _NextWaypoint = neighbour.Key.Pos,
-                            Distance = neighbour.Value + neighbourReachableNode.Value
-                        });
-                    }
-                }
-                foreach (var neighbourReachableNode in neighbour.Key.ReachableNodes)
-                {
-                    ReachableNodes.TryGetValue(neighbourReachableNode.Key, out var reachableNode);
-                    if (neighbourReachableNode.Key != this && (reachableNode == null || reachableNode.Distance > neighbourReachableNode.Value.Distance + neighbour.Value))
-                    {
-                        SetReachableNode(neighbourReachableNode.Key, new VillageWaypointPath()
-                        {
-                            NextWaypoint = neighbour.Key,
-                            _NextWaypoint = neighbour.Key.Pos,
-                            Distance = neighbour.Value + neighbourReachableNode.Value.Distance
-                        });
-                    }
-                }
-            }
-        }
-
-        public override bool Equals(object obj)
-        {
-            return Equals(Pos, (obj as VillageWaypoint)?.Pos);
-        }
-
-        public override int GetHashCode()
-        {
-            return Pos?.GetHashCode() ?? -1;
-        }
-    }
-
-    [ProtoContract(ImplicitFields = ImplicitFields.None)]
-    public class VillageWaypointPath
-    {
-        [ProtoMember(1)]
-        public int Distance;
-        [ProtoMember(2)]
-        public BlockPos _NextWaypoint;
-        public VillageWaypoint NextWaypoint;
     }
 }

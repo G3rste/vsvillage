@@ -2,8 +2,23 @@
     "code": "waypoint",
     "entityClass": "VillagerWaypoint",
     "shape": {
-        "base": "game:block/clutter/fence/wood/empty"
+        "base": "waypoint"
     },
+	"behaviors": [
+		{
+			"name": "Multiblock",
+			"properties": {
+				"sizex": 1,
+				"sizey": 3,
+				"sizez": 1,
+				"cposition": {
+					"x": 0,
+					"y": 0,
+					"z": 0
+				}
+			}
+		}
+	],
     "sidesolid": {
         "all": false
     },
