@@ -1,60 +1,41 @@
-using System.Runtime.CompilerServices;
 using System.Text;
 using Vintagestory.API.Common;
-using Vintagestory.API.Common.Entities;
 using Vintagestory.API.Config;
 using Vintagestory.API.Datastructures;
 using Vintagestory.API.MathTools;
-using Vintagestory.API.Server;
-using Vintagestory.GameContent;
 
-namespace VsVillage
-{
-    public class BlockEntityBehaviorVillagerBed : BlockEntityBehavior
-    {
-
+namespace VsVillage{
+    public abstract class BlockEntityVillagerPOI : BlockEntity{
         public string VillageId { get; set; }
         public string VillageName { get; set; }
-        public Vec3d Position => Blockentity.Pos.ToVec3d();
 
-        public string Type => "villagerBed";
+        public Vec3d Position => Pos.ToVec3d();
 
-        public BlockEntityBehaviorVillagerBed(BlockEntity blockentity) : base(blockentity)
+        public abstract void AddToVillage(Village village);
+        public abstract void RemoveFromVillage(Village village);
+
+        public override void Initialize(ICoreAPI api)
         {
-        }
-
-        public override void Initialize(ICoreAPI api, JsonObject properties)
-        {
-            base.Initialize(api, properties);
-            var sapi = api as ICoreServerAPI;
-            if (sapi != null)
-            {
-                sapi.World.RegisterCallback(dt => (Blockentity as BlockEntityBed).MountedBy?.TryUnmount(), 500);
-            }
-            if (string.IsNullOrEmpty(VillageId))
+            base.Initialize(api);
+            if (string.IsNullOrEmpty(VillageId) || api.Side == EnumAppSide.Server && api.ModLoader.GetModSystem<VillageManager>()?.GetVillage(VillageId) == null)
             {
                 var village = Api.ModLoader.GetModSystem<VillageManager>()?.GetVillage(Pos);
                 VillageId = village?.Id;
                 VillageName = village?.Name;
-                village?.Beds.Add(new() { OwnerId = -1, Pos = Pos });
-            }
-            else
-            {
-                //load the village if not loaded
-                Api.ModLoader.GetModSystem<VillageManager>()?.GetVillage(VillageId);
+                AddToVillage(village);
             }
         }
 
-        public void RemoveVillage()
-        {
+        public void RemoveVillage(){
             VillageId = null;
             VillageName = null;
+            MarkDirty();
         }
 
         public override void OnBlockBroken(IPlayer byPlayer = null)
         {
             base.OnBlockBroken(byPlayer);
-            Api.ModLoader.GetModSystem<VillageManager>()?.GetVillage(VillageId)?.Beds.RemoveAll(bed => bed.Pos.Equals(Pos));
+            RemoveFromVillage(Api.ModLoader.GetModSystem<VillageManager>()?.GetVillage(VillageId));
         }
 
         public override void FromTreeAttributes(ITreeAttribute tree, IWorldAccessor worldAccessForResolve)
@@ -76,7 +57,7 @@ namespace VsVillage
             base.GetBlockInfo(forPlayer, dsc);
             if (!string.IsNullOrEmpty(VillageName))
             {
-                dsc.AppendLine().Append(Lang.Get("vsvillage:resides-in", VillageName)).AppendLine();
+                dsc.AppendLine().Append(Lang.Get("vsvillage:resides-in", VillageName));
             }
         }
     }

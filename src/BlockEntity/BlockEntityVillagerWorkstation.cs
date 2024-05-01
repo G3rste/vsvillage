@@ -1,72 +1,21 @@
-using System.Text;
 using Vintagestory.API.Common;
-using Vintagestory.API.Config;
-using Vintagestory.API.Datastructures;
-using Vintagestory.API.MathTools;
 
 namespace VsVillage
 {
-    public class BlockEntityVillagerWorkstation : BlockEntity
+    public class BlockEntityVillagerWorkstation : BlockEntityVillagerPOI
     {
-
-        public string VillageId { get; set; }
-        public string VillageName { get; set; }
-
-        public Vec3d Position => Pos.ToVec3d();
 
         public string Type => Block.Variant["profession"];
 
-        public override void Initialize(ICoreAPI api)
+        public override void AddToVillage(Village village)
         {
-            base.Initialize(api);
-            if (string.IsNullOrEmpty(VillageId))
-            {
-                var village = Api.ModLoader.GetModSystem<VillageManager>()?.GetVillage(Pos);
-                VillageId = village?.Id;
-                VillageName = village?.Name;
-                village?.Workstations.Add(new() { OwnerId = -1, Pos = Pos, Profession = Type });
-            }
-            else
-            {
-                //load the village if not loaded
-                Api.ModLoader.GetModSystem<VillageManager>()?.GetVillage(VillageId);
-            }
+            village?.Workstations.Add(new() { OwnerId = -1, Pos = Pos, Profession = Type });
         }
 
-        public void RemoveVillage()
+        public override void RemoveFromVillage(Village village)
         {
-            VillageId = null;
-            VillageName = null;
-            MarkDirty();
-        }
+            village?.Workstations.RemoveAll(workstation => workstation.Pos.Equals(Pos));
 
-        public override void OnBlockBroken(IPlayer byPlayer = null)
-        {
-            base.OnBlockBroken(byPlayer);
-            Api.ModLoader.GetModSystem<VillageManager>()?.GetVillage(VillageId)?.Workstations.RemoveAll(workstation => workstation.Pos.Equals(Pos));
-        }
-
-        public override void FromTreeAttributes(ITreeAttribute tree, IWorldAccessor worldAccessForResolve)
-        {
-            base.FromTreeAttributes(tree, worldAccessForResolve);
-            VillageId = tree.GetString("villageId");
-            VillageName = tree.GetString("villageName");
-        }
-
-        public override void ToTreeAttributes(ITreeAttribute tree)
-        {
-            base.ToTreeAttributes(tree);
-            tree.SetString("villageId", VillageId);
-            tree.SetString("villageName", VillageName);
-        }
-
-        public override void GetBlockInfo(IPlayer forPlayer, StringBuilder dsc)
-        {
-            base.GetBlockInfo(forPlayer, dsc);
-            if (!string.IsNullOrEmpty(VillageName))
-            {
-                dsc.AppendLine().Append(Lang.Get("vsvillage:resides-in", VillageName));
-            }
         }
     }
 }

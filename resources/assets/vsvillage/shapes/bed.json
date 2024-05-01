@@ -1,0 +1,137 @@
+{
+	"editor": {
+		"allAngles": false,
+		"entityTextureMode": false
+	},
+	"textureWidth": 16,
+	"textureHeight": 16,
+	"textureSizes": {
+	},
+	"textures": {
+		"blueplaid-feet": "game:block/wood/bed/normal/blanket/blueplaid-feet",
+		"blueplaid-feet-sides": "game:block/wood/bed/normal/blanket/blueplaid-feet-sides",
+		"blueplaid-head": "game:block/wood/bed/normal/blanket/blueplaid-head",
+		"blueplaid-head-sides": "game:block/wood/bed/normal/blanket/blueplaid-head-sides",
+		"matress": "game:block/wood/bed/normal/matress",
+		"pillow": "game:block/wood/bed/normal/pillow"
+	},
+	"elements": [
+		{
+			"name": "matress",
+			"from": [ 0.0, 0.0, 0.0 ],
+			"to": [ 16.0, 2.0, 16.0 ],
+			"rotationOrigin": [ 16.0, 0.0, 8.0 ],
+			"rotationY": 180.0,
+			"faces": {
+				"north": { "texture": "#pillow", "uv": [ 0.0, 14.0, 16.0, 16.0 ] },
+				"east": { "texture": "#pillow", "uv": [ 0.0, 14.0, 16.0, 16.0 ] },
+				"south": { "texture": "#pillow", "uv": [ 0.0, 14.0, 16.0, 16.0 ] },
+				"west": { "texture": "#pillow", "uv": [ 0.0, 14.0, 16.0, 16.0 ] },
+				"up": { "texture": "#matress", "uv": [ 0.0, 0.0, 16.0, 16.0 ] },
+				"down": { "texture": "#matress", "uv": [ 0.0, 0.0, 16.0, 16.0 ], "windMode": [-1,-1,-1,-1] }
+			},
+			"children": [
+				{
+					"name": "matress 2",
+					"from": [ 16.0, 0.0, 0.0 ],
+					"to": [ 32.0, 2.0, 16.0 ],
+					"rotationOrigin": [ 16.0, -3.0, 0.0 ],
+					"faces": {
+						"north": { "texture": "#pillow", "uv": [ 2.0, 14.0, 18.0, 16.0 ] },
+						"east": { "texture": "#pillow", "uv": [ 0.0, 14.0, 16.0, 16.0 ] },
+						"south": { "texture": "#pillow", "uv": [ 0.0, 14.0, 16.0, 16.0 ] },
+						"west": { "texture": "#pillow", "uv": [ 0.0, 14.0, 16.0, 16.0 ] },
+						"up": { "texture": "#matress", "uv": [ 0.0, 0.0, 16.0, 16.0 ] },
+						"down": { "texture": "#matress", "uv": [ 0.0, 0.0, 16.0, 16.0 ], "windMode": [-1,-1,-1,-1] }
+					}
+				},
+				{
+					"name": "pillow",
+					"from": [ 1.0, 2.0, 1.0 ],
+					"to": [ 9.0, 3.0, 15.0 ],
+					"rotationOrigin": [ 0.0, 2.0, 1.0 ],
+					"faces": {
+						"north": { "texture": "#pillow", "uv": [ 15.0, 1.0, 16.0, 9.0 ], "rotation": 90 },
+						"east": { "texture": "#pillow", "uv": [ 1.0, 9.0, 15.0, 10.0 ] },
+						"south": { "texture": "#pillow", "uv": [ 0.0, 1.0, 1.0, 9.0 ], "rotation": 270 },
+						"west": { "texture": "#pillow", "uv": [ 1.0, 0.0, 15.0, 1.0 ], "rotation": 180 },
+						"up": { "texture": "#pillow", "uv": [ 1.0, 1.0, 15.0, 9.0 ], "rotation": 90 }
+					}
+				},
+				{
+					"name": "blueplaid top",
+					"from": [ 0.0, 2.01, -0.01 ],
+					"to": [ 16.01, 2.01, 16.01 ],
+					"rotationOrigin": [ 0.0, 2.1, 0.0 ],
+					"faces": {
+						"up": { "texture": "#blueplaid-head", "uv": [ 0.0, 0.0, 16.0, 16.0 ], "rotation": 270 }
+					},
+					"children": [
+						{
+							"name": "side S",
+							"from": [ 0.0, -7.0, 16.02 ],
+							"to": [ 16.01, 0.0, 16.02 ],
+							"rotationOrigin": [ 0.0, -7.0, 16.0 ],
+							"faces": {
+								"south": { "texture": "#blueplaid-head-sides", "uv": [ 1.0, 0.0, 8.0, 16.0 ], "rotation": 270 }
+							}
+						},
+						{
+							"name": "side N",
+							"from": [ 0.0, -7.0, 0.0 ],
+							"to": [ 16.01, 0.0, 0.0 ],
+							"rotationOrigin": [ 0.0, -7.0, 0.0 ],
+							"faces": {
+								"north": { "texture": "#blueplaid-head-sides", "uv": [ 8.0, 0.0, 15.0, 16.0 ], "rotation": 90 }
+							}
+						},
+						{
+							"name": "side W",
+							"from": [ -0.01, -7.0, 0.0 ],
+							"to": [ -0.01, 0.0, 16.02 ],
+							"rotationOrigin": [ 0.0, -7.0, 0.0 ],
+							"faces": {
+							}
+						},
+						{
+							"name": "blueplaid top 2",
+							"from": [ 16.0, 0.0, 0.0 ],
+							"to": [ 30.01, 0.0, 16.02 ],
+							"rotationOrigin": [ 16.0, 0.09, 0.01 ],
+							"faces": {
+								"up": { "texture": "#blueplaid-feet", "uv": [ 0.0, 0.0, 16.0, 14.0 ], "rotation": 270 }
+							},
+							"children": [
+								{
+									"name": "side S 2",
+									"from": [ 0.0, -5.0, 16.02 ],
+									"to": [ 14.01, 0.0, 16.02 ],
+									"rotationOrigin": [ 0.0, -5.0, 16.0 ],
+									"faces": {
+										"south": { "texture": "#blueplaid-feet-sides", "uv": [ 3.0, 0.0, 8.0, 14.0 ], "rotation": 270 }
+									}
+								},
+								{
+									"name": "side N 2",
+									"from": [ 0.0, -5.0, 0.0 ],
+									"to": [ 14.01, 0.0, 0.0 ],
+									"rotationOrigin": [ 0.0, -5.0, 0.0 ],
+									"faces": {
+										"north": { "texture": "#blueplaid-feet-sides", "uv": [ 8.0, 0.0, 13.0, 14.0 ], "rotation": 90 }
+									}
+								},
+								{
+									"name": "side E 2",
+									"from": [ 14.01, -5.0, 0.0 ],
+									"to": [ 14.01, 0.0, 16.02 ],
+									"rotationOrigin": [ 14.0, -5.0, 0.0 ],
+									"faces": {
+									}
+								}
+							]
+						}
+					]
+				}
+			]
+		}
+	]}

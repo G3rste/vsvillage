@@ -1,6 +1,4 @@
-﻿using System;
-using HarmonyLib;
-using ProtoBuf;
+﻿using ProtoBuf;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
 using Vintagestory.API.Server;
@@ -15,13 +13,9 @@ namespace VsVillage
 
         private ICoreServerAPI serverAPI;
 
-        private Harmony harmony = new Harmony("gerste.vsvillage");
-
         public override void Start(ICoreAPI api)
         {
             base.Start(api);
-
-            BedPatch.Patch(harmony);
 
             api.RegisterEntity("EntityVillager", typeof(EntityVillager));
 
@@ -30,8 +24,7 @@ namespace VsVillage
             api.RegisterItemClass("ItemVillagerGear", typeof(ItemVillagerGear));
             api.RegisterItemClass("ItemVillagerHorn", typeof(ItemVillagerHorn));
 
-            api.RegisterBlockEntityBehaviorClass("VillagerBed", typeof(BlockEntityBehaviorVillagerBed));
-
+            api.RegisterBlockEntityClass("VillagerBed", typeof(BlockEntityVillagerBed));
             api.RegisterBlockEntityClass("VillagerWorkstation", typeof(BlockEntityVillagerWorkstation));
             api.RegisterBlockEntityClass("VillagerWaypoint", typeof(BlockEntityVillagerWaypoint));
             api.RegisterBlockEntityClass("VillagerBrazier", typeof(BlockEntityVillagerBrazier));

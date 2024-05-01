@@ -102,11 +102,11 @@
                         "elements": {
                             "LowerTorso": {
                                 "offsetX": -5.0,
-                                "offsetY": 0.0,
+                                "offsetY": 8.0,
                                 "offsetZ": -9.7,
                                 "rotationX": -90.0,
-                                "rotationY": -30.0,
-                                "rotationZ": 0.0
+                                "rotationY": 30.0,
+                                "rotationZ": -180.0
                             },
                             "UpperFootR": {
                                 "offsetX": -1.0,

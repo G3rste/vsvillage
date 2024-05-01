@@ -102,7 +102,7 @@ namespace VsVillage
                 (Api as ICoreServerAPI).WorldManager.SaveGame.StoreData(id, null);
                 village.Workstations.ForEach(workstation => Api.World.BlockAccessor.GetBlockEntity<BlockEntityVillagerWorkstation>(workstation.Pos)?.RemoveVillage());
                 village.Gatherplaces.ForEach(gatherplace => Api.World.BlockAccessor.GetBlockEntity<BlockEntityVillagerBrazier>(gatherplace)?.RemoveVillage());
-                village.Beds.ForEach(bed => Api.World.BlockAccessor.GetBlockEntity<BlockEntityBed>(bed.Pos)?.GetBehavior<BlockEntityBehaviorVillagerBed>()?.RemoveVillage());
+                village.Beds.ForEach(bed => Api.World.BlockAccessor.GetBlockEntity<BlockEntityVillagerBed>(bed.Pos)?.RemoveVillage());
                 village.Villagers.ForEach(villager => villager?.RemoveVillage());
             }
         }
@@ -154,7 +154,7 @@ namespace VsVillage
 
 
                     var bedStructures = village.Beds.FindAll(candidate => candidate.Pos == message.StructureToRemove);
-                    bedStructures.ForEach(candidate => Api.World.BlockAccessor.GetBlockEntity<BlockEntityBed>(candidate.Pos)?.GetBehavior<BlockEntityBehaviorVillagerBed>()?.RemoveVillage());
+                    bedStructures.ForEach(candidate => Api.World.BlockAccessor.GetBlockEntity<BlockEntityVillagerBed>(candidate.Pos)?.RemoveVillage());
                     village.Beds.RemoveAll(candidate => bedStructures.Contains(candidate));
 
                     break;

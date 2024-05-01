@@ -9,7 +9,7 @@ namespace VsVillage
     public class AiTaskVillagerSleep : AiTaskBase
     {
 
-        BlockEntityBed bed = null;
+        BlockEntityVillagerBed bed = null;
 
         bool done;
         float moveSpeed = 0.03f;
@@ -89,7 +89,7 @@ namespace VsVillage
 
         public override bool ContinueExecute(float dt)
         {
-            if (lastCheck + 500 < entity.World.ElapsedMilliseconds && bed != null && entity.MountedOn == null)
+            if (lastCheck + 500 < entity.World.ElapsedMilliseconds && bed != null)
             {
                 lastCheck = entity.World.ElapsedMilliseconds;
                 if (entity.ServerPos.SquareDistanceTo(bed.Pos.ToVec3d()) < 2) { goToBed(); }
@@ -102,21 +102,18 @@ namespace VsVillage
             villagerPathTraverser.Stop();
             base.FinishExecute(cancelled);
             entity.AnimManager.StopAnimation(sleepAnimMeta.Code);
-            entity.TryUnmount();
         }
 
         private void goToBed()
         {
             done = true;
             villagerPathTraverser.Stop();
-            if (bed != null && bed.MountedBy == null)
+            if (bed != null && entity.ServerPos.SquareDistanceTo(bed.Pos.ToVec3d()) < 3)
             {
-                entity.TryMount(bed);
-                if (bed.MountPosition != null && entity.ServerPos.SquareDistanceTo(bed.Pos.ToVec3d()) < 3)
-                {
-                    entity.ServerPos.Yaw = bed.MountPosition.Yaw;
-                }
+                entity.ServerPos.SetPos(bed.Pos.ToVec3d().Add(0.5, 0, 0.5));
+                entity.ServerPos.Yaw = bed.Yaw;
             }
+
             entity.AnimManager.StopAnimation(animMeta.Code);
             entity.AnimManager.StartAnimation(sleepAnimMeta);
         }
@@ -126,7 +123,7 @@ namespace VsVillage
             var blockAccessor = entity.World.BlockAccessor;
             var villager = entity.GetBehavior<EntityBehaviorVillager>();
             var village = villager?.Village;
-            bed = villager?.Bed != null ? blockAccessor.GetBlockEntity<BlockEntityBed>(villager.Bed) : null;
+            bed = villager?.Bed != null ? blockAccessor.GetBlockEntity<BlockEntityVillagerBed>(villager.Bed) : null;
             if (bed == null && villager != null)
             {
                 var bedPos = village?.FindFreeBed(entity.EntityId);
@@ -134,7 +131,7 @@ namespace VsVillage
                 {
                     villager.Bed = bedPos;
                 }
-                bed = villager?.Bed != null ? blockAccessor.GetBlockEntity<BlockEntityBed>(villager.Bed) : null;
+                bed = villager?.Bed != null ? blockAccessor.GetBlockEntity<BlockEntityVillagerBed>(villager.Bed) : null;
             }
         }
     }
