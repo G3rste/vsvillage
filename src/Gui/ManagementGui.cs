@@ -85,9 +85,9 @@ namespace VsVillage
                     structureIds.AddRange(village.Beds.ConvertAll(bed => bed.Pos.ToString()));
                     structureIds.AddRange(village.Gatherplaces.ConvertAll(gatherplace => gatherplace.ToString()));
 
-                    var structureNames = village.Workstations.ConvertAll(workstation => string.Format("{0}, {1}", Lang.Get(workstation.Profession), BlockPosToString(workstation.Pos, capi)));
-                    structureNames.AddRange(village.Beds.ConvertAll(bed => string.Format("{0}, {1}", Lang.Get("bed"), BlockPosToString(bed.Pos, capi))));
-                    structureNames.AddRange(village.Gatherplaces.ConvertAll(gatherplace => string.Format("{0}, {1}", Lang.Get("gatherplace"), BlockPosToString(gatherplace, capi))));
+                    var structureNames = village.Workstations.ConvertAll(workstation => string.Format("{0}, {1}", Lang.GetMatching(string.Format("vsvillage:block-workstation-{0}-east", workstation.Profession)), BlockPosToString(workstation.Pos, capi)));
+                    structureNames.AddRange(village.Beds.ConvertAll(bed => string.Format("{0}, {1}", Lang.GetMatching("vsvillage:block-villagebed-east"), BlockPosToString(bed.Pos, capi))));
+                    structureNames.AddRange(village.Gatherplaces.ConvertAll(gatherplace => string.Format("{0}, {1}", Lang.GetMatching("vsvillage:block-brazier-extinct"), BlockPosToString(gatherplace, capi))));
                     if (structureIds.Count > 0)
                     {
                         SingleComposer
@@ -145,7 +145,7 @@ namespace VsVillage
             {
                 return Lang.Get("vsvillage:management-structure-note",
                     Lang.Get("vsvillage:" + workstation.Profession),
-                    capi.World.GetEntityById(workstation.OwnerId)?.GetBehavior<EntityBehaviorNameTag>().DisplayName ?? Lang.Get("nobody"),
+                    capi.World.GetEntityById(workstation.OwnerId)?.GetBehavior<EntityBehaviorNameTag>().DisplayName ?? Lang.Get("vsvillage:nobody"),
                     BlockPosToString(workstation.Pos, capi));
             }
             var bed = village.Beds.Find(candidate => candidate.Pos.ToString().Equals(code));
@@ -153,7 +153,7 @@ namespace VsVillage
             {
                 return Lang.Get("vsvillage:management-structure-note",
                     Lang.Get("vsvillage:bed"),
-                    capi.World.GetEntityById(bed.OwnerId)?.GetBehavior<EntityBehaviorNameTag>().DisplayName ?? Lang.Get("nobody"),
+                    capi.World.GetEntityById(bed.OwnerId)?.GetBehavior<EntityBehaviorNameTag>().DisplayName ?? Lang.Get("vsvillage:nobody"),
                     BlockPosToString(bed.Pos, capi));
             }
             var gatherplace = village.Gatherplaces.Find(candidate => candidate.ToString().Equals(code));
@@ -213,7 +213,7 @@ namespace VsVillage
         {
             return pos != null
                 ? string.Format("X={0}, Y={1}, Z={2}", pos.X - api.World.BlockAccessor.MapSizeX / 2, pos.Y, pos.Z - api.World.BlockAccessor.MapSizeZ / 2)
-                : Lang.Get("not-found");
+                : Lang.Get("vsvillage:not-found");
         }
         public static BlockPos BlockPosFromString(string pos)
         {

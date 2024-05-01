@@ -46,16 +46,8 @@
     "block-workstation-herbalist-*": "Workstation (herbalist)",
     "block-workstation-mayor-*": "Workstation (mayor)",
     "block-workstation-trader-*": "Workstation (trader)",
-
-    "smith": "smith",
-    "farmer": "farmer",
-    "shepherd": "shepherd",
-    "mayor": "mayor",
-    "soldier": "soldier",
-    "herbalist": "herbalist",
-    "trader": "trader",
-    "bed": "bed",
-    "gatherplace": "gatherplace",
+    
+    "block-villagebed-*": "Villager bed",
 
     "block-brazier-*": "Brazier",
     "block-waypoint": "Waypoint",
@@ -89,9 +81,6 @@
     "nobody": "nobody",
     "everybody": "everybody",
     "missing-in-action": "Missing in action",
-
-    "tradingwindow-humanoid-villager-male-trader": "Village demand - {0} the supplier of useful stuff",
-    "tradingwindow-humanoid-villager-female-trader": "Village demand - {0} the supplier of useful stuff",
 
     "quest-gatherMeatForSeed-title": "Meat for seed",
     "quest-gatherMeatForSeed-desc": "My diet could use a little bit more variation. If you provide 25 meat of any kind, I could offer you some seeds in return.",
