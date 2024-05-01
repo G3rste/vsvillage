@@ -61,30 +61,30 @@ namespace VsVillage{
         public override void Initialize(EntityProperties properties, JsonObject attributes)
         {
             base.Initialize(properties, attributes);
+            if (entity.Api.Side == EnumAppSide.Client) return;
+
             villagerWaypointsTraverser = new VillagerWaypointsTraverser(entity as EntityAgent);
-            if (string.IsNullOrEmpty(VillageId))
+
+            var village = string.IsNullOrEmpty(VillageId)
+                ? entity.Api.ModLoader.GetModSystem<VillageManager>()?.GetVillage(entity.ServerPos.AsBlockPos)
+                : entity.Api.ModLoader.GetModSystem<VillageManager>()?.GetVillage(VillageId);
+            if (village != null && !village.VillagerSaveData.ContainsKey(entity.EntityId))
             {
-                var village = entity.Api.ModLoader.GetModSystem<VillageManager>()?.GetVillage(entity.SidedPos.AsBlockPos);
-                VillageId = village?.Id;
-                VillageName = village?.Name;
-                village?.VillagerSaveData.Add(entity.EntityId, new()
+                VillageId = village.Id;
+                VillageName = village.Name;
+                village.VillagerSaveData[entity.EntityId] = new()
                 {
                     Id = entity.EntityId,
                     Profession = Profession,
                     Name = entity.GetBehavior<EntityBehaviorNameTag>()?.DisplayName ?? "S̷̡̪̦̮̜̮̳͑̅̀͛̓̋̌e̸̲̦̻̗͉̅̃ř̷͔̮̮̗̆͆̕͜v̵͈̥̩̳͊̄͘̕͠à̶̞̱̱̻́̀̈́͜͜n̷̫͕̣̓̇͘͜t̴̻̫̹̺̻͖͂̓ͅ"
-                });
-            }
-            else
-            {
-                //load the village if not loaded
-                entity.Api.ModLoader.GetModSystem<VillageManager>()?.GetVillage(VillageId);
+                };
             }
         }
 
         public override void OnGameTick(float deltaTime)
         {
             base.OnGameTick(deltaTime);
-            villagerWaypointsTraverser.OnGameTick(deltaTime);
+            villagerWaypointsTraverser?.OnGameTick(deltaTime);
         }
         
         public void RemoveVillage()

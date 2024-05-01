@@ -55,7 +55,7 @@ namespace VsVillage
                     try
                     {
                         byte[] data = sapi.WorldManager.SaveGame.GetData(id);
-                        villageData = data == null ? null : SerializerUtil.Deserialize<Village>(data);
+                        villageData = data == null || data.Length < 10 ? null : SerializerUtil.Deserialize<Village>(data);
                         villageData?.Init(sapi);
                         if (villageData != null)
                         {

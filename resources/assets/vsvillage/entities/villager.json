@@ -137,7 +137,8 @@
 			{ "code": "nametag", "showtagonlywhentargeted": true },
 			{ "code": "repulseagents" },
 			{ "code": "controlledphysics", "stepHeight": 1.01 },
-			{ "code": "interpolateposition" }
+			{ "code": "interpolateposition" },
+			{ "code": "Villager" }
 		],
 		"animations": [
 			{

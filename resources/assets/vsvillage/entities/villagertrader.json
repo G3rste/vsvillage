@@ -68,6 +68,9 @@
             {
                 "code": "conversable",
                 "dialogue": "vsvillage:config/dialogue/trader"
+            },
+            {
+                "code": "Villager"
             }
         ],
         "animations": [
