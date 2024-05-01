@@ -64,8 +64,8 @@ namespace VsVillage
             switch (curTab)
             {
                 case 0:
-                    var villagerIds = village.VillagerSaveData.ConvertAll(data => data.Id.ToString()).ToArray();
-                    var villagerNames = village.VillagerSaveData.ConvertAll(data => data.Name).ToArray();
+                    var villagerIds = village.VillagerSaveData.Values.ToList().ConvertAll(data => data.Id.ToString()).ToArray();
+                    var villagerNames = village.VillagerSaveData.Values.ToList().ConvertAll(data => data.Name).ToArray();
                     if (villagerIds.Length > 0)
                     {
                         SingleComposer
@@ -81,13 +81,13 @@ namespace VsVillage
                     }
                     break;
                 case 1:
-                    var structureIds = village.Workstations.ConvertAll(workstation => workstation.Pos.ToString());
-                    structureIds.AddRange(village.Beds.ConvertAll(bed => bed.Pos.ToString()));
-                    structureIds.AddRange(village.Gatherplaces.ConvertAll(gatherplace => gatherplace.ToString()));
+                    var structureIds = village.Workstations.Values.ToList().ConvertAll(workstation => workstation.Pos.ToString());
+                    structureIds.AddRange(village.Beds.Values.ToList().ConvertAll(bed => bed.Pos.ToString()));
+                    structureIds.AddRange(village.Gatherplaces.ToList().ConvertAll(gatherplace => gatherplace.ToString()));
 
-                    var structureNames = village.Workstations.ConvertAll(workstation => string.Format("{0}, {1}", Lang.GetMatching(string.Format("vsvillage:block-workstation-{0}-east", workstation.Profession)), BlockPosToString(workstation.Pos, capi)));
-                    structureNames.AddRange(village.Beds.ConvertAll(bed => string.Format("{0}, {1}", Lang.GetMatching("vsvillage:block-villagebed-east"), BlockPosToString(bed.Pos, capi))));
-                    structureNames.AddRange(village.Gatherplaces.ConvertAll(gatherplace => string.Format("{0}, {1}", Lang.GetMatching("vsvillage:block-brazier-extinct"), BlockPosToString(gatherplace, capi))));
+                    var structureNames = village.Workstations.Values.ToList().ConvertAll(workstation => string.Format("{0}, {1}", Lang.GetMatching(string.Format("vsvillage:block-workstation-{0}-east", workstation.Profession)), BlockPosToString(workstation.Pos, capi)));
+                    structureNames.AddRange(village.Beds.Values.ToList().ConvertAll(bed => string.Format("{0}, {1}", Lang.GetMatching("vsvillage:block-villagebed-east"), BlockPosToString(bed.Pos, capi))));
+                    structureNames.AddRange(village.Gatherplaces.ToList().ConvertAll(gatherplace => string.Format("{0}, {1}", Lang.GetMatching("vsvillage:block-brazier-extinct"), BlockPosToString(gatherplace, capi))));
                     if (structureIds.Count > 0)
                     {
                         SingleComposer
@@ -140,7 +140,7 @@ namespace VsVillage
 
         private string structureNote(Village village, string code, ICoreClientAPI capi)
         {
-            var workstation = village.Workstations.Find(candidate => candidate.Pos.ToString().Equals(code));
+            var workstation = village.Workstations.Values.ToList().Find(candidate => candidate.Pos.ToString().Equals(code));
             if (workstation != null)
             {
                 return Lang.Get("vsvillage:management-structure-note",
@@ -148,7 +148,7 @@ namespace VsVillage
                     capi.World.GetEntityById(workstation.OwnerId)?.GetBehavior<EntityBehaviorNameTag>().DisplayName ?? Lang.Get("vsvillage:nobody"),
                     BlockPosToString(workstation.Pos, capi));
             }
-            var bed = village.Beds.Find(candidate => candidate.Pos.ToString().Equals(code));
+            var bed = village.Beds.Values.ToList().Find(candidate => candidate.Pos.ToString().Equals(code));
             if (bed != null)
             {
                 return Lang.Get("vsvillage:management-structure-note",
@@ -156,7 +156,7 @@ namespace VsVillage
                     capi.World.GetEntityById(bed.OwnerId)?.GetBehavior<EntityBehaviorNameTag>().DisplayName ?? Lang.Get("vsvillage:nobody"),
                     BlockPosToString(bed.Pos, capi));
             }
-            var gatherplace = village.Gatherplaces.Find(candidate => candidate.ToString().Equals(code));
+            var gatherplace = village.Gatherplaces.ToList().Find(candidate => candidate.ToString().Equals(code));
             if (gatherplace != null)
             {
                 return Lang.Get("vsvillage:management-structure-note",

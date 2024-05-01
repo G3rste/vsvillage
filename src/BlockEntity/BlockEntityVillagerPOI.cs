@@ -4,8 +4,10 @@ using Vintagestory.API.Config;
 using Vintagestory.API.Datastructures;
 using Vintagestory.API.MathTools;
 
-namespace VsVillage{
-    public abstract class BlockEntityVillagerPOI : BlockEntity{
+namespace VsVillage
+{
+    public abstract class BlockEntityVillagerPOI : BlockEntity
+    {
         public string VillageId { get; set; }
         public string VillageName { get; set; }
 
@@ -13,20 +15,26 @@ namespace VsVillage{
 
         public abstract void AddToVillage(Village village);
         public abstract void RemoveFromVillage(Village village);
+        public abstract bool BelongsToVillage(Village village);
 
         public override void Initialize(ICoreAPI api)
         {
             base.Initialize(api);
-            if (string.IsNullOrEmpty(VillageId) || api.Side == EnumAppSide.Server && api.ModLoader.GetModSystem<VillageManager>()?.GetVillage(VillageId) == null)
+            if (api.Side == EnumAppSide.Client) return;
+
+            var village = string.IsNullOrEmpty(VillageId)
+                ? api.ModLoader.GetModSystem<VillageManager>()?.GetVillage(Pos)
+                : api.ModLoader.GetModSystem<VillageManager>()?.GetVillage(VillageId);
+            if (village != null && !BelongsToVillage(village))
             {
-                var village = Api.ModLoader.GetModSystem<VillageManager>()?.GetVillage(Pos);
-                VillageId = village?.Id;
-                VillageName = village?.Name;
+                VillageId = village.Id;
+                VillageName = village.Name;
                 AddToVillage(village);
             }
         }
 
-        public void RemoveVillage(){
+        public void RemoveVillage()
+        {
             VillageId = null;
             VillageName = null;
             MarkDirty();

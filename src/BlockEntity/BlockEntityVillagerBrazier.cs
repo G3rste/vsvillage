@@ -12,11 +12,18 @@ namespace VsVillage
         }
         public override void AddToVillage(Village village)
         {
-            village?.Gatherplaces.Add(Pos);
+            village.Gatherplaces.Add(Pos);
         }
         public override void RemoveFromVillage(Village village)
         {
             village?.Gatherplaces.Remove(Pos);
+        }
+
+        public override bool BelongsToVillage(Village village)
+        {
+            return village.Id == VillageId
+                && village.Name == VillageName
+                && village.Gatherplaces.Contains(Pos);
         }
 
         public void Extinguish()

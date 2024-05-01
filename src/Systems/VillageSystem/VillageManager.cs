@@ -7,6 +7,9 @@ using Vintagestory.API.MathTools;
 using System;
 using Vintagestory.API.Client;
 using Vintagestory.GameContent;
+using Vintagestory.ServerMods.NoObf;
+using System.Text.RegularExpressions;
+using System.Linq;
 
 namespace VsVillage
 {
@@ -61,7 +64,10 @@ namespace VsVillage
                     }
                     catch (Exception)
                     {
-                        Api.Logger.Error(string.Format("Village with id={0} could not be loaded. Maybe it was removed/ outdated/ corrupted. I guess we will never know for sure because I am too lazy to log this information.", id));
+                        Api.Logger.Error(string.Format("Village with id={0} could not be loaded and will be newly created. Maybe it was removed/ outdated/ corrupted. I guess we will never know for sure because I am too lazy to log this information.", id));
+                        var pos = Regex.Match(id, @"village-(\d+), (\d+), (\d+)").Groups.Values.ToList().GetRange(1, 3).ConvertAll(number => int.Parse(number.Value));
+                        villageData = new() { Pos = new BlockPos(pos[0], pos[1], pos[2], 0), Radius = 50, Name = "Lauras little World" };
+                        Villages.TryAdd(id, villageData);
                     }
                 }
             }
@@ -100,9 +106,9 @@ namespace VsVillage
                 var village = Villages.Get(id);
                 Villages.Remove(id);
                 (Api as ICoreServerAPI).WorldManager.SaveGame.StoreData(id, null);
-                village.Workstations.ForEach(workstation => Api.World.BlockAccessor.GetBlockEntity<BlockEntityVillagerWorkstation>(workstation.Pos)?.RemoveVillage());
-                village.Gatherplaces.ForEach(gatherplace => Api.World.BlockAccessor.GetBlockEntity<BlockEntityVillagerBrazier>(gatherplace)?.RemoveVillage());
-                village.Beds.ForEach(bed => Api.World.BlockAccessor.GetBlockEntity<BlockEntityVillagerBed>(bed.Pos)?.RemoveVillage());
+                village.Workstations.Values.Foreach(workstation => Api.World.BlockAccessor.GetBlockEntity<BlockEntityVillagerWorkstation>(workstation.Pos)?.RemoveVillage());
+                village.Gatherplaces.Foreach(gatherplace => Api.World.BlockAccessor.GetBlockEntity<BlockEntityVillagerBrazier>(gatherplace)?.RemoveVillage());
+                village.Beds.Values.Foreach(bed => Api.World.BlockAccessor.GetBlockEntity<BlockEntityVillagerBed>(bed.Pos)?.RemoveVillage());
                 village.Villagers.ForEach(villager => villager?.RemoveVillage());
             }
         }
@@ -129,7 +135,7 @@ namespace VsVillage
                     workstation.VillageId = village.Id;
                     workstation.VillageName = village.Name;
                     workstation.MarkDirty();
-                    village.Workstations.Add(new() { OwnerId = -1, Pos = message.Pos, Profession = workstation.Type });
+                    village.Workstations.Add(message.Pos, new() { OwnerId = -1, Pos = message.Pos, Profession = workstation.Type });
                     Villages.TryAdd(village.Id, village);
                     break;
                 case EnumVillageManagementOperation.destroy:
@@ -143,27 +149,30 @@ namespace VsVillage
                 case EnumVillageManagementOperation.removeStructure:
                     village = GetVillage(message.Id);
 
-                    var workStructures = village.Workstations.FindAll(candidate => candidate.Pos == message.StructureToRemove);
-                    workStructures.ForEach(candidate => Api.World.BlockAccessor.GetBlockEntity<BlockEntityVillagerWorkstation>(candidate.Pos)?.RemoveVillage());
-                    village.Workstations.RemoveAll(candidate => workStructures.Contains(candidate));
+                    if (village.Workstations.Remove(message.Pos))
+                    {
+                        Api.World.BlockAccessor.GetBlockEntity<BlockEntityVillagerWorkstation>(message.Pos)?.RemoveVillage();
+                    }
 
+                    if (village.Gatherplaces.Remove(message.Pos))
+                    {
+                        Api.World.BlockAccessor.GetBlockEntity<BlockEntityVillagerBrazier>(message.Pos)?.RemoveVillage();
+                    }
 
-                    var gatherStructures = village.Gatherplaces.FindAll(candidate => candidate == message.StructureToRemove);
-                    gatherStructures.ForEach(candidate => Api.World.BlockAccessor.GetBlockEntity<BlockEntityVillagerBrazier>(candidate)?.RemoveVillage());
-                    village.Gatherplaces.RemoveAll(candidate => gatherStructures.Contains(candidate));
-
-
-                    var bedStructures = village.Beds.FindAll(candidate => candidate.Pos == message.StructureToRemove);
-                    bedStructures.ForEach(candidate => Api.World.BlockAccessor.GetBlockEntity<BlockEntityVillagerBed>(candidate.Pos)?.RemoveVillage());
-                    village.Beds.RemoveAll(candidate => bedStructures.Contains(candidate));
+                    if (village.Beds.Remove(message.Pos))
+                    {
+                        Api.World.BlockAccessor.GetBlockEntity<BlockEntityVillagerBed>(message.Pos)?.RemoveVillage();
+                    }
 
                     break;
                 case EnumVillageManagementOperation.removeVillager:
                     village = GetVillage(message.Id);
 
-                    var villagerIds = village.VillagerSaveData.FindAll(candidate => candidate.Id == message.VillagerToRemove);
-                    villagerIds.ConvertAll<EntityBehaviorVillager>(candidate => Api.World.GetEntityById(candidate.Id)?.GetBehavior<EntityBehaviorVillager>()).ForEach(villager => villager?.RemoveVillage());
-                    village.VillagerSaveData.RemoveAll(candidate => villagerIds.Contains(candidate));
+                    if (village.VillagerSaveData.Remove(message.VillagerToRemove))
+                    {
+                        Api.World.GetEntityById(message.VillagerToRemove)?.GetBehavior<EntityBehaviorVillager>()?.RemoveVillage();
+                    }
+
                     break;
             }
         }

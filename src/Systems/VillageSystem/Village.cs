@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using ProtoBuf;
 using Vintagestory.API.Common;
 using Vintagestory.API.MathTools;
@@ -16,18 +17,18 @@ namespace VsVillage
         [ProtoMember(3)]
         public string Name;
         [ProtoMember(4)]
-        public List<VillagerBed> Beds = new();
+        public Dictionary<BlockPos, VillagerBed> Beds = new();
         [ProtoMember(5)]
-        public List<VillagerWorkstation> Workstations = new();
+        public Dictionary<BlockPos, VillagerWorkstation> Workstations = new();
         [ProtoMember(6)]
-        public List<BlockPos> Gatherplaces = new();
+        public HashSet<BlockPos> Gatherplaces = new();
         [ProtoMember(7)]
-        public List<VillagerData> VillagerSaveData = new();
+        public Dictionary<long, VillagerData> VillagerSaveData = new();
         [ProtoMember(8)]
-        public List<VillageWaypoint> Waypoints = new();
+        public Dictionary<BlockPos, VillageWaypoint> Waypoints = new();
 
         public ICoreAPI Api;
-        public List<EntityBehaviorVillager> Villagers => VillagerSaveData.ConvertAll(data => Api.World.GetEntityById(data.Id)?.GetBehavior<EntityBehaviorVillager>());
+        public List<EntityBehaviorVillager> Villagers => VillagerSaveData.Values.ToList().ConvertAll(data => Api.World.GetEntityById(data.Id)?.GetBehavior<EntityBehaviorVillager>());
 
         public void Init(ICoreAPI api)
         {
@@ -37,7 +38,7 @@ namespace VsVillage
 
         public BlockPos FindFreeBed(long villagerId)
         {
-            foreach (var bed in Beds)
+            foreach (var bed in Beds.Values)
             {
                 if (bed.OwnerId == -1 || bed.OwnerId == villagerId)
                 {
@@ -50,7 +51,7 @@ namespace VsVillage
 
         public BlockPos FindFreeWorkstation(long villagerId, string profession)
         {
-            foreach (var workstation in Workstations)
+            foreach (var workstation in Workstations.Values)
             {
                 if (workstation.Profession == profession && (workstation.OwnerId == -1 || workstation.OwnerId == villagerId))
                 {
@@ -67,13 +68,13 @@ namespace VsVillage
             {
                 return null;
             }
-            return Gatherplaces[Api.World.Rand.Next(Gatherplaces.Count)];
+            return Gatherplaces.ElementAt(Api.World.Rand.Next(Gatherplaces.Count));
         }
 
         public VillageWaypoint FindNearesWaypoint(BlockPos pos)
         {
             VillageWaypoint result = null;
-            foreach (var waypoint in Waypoints)
+            foreach (var waypoint in Waypoints.Values)
             {
                 if (result == null || waypoint.Pos.ManhattenDistance(pos) < result.Pos.ManhattenDistance(pos))
                 {
@@ -85,20 +86,23 @@ namespace VsVillage
 
         public void DoDijkstraSimilarStuff()
         {
-            for (int i = 0; i < Waypoints.Count * Waypoints.Count; i++)
+            for (int i = 0; i < Waypoints.Count; i++)
             {
-                Waypoints[i % Waypoints.Count].UpdateReachableNodes();
+                foreach (var waypoint in Waypoints.Values)
+                {
+                    waypoint.UpdateReachableNodes();
+                }
             }
         }
 
         public void InitWayPoints()
         {
             var waypointDict = new Dictionary<BlockPos, VillageWaypoint>();
-            foreach (var waypoint in Waypoints)
+            foreach (var waypoint in Waypoints.Values)
             {
                 waypointDict.TryAdd(waypoint.Pos, waypoint);
             }
-            foreach (var waypoint in Waypoints)
+            foreach (var waypoint in Waypoints.Values)
             {
                 foreach (var neighbour in waypoint._Neighbours)
                 {
@@ -118,7 +122,7 @@ namespace VsVillage
 
         public void RemoveWaypoint(VillageWaypoint waypoint)
         {
-            foreach (var element in Waypoints)
+            foreach (var element in Waypoints.Values)
             {
                 element.RemoveNeighbour(waypoint);
             }
@@ -127,18 +131,17 @@ namespace VsVillage
 
         public void RemoveWaypoint(BlockPos pos)
         {
-            var waypoint = Waypoints.Find(waypoint => waypoint.Pos == pos);
-            if (waypoint != null)
+            if (Waypoints.TryGetValue(pos, out var waypoint))
             {
                 RemoveWaypoint(waypoint);
-                Waypoints.Remove(waypoint);
+                Waypoints.Remove(waypoint.Pos);
                 RecalculateWaypoints();
             }
         }
 
         public void RecalculateWaypoints()
         {
-            foreach (var element in Waypoints)
+            foreach (var element in Waypoints.Values)
             {
                 element.ReachableNodes = new();
                 element._ReachableNodes = new();

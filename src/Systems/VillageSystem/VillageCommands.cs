@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
 using Vintagestory.API.MathTools;
@@ -74,10 +75,10 @@ namespace VsVillage
             pos.Y = sapi.World.BlockAccessor.GetTerrainMapheightAt(village.Pos);
 
             var center = addBlockHeight(new List<BlockPos>() { pos }, 10);
-            var workstations = addBlockHeight(village.Workstations.ConvertAll(workstation => workstation.Pos), 10);
-            var beds = addBlockHeight(village.Beds.ConvertAll(bed => bed.Pos), 10);
-            var gatherplaces = addBlockHeight(village.Gatherplaces, 10);
-            var waypoints = addBlockHeight(village.Waypoints.ConvertAll(waypoint => waypoint.Pos));
+            var workstations = addBlockHeight(village.Workstations.Keys.ToList(), 10);
+            var beds = addBlockHeight(village.Beds.Keys.ToList(), 10);
+            var gatherplaces = addBlockHeight(village.Gatherplaces.ToList(), 10);
+            var waypoints = addBlockHeight(village.Waypoints.Keys.ToList());
             var border = addBlockHeight(new List<BlockPos>());
 
             for (var i = -village.Radius; i <= village.Radius; i++)
@@ -123,7 +124,7 @@ namespace VsVillage
             HashSet<BlockPos> allPaths = new();
             var village = sapi.ModLoader.GetModSystem<VillageManager>().GetVillage(plrPos);
             if (village == null) return TextCommandResult.Error("No village found");
-            foreach (var waypoint in village.Waypoints)
+            foreach (var waypoint in village.Waypoints.Values)
             {
                 foreach (var neighbour in waypoint.Neighbours.Keys)
                 {

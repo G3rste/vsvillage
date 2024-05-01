@@ -9,13 +9,19 @@ namespace VsVillage
 
         public override void AddToVillage(Village village)
         {
-            village?.Workstations.Add(new() { OwnerId = -1, Pos = Pos, Profession = Type });
+            village.Workstations[Pos]= new() { OwnerId = -1, Pos = Pos, Profession = Type };
         }
 
         public override void RemoveFromVillage(Village village)
         {
-            village?.Workstations.RemoveAll(workstation => workstation.Pos.Equals(Pos));
+            village?.Workstations.Remove(Pos);
+        }
 
+        public override bool BelongsToVillage(Village village)
+        {
+            return village.Id == VillageId
+                && village.Name == VillageName
+                && village.Workstations.ContainsKey(Pos);
         }
     }
 }

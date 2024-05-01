@@ -67,7 +67,7 @@ namespace VsVillage{
                 var village = entity.Api.ModLoader.GetModSystem<VillageManager>()?.GetVillage(entity.SidedPos.AsBlockPos);
                 VillageId = village?.Id;
                 VillageName = village?.Name;
-                village?.VillagerSaveData.Add(new()
+                village?.VillagerSaveData.Add(entity.EntityId, new()
                 {
                     Id = entity.EntityId,
                     Profession = Profession,
