@@ -5,11 +5,12 @@ using Vintagestory.API.Config;
 using Vintagestory.API.Datastructures;
 using Vintagestory.API.MathTools;
 
-namespace VsVillage{
+namespace VsVillage
+{
     public class EntityBehaviorVillager : EntityBehavior
     {
 
-        public VillagerWaypointsTraverser villagerWaypointsTraverser {get; private set;}
+        public VillagerWaypointsTraverser villagerWaypointsTraverser { get; private set; }
 
         public string Profession => entity.Properties.Attributes["profession"].AsString();
         public string VillageId
@@ -68,7 +69,7 @@ namespace VsVillage{
             var village = string.IsNullOrEmpty(VillageId)
                 ? entity.Api.ModLoader.GetModSystem<VillageManager>()?.GetVillage(entity.ServerPos.AsBlockPos)
                 : entity.Api.ModLoader.GetModSystem<VillageManager>()?.GetVillage(VillageId);
-            if (village != null && !village.VillagerSaveData.ContainsKey(entity.EntityId))
+            if (village != null && (village.Id != VillageId || village.Name != VillageName || !village.VillagerSaveData.ContainsKey(entity.EntityId)))
             {
                 VillageId = village.Id;
                 VillageName = village.Name;
@@ -86,7 +87,7 @@ namespace VsVillage{
             base.OnGameTick(deltaTime);
             villagerWaypointsTraverser?.OnGameTick(deltaTime);
         }
-        
+
         public void RemoveVillage()
         {
             VillageId = null;
@@ -104,7 +105,7 @@ namespace VsVillage{
             base.GetInfoText(infotext);
             if (!string.IsNullOrEmpty(VillageName))
             {
-                infotext.AppendLine(Lang.Get("vsvillage:lives-in", VillageName, Workstation != null ? ManagementGui.BlockPosToString(Workstation, entity.Api) : Lang.Get("vsvillage:nowhere"), Bed != null ? ManagementGui.BlockPosToString(Bed, entity.Api) : Lang.Get("vsvillage:nowhere")));
+                infotext.AppendLine(Lang.Get("vsvillage:lives-in", Lang.Get(VillageName), Workstation != null ? ManagementGui.BlockPosToString(Workstation, entity.Api) : Lang.Get("vsvillage:nowhere"), Bed != null ? ManagementGui.BlockPosToString(Bed, entity.Api) : Lang.Get("vsvillage:nowhere")));
             }
         }
     }
