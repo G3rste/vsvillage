@@ -84,6 +84,7 @@ namespace VsVillage
         public override void FinishExecute(bool cancelled)
         {
             base.FinishExecute(cancelled);
+            villagerPathTraverser.Stop();
             if (targetReached)
             {
                 ApplyInteractionEffect();
