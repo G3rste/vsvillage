@@ -235,8 +235,8 @@
 						},
 						"priority": 1.5,
 						"movespeed": 0.035,
-						"seekingRangeByType": { "*-archer": 7, "*": 12 },
-						"animationByType": { "*-archer": "BalancedRun", "*": "FormalRun" },
+						"seekingRange": 4,
+						"animationByType": { "*-archer": "BalancedRun", "*-soldier": "BalancedRun", "*": "FormalRun" },
 						"animationSpeed": 1.75
 					},
 					{

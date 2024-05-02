@@ -477,9 +477,9 @@
                 "code": "taskai",
                 "aitasks": [
                     {
-                        "code": "meleeattack",
+                        "code": "villagermeleeattack",
                         "entityCodes": [
-                            "player"
+                            "dont attack by yourself"
                         ],
                         "priority": 2,
                         "damage": 5,
@@ -488,13 +488,12 @@
                         "attackDurationMs": 900,
                         "damagePlayerAtMs": 300,
                         "animation": "Attack",
-                        "animationSpeed": 2,
-                        "whenInEmotionState": "aggressiveondamage"
+                        "animationSpeed": 2
                     },
                     {
-                        "code": "seekentity",
+                        "code": "villagerseekentity",
                         "entityCodes": [
-                            "player"
+                            "dont attack by yourself"
                         ],
                         "priority": 1.5,
                         "mincooldown": 1000,
@@ -502,20 +501,27 @@
                         "seekingRange": 20,
                         "movespeed": 0.035,
                         "animation": "Run",
-                        "animationSpeed": 1.75,
-                        "whenInEmotionState": "aggressiveondamage"
+                        "animationSpeed": 1.75
                     },
                     {
                         "code": "fleeentity",
                         "entityCodes": [
-                            "player"
+                            "drifter-*",
+                            "locust-*",
+                            "bear-*",
+                            "wolf-male",
+                            "wolf-female",
+                            "looter",
+                            "hound-*",
+                            "bandit-*",
+                            "poacher-*",
+                            "yeoman-archer"
                         ],
                         "priority": 1.5,
                         "movespeed": 0.035,
-                        "seekingRange": 12,
+                        "seekingRange": 4,
                         "animation": "Run",
-                        "animationSpeed": 1.75,
-                        "whenInEmotionState": "fleeondamage"
+                        "animationSpeed": 1.75
                     },
                     {
                         "code": "idle",
