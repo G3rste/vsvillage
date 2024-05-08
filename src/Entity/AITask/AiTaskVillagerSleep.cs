@@ -11,7 +11,7 @@ namespace VsVillage
 
         BlockEntityVillagerBed bed = null;
 
-        bool done;
+        bool bedReached;
         float moveSpeed = 0.03f;
         long lastCheck;
 
@@ -50,7 +50,7 @@ namespace VsVillage
             }
 
             villagerPathTraverser = entity.GetBehavior<EntityBehaviorVillager>().villagerWaypointsTraverser;
-            done = false;
+            bedReached = false;
         }
 
         public override bool ShouldExecute()
@@ -73,18 +73,14 @@ namespace VsVillage
 
         public override void StartExecute()
         {
+            base.StartExecute();
             if (bed == null) { retrieveBed(); }
-
+            bedReached = false;
             if (bed != null)
             {
-                done = !villagerPathTraverser.NavigateTo(bed.Pos.ToVec3d(), moveSpeed, 0.5f, goToBed, goToBed, true, 10000);
+                villagerPathTraverser.NavigateTo(bed.Pos.ToVec3d(), moveSpeed, 0.5f, tryGoingToBed, tryGoingToBed, true, 10000);
+                tryGoingToBed();
             }
-            else
-            {
-                done = true;
-            }
-            if (done) { goToBed(); }
-            else { base.StartExecute(); }
         }
 
         public override bool ContinueExecute(float dt)
@@ -92,9 +88,9 @@ namespace VsVillage
             if (lastCheck + 500 < entity.World.ElapsedMilliseconds && bed != null)
             {
                 lastCheck = entity.World.ElapsedMilliseconds;
-                if (entity.ServerPos.SquareDistanceTo(bed.Pos.ToVec3d()) < 2) { goToBed(); }
+                if (entity.ServerPos.SquareDistanceTo(bed.Pos.ToVec3d()) < 2) { tryGoingToBed(); }
             }
-            return IntervalUtil.matchesCurrentTime(duringDayTimeFrames, entity.World);
+            return IntervalUtil.matchesCurrentTime(duringDayTimeFrames, entity.World) && (bedReached || villagerPathTraverser.Active);
         }
 
         public override void FinishExecute(bool cancelled)
@@ -104,18 +100,17 @@ namespace VsVillage
             entity.AnimManager.StopAnimation(sleepAnimMeta.Code);
         }
 
-        private void goToBed()
+        private void tryGoingToBed()
         {
-            done = true;
-            villagerPathTraverser.Stop();
             if (bed != null && entity.ServerPos.SquareDistanceTo(bed.Pos.ToVec3d()) < 3)
             {
                 entity.ServerPos.SetPos(bed.Pos.ToVec3d().Add(0.5, 0, 0.5));
                 entity.ServerPos.Yaw = bed.Yaw;
+                entity.AnimManager.StopAnimation(animMeta.Code);
+                entity.AnimManager.StartAnimation(sleepAnimMeta);
+                bedReached = true;
+                villagerPathTraverser.Stop();
             }
-
-            entity.AnimManager.StopAnimation(animMeta.Code);
-            entity.AnimManager.StartAnimation(sleepAnimMeta);
         }
 
         private void retrieveBed()
