@@ -221,7 +221,7 @@
 						"priority": 1.6,
 						"mincooldown": 1000,
 						"maxcooldown": 1500,
-						"seekingRange": 20,
+						"seekingRange": 12,
 						"minRangeByType": { "*-archer": 8, "*": 0 },
 						"movespeed": 0.035,
 						"animation": "RowdyRun",
