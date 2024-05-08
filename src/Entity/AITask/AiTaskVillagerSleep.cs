@@ -9,7 +9,7 @@ namespace VsVillage
     public class AiTaskVillagerSleep : AiTaskBase
     {
 
-        BlockEntityVillagerBed bed = null;
+        BlockEntityVillagerBed bedEntity = null;
 
         bool bedReached;
         float moveSpeed = 0.03f;
@@ -58,11 +58,8 @@ namespace VsVillage
             if (lastCheck + 10000 < entity.World.ElapsedMilliseconds)
             {
                 lastCheck = entity.World.ElapsedMilliseconds;
-                if (bed == null)
-                {
-                    retrieveBed();
-                }
-                return IntervalUtil.matchesCurrentTime(duringDayTimeFrames, entity.World);
+                retrieveBed();
+                return bedEntity != null && IntervalUtil.matchesCurrentTime(duringDayTimeFrames, entity.World);
             }
             else
             {
@@ -74,21 +71,20 @@ namespace VsVillage
         public override void StartExecute()
         {
             base.StartExecute();
-            if (bed == null) { retrieveBed(); }
             bedReached = false;
-            if (bed != null)
+            if (bedEntity != null)
             {
-                villagerPathTraverser.NavigateTo(bed.Pos.ToVec3d(), moveSpeed, 0.5f, tryGoingToBed, tryGoingToBed, true, 10000);
+                villagerPathTraverser.NavigateTo(bedEntity.Pos.ToVec3d(), moveSpeed, 0.5f, tryGoingToBed, tryGoingToBed, true, 10000);
                 tryGoingToBed();
             }
         }
 
         public override bool ContinueExecute(float dt)
         {
-            if (lastCheck + 500 < entity.World.ElapsedMilliseconds && bed != null)
+            if (lastCheck + 500 < entity.World.ElapsedMilliseconds && !bedReached)
             {
                 lastCheck = entity.World.ElapsedMilliseconds;
-                if (entity.ServerPos.SquareDistanceTo(bed.Pos.ToVec3d()) < 2) { tryGoingToBed(); }
+                tryGoingToBed();
             }
             return IntervalUtil.matchesCurrentTime(duringDayTimeFrames, entity.World) && (bedReached || villagerPathTraverser.Active);
         }
@@ -102,10 +98,10 @@ namespace VsVillage
 
         private void tryGoingToBed()
         {
-            if (bed != null && entity.ServerPos.SquareDistanceTo(bed.Pos.ToVec3d()) < 3)
+            if (bedEntity != null && entity.ServerPos.SquareDistanceTo(bedEntity.Pos.ToVec3d()) < 3)
             {
-                entity.ServerPos.SetPos(bed.Pos.ToVec3d().Add(0.5, 0, 0.5));
-                entity.ServerPos.Yaw = bed.Yaw;
+                entity.ServerPos.SetPos(bedEntity.Pos.ToVec3d().Add(0.5, 0, 0.5));
+                entity.ServerPos.Yaw = bedEntity.Yaw;
                 entity.AnimManager.StopAnimation(animMeta.Code);
                 entity.AnimManager.StartAnimation(sleepAnimMeta);
                 bedReached = true;
@@ -115,18 +111,30 @@ namespace VsVillage
 
         private void retrieveBed()
         {
+            bedEntity = null;
             var blockAccessor = entity.World.BlockAccessor;
             var villager = entity.GetBehavior<EntityBehaviorVillager>();
             var village = villager?.Village;
-            bed = villager?.Bed != null ? blockAccessor.GetBlockEntity<BlockEntityVillagerBed>(villager.Bed) : null;
-            if (bed == null && villager != null)
+            if (village == null) return;
+            var bedPos = villager.Bed;
+            if (bedPos == null)
             {
-                var bedPos = village?.FindFreeBed(entity.EntityId);
-                if (bedPos != null)
+                bedPos = village.FindFreeBed(entity.EntityId);
+                villager.Bed = bedPos;
+            }
+            else
+            {
+                village.Beds.TryGetValue(bedPos, out var bed);
+                if (bed == null || bed.OwnerId != entity.EntityId)
                 {
-                    villager.Bed = bedPos;
+                    bedPos = null; 
+                    villager.Bed = null;
                 }
-                bed = villager?.Bed != null ? blockAccessor.GetBlockEntity<BlockEntityVillagerBed>(villager.Bed) : null;
+            }
+
+            if (bedPos != null)
+            {
+                bedEntity = blockAccessor.GetBlockEntity<BlockEntityVillagerBed>(villager.Bed);
             }
         }
     }

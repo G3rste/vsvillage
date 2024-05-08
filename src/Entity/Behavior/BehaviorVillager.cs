@@ -1,4 +1,5 @@
 using System.Text;
+using System.Text.RegularExpressions;
 using Vintagestory.API.Common;
 using Vintagestory.API.Common.Entities;
 using Vintagestory.API.Config;
@@ -34,12 +35,24 @@ namespace VsVillage
         public BlockPos Workstation
         {
             get => entity.WatchedAttributes.GetBlockPos("workstation");
-            set => entity.WatchedAttributes.SetBlockPos("workstation", value);
+            set
+            {
+                if (value != null)
+                    entity.WatchedAttributes.SetBlockPos("workstation", value);
+                else
+                    entity.WatchedAttributes.RemoveAttribute("workstationX");
+            }
         }
         public BlockPos Bed
         {
             get => entity.WatchedAttributes.GetBlockPos("bed");
-            set => entity.WatchedAttributes.SetBlockPos("bed", value);
+            set
+            {
+                if (value != null)
+                    entity.WatchedAttributes.SetBlockPos("bed", value);
+                else
+                    entity.WatchedAttributes.RemoveAttribute("bedX");
+            }
         }
 
         private Village _village;
