@@ -1,8 +1,6 @@
-using System;
 using Vintagestory.API.Common;
 using Vintagestory.API.Datastructures;
 using Vintagestory.API.MathTools;
-using Vintagestory.API.Server;
 using Vintagestory.GameContent;
 
 namespace VsVillage
@@ -40,20 +38,25 @@ namespace VsVillage
 
         protected override Vec3d GetTargetPos()
         {
-            var blockAccessor = entity.World.BlockAccessor;
             var villager = entity.GetBehavior<EntityBehaviorVillager>();
             var village = villager?.Village;
-            var workstation = villager?.Workstation != null ? blockAccessor.GetBlockEntity<BlockEntityVillagerWorkstation>(villager.Workstation) : null;
-            if (workstation == null && villager != null)
+            if (village == null) return null;
+            var workPos = villager.Workstation;
+            if (workPos == null)
             {
-                var workPos = village?.FindFreeWorkstation(entity.EntityId, villager.Profession);
-                if (workPos != null)
-                {
-                    villager.Workstation = workPos;
-                }
-                workstation = villager?.Workstation != null ? blockAccessor.GetBlockEntity<BlockEntityVillagerWorkstation>(villager.Workstation) : null;
+                workPos = village.FindFreeWorkstation(entity.EntityId, villager.Profession);
+                villager.Workstation = workPos;
             }
-            return getRandomPosNearby(workstation?.Position);
+            else
+            {
+                village.Workstations.TryGetValue(workPos, out var workstation);
+                if (workstation == null || workstation.OwnerId != entity.EntityId)
+                {
+                    workPos = null; 
+                    villager.Workstation = null;
+                }
+            }
+            return getRandomPosNearby(workPos?.ToVec3d());
         }
 
 

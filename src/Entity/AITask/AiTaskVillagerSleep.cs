@@ -134,7 +134,7 @@ namespace VsVillage
 
             if (bedPos != null)
             {
-                bedEntity = blockAccessor.GetBlockEntity<BlockEntityVillagerBed>(villager.Bed);
+                bedEntity = blockAccessor.GetBlockEntity<BlockEntityVillagerBed>(bedPos);
             }
         }
     }
