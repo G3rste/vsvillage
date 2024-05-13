@@ -53,7 +53,8 @@ namespace VsVillage
                 new GuiTab() { Name = Lang.Get("vsvillage:tab-management-residents"), DataInt = 0, Active = curTab == 0 },
                 new GuiTab() { Name = Lang.Get("vsvillage:tab-management-structures"), DataInt = 1, Active = curTab == 1 },
                 new GuiTab() { Name = Lang.Get("vsvillage:tab-management-stats"), DataInt = 2, Active = curTab == 2 },
-                new GuiTab() { Name = Lang.Get("vsvillage:tab-management-destroy"), DataInt = 3, Active = curTab == 3 }
+                new GuiTab() { Name = Lang.Get("vsvillage:tab-management-hire"), DataInt = 3, Active = curTab == 3 },
+                new GuiTab() { Name = Lang.Get("vsvillage:tab-management-destroy"), DataInt = 4, Active = curTab == 4 }
             };
 
             SingleComposer = capi.Gui.CreateCompo("VillageManagementDialog-", dialogBounds)
@@ -111,6 +112,16 @@ namespace VsVillage
                         .AddButton(Lang.Get("vsvillage:management-update-village-button"), () => changeStatsVillage(capi), ElementBounds.Fixed(0, 100, 200, 30));
                     break;
                 case 3:
+                    SingleComposer.AddButton(Lang.Get("vsvillage:management-hire-farmer"), () => hireVillager(capi, "farmer"), ElementBounds.Fixed(0, 20, 200, 30))
+                        .AddButton(Lang.Get("vsvillage:management-hire-shepherd"), () => hireVillager(capi, "shepherd"), ElementBounds.Fixed(220, 20, 200, 30))
+                        .AddButton(Lang.Get("vsvillage:management-hire-trader"), () => hireVillager(capi, "trader"), ElementBounds.Fixed(0, 60, 200, 30))
+                        .AddButton(Lang.Get("vsvillage:management-hire-smith"), () => hireVillager(capi, "smith"), ElementBounds.Fixed(220, 60, 200, 30))
+                        .AddButton(Lang.Get("vsvillage:management-hire-soldier"), () => hireVillager(capi, "soldier"), ElementBounds.Fixed(0, 100, 200, 30))
+                        .AddButton(Lang.Get("vsvillage:management-hire-herbalist"), () => hireVillager(capi, "herbalist"), ElementBounds.Fixed(220, 100, 200, 30))
+                        .AddButton(Lang.Get("vsvillage:management-hire-mayor"), () => hireVillager(capi, "mayor"), ElementBounds.Fixed(0, 140, 200, 30))
+                        .AddButton(Lang.Get("vsvillage:management-hire-archer"), () => hireVillager(capi, "archer", "soldier"), ElementBounds.Fixed(220, 140, 200, 30));
+                    break;
+                case 4:
                     SingleComposer.AddStaticText(Lang.Get("vsvillage:management-destroy-village-text"), CairoFont.WhiteSmallishText(), ElementBounds.Fixed(0, 20, 500, 30))
                         .AddButton(Lang.Get("vsvillage:management-destroy-village-button"), () => destroyVillage(capi), ElementBounds.Fixed(0, 50, 200, 30));
                     break;
@@ -120,6 +131,15 @@ namespace VsVillage
 
             SingleComposer.GetTextInput("villagename")?.SetValue(village.Name);
             SingleComposer.GetTextInput("villageradius")?.SetValue(village.Radius);
+        }
+
+        private bool hireVillager(ICoreClientAPI capi, string type, string profession = null)
+        {
+            managementMessage.Operation = EnumVillageManagementOperation.hireVillager;
+            managementMessage.VillagerProfession = string.IsNullOrEmpty(profession) ? type : profession;
+            managementMessage.VillagerType = type;
+            capi.Network.GetChannel("villagemanagementnetwork").SendPacket(managementMessage);
+            return true;
         }
 
         private string villagerNote(string code, ICoreClientAPI capi)

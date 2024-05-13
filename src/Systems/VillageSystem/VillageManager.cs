@@ -6,10 +6,9 @@ using Vintagestory.API.Util;
 using Vintagestory.API.MathTools;
 using System;
 using Vintagestory.API.Client;
-using Vintagestory.GameContent;
-using Vintagestory.ServerMods.NoObf;
 using System.Text.RegularExpressions;
 using System.Linq;
+using Vintagestory.API.Config;
 
 namespace VsVillage
 {
@@ -18,6 +17,7 @@ namespace VsVillage
 
         public ConcurrentDictionary<string, Village> Villages = new ConcurrentDictionary<string, Village>();
         private ICoreAPI Api;
+        private const int villagerHiringCost = 5;
 
         public override void Start(ICoreAPI api)
         {
@@ -151,17 +151,17 @@ namespace VsVillage
 
                     if (village.Workstations.Remove(message.Pos))
                     {
-                        Api.World.BlockAccessor.GetBlockEntity<BlockEntityVillagerWorkstation>(message.Pos)?.RemoveVillage();
+                        api.World.BlockAccessor.GetBlockEntity<BlockEntityVillagerWorkstation>(message.Pos)?.RemoveVillage();
                     }
 
                     if (village.Gatherplaces.Remove(message.Pos))
                     {
-                        Api.World.BlockAccessor.GetBlockEntity<BlockEntityVillagerBrazier>(message.Pos)?.RemoveVillage();
+                        api.World.BlockAccessor.GetBlockEntity<BlockEntityVillagerBrazier>(message.Pos)?.RemoveVillage();
                     }
 
                     if (village.Beds.Remove(message.Pos))
                     {
-                        Api.World.BlockAccessor.GetBlockEntity<BlockEntityVillagerBed>(message.Pos)?.RemoveVillage();
+                        api.World.BlockAccessor.GetBlockEntity<BlockEntityVillagerBed>(message.Pos)?.RemoveVillage();
                     }
 
                     break;
@@ -174,7 +174,102 @@ namespace VsVillage
                     }
 
                     break;
+                case EnumVillageManagementOperation.hireVillager:
+                    village = GetVillage(message.Id);
+
+                    TryHireVillager(message.VillagerProfession, message.VillagerType, village, fromPlayer);
+                    break;
             }
+        }
+
+        private bool TryHireVillager(string profession, string type, Village village, IServerPlayer fromPlayer)
+        {
+            var freeBeds = village.Beds.Values.Where(bed => bed.OwnerId == -1).Count();
+            if (freeBeds == 0)
+            {
+                fromPlayer.SendIngameError("not-enough-beds");
+                return false;
+            }
+
+            var freeWorkstations = village.Workstations.Values.Where(workstation => workstation.Profession == profession && workstation.OwnerId == -1).Count();
+            if (freeWorkstations == 0)
+            {
+                fromPlayer.SendIngameError("not-enough-workstations");
+                return false;
+            }
+
+            if (profession != "farmer" && profession != "shepherd")
+            {
+                // Each shepherd/ farmer produces enough food to feed himself and one other villager
+                var foodExpense = 2 * village.Villagers.Where(villager => villager.Profession == "farmer" || villager.Profession == "shepherd").Count()
+                    - village.Villagers.Count;
+                if (foodExpense <= 0)
+                {
+                    fromPlayer.SendIngameError("not-enough-food");
+                    return false;
+                }
+            }
+
+
+            int gears = 0;
+            foreach (var inventory in fromPlayer.InventoryManager.Inventories.Values)
+            {
+                if (inventory.ClassName == GlobalConstants.creativeInvClassName)
+                {
+                    continue;
+                }
+                foreach (var slot in inventory)
+                {
+                    if (slot?.Itemstack?.Collectible?.Code?.Path == "gear-rusty")
+                    {
+                        gears += slot.Itemstack.StackSize;
+                    }
+                }
+            }
+
+            if (gears < villagerHiringCost)
+            {
+                fromPlayer.SendIngameError("not-enough-gears");
+                return false;
+            }
+
+            var world = fromPlayer.Entity.Api.World as IServerWorldAccessor;
+            string code = string.Format("vsvillage:humanoid-villager-{0}-{1}", world.Rand.Next(0, 2) == 0 ? "male" : "female", type);
+            var entityType = world.GetEntityType(new AssetLocation(code));
+            if (entityType == null)
+            {
+                fromPlayer.SendIngameError("no-valid-villager", null, code);
+                return false;
+            }
+            var entity = world.ClassRegistry.CreateEntity(entityType);
+            var bed = village.Beds.Values.Where(bed => bed.OwnerId == -1).First();
+            entity.ServerPos.X = bed.Pos.X;
+            entity.ServerPos.Y = bed.Pos.Y;
+            entity.ServerPos.Z = bed.Pos.Z;
+            world.SpawnEntity(entity);
+            bed.OwnerId = entity.EntityId;
+            entity.GetBehavior<EntityBehaviorVillager>().Bed = bed.Pos;
+
+            gears = 0;
+            foreach (var inventory in fromPlayer.InventoryManager.Inventories.Values)
+            {
+                if (inventory.ClassName == GlobalConstants.creativeInvClassName)
+                {
+                    continue;
+                }
+                foreach (var slot in inventory)
+                {
+                    if (slot?.Itemstack?.Collectible?.Code?.Path == "gear-rusty")
+                    {
+                        var stack = slot.TakeOut(Math.Min(slot.Itemstack.StackSize, villagerHiringCost - gears));
+                        slot.MarkDirty();
+                        gears += stack.StackSize;
+                    }
+                    if (gears >= villagerHiringCost) { break; }
+                }
+            }
+
+            return true;
         }
     }
 }

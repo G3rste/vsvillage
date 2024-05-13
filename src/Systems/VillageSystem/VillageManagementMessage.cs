@@ -14,5 +14,7 @@ namespace VsVillage
 
         public long VillagerToRemove;
         public BlockPos StructureToRemove;
+        public string VillagerProfession;
+        public string VillagerType;
     }
 }

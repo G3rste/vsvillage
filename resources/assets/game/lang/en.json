@@ -1,4 +1,10 @@
 {
     "tradingwindow-humanoid-villager-male-trader": "Village demand - {0} the supplier of useful stuff",
-    "tradingwindow-humanoid-villager-female-trader": "Village demand - {0} the supplier of useful stuff"
+    "tradingwindow-humanoid-villager-female-trader": "Village demand - {0} the supplier of useful stuff",
+
+    "ingameerror-no-valid-villager": "Tried to spawn in a {0}, but no such entity is registered.",
+    "ingameerror-not-enough-gears": "Hiring a villager costs 5 gears, you don't seem to have enough.",
+    "ingameerror-not-enough-food": "There is not enough people providing food in the village, try hiring more shepherds and farmers.",
+    "ingameerror-not-enough-workstations": "There is no free workstation for that type of villager.",
+    "ingameerror-not-enough-beds": "There is no free bed for this villager."
 }
