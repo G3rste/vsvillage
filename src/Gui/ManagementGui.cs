@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text.RegularExpressions;
 using System.Xml;
 using Vintagestory.API.Client;
@@ -71,9 +72,9 @@ namespace VsVillage
                     var gatherPlacesTotal = village.Gatherplaces.Count;
                     var villagersByProfession = village.VillagerSaveData.Values.GroupBy(villager => villager.Profession).ToDictionary(group => group.Key, group => group.Count());
                     var workstationsByProfession = village.Workstations.Values.GroupBy(workstation => workstation.Profession).ToDictionary(group => group.Key, group => group.Count());
-                    var professions = new List<VillagerProfession>(Enum.GetValues<VillagerProfession>());
+                    var professions = new List<EnumVillagerProfession>(Enum.GetValues<EnumVillagerProfession>());
                     var statsText = Lang.Get("vsvillage:management-poi-stats", bedsTotal, workstationsTotal, gatherPlacesTotal, villagersTotal)
-                        + professions.Select(profession => Lang.Get("vsvillage:management-profession-stats", Lang.Get("vsvillage:management-profession-" + profession), villagersByProfession.GetValueOrDefault(profession.ToString(), 0), workstationsByProfession.GetValueOrDefault(profession.ToString(), 0))).Aggregate(string.Concat);
+                        + professions.Select(profession => Lang.Get("vsvillage:management-profession-stats", Lang.Get("vsvillage:management-profession-" + profession), villagersByProfession.GetValueOrDefault(profession, 0), workstationsByProfession.GetValueOrDefault(profession, 0))).Aggregate(string.Concat);
 
                     SingleComposer
                         .AddRichtext(statsText, CairoFont.WhiteSmallText(), ElementBounds.Fixed(0, 20, 450, 200))
@@ -91,7 +92,7 @@ namespace VsVillage
                         .AddButton(Lang.Get("vsvillage:management-hire-soldier"), () => hireVillager(capi, "soldier"), ElementBounds.Fixed(0, 100, 200, 30))
                         .AddButton(Lang.Get("vsvillage:management-hire-herbalist"), () => hireVillager(capi, "herbalist"), ElementBounds.Fixed(220, 100, 200, 30))
                         .AddButton(Lang.Get("vsvillage:management-hire-mayor"), () => hireVillager(capi, "mayor"), ElementBounds.Fixed(0, 140, 200, 30))
-                        .AddButton(Lang.Get("vsvillage:management-hire-archer"), () => hireVillager(capi, "archer", "soldier"), ElementBounds.Fixed(220, 140, 200, 30));
+                        .AddButton(Lang.Get("vsvillage:management-hire-archer"), () => hireVillager(capi, "archer", EnumVillagerProfession.soldier), ElementBounds.Fixed(220, 140, 200, 30));
                     break;
                 case 2:
                     var villagerIds = village.VillagerSaveData.Values.ToList().ConvertAll(data => data.Id.ToString()).ToArray();
@@ -144,10 +145,10 @@ namespace VsVillage
             SingleComposer.GetTextInput("villageradius")?.SetValue(village.Radius);
         }
 
-        private bool hireVillager(ICoreClientAPI capi, string type, string profession = null)
+        private bool hireVillager(ICoreClientAPI capi, string type, EnumVillagerProfession? profession = null)
         {
             managementMessage.Operation = EnumVillageManagementOperation.hireVillager;
-            managementMessage.VillagerProfession = string.IsNullOrEmpty(profession) ? type : profession;
+            managementMessage.VillagerProfession = profession ?? Enum.Parse<EnumVillagerProfession>(type);
             managementMessage.VillagerType = type;
             capi.Network.GetChannel("villagemanagementnetwork").SendPacket(managementMessage);
             return true;
@@ -161,7 +162,7 @@ namespace VsVillage
             {
                 return Lang.Get("vsvillage:management-villager-note",
                     entity.GetBehavior<EntityBehaviorNameTag>().DisplayName,
-                    Lang.Get(villager.Profession),
+                    Lang.Get("vsvillage:management-profession-" + villager.Profession.ToString()),
                     BlockPosToString(entity.Pos.AsBlockPos, capi),
                     BlockPosToString(villager.Workstation, capi),
                     BlockPosToString(villager.Bed, capi));

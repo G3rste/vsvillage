@@ -182,7 +182,7 @@ namespace VsVillage
             }
         }
 
-        private bool TryHireVillager(string profession, string type, Village village, IServerPlayer fromPlayer)
+        private bool TryHireVillager(EnumVillagerProfession profession, string type, Village village, IServerPlayer fromPlayer)
         {
             var freeBeds = village.Beds.Values.Where(bed => bed.OwnerId == -1).Count();
             if (freeBeds == 0)
@@ -198,10 +198,10 @@ namespace VsVillage
                 return false;
             }
 
-            if (profession != "farmer" && profession != "shepherd")
+            if (profession != EnumVillagerProfession.farmer && profession != EnumVillagerProfession.shepherd)
             {
                 // Each shepherd/ farmer produces enough food to feed himself and one other villager
-                var foodExpense = 2 * village.Villagers.Where(villager => villager.Profession == "farmer" || villager.Profession == "shepherd").Count()
+                var foodExpense = 2 * village.Villagers.Where(villager => villager.Profession == EnumVillagerProfession.farmer || villager.Profession == EnumVillagerProfession.shepherd).Count()
                     - village.Villagers.Count;
                 if (foodExpense <= 0)
                 {

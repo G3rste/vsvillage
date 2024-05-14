@@ -1,3 +1,4 @@
+using System;
 using System.Text;
 using System.Text.RegularExpressions;
 using Vintagestory.API.Common;
@@ -13,7 +14,7 @@ namespace VsVillage
 
         public VillagerWaypointsTraverser villagerWaypointsTraverser { get; private set; }
 
-        public string Profession => entity.Properties.Attributes["profession"].AsString();
+        public EnumVillagerProfession Profession => Enum.Parse<EnumVillagerProfession>(entity.Properties.Attributes["profession"].AsString());
         public string VillageId
         {
             get => entity.WatchedAttributes.GetString("villageId");

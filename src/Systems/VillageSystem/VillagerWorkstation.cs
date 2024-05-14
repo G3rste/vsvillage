@@ -8,6 +8,6 @@ namespace VsVillage
     {
         public BlockPos Pos;
         public long OwnerId = -1;
-        public string Profession;
+        public EnumVillagerProfession Profession;
     }
 }

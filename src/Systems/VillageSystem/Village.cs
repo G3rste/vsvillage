@@ -49,7 +49,7 @@ namespace VsVillage
             return null;
         }
 
-        public BlockPos FindFreeWorkstation(long villagerId, string profession)
+        public BlockPos FindFreeWorkstation(long villagerId, EnumVillagerProfession profession)
         {
             foreach (var workstation in Workstations.Values)
             {

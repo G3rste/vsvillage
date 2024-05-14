@@ -1,6 +1,6 @@
 namespace VsVillage
 {
-    public enum VillagerProfession
+    public enum EnumVillagerProfession
     {
         smith,
         farmer,

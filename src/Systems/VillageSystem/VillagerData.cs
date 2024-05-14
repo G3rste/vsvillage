@@ -7,6 +7,6 @@ namespace VsVillage
     {
         public long Id;
         public string Name;
-        public string Profession;
+        public EnumVillagerProfession Profession;
     }
 }

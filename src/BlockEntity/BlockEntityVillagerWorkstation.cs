@@ -1,3 +1,4 @@
+using System;
 using Vintagestory.API.Common;
 
 namespace VsVillage
@@ -5,7 +6,7 @@ namespace VsVillage
     public class BlockEntityVillagerWorkstation : BlockEntityVillagerPOI
     {
 
-        public string Type => Block.Variant["profession"];
+        public EnumVillagerProfession Type => Enum.Parse<EnumVillagerProfession>(Block.Variant["profession"]);
 
         public override void AddToVillage(Village village)
         {
