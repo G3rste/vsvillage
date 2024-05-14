@@ -104,12 +104,23 @@ namespace VsVillage
                     }
                     break;
                 case 2:
+                    var villagersTotal = village.VillagerSaveData.Count;
+                    var bedsTotal = village.Beds.Count;
+                    var workstationsTotal = village.Workstations.Count;
+                    var gatherPlacesTotal = village.Gatherplaces.Count;
+                    var villagersByProfession = village.VillagerSaveData.Values.GroupBy(villager => villager.Profession).ToDictionary(group => group.Key, group => group.Count());
+                    var workstationsByProfession = village.Workstations.Values.GroupBy(workstation => workstation.Profession).ToDictionary(group => group.Key, group => group.Count());
+                    var professions = new List<VillagerProfession>(Enum.GetValues<VillagerProfession>());
+                    var statsText = Lang.Get("vsvillage:management-poi-stats", bedsTotal, workstationsTotal, gatherPlacesTotal, villagersTotal)
+                        + professions.Select(profession => Lang.Get("vsvillage:management-profession-stats", Lang.Get("vsvillage:management-profession-" + profession), villagersByProfession.GetValueOrDefault(profession.ToString(), 0), workstationsByProfession.GetValueOrDefault(profession.ToString(), 0))).Aggregate(string.Concat);
+
                     SingleComposer
-                        .AddStaticText(Lang.Get("vsvillage:management-village-name"), CairoFont.WhiteSmallishText(), ElementBounds.Fixed(0, 20, 200, 30))
-                        .AddTextInput(ElementBounds.Fixed(100, 20, 200, 30), name => managementMessage.Name = name, CairoFont.WhiteSmallishText(), "villagename")
-                        .AddStaticText(Lang.Get("vsvillage:management-village-radius"), CairoFont.WhiteSmallishText(), ElementBounds.Fixed(0, 60, 200, 30))
-                        .AddNumberInput(ElementBounds.Fixed(100, 60, 200, 30), radius => int.TryParse(radius, out managementMessage.Radius), null, "villageradius")
-                        .AddButton(Lang.Get("vsvillage:management-update-village-button"), () => changeStatsVillage(capi), ElementBounds.Fixed(0, 100, 200, 30));
+                        .AddRichtext(statsText, CairoFont.WhiteSmallText(), ElementBounds.Fixed(0, 20, 450, 200))
+                        .AddStaticText(Lang.Get("vsvillage:management-village-name"), CairoFont.WhiteSmallishText(), ElementBounds.Fixed(470, 20, 200, 30))
+                        .AddTextInput(ElementBounds.Fixed(570, 20, 200, 30), name => managementMessage.Name = name, CairoFont.WhiteSmallishText(), "villagename")
+                        .AddStaticText(Lang.Get("vsvillage:management-village-radius"), CairoFont.WhiteSmallishText(), ElementBounds.Fixed(470, 60, 200, 30))
+                        .AddNumberInput(ElementBounds.Fixed(570, 60, 200, 30), radius => int.TryParse(radius, out managementMessage.Radius), null, "villageradius")
+                        .AddButton(Lang.Get("vsvillage:management-update-village-button"), () => changeStatsVillage(capi), ElementBounds.Fixed(470, 100, 200, 30));
                     break;
                 case 3:
                     SingleComposer.AddButton(Lang.Get("vsvillage:management-hire-farmer"), () => hireVillager(capi, "farmer"), ElementBounds.Fixed(0, 20, 200, 30))
