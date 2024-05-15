@@ -67,6 +67,7 @@ namespace VsVillage
                         Api.Logger.Error(string.Format("Village with id={0} could not be loaded and will be newly created. Maybe it was removed/ outdated/ corrupted. I guess we will never know for sure because I am too lazy to log this information.", id));
                         var pos = Regex.Match(id, @"village-(\d+), (\d+), (\d+)").Groups.Values.ToList().GetRange(1, 3).ConvertAll(number => int.Parse(number.Value));
                         villageData = new() { Pos = new BlockPos(pos[0], pos[1], pos[2], 0), Radius = 50, Name = "Lauras little Village" };
+                        villageData?.Init(sapi);
                         Villages.TryAdd(id, villageData);
                     }
                 }
