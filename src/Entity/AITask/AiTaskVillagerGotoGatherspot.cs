@@ -51,7 +51,7 @@ namespace VsVillage
 
         public override bool ShouldExecute()
         {
-                return base.ShouldExecute() && IntervalUtil.matchesCurrentTime(duringDayTimeFrames, entity.World);
+            return base.ShouldExecute() && IntervalUtil.matchesCurrentTime(duringDayTimeFrames, entity.World);
         }
 
         private Vec3d getRandomPosNearby(Vec3d middle)

@@ -885,7 +885,6 @@
     },
     {
         "id": "vsvillage:quest-kill50DriftersFor20Gears",
-        "predecessor": "vsvillage:quest-foundvillage-final",
         "cooldown": 40,
         "perPlayer": false,
         "gatherObjectives": [],
@@ -911,7 +910,7 @@
     },
     {
         "id": "vsvillage:quest-kill2NightmareDriftersFor12Gears",
-        "predecessor": "vsvillage:quest-foundvillage-final",
+        "predecessor": "vsvillage:quest-kill50DriftersFor20Gears",
         "cooldown": 50,
         "perPlayer": false,
         "gatherObjectives": [],
