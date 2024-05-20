@@ -250,6 +250,7 @@ namespace VsVillage
             world.SpawnEntity(entity);
             bed.OwnerId = entity.EntityId;
             entity.GetBehavior<EntityBehaviorVillager>().Bed = bed.Pos;
+            fromPlayer.Entity.World.PlaySoundFor(new AssetLocation("sounds/effect/cashregister"), fromPlayer, false, 32, 0.25f);
 
             gears = 0;
             foreach (var inventory in fromPlayer.InventoryManager.Inventories.Values)
