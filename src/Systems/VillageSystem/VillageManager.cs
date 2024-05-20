@@ -168,11 +168,8 @@ namespace VsVillage
                     break;
                 case EnumVillageManagementOperation.removeVillager:
                     village = GetVillage(message.Id);
-
-                    if (village.VillagerSaveData.Remove(message.VillagerToRemove))
-                    {
-                        Api.World.GetEntityById(message.VillagerToRemove)?.GetBehavior<EntityBehaviorVillager>()?.RemoveVillage();
-                    }
+                    Api.World.GetEntityById(message.VillagerToRemove)?.GetBehavior<EntityBehaviorVillager>()?.RemoveVillage();
+                    village.RemoveVillager(message.VillagerToRemove);
 
                     break;
                 case EnumVillageManagementOperation.hireVillager:

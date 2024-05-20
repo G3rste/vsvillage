@@ -71,6 +71,20 @@ namespace VsVillage
             return Gatherplaces.ElementAt(Api.World.Rand.Next(Gatherplaces.Count));
         }
 
+        public void RemoveVillager(long villagerId){
+            VillagerSaveData.Remove(villagerId);
+            foreach(var bed in Beds.Values){
+                if (bed.OwnerId == villagerId){
+                    bed.OwnerId = -1;
+                }
+            }
+            foreach(var workstation in Workstations.Values){
+                if (workstation.OwnerId == villagerId){
+                    workstation.OwnerId = -1;
+                }
+            }
+        }
+
         public VillageWaypoint FindNearesWaypoint(BlockPos pos)
         {
             VillageWaypoint result = null;

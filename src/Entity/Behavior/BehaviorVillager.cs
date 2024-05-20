@@ -75,7 +75,6 @@ namespace VsVillage
 
         public override void Initialize(EntityProperties properties, JsonObject attributes)
         {
-            base.Initialize(properties, attributes);
             if (entity.Api.Side == EnumAppSide.Client) return;
 
             villagerWaypointsTraverser = new VillagerWaypointsTraverser(entity as EntityAgent);
@@ -98,8 +97,17 @@ namespace VsVillage
 
         public override void OnGameTick(float deltaTime)
         {
-            base.OnGameTick(deltaTime);
             villagerWaypointsTraverser?.OnGameTick(deltaTime);
+        }
+
+        public override void OnEntityDeath(DamageSource damageSourceForDeath)
+        {
+            Village?.RemoveVillager(entity.EntityId);
+        }
+
+        public override void OnEntityDespawn(EntityDespawnData despawn)
+        {
+            Village?.RemoveVillager(entity.EntityId);
         }
 
         public void RemoveVillage()
