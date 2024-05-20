@@ -8,7 +8,7 @@
 	"textureSizes": {
 	},
 	"textures": {
-		"bone": "game:block/bone"
+		"bone": "game:block/creature/bone"
 	},
 	"elements": [
 		{
