@@ -42,6 +42,7 @@ namespace VsVillage
                     entity.WatchedAttributes.SetBlockPos("workstation", value);
                 else
                     entity.WatchedAttributes.RemoveAttribute("workstationX");
+                entity.WatchedAttributes.MarkPathDirty("workstationX");
             }
         }
         public BlockPos Bed
@@ -53,6 +54,7 @@ namespace VsVillage
                     entity.WatchedAttributes.SetBlockPos("bed", value);
                 else
                     entity.WatchedAttributes.RemoveAttribute("bedX");
+                entity.WatchedAttributes.MarkPathDirty("bedX");
             }
         }
 
@@ -78,10 +80,22 @@ namespace VsVillage
             if (entity.Api.Side == EnumAppSide.Client) return;
 
             villagerWaypointsTraverser = new VillagerWaypointsTraverser(entity as EntityAgent);
+            // when this method is called, the chunk might not be loaded, therefor the village blocks might not have initialized the village, so we have to wait a short time
+            entity.World.RegisterCallback(dt => InitVillageAfterChunkLoading(), 5000);
+        }
 
-            var village = string.IsNullOrEmpty(VillageId)
-                ? entity.Api.ModLoader.GetModSystem<VillageManager>()?.GetVillage(entity.ServerPos.AsBlockPos)
-                : entity.Api.ModLoader.GetModSystem<VillageManager>()?.GetVillage(VillageId);
+        private void InitVillageAfterChunkLoading()
+        {
+            Village village = null;
+            if (!string.IsNullOrEmpty(VillageId))
+            {
+                village = entity.Api.ModLoader.GetModSystem<VillageManager>()?.GetVillage(VillageId);
+            }
+            if (village == null)
+            {
+                village = entity.Api.ModLoader.GetModSystem<VillageManager>()?.GetVillage(entity.ServerPos.AsBlockPos);
+            }
+
             if (village != null && (village.Id != VillageId || village.Name != VillageName || !village.VillagerSaveData.ContainsKey(entity.EntityId)))
             {
                 VillageId = village.Id;
