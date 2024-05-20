@@ -31,7 +31,7 @@
         ]
     },
     "lightAbsorption": 1,
-    "maxStackSize": 1,
+    "maxStackSize": 16,
     "collisionBoxes": [],
     "selectionBoxes": [
         {

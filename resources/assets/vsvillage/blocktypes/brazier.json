@@ -41,7 +41,7 @@
         "all": false
     },
     "lightAbsorption": 1,
-    "maxStackSize": 1,
+    "maxStackSize": 8,
     "collisionBoxes": [
         {
             "x1": 0.25,
