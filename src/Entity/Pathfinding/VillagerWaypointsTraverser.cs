@@ -87,16 +87,6 @@ namespace VsVillage
             return ok;
         }
 
-
-        public override bool WalkTowards(Vec3d target, float movingSpeed, float targetDistance, Action OnGoalReached, Action OnStuck)
-        {
-            waypoints = new List<Vec3d>();
-            waypoints.Add(target);
-
-            return base.WalkTowards(target, movingSpeed, targetDistance, OnGoalReached, OnStuck);
-        }
-
-
         protected override bool BeginGo()
         {
             entity.Controls.Forward = true;
