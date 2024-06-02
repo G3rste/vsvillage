@@ -8,57 +8,99 @@
             ]
         },
         "yawByType": {
-            "villagebed-north": 1.5708,
-            "villagebed-east": 0,
-            "villagebed-south": 4.71239,
-            "villagebed-west": 3.14159
+            "*-north": 1.5708,
+            "*-east": 0,
+            "*-south": 4.71239,
+            "*-west": 3.14159
         }
     },
     "shape": {
         "base": "bed",
         "rotateYByType": {
-            "villagebed-north": 90,
-            "villagebed-east": 0,
-            "villagebed-south": 270,
-            "villagebed-west": 180
+            "*-north": 90,
+            "*-east": 0,
+            "*-south": 270,
+            "*-west": 180
         }
     },
     "variantGroups": [
+        {
+            "code": "type",
+            "states": [
+                "blueplaid",
+                "greenplaid",
+                "orangeplaid",
+                "redplaid",
+                "whiteplaid",
+                "honeycomb",
+                "lemon",
+                "pine"
+            ]
+        },
         {
             "code": "side",
             "loadFromProperties": "abstract/horizontalorientation"
         }
     ],
+    "textures": {
+        "feet": {
+            "base": "game:block/wood/bed/normal/blanket/{type}-feet"
+        },
+        "feet-sides": {
+            "base": "game:block/wood/bed/normal/blanket/{type}-feet-sides"
+        },
+        "head": {
+            "base": "game:block/wood/bed/normal/blanket/{type}-head"
+        },
+        "head-sides": {
+            "base": "game:block/wood/bed/normal/blanket/{type}-head-sides"
+        },
+        "matress": {
+            "baseByType": {
+                "@.*-(whiteplaid|lemon)-.*": "game:block/wood/bed/normal/pillowmatresssides/brown",
+                "*": "game:block/wood/bed/normal/matress"
+            }
+        },
+        "pillow": {
+            "baseByType": {
+                "*-blueplaid-*": "game:block/wood/bed/normal/pillowmatresssides/blue",
+                "*-orangeplaid-*": "game:block/wood/bed/normal/pillowmatresssides/orange",
+                "*-redplaid-*": "game:block/wood/bed/normal/pillowmatresssides/red",
+                "*-greenplaid-*": "game:block/wood/bed/normal/pillowmatresssides/green",
+                "*": "game:block/wood/bed/normal/pillow"
+            }
+        }
+    },
     "behaviors": [
         {
             "name": "Multiblock",
             "properties": {
                 "sizexByType": {
-                    "villagebed-north": 1,
-                    "villagebed-east": 2,
-                    "villagebed-south": 1,
-                    "villagebed-west": 2
+                    "*-north": 1,
+                    "*-east": 2,
+                    "*-south": 1,
+                    "*-west": 2
                 },
                 "sizey": 1,
                 "sizezByType": {
-                    "villagebed-north": 2,
-                    "villagebed-east": 1,
-                    "villagebed-south": 2,
-                    "villagebed-west": 1
+                    "*-north": 2,
+                    "*-east": 1,
+                    "*-south": 2,
+                    "*-west": 1
                 },
                 "cposition": {
                     "xByType": {
-                        "villagebed-north": 0,
-                        "villagebed-east": 0,
-                        "villagebed-south": 0,
-                        "villagebed-west": 1
+                        "*-north": 0,
+                        "*-east": 0,
+                        "*-south": 0,
+                        "*-west": 1
                     },
                     "y": 0,
                     "zByType": {
-                        "villagebed-north": 1,
-                        "villagebed-east": 0,
-                        "villagebed-south": 0,
-                        "villagebed-west": 0
+                        "*-north": 1,
+                        "*-east": 0,
+                        "*-south": 0,
+                        "*-west": 0
                     }
                 }
             }
@@ -75,7 +117,14 @@
     },
     "creativeinventory": {
         "general": [
-            "villagebed-east"
+            "villagebed-blueplaid-east",
+            "villagebed-greenplaid-east",
+            "villagebed-orangeplaid-east",
+            "villagebed-redplaid-east",
+            "villagebed-whiteplaid-east",
+            "villagebed-honeycomb-east",
+            "villagebed-lemon-east",
+            "villagebed-pine-east"
         ]
     },
     "lightAbsorption": 1,
