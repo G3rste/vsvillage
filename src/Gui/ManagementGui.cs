@@ -245,7 +245,7 @@ namespace VsVillage
         {
             return pos != null
                 ? string.Format("X={0}, Y={1}, Z={2}", pos.X - api.World.BlockAccessor.MapSizeX / 2, pos.Y, pos.Z - api.World.BlockAccessor.MapSizeZ / 2)
-                : Lang.Get("vsvillage:not-found");
+                : Lang.Get("vsvillage:nowhere");
         }
         public static BlockPos BlockPosFromString(string pos)
         {
