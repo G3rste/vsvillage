@@ -6,6 +6,7 @@ using Vintagestory.API.Common.Entities;
 using Vintagestory.API.Config;
 using Vintagestory.API.Datastructures;
 using Vintagestory.API.MathTools;
+using Vintagestory.GameContent;
 
 namespace VsVillage
 {
@@ -87,6 +88,10 @@ namespace VsVillage
         private void InitVillageAfterChunkLoading()
         {
             Village village = null;
+            if (!entity.Alive)
+            {
+                return;
+            }
             if (!string.IsNullOrEmpty(VillageId))
             {
                 village = entity.Api.ModLoader.GetModSystem<VillageManager>()?.GetVillage(VillageId);
