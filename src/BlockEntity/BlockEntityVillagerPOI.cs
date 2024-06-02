@@ -10,6 +10,7 @@ namespace VsVillage
     {
         public string VillageId { get; set; }
         public string VillageName { get; set; }
+        public string OwnerName { get; set; }
 
         public Vec3d Position => Pos.ToVec3d();
 
@@ -51,6 +52,7 @@ namespace VsVillage
             base.FromTreeAttributes(tree, worldAccessForResolve);
             VillageId = tree.GetString("villageId");
             VillageName = tree.GetString("villageName");
+            OwnerName = tree.GetString("ownerName");
         }
 
         public override void ToTreeAttributes(ITreeAttribute tree)
@@ -58,6 +60,7 @@ namespace VsVillage
             base.ToTreeAttributes(tree);
             tree.SetString("villageId", VillageId);
             tree.SetString("villageName", VillageName);
+            tree.SetString("ownerName", OwnerName);
         }
 
         public override void GetBlockInfo(IPlayer forPlayer, StringBuilder dsc)
@@ -66,6 +69,10 @@ namespace VsVillage
             if (!string.IsNullOrEmpty(VillageName))
             {
                 dsc.AppendLine().Append(Lang.Get("vsvillage:resides-in", Lang.Get(VillageName)));
+            }
+            if (!string.IsNullOrEmpty(OwnerName))
+            {
+                dsc.AppendLine().Append(Lang.Get("vsvillage:owned-by", Lang.Get(OwnerName)));
             }
         }
     }

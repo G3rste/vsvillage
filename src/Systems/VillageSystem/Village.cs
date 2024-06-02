@@ -43,6 +43,13 @@ namespace VsVillage
                 if (bed.OwnerId == -1 || bed.OwnerId == villagerId)
                 {
                     bed.OwnerId = villagerId;
+                    var villagerName = Api.World.GetEntityById(villagerId)?.GetBehavior<EntityBehaviorNameTag>()?.DisplayName;
+                    var bedEntity = Api.World.BlockAccessor.GetBlockEntity<BlockEntityVillagerBed>(bed.Pos);
+                    if (bedEntity != null && !string.IsNullOrEmpty(villagerName))
+                    {
+                        bedEntity.OwnerName = villagerName;
+                        bedEntity.MarkDirty();
+                    }
                     return bed.Pos;
                 }
             }
@@ -56,6 +63,13 @@ namespace VsVillage
                 if (workstation.Profession == profession && (workstation.OwnerId == -1 || workstation.OwnerId == villagerId))
                 {
                     workstation.OwnerId = villagerId;
+                    var villagerName = Api.World.GetEntityById(villagerId)?.GetBehavior<EntityBehaviorNameTag>()?.DisplayName;
+                    var workstationEntity = Api.World.BlockAccessor.GetBlockEntity<BlockEntityVillagerWorkstation>(workstation.Pos);
+                    if (workstationEntity != null && !string.IsNullOrEmpty(villagerName))
+                    {
+                        workstationEntity.OwnerName = villagerName;
+                        workstationEntity.MarkDirty();
+                    }
                     return workstation.Pos;
                 }
             }
@@ -71,16 +85,33 @@ namespace VsVillage
             return Gatherplaces.ElementAt(Api.World.Rand.Next(Gatherplaces.Count));
         }
 
-        public void RemoveVillager(long villagerId){
+        public void RemoveVillager(long villagerId)
+        {
             VillagerSaveData.Remove(villagerId);
-            foreach(var bed in Beds.Values){
-                if (bed.OwnerId == villagerId){
+            foreach (var bed in Beds.Values)
+            {
+                if (bed.OwnerId == villagerId)
+                {
                     bed.OwnerId = -1;
+                    var bedEntity = Api.World.BlockAccessor.GetBlockEntity<BlockEntityVillagerBed>(bed.Pos);
+                    if (bedEntity != null)
+                    {
+                        bedEntity.OwnerName = null;
+                        bedEntity.MarkDirty();
+                    }
                 }
             }
-            foreach(var workstation in Workstations.Values){
-                if (workstation.OwnerId == villagerId){
+            foreach (var workstation in Workstations.Values)
+            {
+                if (workstation.OwnerId == villagerId)
+                {
                     workstation.OwnerId = -1;
+                }
+                var workstationEntity = Api.World.BlockAccessor.GetBlockEntity<BlockEntityVillagerWorkstation>(workstation.Pos);
+                if (workstationEntity != null)
+                {
+                    workstationEntity.OwnerName = null;
+                    workstationEntity.MarkDirty();
                 }
             }
         }
