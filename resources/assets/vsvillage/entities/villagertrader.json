@@ -233,7 +233,33 @@
                         }
                     },
                     {
-                        "code": "vsvillage:villagebed-east",
+                        "code": "vsvillage:villagebed-blueplaid-east",
+                        "type": "block",
+                        "stacksize": 1,
+                        "stock": {
+                            "avg": 8,
+                            "var": 2
+                        },
+                        "price": {
+                            "avg": 2,
+                            "var": 1
+                        }
+                    },
+                    {
+                        "code": "vsvillage:villagebed-whiteplaid-east",
+                        "type": "block",
+                        "stacksize": 1,
+                        "stock": {
+                            "avg": 8,
+                            "var": 2
+                        },
+                        "price": {
+                            "avg": 2,
+                            "var": 1
+                        }
+                    },
+                    {
+                        "code": "vsvillage:villagebed-pine-east",
                         "type": "block",
                         "stacksize": 1,
                         "stock": {
