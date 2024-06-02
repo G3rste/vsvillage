@@ -448,6 +448,11 @@
                 "code": "Villager"
             },
             {
+                "code": "deaddecay",
+                "hoursToDecay": 96,
+                "decayedBlock": "drycarcass-humanoid1"
+            },
+            {
                 "code": "health",
                 "currenthealth": 25,
                 "maxhealth": 25
