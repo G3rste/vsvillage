@@ -403,6 +403,9 @@ namespace VsVillage
                     if (generateWaypoint && i == 0 && k == 0)
                     {
                         blockAccessor.SetBlock(blockAccessor.GetBlock(new AssetLocation("vsvillage:waypoint")).Id, pos.Add(0, -1, 0));
+                        blockAccessor.SpawnBlockEntity("VillagerWaypoint", pos);
+                        blockAccessor.SetBlock(blockAccessor.GetBlock(new AssetLocation("game:multiblock-monolithic-0-p1-0")).Id, pos.Add(0, 1, 0));
+                        blockAccessor.SetBlock(blockAccessor.GetBlock(new AssetLocation("game:multiblock-monolithic-0-p2-0")).Id, pos.Add(0, 1, 0));
                     }
                 }
             }

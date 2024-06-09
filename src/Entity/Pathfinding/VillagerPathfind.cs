@@ -31,6 +31,7 @@ namespace VsVillage
                 var stops = startWaypoint.FindPath(endWaypoint, village.Waypoints.Count);
 
                 if (startWaypoint == null || endWaypoint == null) return null;
+                endWaypoint = stops[stops.Count - 1];
                 path = villagerAStar.FindPath(start, startWaypoint.Pos, maxFallHeight, stepHeight, 4999);
                 if (path == null || stops == null) return null;
                 for (int i = 0; i < stops.Count - 1; i++)
