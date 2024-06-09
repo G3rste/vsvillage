@@ -124,11 +124,12 @@ namespace VsVillage
             HashSet<BlockPos> allPaths = new();
             var village = sapi.ModLoader.GetModSystem<VillageManager>().GetVillage(plrPos);
             if (village == null) return TextCommandResult.Error("No village found");
-            foreach (var waypoint in village.Waypoints.Values)
+            var root = village.FindNearesWaypoint(plrPos);
+            foreach (var waypoint in root.ReachableNodes.Keys)
             {
-                foreach (var neighbour in waypoint.Neighbours.Keys)
-                {
-                    var path = waypointAStar.FindPath(waypoint.Pos, neighbour.Pos, 5, 1.01f);
+                var waypointPath = root.FindPath(waypoint, village.Waypoints.Count);
+                for(int i = 0; i<waypointPath.Count -1; i++){
+                    var path = waypointAStar.FindPath(waypointPath[i].Pos, waypointPath[i+1].Pos, 1, 1.01f);
                     if (path != null) path.ForEach(x => allPaths.Add(x));
                 }
             }

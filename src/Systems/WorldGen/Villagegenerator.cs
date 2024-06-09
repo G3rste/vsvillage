@@ -183,6 +183,7 @@ namespace VsVillage
             IMapRegion region = request.Chunks[0].MapChunk.MapRegion;
 
             if (request.ChunkX % 4 != 0 || request.ChunkZ % 4 != 0) { return; }
+            if (Villages.Count == 0) { return; }
             if (rand.NextFloat() > Config.VillageChance) { return; }
             if (region.GeneratedStructures.Find(structure => structure.Group == "village") != null) { return; }
 

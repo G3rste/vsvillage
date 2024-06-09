@@ -42,7 +42,7 @@ namespace VsVillage
                 var next = current.GetNextWaypoint(target);
                 if (next == null)
                 {
-                    return null;
+                    return result;
                 }
                 result.Add(next);
                 current = next;
@@ -50,7 +50,7 @@ namespace VsVillage
             return result;
         }
 
-        public VillageWaypoint GetNextWaypoint(VillageWaypoint target)
+        private VillageWaypoint GetNextWaypoint(VillageWaypoint target)
         {
             if (Neighbours.ContainsKey(target))
             {
