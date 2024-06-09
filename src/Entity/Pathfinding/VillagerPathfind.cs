@@ -39,7 +39,7 @@ namespace VsVillage
                     if (nextPath == null) return null;
                     path.AddRange(nextPath);
                 }
-                var lastPath = villagerAStar.FindPath(endWaypoint.Pos, end, maxFallHeight, stepHeight);
+                var lastPath = villagerAStar.FindPath(endWaypoint.Pos, end, maxFallHeight, stepHeight, 4999);
                 if (lastPath == null) return null;
                 path.AddRange(lastPath);
             }

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Vintagestory.API.Datastructures;
 using Vintagestory.API.Server;
 
 namespace VsVillage
@@ -15,7 +16,7 @@ namespace VsVillage
                 List<VillageWaypoint> potentialNeighbours = village.Waypoints.Values.Where(waypoint => Pos.ManhattenDistance(waypoint.Pos) < 50).ToList();
                 foreach (var candidate in potentialNeighbours)
                 {
-                    var path = waypointAStar.FindPath(Pos, candidate.Pos, 2, 1.01f);
+                    var path = waypointAStar.FindPath(Pos, candidate.Pos, 1, 1.01f);
                     if (path != null)
                     {
                         waypoint.SetNeighbour(candidate, path.Count);
