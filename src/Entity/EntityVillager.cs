@@ -57,14 +57,7 @@ namespace VsVillage
             }
             if (!WatchedAttributes.HasAttribute("personality"))
             {
-                if (Enum.Parse<EnumVillagerProfession>(properties.Attributes["profession"].AsString()) == EnumVillagerProfession.soldier)
-                {
-                    Personality = World.Rand.Next(2) == 0 ? "balanced" : "rowdy";
-                }
-                else
-                {
-                    Personality = Personalities.GetKeyAtIndex(World.Rand.Next(EntityTrader.Personalities.Count));
-                }
+                Personality = Personalities.GetKeyAtIndex(World.Rand.Next(EntityTrader.Personalities.Count));
             }
             (AnimManager as TraderAnimationManager).Personality = Personality;
             if (api is ICoreClientAPI capi) { talkUtil = new EntityTalkUtil(capi, this); }

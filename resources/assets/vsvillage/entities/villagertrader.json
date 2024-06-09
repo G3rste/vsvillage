@@ -70,7 +70,8 @@
                 "dialogue": "vsvillage:config/dialogue/trader"
             },
             {
-                "code": "Villager"
+                "code": "Villager",
+                "profession": "trader"
             }
         ],
         "animations": [
@@ -106,7 +107,6 @@
     },
     "attributes": {
         "poulticeRevive": true,
-        "profession": "trader",
         "tradeProps": {
             "money": {
                 "avg": 30,
@@ -277,7 +277,7 @@
                 "maxItems": 14,
                 "list": [
                     {
-                        "code": "bread-spelt-perfect",
+                        "code": "game:bread-spelt-perfect",
                         "type": "item",
                         "stacksize": 8,
                         "stock": {
@@ -290,7 +290,7 @@
                         }
                     },
                     {
-                        "code": "bread-rye-perfect",
+                        "code": "game:bread-rye-perfect",
                         "type": "item",
                         "stacksize": 8,
                         "stock": {
@@ -303,7 +303,7 @@
                         }
                     },
                     {
-                        "code": "bread-flax-perfect",
+                        "code": "game:bread-flax-perfect",
                         "type": "item",
                         "stacksize": 8,
                         "stock": {
@@ -316,7 +316,7 @@
                         }
                     },
                     {
-                        "code": "bread-rice-perfect",
+                        "code": "game:bread-rice-perfect",
                         "type": "item",
                         "stacksize": 8,
                         "stock": {
@@ -329,7 +329,7 @@
                         }
                     },
                     {
-                        "code": "redmeat-cooked",
+                        "code": "game:redmeat-cooked",
                         "type": "item",
                         "stacksize": 8,
                         "stock": {
@@ -342,7 +342,7 @@
                         }
                     },
                     {
-                        "code": "poultry-cooked",
+                        "code": "game:poultry-cooked",
                         "type": "item",
                         "stacksize": 8,
                         "stock": {
@@ -355,7 +355,7 @@
                         }
                     },
                     {
-                        "code": "bushmeat-cooked",
+                        "code": "game:bushmeat-cooked",
                         "type": "item",
                         "stacksize": 8,
                         "stock": {
@@ -368,7 +368,7 @@
                         }
                     },
                     {
-                        "code": "fat",
+                        "code": "game:fat",
                         "type": "item",
                         "stacksize": 3,
                         "stock": {
@@ -471,7 +471,8 @@
                 "stepHeight": 1.01
             },
             {
-                "code": "Villager"
+                "code": "Villager",
+                "profession": "trader"
             },
             {
                 "code": "deaddecay",

@@ -8,7 +8,6 @@
 	"attributesByType": {
 		"*-soldier": {
 			"poulticeRevive": true,
-			"profession": "soldier",
 			"validGear": {
 				"arms": ["armor", "armor-hallowcroft", "armor", "armor-hallowcroft", "bandage-left", "bandage-right"],
 				"back": [],
@@ -24,7 +23,6 @@
 		},
 		"*-archer": {
 			"poulticeRevive": true,
-			"profession": "soldier",
 			"validGear": {
 				"arms": ["armor", "armor-hallowcroft", "armor"],
 				"back": [],
@@ -40,7 +38,6 @@
 		},
 		"*-smith": {
 			"poulticeRevive": true,
-			"profession": "smith",
 			"validGear": {
 				"arms": ["gloves"],
 				"back": ["pickaxe"],
@@ -56,7 +53,6 @@
 		},
 		"*-farmer": {
 			"poulticeRevive": true,
-			"profession": "farmer",
 			"validGear": {
 				"arms": ["jewelry-left-bracelet", "jewelry-right-bracelet", "jewelry-left-bracelet-copper", "jewelry-right-bracelet-copper", "jewelry-left-bracelet-gold", "jewelry-right-bracelet-gold", "jewelry-left-rings", "jewelry-right-rings", "jewelry-left-rings-copper", "jewelry-right-rings-copper", "jewelry-left-rings-gold", "jewelry-right-rings-gold","gloves"],
 				"back": [],
@@ -72,7 +68,6 @@
 		},
 		"*-shepherd": {
 			"poulticeRevive": true,
-			"profession": "shepherd",
 			"validGear": {
 				"arms": ["jewelry-left-bracelet", "jewelry-right-bracelet", "jewelry-left-bracelet-copper", "jewelry-right-bracelet-copper", "jewelry-left-bracelet-gold", "jewelry-right-bracelet-gold", "jewelry-left-rings", "jewelry-right-rings", "jewelry-left-rings-copper", "jewelry-right-rings-copper", "jewelry-left-rings-gold", "jewelry-right-rings-gold","gloves"],
 				"back": [],
@@ -88,7 +83,6 @@
 		},
 		"*-herbalist": {
 			"poulticeRevive": true,
-			"profession": "herbalist",
 			"validGear": {
 				"arms": [],
 				"back": ["backpack"],
@@ -104,7 +98,6 @@
 		},
 		"*-mayor": {
 			"poulticeRevive": true,
-			"profession": "mayor",
 			"validGear": {
 				"arms": ["jewelry-left-bracelet", "jewelry-right-bracelet", "jewelry-left-bracelet-copper", "jewelry-right-bracelet-copper", "jewelry-left-bracelet-gold", "jewelry-right-bracelet-gold", "jewelry-left-rings", "jewelry-right-rings", "jewelry-left-rings-copper", "jewelry-right-rings-copper", "jewelry-left-rings-gold", "jewelry-right-rings-gold"],
 				"back": [],
@@ -138,7 +131,13 @@
 			{ "code": "repulseagents" },
 			{ "code": "controlledphysics", "stepHeight": 1.01 },
 			{ "code": "interpolateposition" },
-			{ "code": "Villager" }
+			{
+				"code": "Villager",
+				"professionByType": {
+					"*-archer": "soldier",
+					"*": "{profession}"
+				}
+			}		
 		],
 		"animations": [
 			{
@@ -179,8 +178,14 @@
 					{ "code": "fleeondamage", "duration": 10, "chance": 0.4, "slot": 0, "priority": 1, "whenHealthRelBelow": 0.3, "accumType": "max" }
 				]
 			},
-			{ "code": "Villager" },
-            {
+			{
+				"code": "Villager",
+				"professionByType": {
+					"*-archer": "soldier",
+					"*": "{profession}"
+				}
+			},
+			{
                 "code": "deaddecay",
                 "hoursToDecay": 96,
                 "decayedBlock": "drycarcass-humanoid1"

@@ -15,7 +15,7 @@ namespace VsVillage
 
         public VillagerWaypointsTraverser villagerWaypointsTraverser { get; private set; }
 
-        public EnumVillagerProfession Profession => Enum.Parse<EnumVillagerProfession>(entity.Properties.Attributes["profession"].AsString());
+        public EnumVillagerProfession Profession;
         public string VillageId
         {
             get => entity.WatchedAttributes.GetString("villageId");
@@ -83,6 +83,10 @@ namespace VsVillage
             villagerWaypointsTraverser = new VillagerWaypointsTraverser(entity as EntityAgent);
             // when this method is called, the chunk might not be loaded, therefor the village blocks might not have initialized the village, so we have to wait a short time
             entity.World.RegisterCallback(dt => InitVillageAfterChunkLoading(), 5000);
+            Profession = Enum.Parse<EnumVillagerProfession>(attributes["profession"].AsString());
+            if(Profession == EnumVillagerProfession.soldier){
+                (entity as EntityVillager).Personality = entity.World.Rand.Next(2) == 0 ? "balanced" : "rowdy";
+            }
         }
 
         private void InitVillageAfterChunkLoading()
