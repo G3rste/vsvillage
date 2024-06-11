@@ -31,6 +31,11 @@ namespace VsVillage
             ReachableNodes[waypoint] = path;
             _ReachableNodes[waypoint.Pos] = path;
         }
+        public void RemoveReachableNode(VillageWaypoint waypoint)
+        {
+            ReachableNodes.Remove(waypoint);
+            _ReachableNodes.Remove(waypoint.Pos);
+        }
 
         public List<VillageWaypoint> FindPath(VillageWaypoint target, int maxSearchDepth)
         {

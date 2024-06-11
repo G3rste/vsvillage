@@ -6,7 +6,7 @@ namespace VsVillage
 {
     public class WaypointAStar : VillagerAStar
     {
-        public WaypointAStar(ICoreServerAPI api) : base(api)
+        public WaypointAStar(ICoreAPI api) : base(api)
         {
             traversableCodes = new List<string>() { "door", "gate", "multiblock" };
             climbableCodes = new List<string>();

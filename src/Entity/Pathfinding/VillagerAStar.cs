@@ -9,7 +9,7 @@ namespace VsVillage
 {
     public class VillagerAStar
     {
-        protected ICoreServerAPI api;
+        protected ICoreAPI api;
         protected ICachingBlockAccessor blockAccess;
 
         public List<string> traversableCodes { get; set; } = new List<string>() { "door", "gate", "ladder", "multiblock" };
@@ -22,7 +22,7 @@ namespace VsVillage
         public const double centerOffsetX = 0.5;
         public const double centerOffsetZ = 0.5;
 
-        public VillagerAStar(ICoreServerAPI api)
+        public VillagerAStar(ICoreAPI api)
         {
             this.api = api;
             blockAccess = api.World.GetCachingBlockAccessor(true, true);

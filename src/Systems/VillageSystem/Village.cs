@@ -129,17 +129,6 @@ namespace VsVillage
             return result;
         }
 
-        public void DoDijkstraSimilarStuff()
-        {
-            for (int i = 0; i < Waypoints.Count; i++)
-            {
-                foreach (var waypoint in Waypoints.Values)
-                {
-                    waypoint.UpdateReachableNodes();
-                }
-            }
-        }
-
         public void InitWayPoints()
         {
             var waypointDict = new Dictionary<BlockPos, VillageWaypoint>();
@@ -170,8 +159,8 @@ namespace VsVillage
             foreach (var element in Waypoints.Values)
             {
                 element.RemoveNeighbour(waypoint);
+                element.RemoveReachableNode(waypoint);
             }
-            RecalculateWaypoints();
         }
 
         public void RemoveWaypoint(BlockPos pos)
@@ -180,19 +169,7 @@ namespace VsVillage
             {
                 RemoveWaypoint(waypoint);
                 Waypoints.Remove(waypoint.Pos);
-                RecalculateWaypoints();
             }
-        }
-
-        public void RecalculateWaypoints()
-        {
-            foreach (var element in Waypoints.Values)
-            {
-                element.ReachableNodes = new();
-                element._ReachableNodes = new();
-            }
-            InitWayPoints();
-            DoDijkstraSimilarStuff();
         }
     }
 }
