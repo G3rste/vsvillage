@@ -18,6 +18,8 @@ namespace VsVillage
         BlockPos end;
 
         ICoreServerAPI sapi;
+        bool revertHighlightPaths = true;
+        bool revertHighlightVillage = true;
 
         public override bool ShouldLoad(EnumAppSide forSide)
         {
@@ -67,6 +69,17 @@ namespace VsVillage
         private TextCommandResult onCmdHighlightPlaces(TextCommandCallingArgs args)
         {
             var player = args.Caller.Player;
+            revertHighlightVillage = !revertHighlightVillage;
+            if (revertHighlightVillage)
+            {
+                sapi.World.HighlightBlocks(player, 4, new(), new List<int>() { ColorUtil.ColorFromRgba(0, 0, 128, 100) }, EnumHighlightBlocksMode.Absolute, EnumHighlightShape.Arbitrary);
+                sapi.World.HighlightBlocks(player, 5, new(), new List<int>() { ColorUtil.ColorFromRgba(0, 128, 0, 100) }, EnumHighlightBlocksMode.Absolute, EnumHighlightShape.Arbitrary);
+                sapi.World.HighlightBlocks(player, 6, new(), new List<int>() { ColorUtil.ColorFromRgba(128, 128, 0, 100) }, EnumHighlightBlocksMode.Absolute, EnumHighlightShape.Arbitrary);
+                sapi.World.HighlightBlocks(player, 7, new(), new List<int>() { ColorUtil.ColorFromRgba(128, 0, 128, 100) }, EnumHighlightBlocksMode.Absolute, EnumHighlightShape.Arbitrary);
+                sapi.World.HighlightBlocks(player, 8, new(), new List<int>() { ColorUtil.ColorFromRgba(0, 128, 128, 100) }, EnumHighlightBlocksMode.Absolute, EnumHighlightShape.Arbitrary);
+                sapi.World.HighlightBlocks(player, 9, new(), new List<int>() { ColorUtil.ColorFromRgba(128, 0, 0, 100) }, EnumHighlightBlocksMode.Absolute, EnumHighlightShape.Arbitrary);
+                return TextCommandResult.Success("Highlighted Points of interest in this village have been unhighlighted");
+            }
             BlockPos plrPos = player.Entity.ServerPos.XYZ.AsBlockPos;
             var village = sapi.ModLoader.GetModSystem<VillageManager>().GetVillage(plrPos);
             if (village == null) return TextCommandResult.Error("No village found");
@@ -100,7 +113,7 @@ namespace VsVillage
             sapi.World.HighlightBlocks(player, 7, gatherplaces, new List<int>() { ColorUtil.ColorFromRgba(128, 0, 128, 100) }, EnumHighlightBlocksMode.Absolute, EnumHighlightShape.Arbitrary);
             sapi.World.HighlightBlocks(player, 8, waypoints, new List<int>() { ColorUtil.ColorFromRgba(0, 128, 128, 100) }, EnumHighlightBlocksMode.Absolute, EnumHighlightShape.Arbitrary);
             sapi.World.HighlightBlocks(player, 9, border, new List<int>() { ColorUtil.ColorFromRgba(128, 0, 0, 100) }, EnumHighlightBlocksMode.Absolute, EnumHighlightShape.Arbitrary);
-            return TextCommandResult.Success("Alle Points of interest in this village have been highlighted.");
+            return TextCommandResult.Success("All Points of interest in this village have been highlighted.");
         }
 
         private List<BlockPos> addBlockHeight(List<BlockPos> list, int height = 5)
@@ -118,8 +131,14 @@ namespace VsVillage
 
         private TextCommandResult onCmdHighlightWaypoints(TextCommandCallingArgs args)
         {
-            var waypointAStar = new WaypointAStar(sapi);
             var player = args.Caller.Player;
+            revertHighlightPaths = !revertHighlightPaths;
+            if (revertHighlightPaths)
+            {
+                sapi.World.HighlightBlocks(player, 3, new List<BlockPos>(), new List<int>() { ColorUtil.ColorFromRgba(128, 0, 0, 100) }, EnumHighlightBlocksMode.Absolute, EnumHighlightShape.Arbitrary);
+                return TextCommandResult.Success("Highlighted paths have been unhighlighted");
+            }
+            var waypointAStar = new WaypointAStar(sapi);
             BlockPos plrPos = player.Entity.ServerPos.XYZ.AsBlockPos;
             HashSet<BlockPos> allPaths = new();
             var village = sapi.ModLoader.GetModSystem<VillageManager>().GetVillage(plrPos);
@@ -128,8 +147,9 @@ namespace VsVillage
             foreach (var waypoint in root.ReachableNodes.Keys)
             {
                 var waypointPath = root.FindPath(waypoint, village.Waypoints.Count);
-                for(int i = 0; i<waypointPath.Count -1; i++){
-                    var path = waypointAStar.FindPath(waypointPath[i].Pos, waypointPath[i+1].Pos, 1, 1.01f);
+                for (int i = 0; i < waypointPath.Count - 1; i++)
+                {
+                    var path = waypointAStar.FindPath(waypointPath[i].Pos, waypointPath[i + 1].Pos, 1, 1.01f);
                     if (path != null) path.ForEach(x => allPaths.Add(x));
                 }
             }
