@@ -30,6 +30,13 @@
             "*"
         ]
     },
+    "blockmaterial": "Wood",
+	"sounds": {
+		"place": "game:block/planks",
+		"hit": "game:block/planks",
+		"break": "game:block/planks",
+		"walk": "game:walk/wood"
+	},
     "lightAbsorption": 1,
     "maxStackSize": 16,
     "collisionBoxes": [],

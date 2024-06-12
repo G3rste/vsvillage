@@ -40,6 +40,13 @@
     "sideopaque": {
         "all": false
     },
+    "blockmaterial": "Metal",
+	"sounds": {
+		"place": "game:block/anvil",
+		"hit": "game:block/anvil",
+		"break": "game:block/anvil",
+		"walk": "game:walk/stone"
+	},
     "lightAbsorption": 1,
     "maxStackSize": 8,
     "collisionBoxes": [
