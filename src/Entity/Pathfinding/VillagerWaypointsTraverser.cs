@@ -12,15 +12,13 @@ namespace VsVillage
     {
         float minTurnAnglePerSec;
         float maxTurnAnglePerSec;
-
-        Vec3f targetVec = new Vec3f();
-
+        VillagerPathfind villagerPathfind;
         public List<Vec3d> waypoints;
-        int waypointToReachIndex = 0;
-        long lastWaypointIncTotalMs;
 
-
-        VillagerPathfind villagerAstar;
+        public int waypointToReachIndex;
+        float sqDistToTarget;
+        Vec3d prevPos = new();
+        Vec3d targetVec = new();
 
         public override Vec3d CurrentTarget
         {
@@ -43,8 +41,9 @@ namespace VsVillage
                 maxTurnAnglePerSec = 450;
             }
 
-            villagerAstar = new VillagerPathfind(entity.Api as ICoreServerAPI, entity.GetBehavior<EntityBehaviorVillager>()?.Village);
+            villagerPathfind = new VillagerPathfind(entity.Api as ICoreServerAPI, entity.GetBehavior<EntityBehaviorVillager>()?.Village);
         }
+
         public override bool NavigateTo(Vec3d target, float movingSpeed, float targetDistance, Action OnGoalReached, Action OnStuck, bool giveUpWhenNoPath = false, int searchDepth = 999, int mhdistanceTolerance = 0)
         {
             BlockPos startBlockPos = entity.ServerPos.AsBlockPos;
@@ -56,7 +55,7 @@ namespace VsVillage
 
             if (!entity.World.BlockAccessor.IsNotTraversable(startBlockPos))
             {
-                waypoints = villagerAstar.FindPathAsWaypoints(startBlockPos, target.AsBlockPos, canFallDamage ? 8 : 4, stepHeight);
+                waypoints = villagerPathfind.FindPathAsWaypoints(startBlockPos, target.AsBlockPos, canFallDamage ? 8 : 4, stepHeight);
             }
 
             bool nopath = false;
@@ -96,17 +95,10 @@ namespace VsVillage
 
             stuckCounter = 0;
             waypointToReachIndex = 0;
-            lastWaypointIncTotalMs = entity.World.ElapsedMilliseconds;
+            prevPos.Set(entity.ServerPos);
 
             return true;
         }
-
-        Vec3d prevPos = new Vec3d(0, -2000, 0);
-        Vec3d prevPrevPos = new Vec3d(0, -1000, 0);
-        Vec3d prevPrevPrevPos = new Vec3d(0, -3000, 0);
-        float prevPosAccum;
-        float sqDistToTarget;
-
 
         public override void OnGameTick(float dt)
         {
@@ -123,58 +115,25 @@ namespace VsVillage
             if (nearAllDirs)
             {
                 waypointToReachIndex += offset;
-                lastWaypointIncTotalMs = entity.World.ElapsedMilliseconds;
+                toggleDoor(waypoints[waypointToReachIndex].AsBlockPos, false);
+                if (waypointToReachIndex > 2)
+                {
+                    toggleDoor(waypoints[waypointToReachIndex - 3].AsBlockPos, true);
+                }
             }
 
             target = waypoints[Math.Min(waypoints.Count - 1, waypointToReachIndex)];
 
-            if (waypointToReachIndex >= waypoints.Count)
+            if (waypointToReachIndex >= waypoints.Count - targetDistance)
             {
                 Stop();
                 OnGoalReached?.Invoke();
                 return;
             }
 
-            bool stuck =
-                (entity.CollidedVertically && entity.Controls.IsClimbing) ||
-                (entity.CollidedHorizontally && entity.ServerPos.Motion.Y <= 0) ||
-                (nearHorizontally && !nearAllDirs && entity.Properties.Habitat == EnumHabitat.Land) ||
-                (entity.CollidedHorizontally && waypoints.Count > 1 && waypointToReachIndex < waypoints.Count && entity.World.ElapsedMilliseconds - lastWaypointIncTotalMs > 2000) || // If it takes more than 2 seconds to reach next waypoint (waypoints are always 1 block apart)
-                (entity.Swimming && false)
-            ;
-
-            // This used to test motion, but that makes no sense, we want to test if the entity moved, not if it had motion
-            double distsq = prevPrevPos.SquareDistanceTo(prevPos);
-            stuck |= (distsq < 0.01 * 0.01) ? (entity.World.Rand.NextDouble() < GameMath.Clamp(1 - distsq * 1.2, 0.1, 0.9)) : false;
-
-
-            // Test movement progress between two points in 150 millisecond intervalls
-            prevPosAccum += dt;
-            if (prevPosAccum > 0.2)
-            {
-                prevPosAccum = 0;
-
-                toggleDoor(prevPrevPrevPos.AsBlockPos, true);
-                prevPrevPrevPos.Set(prevPrevPos);
-                prevPrevPos.Set(prevPos);
-                prevPos.Set(entity.ServerPos.X, entity.ServerPos.Y, entity.ServerPos.Z);
-            }
-
+            double distsq = prevPos.SquareDistanceTo(prevPos);
+            bool stuck = distsq < 0.01 * 0.01;
             stuckCounter = stuck ? (stuckCounter + 1) : 0;
-            if (stuck)
-            {
-                if (!toggleDoor(target.AsBlockPos, false))
-                {
-                    toggleDoor(prevPos.AsBlockPos, false);
-                }
-                if (GlobalConstants.OverallSpeedMultiplier > 0 && stuckCounter > 60 / GlobalConstants.OverallSpeedMultiplier)
-                {
-                    //entity.World.SpawnParticles(10, ColorUtil.WhiteArgb, prevPos, prevPos, new Vec3f(0, 0, 0), new Vec3f(0, -1, 0), 1, 1);
-                    Stop();
-                    OnStuck?.Invoke();
-                    return;
-                }
-            }
 
 
             EntityControls controls = entity.MountedOn == null ? entity.Controls : entity.MountedOn.Controls;
@@ -269,6 +228,7 @@ namespace VsVillage
                 {
                     controls.FlyVector.Y = 0.05f;
                 }
+                prevPos.Set(entity.ServerPos);
             }
         }
 
@@ -287,7 +247,6 @@ namespace VsVillage
             }
             return false;
         }
-
         bool IsNearTarget(int waypointOffset, ref bool nearHorizontally)
         {
             if (waypoints.Count - 1 < waypointToReachIndex + waypointOffset) return false;
@@ -306,7 +265,6 @@ namespace VsVillage
             return sqDistToTarget < targetDistance * targetDistance;
         }
 
-
         public override void Stop()
         {
             Active = false;
@@ -314,12 +272,6 @@ namespace VsVillage
             entity.ServerControls.Forward = false;
             entity.Controls.WalkVector.Set(0, 0, 0);
             stuckCounter = 0;
-        }
-
-        public override void Retarget()
-        {
-            Active = true;
-            waypointToReachIndex = waypoints.Count - 1;
         }
     }
 }
