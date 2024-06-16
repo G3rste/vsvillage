@@ -39,7 +39,7 @@ namespace VsVillage
             }.Init();
 
 
-            villagerPathTraverser = entity.GetBehavior<EntityBehaviorAlternatePathtraverser>().villagerWaypointsTraverser;
+            villagerPathTraverser = entity.GetBehavior<EntityBehaviorVillager>().villagerWaypointsTraverser;
         }
 
         public override bool ShouldExecute()
@@ -72,7 +72,7 @@ namespace VsVillage
             {
                 entity.AnimManager.StopAnimation(animMeta.Code);
                 entity.AnimManager.StartAnimation(interactAnim);
-                entity.GetBehavior<EntityBehaviorAlternatePathtraverser>()?.villagerWaypointsTraverser.Stop();
+                entity.GetBehavior<EntityBehaviorVillager>()?.villagerWaypointsTraverser.Stop();
                 targetReached = true;
                 return true;
             }
@@ -84,6 +84,7 @@ namespace VsVillage
         public override void FinishExecute(bool cancelled)
         {
             base.FinishExecute(cancelled);
+            villagerPathTraverser.Stop();
             if (targetReached)
             {
                 ApplyInteractionEffect();

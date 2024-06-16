@@ -9,9 +9,9 @@ namespace VsVillage
     public class AiTaskVillagerSleep : AiTaskBase
     {
 
-        BlockEntityBed bed = null;
+        BlockEntityVillagerBed bedEntity = null;
 
-        bool done;
+        bool bedReached;
         float moveSpeed = 0.03f;
         long lastCheck;
 
@@ -49,8 +49,8 @@ namespace VsVillage
                 }
             }
 
-            villagerPathTraverser = entity.GetBehavior<EntityBehaviorAlternatePathtraverser>().villagerWaypointsTraverser;
-            done = false;
+            villagerPathTraverser = entity.GetBehavior<EntityBehaviorVillager>().villagerWaypointsTraverser;
+            bedReached = false;
         }
 
         public override bool ShouldExecute()
@@ -58,10 +58,8 @@ namespace VsVillage
             if (lastCheck + 10000 < entity.World.ElapsedMilliseconds)
             {
                 lastCheck = entity.World.ElapsedMilliseconds;
-                if(bed == null || bed.GetBehavior<BlockEntityBehaviorVillagerBed>()?.ownerId != entity.EntityId){
-                    retrieveBed();
-                }
-                return IntervalUtil.matchesCurrentTime(duringDayTimeFrames, entity.World);
+                retrieveBed();
+                return bedEntity != null && IntervalUtil.matchesCurrentTime(duringDayTimeFrames, entity.World);
             }
             else
             {
@@ -72,28 +70,23 @@ namespace VsVillage
 
         public override void StartExecute()
         {
-            if (bed == null || bed.GetBehavior<BlockEntityBehaviorVillagerBed>()?.owner != entity) { retrieveBed(); }
-
-            if (bed != null)
+            base.StartExecute();
+            bedReached = false;
+            if (bedEntity != null)
             {
-                done = !villagerPathTraverser.NavigateTo(bed.Pos.ToVec3d(), moveSpeed, 0.5f, goToBed, goToBed, true, 10000);
+                villagerPathTraverser.NavigateTo(bedEntity.Pos.ToVec3d(), moveSpeed, 0.5f, tryGoingToBed, tryGoingToBed, true, 10000);
+                tryGoingToBed();
             }
-            else
-            {
-                done = true;
-            }
-            if (done) { goToBed(); }
-            else { base.StartExecute(); }
         }
 
         public override bool ContinueExecute(float dt)
         {
-            if (lastCheck + 500 < entity.World.ElapsedMilliseconds && bed != null && entity.MountedOn == null)
+            if (lastCheck + 500 < entity.World.ElapsedMilliseconds && !bedReached)
             {
                 lastCheck = entity.World.ElapsedMilliseconds;
-                if (entity.ServerPos.SquareDistanceTo(bed.Pos.ToVec3d()) < 2) { goToBed(); }
+                tryGoingToBed();
             }
-            return IntervalUtil.matchesCurrentTime(duringDayTimeFrames, entity.World);
+            return IntervalUtil.matchesCurrentTime(duringDayTimeFrames, entity.World) && (bedReached || villagerPathTraverser.Active);
         }
 
         public override void FinishExecute(bool cancelled)
@@ -101,46 +94,47 @@ namespace VsVillage
             villagerPathTraverser.Stop();
             base.FinishExecute(cancelled);
             entity.AnimManager.StopAnimation(sleepAnimMeta.Code);
-            entity.TryUnmount();
         }
 
-        private void goToBed()
+        private void tryGoingToBed()
         {
-            done = true;
-            villagerPathTraverser.Stop();
-            if (bed != null && bed.MountedBy == null)
+            if (bedEntity != null && entity.ServerPos.SquareDistanceTo(bedEntity.Pos.ToVec3d()) < 3)
             {
-                entity.TryMount(bed);
-                if (bed.MountPosition != null && entity.ServerPos.SquareDistanceTo(bed.Pos.ToVec3d()) < 3)
-                {
-                    entity.ServerPos.Yaw = bed.MountPosition.Yaw;
-                }
+                entity.ServerPos.SetPos(bedEntity.Pos.ToVec3d().Add(0.5, 0, 0.5));
+                entity.ServerPos.Yaw = bedEntity.Yaw;
+                entity.AnimManager.StopAnimation(animMeta.Code);
+                entity.AnimManager.StartAnimation(sleepAnimMeta);
+                bedReached = true;
+                villagerPathTraverser.Stop();
             }
-            entity.AnimManager.StopAnimation(animMeta.Code);
-            entity.AnimManager.StartAnimation(sleepAnimMeta);
         }
 
         private void retrieveBed()
         {
-            if (entity.Attributes.HasAttribute("villagerBed"))
+            bedEntity = null;
+            var blockAccessor = entity.World.BlockAccessor;
+            var villager = entity.GetBehavior<EntityBehaviorVillager>();
+            var village = villager?.Village;
+            if (village == null) return;
+            var bedPos = villager.Bed;
+            if (bedPos == null)
             {
-                bed = entity.World.BlockAccessor.GetBlockEntity(entity.Attributes.GetBlockPos("villagerBed")) as BlockEntityBed;
-                if (bed != null && bed.GetBehavior<BlockEntityBehaviorVillagerBed>()?.owner?.EntityId == entity.EntityId) { return; }
+                bedPos = village.FindFreeBed(entity.EntityId);
+                villager.Bed = bedPos;
             }
-            var villagerBed = (entity.Api as ICoreServerAPI)?.ModLoader.GetModSystem<POIRegistry>().GetNearestPoi(entity.ServerPos.XYZ, 75, poi =>
+            else
             {
-                var behaviorBed = poi as BlockEntityBehaviorVillagerBed;
+                village.Beds.TryGetValue(bedPos, out var bed);
+                if (bed == null || bed.OwnerId != entity.EntityId)
+                {
+                    bedPos = null; 
+                    villager.Bed = null;
+                }
+            }
 
-                // sometimes the worldgen overwrites some bed blocks without deleting the bed entity properly
-                // we shall avoid those bed entities
-                bool isNotRiggedByWorldGen = entity.World.BlockAccessor.GetBlock(poi.Position.AsBlockPos).Code.Path.StartsWith("bed-");
-
-                return behaviorBed != null && isNotRiggedByWorldGen && (behaviorBed.owner == null || !behaviorBed.owner.Alive || behaviorBed.owner == entity);
-            }) as BlockEntityBehaviorVillagerBed;
-            if (villagerBed?.setOwnerIfFree(entity.EntityId) == true)
+            if (bedPos != null)
             {
-                entity.Attributes.SetBlockPos("villagerBed", villagerBed.Position.AsBlockPos);
-                bed = villagerBed.Blockentity as BlockEntityBed;
+                bedEntity = blockAccessor.GetBlockEntity<BlockEntityVillagerBed>(bedPos);
             }
         }
     }

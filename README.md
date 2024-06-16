@@ -45,7 +45,7 @@ To generate a village during worldgen or via command (try `/genvillage`), a grid
             class="bitmap" />
         </td>
         <td class="cell">
-            The entrances of all house are connected with path blocks. The village is now completely simulated and ready to be generated into the world. Therefore the pixel coordinates of the grid system need to be converted back into in game coordinates. Each path square is 3x3 blocks wide, whereas each small house is 7x7 blocks wide. The coordinates [x, y] on the grid therefore translate into [x * 3 + (x / 2) * 4, y * 3 + (y / 2) * 4] in game coordinates. After translating the grid coordinates into the real ones, all house schematics and path blocks are placed and the village is generated for players to explore.
+            The entrances of all house are connected with path blocks. The village is now completely simulated and ready to be generated into the world. Therefore the pixel coordinates of the grid system need to be converted back into in game coordinates. Each path square is 3x3 blocks wide, whereas each small house is 7x7 blocks wide (with medium houses being 17x17 and large ones being 37x37). The coordinates [x, y] on the grid therefore translate into [x * 3 + (x / 2) * 4, y * 3 + (y / 2) * 4] in game coordinates. After translating the grid coordinates into the real ones, all house schematics and path blocks are placed and the village is generated for players to explore.
         </td>
     </tr>
 </table>

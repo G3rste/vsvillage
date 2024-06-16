@@ -9,20 +9,20 @@ namespace VsVillage
 {
     public class VillagerAStar
     {
-        protected ICoreServerAPI api;
+        protected ICoreAPI api;
         protected ICachingBlockAccessor blockAccess;
 
         public List<string> traversableCodes { get; set; } = new List<string>() { "door", "gate", "ladder", "multiblock" };
 
         public List<string> climbableCodes { get; set; } = new List<string>() { "ladder" };
-        public List<string> steppableCodes { get; set; } = new List<string>() { "stair", "path", "bed-", "farmland" };
+        public List<string> steppableCodes { get; set; } = new List<string>() { "stair", "path", "bed-", "farmland", "slab" };
 
         public int NodesChecked;
 
-        public double centerOffsetX = 0.5;
-        public double centerOffsetZ = 0.5;
+        public const double centerOffsetX = 0.5;
+        public const double centerOffsetZ = 0.5;
 
-        public VillagerAStar(ICoreServerAPI api)
+        public VillagerAStar(ICoreAPI api)
         {
             this.api = api;
             blockAccess = api.World.GetCachingBlockAccessor(true, true);
@@ -31,13 +31,7 @@ namespace VsVillage
         public PathNodeSet openSet = new PathNodeSet();
         public HashSet<PathNode> closedSet = new HashSet<PathNode>();
 
-        public List<Vec3d> FindPathAsWaypoints(BlockPos start, BlockPos end, int maxFallHeight, float stepHeight, Cuboidf entityCollBox, int searchDepth = 9999, bool allowReachAlmost = false)
-        {
-            List<PathNode> nodes = FindPath(start, end, maxFallHeight, stepHeight, entityCollBox, searchDepth, allowReachAlmost);
-            return nodes == null ? null : ToWaypoints(nodes);
-        }
-
-        public List<PathNode> FindPath(BlockPos start, BlockPos end, int maxFallHeight, float stepHeight, Cuboidf entityCollBox, int searchDepth = 9999, bool allowReachAlmost = false)
+        public List<PathNode> FindPath(BlockPos start, BlockPos end, int maxFallHeight, float stepHeight, int searchDepth = 999, bool allowReachAlmost = true)
         {
             blockAccess.Begin();
 
@@ -173,7 +167,7 @@ namespace VsVillage
                 for (; 1f < stepHeight; stepHeight--)
                 {
                     node.Y++;
-                    if (canStep(blockAccess.GetBlock(new BlockPos(node.X, node.Y - 1, node.Z,0))) && traversable(blockAccess.GetBlock(new BlockPos(node.X, node.Y, node.Z,0))) && traversable(blockAccess.GetBlock(new BlockPos(node.X, node.Y + 1, node.Z, 0))))
+                    if (canStep(blockAccess.GetBlock(new BlockPos(node.X, node.Y - 1, node.Z, 0))) && traversable(blockAccess.GetBlock(new BlockPos(node.X, node.Y, node.Z, 0))) && traversable(blockAccess.GetBlock(new BlockPos(node.X, node.Y + 1, node.Z, 0))))
                     {
                         return true;
                     }
@@ -207,19 +201,5 @@ namespace VsVillage
 
             return path;
         }
-
-
-
-        public List<Vec3d> ToWaypoints(List<PathNode> path)
-        {
-            List<Vec3d> waypoints = new List<Vec3d>(path.Count + 1);
-            for (int i = 1; i < path.Count; i++)
-            {
-                waypoints.Add(path[i].ToWaypoint().Add(centerOffsetX, 0, centerOffsetZ));
-            }
-
-            return waypoints;
-        }
-
     }
 }

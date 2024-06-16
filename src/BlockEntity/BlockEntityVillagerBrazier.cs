@@ -1,26 +1,29 @@
 using Vintagestory.API.Common;
-using Vintagestory.API.MathTools;
-using Vintagestory.API.Server;
-using Vintagestory.GameContent;
 
 namespace VsVillage
 {
-    public class BlockEntityVillagerBrazier : BlockEntity, IPointOfInterest
+    public class BlockEntityVillagerBrazier : BlockEntityVillagerPOI
     {
-        public Vec3d Position => Pos.ToVec3d();
 
-        public string Type => "freetime";
         public override void Initialize(ICoreAPI api)
         {
             base.Initialize(api);
-            if (api is ICoreServerAPI sapi) { sapi.ModLoader.GetModSystem<POIRegistry>().AddPOI(this); }
             RegisterGameTickListener(dt => { if (Api.World.Calendar.FullHourOfDay < 17) Extinguish(); }, 5000);
         }
-
-        public override void OnBlockBroken(IPlayer byPlayer = null)
+        public override void AddToVillage(Village village)
         {
-            base.OnBlockBroken(byPlayer);
-            if (Api is ICoreServerAPI sapi) { sapi.ModLoader.GetModSystem<POIRegistry>().RemovePOI(this); }
+            village.Gatherplaces.Add(Pos);
+        }
+        public override void RemoveFromVillage(Village village)
+        {
+            village?.Gatherplaces.Remove(Pos);
+        }
+
+        public override bool BelongsToVillage(Village village)
+        {
+            return village.Id == VillageId
+                && village.Name == VillageName
+                && village.Gatherplaces.Contains(Pos);
         }
 
         public void Extinguish()

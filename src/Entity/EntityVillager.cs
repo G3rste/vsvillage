@@ -9,6 +9,7 @@ using Vintagestory.API.Util;
 using Vintagestory.API.Client;
 using Vintagestory.API.Server;
 using Vintagestory.API.MathTools;
+using Vintagestory.API.Config;
 
 namespace VsVillage
 {
@@ -28,8 +29,6 @@ namespace VsVillage
         public override ItemSlot RightHandItemSlot { get => gearInv.rightHandSlot; set => gearInv.rightHandSlot = value; }
 
         public EntityTalkUtil talkUtil { get; set; }
-
-        public string profession => Properties.Attributes["profession"].AsString();
         public string Personality
         {
             get { return WatchedAttributes.GetString("personality", "formal"); }
@@ -58,7 +57,7 @@ namespace VsVillage
             }
             if (!WatchedAttributes.HasAttribute("personality"))
             {
-                Personality = EntityTrader.Personalities.GetKeyAtIndex(World.Rand.Next(EntityTrader.Personalities.Count));
+                Personality = Personalities.GetKeyAtIndex(World.Rand.Next(EntityTrader.Personalities.Count));
             }
             (AnimManager as TraderAnimationManager).Personality = Personality;
             if (api is ICoreClientAPI capi) { talkUtil = new EntityTalkUtil(capi, this); }
@@ -188,7 +187,7 @@ namespace VsVillage
             foreach (var gear in gearInv)
             {
                 var assetString = assetStringFromSlot.Invoke(gear);
-                if (!String.IsNullOrEmpty(assetString) && (matcher == null || matcher.Invoke(gear?.Itemstack?.Item?.Code.Path)))
+                if (!string.IsNullOrEmpty(assetString) && (matcher == null || matcher.Invoke(gear?.Itemstack?.Item?.Code.Path)))
                 {
                     availableWeapons.Add(gear);
                 }

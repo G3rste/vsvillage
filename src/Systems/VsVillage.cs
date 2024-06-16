@@ -1,5 +1,4 @@
-﻿using HarmonyLib;
-using ProtoBuf;
+﻿using ProtoBuf;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
 using Vintagestory.API.Server;
@@ -14,25 +13,23 @@ namespace VsVillage
 
         private ICoreServerAPI serverAPI;
 
-        private Harmony harmony = new Harmony("gerste.vsvillage");
-
         public override void Start(ICoreAPI api)
         {
             base.Start(api);
 
-            BedPatch.Patch(harmony);
-
             api.RegisterEntity("EntityVillager", typeof(EntityVillager));
 
-            api.RegisterEntityBehaviorClass("AlternatePathTraverser", typeof(EntityBehaviorAlternatePathtraverser));
+            api.RegisterEntityBehaviorClass("Villager", typeof(EntityBehaviorVillager));
 
             api.RegisterItemClass("ItemVillagerGear", typeof(ItemVillagerGear));
             api.RegisterItemClass("ItemVillagerHorn", typeof(ItemVillagerHorn));
 
-            api.RegisterBlockEntityBehaviorClass("VillagerBed", typeof(BlockEntityBehaviorVillagerBed));
-
+            api.RegisterBlockEntityClass("VillagerBed", typeof(BlockEntityVillagerBed));
             api.RegisterBlockEntityClass("VillagerWorkstation", typeof(BlockEntityVillagerWorkstation));
+            api.RegisterBlockEntityClass("VillagerWaypoint", typeof(BlockEntityVillagerWaypoint));
             api.RegisterBlockEntityClass("VillagerBrazier", typeof(BlockEntityVillagerBrazier));
+
+            api.RegisterBlockClass("MayorWorkstation", typeof(BlockMayorWorkstation));
 
             AiTaskRegistry.Register<AiTaskVillagerMeleeAttack>("villagermeleeattack");
             AiTaskRegistry.Register<AiTaskVillagerSeekEntity>("villagerseekentity");
@@ -54,14 +51,15 @@ namespace VsVillage
             base.StartClientSide(api);
             this.clientAPI = api;
 
-            api.Network.RegisterChannel("vsvillagenetwork")
+            api.Network.RegisterChannel("villagertalknetwork")
                 .RegisterMessageType<TalkUtilMessage>().SetMessageHandler<TalkUtilMessage>(OnTalkMessageClient);
         }
+
         public override void StartServerSide(ICoreServerAPI api)
         {
             base.StartServerSide(api);
             this.serverAPI = api;
-            api.Network.RegisterChannel("vsvillagenetwork")
+            api.Network.RegisterChannel("villagertalknetwork")
                 .RegisterMessageType<TalkUtilMessage>();
         }
 

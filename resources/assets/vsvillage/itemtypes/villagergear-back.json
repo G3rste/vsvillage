@@ -4,13 +4,13 @@
     "maxstacksize": 1,
     "attributes": {
         "weaponAssetLocationByType": {
-            "*-spear": "spear-blackbronze",
-            "*-spear-gold": "spear-ornate-gold",
-            "*-spear-silver": "spear-ornate-silver",
-            "*-scrap-spear": "spear-scrap",
-            "*-scrap-blade": "blade-curved-scrap",
-            "*-scrap-axe": "axe-scrap",
-            "*-dagger": "knife-meteoriciron"
+            "*-spear": "spear-generic-blackbronze",
+            "*-spear-gold": "spear-generic-ornategold",
+            "*-spear-silver": "spear-generic-ornatesilver",
+            "*-scrap-spear": "spear-scrap-scrap",
+            "*-scrap-blade": "blade-scrap-scrap",
+            "*-scrap-axe": "axe-scrap-scrap",
+            "*-dagger": "knife-generic-meteoriciron"
         },
         "wearableAttachment": true,
         "handbook": {

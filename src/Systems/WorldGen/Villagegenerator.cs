@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Vintagestory.API.Common;
 using Vintagestory.API.MathTools;
 using Vintagestory.API.Server;
+using Vintagestory.API.Util;
 using Vintagestory.ServerMods;
 
 namespace VsVillage
@@ -12,8 +13,9 @@ namespace VsVillage
 
         public override double ExecuteOrder() => 0.45;
 
-        public List<WorldGenVillageStructure> structures;
-        public List<VillageType> villages;
+        public List<WorldGenVillageStructure> Structures = new();
+        public Dictionary<string, List<string>> VillageNames = new();
+        public List<VillageType> Villages = new();
         public VillageConfig Config;
         private ICoreServerAPI sapi;
 
@@ -53,25 +55,25 @@ namespace VsVillage
 
         private TextCommandResult onCmdDebugVillage(TextCommandCallingArgs args)
         {
-            VillageType village;
+            VillageType villageType;
             if (args.ArgCount < 1)
             {
-                village = villages[sapi.World.Rand.Next(0, villages.Count)];
+                villageType = Villages[sapi.World.Rand.Next(0, Villages.Count)];
             }
             else
             {
                 string villageName = (string)args[0];
-                village = villages.Find(match => match.Code == villageName);
-                if (village == null)
+                villageType = Villages.Find(match => match.Code == villageName);
+                if (villageType == null)
                 {
                     return TextCommandResult.Error(string.Format("Could not find village with name {0}.", villageName));
                 }
             }
 
-            var grid = new VillageGrid(village.Length, village.Height);
-            grid.Init(village, rand);
+            var grid = new VillageGrid(villageType.Length, villageType.Height);
+            grid.Init(villageType, rand);
             var start = args.Caller.Player.Entity.ServerPos.XYZInt.ToBlockPos();
-            if (args.ArgCount > 1 && (string)args[1] == "probeTerrain" && !probeTerrain(start, grid, sapi.World.BlockAccessor))
+            if (args.ArgCount > 1 && (string)args[1] == "probeTerrain" && !probeTerrain(start, grid, sapi.World.BlockAccessor, villageType))
             {
                 return TextCommandResult.Error("Terrain is too steep/ damp for generating a village");
             }
@@ -79,6 +81,18 @@ namespace VsVillage
             {
                 grid.connectStreets();
 
+                Village village = new()
+                {
+                    Pos = grid.getMiddle(start),
+                    Name = VillageNames[villageType.Names][rand.NextInt(villageType.Names.Length)],
+                    Api = sapi,
+                    Gatherplaces = new(),
+                    Workstations = new(),
+                    Beds = new(),
+                    VillagerSaveData = new(),
+                    Radius = VillageGrid.GridDistToMapDist(grid.width)
+                };
+                sapi.ModLoader.GetModSystem<VillageManager>().Villages.TryAdd(village.Id, village);
                 grid.GenerateHouses(start, sapi.World.BlockAccessor, sapi.World);
                 grid.GenerateStreets(start, sapi.World.BlockAccessor, sapi.World);
                 return TextCommandResult.Success();
@@ -88,15 +102,15 @@ namespace VsVillage
         private void initWorldGen()
         {
             LoadGlobalConfig(sapi);
-            chunksize = sapi.World.BlockAccessor.ChunkSize;
-
-            structures = sapi.Assets.Get<List<WorldGenVillageStructure>>(new AssetLocation("vsvillage", "config/villagestructures.json"));
-            villages = sapi.Assets.Get<List<VillageType>>(new AssetLocation("vsvillage", "config/villagetypes.json"));
-            foreach (var structure in structures)
+            foreach (var mod in sapi.ModLoader.Mods)
             {
-                sapi.Logger.Event("Loading structure {0}", structure.Code);
-                structure.Init(sapi);
-                foreach (var village in villages)
+                Structures.AddRange(sapi.Assets.TryGet(new AssetLocation(mod.Info.ModID, "config/villagestructures.json"))?.ToObject<List<WorldGenVillageStructure>>().ConvertAll(structure => structure.Init(sapi, mod.Info.ModID)) ?? new());
+                Villages.AddRange(sapi.Assets.TryGet(new AssetLocation(mod.Info.ModID, "config/villagetypes.json"))?.ToObject<List<VillageType>>() ?? new());
+                VillageNames.AddRange(sapi.Assets.TryGet(new AssetLocation(mod.Info.ModID, "config/villagenames.json"))?.ToObject<Dictionary<string, List<string>>>() ?? new());
+            }
+            foreach (var structure in Structures)
+            {
+                foreach (var village in Villages)
                 {
                     foreach (var group in village.StructureGroups)
                     {
@@ -107,7 +121,7 @@ namespace VsVillage
                     }
                 }
             }
-            foreach (var village in villages)
+            foreach (var village in Villages)
             {
                 village.StructureGroups.Sort((a, b) => ((int)b.Size).CompareTo((int)a.Size));
             }
@@ -118,19 +132,25 @@ namespace VsVillage
             cmdApi
                 .Create("genvillage")
                 .WithDescription("Generate a village right where you are standing right now.")
-                .WithArgs(parsers.OptionalWordRange("villagetype", villages.ConvertAll<string>(type => type.Code).ToArray()), parsers.OptionalWord("probeTerrain"))
+                .WithArgs(parsers.OptionalWordRange("villagetype", Villages.ConvertAll<string>(type => type.Code).ToArray()), parsers.OptionalWord("probeTerrain"))
                 .RequiresPrivilege(Privilege.root)
                 .WithExamples("genvillage tiny probeTerrain", "genvillage aged-village1")
                 .HandleWith(onCmdDebugVillage);
         }
 
-        private bool probeTerrain(BlockPos start, VillageGrid grid, IBlockAccessor blockAccessor)
+        private bool probeTerrain(BlockPos start, VillageGrid grid, IBlockAccessor blockAccessor, VillageType type)
         {
             int max;
             int min;
             int current;
-            int tolerance = (grid.width * grid.height) * 4;
+            int tolerance = grid.width * grid.height * 4;
             int waterspots = 0;
+            ClimateCondition climate = blockAccessor.GetClimateAt(start);
+            if (climate.Temperature > type.MaxTemp || climate.Temperature < type.MinTemp
+                || climate.Rainfall > type.MaxRain || climate.Rainfall < type.MinRain)
+            {
+                return false;
+            }
             for (int x = 0; x < grid.width - 1; x++)
             {
                 for (int z = 0; z < grid.height - 1; z++)
@@ -152,7 +172,7 @@ namespace VsVillage
                             }
                         }
                     }
-                    tolerance -= (max - min);
+                    tolerance -= max - min;
                 }
             }
             return tolerance > 0 && waterspots < grid.width * grid.height / 2;
@@ -163,12 +183,13 @@ namespace VsVillage
             IMapRegion region = request.Chunks[0].MapChunk.MapRegion;
 
             if (request.ChunkX % 4 != 0 || request.ChunkZ % 4 != 0) { return; }
+            if (Villages.Count == 0) { return; }
             if (rand.NextFloat() > Config.VillageChance) { return; }
             if (region.GeneratedStructures.Find(structure => structure.Group == "village") != null) { return; }
 
-            var village = villages[rand.NextInt(villages.Count)];
+            var villageType = Villages[rand.NextInt(Villages.Count)];
             // we mock the grid here and do the expensive generation later
-            var grid = new VillageGrid(village.Length, village.Height);
+            var grid = new VillageGrid(villageType.Length, villageType.Height);
             var start = new BlockPos(chunksize * request.ChunkX, 0, chunksize * request.ChunkZ, 0);
             var end = grid.getEnd(start);
 
@@ -179,11 +200,23 @@ namespace VsVillage
                 || worldgenBlockAccessor.GetChunk(end.X / chunksize, 0, end.Z / chunksize) == null) { return; }
 
             worldgenBlockAccessor.BeginColumn();
-            if (probeTerrain(start, grid, worldgenBlockAccessor))
+            if (probeTerrain(start, grid, worldgenBlockAccessor, villageType))
             {
-                grid.Init(village, rand);
+                grid.Init(villageType, rand);
                 region.GeneratedStructures.Add(new GeneratedStructure() { Code = grid.VillageType.Code, Group = "village", Location = new Cuboidi(start, end) });
                 grid.connectStreets();
+                Village village = new()
+                {
+                    Pos = grid.getMiddle(start),
+                    Name = VillageNames[villageType.Names][rand.NextInt(villageType.Names.Length)],
+                    Api = sapi,
+                    Gatherplaces = new(),
+                    Workstations = new(),
+                    Beds = new(),
+                    VillagerSaveData = new(),
+                    Radius = VillageGrid.GridDistToMapDist(grid.width)
+                };
+                sapi.ModLoader.GetModSystem<VillageManager>().Villages.TryAdd(village.Id, village);
                 grid.GenerateHouses(start, worldgenBlockAccessor, sapi.World);
                 grid.GenerateStreets(start, worldgenBlockAccessor, sapi.World);
             }

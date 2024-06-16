@@ -36,18 +36,6 @@
                     "vsvillage:quest-upgradeGambison"
                 ],
                 "*-mayor": [
-                    "vsvillage:quest-foundvillage-start",
-                    "vsvillage:quest-foundvillage-1",
-                    "vsvillage:quest-foundvillage-2",
-                    "vsvillage:quest-foundvillage-3",
-                    "vsvillage:quest-foundvillage-final",
-                    "vsvillage:quest-recruit1farmer",
-                    "vsvillage:quest-recruit1shepherd",
-                    "vsvillage:quest-recruit1soldier",
-                    "vsvillage:quest-recruit1archer",
-                    "vsvillage:quest-recruit1smith",
-                    "vsvillage:quest-recruit1herbalist",
-                    "vsvillage:quest-recruit1trader",
                     "vsvillage:quest-kill50DriftersFor20Gears",
                     "vsvillage:quest-kill2NightmareDriftersFor12Gears"
                 ],

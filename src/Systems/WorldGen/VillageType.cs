@@ -8,6 +8,8 @@ namespace VsVillage
     {
         [JsonProperty]
         public string Code;
+        [JsonProperty]
+        public string Names;
 
         [JsonProperty]
         public List<StructureGroup> StructureGroups = new List<StructureGroup>();

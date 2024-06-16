@@ -42,14 +42,16 @@ namespace VsVillage
 
         protected override Vec3d GetTargetPos()
         {
-            var registry = (entity.Api as ICoreServerAPI)?.ModLoader.GetModSystem<POIRegistry>();
-            brazier = registry.GetNearestPoi(entity.ServerPos.XYZ, maxDistance, poi => poi is BlockEntityVillagerBrazier) as BlockEntityVillagerBrazier;
+            var api = entity.Api;
+            var village = entity.GetBehavior<EntityBehaviorVillager>()?.Village;
+            var brazierPos = village?.FindRandomGatherplace();
+            brazier = brazierPos != null ? api.World.BlockAccessor.GetBlockEntity<BlockEntityVillagerBrazier>(brazierPos) : null;
             return getRandomPosNearby(brazier?.Position);
         }
 
         public override bool ShouldExecute()
         {
-                return base.ShouldExecute() && IntervalUtil.matchesCurrentTime(duringDayTimeFrames, entity.World);
+            return base.ShouldExecute() && IntervalUtil.matchesCurrentTime(duringDayTimeFrames, entity.World);
         }
 
         private Vec3d getRandomPosNearby(Vec3d middle)

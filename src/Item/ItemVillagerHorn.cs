@@ -32,16 +32,9 @@ namespace VsVillage
         {
             string villagerId;
             var sapi = byEntity.Api;
-            if (sapi.ModLoader.IsModEnabled("vsquest"))
-            {
-                villagerId = new string[] { "vsvillage:humanoid-villager-male-mayor", "vsvillage:humanoid-villager-female-mayor" }[sapi.World.Rand.Next(2)];
-            }
-            else
-            {
-                string sex = new string[] { "male", "female" }[sapi.World.Rand.Next(2)];
-                string profession = new string[] { "soldier", "smith", "farmer", "shepherd", "herbalist", "mayor", "trader", "archer" }[sapi.World.Rand.Next(8)];
-                villagerId = "vsvillage:humanoid-villager-" + sex + "-" + profession;
-            }
+            villagerId = sapi.World.Rand.Next(2) == 0 ? "vsvillage:humanoid-villager-male-trader" : "vsvillage:humanoid-villager-female-trader";
+
+
             AssetLocation location = new AssetLocation(villagerId);
             EntityProperties type = byEntity.World.GetEntityType(location);
             if (type == null)

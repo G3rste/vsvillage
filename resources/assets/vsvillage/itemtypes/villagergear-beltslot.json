@@ -4,14 +4,14 @@
     "maxstacksize": 1,
     "attributesByType": {
         "*-sword": {
-            "weaponAssetLocation": "blade-short-blackguard",
+            "weaponAssetLocation": "blade-blackguard-iron",
             "wearableAttachment": true,
             "handbook": {
                 "exclude": true
             }
         },
         "*-dagger": {
-            "weaponAssetLocation": "knife-blackbronze",
+            "weaponAssetLocation": "knife-generic-blackbronze",
             "wearableAttachment": true,
             "handbook": {
                 "exclude": true

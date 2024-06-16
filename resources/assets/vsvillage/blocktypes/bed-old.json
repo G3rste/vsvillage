@@ -1,0 +1,90 @@
+{
+    "code": "villagebed",
+    "entityClass": "VillagerBed",
+    "attributes": {
+        "handbook": {
+            "exclude": true
+        },
+        "yawByType": {
+            "villagebed-north": 1.5708,
+            "villagebed-east": 0,
+            "villagebed-south": 4.71239,
+            "villagebed-west": 3.14159
+        }
+    },
+    "shape": {
+        "base": "bed",
+        "rotateYByType": {
+            "villagebed-north": 90,
+            "villagebed-east": 0,
+            "villagebed-south": 270,
+            "villagebed-west": 180
+        }
+    },
+    "variantGroups": [
+        {
+            "code": "side",
+            "loadFromProperties": "abstract/horizontalorientation"
+        }
+    ],
+    "behaviors": [
+        {
+            "name": "Multiblock",
+            "properties": {
+                "sizexByType": {
+                    "villagebed-north": 1,
+                    "villagebed-east": 2,
+                    "villagebed-south": 1,
+                    "villagebed-west": 2
+                },
+                "sizey": 1,
+                "sizezByType": {
+                    "villagebed-north": 2,
+                    "villagebed-east": 1,
+                    "villagebed-south": 2,
+                    "villagebed-west": 1
+                },
+                "cposition": {
+                    "xByType": {
+                        "villagebed-north": 0,
+                        "villagebed-east": 0,
+                        "villagebed-south": 0,
+                        "villagebed-west": 1
+                    },
+                    "y": 0,
+                    "zByType": {
+                        "villagebed-north": 1,
+                        "villagebed-east": 0,
+                        "villagebed-south": 0,
+                        "villagebed-west": 0
+                    }
+                }
+            }
+        },
+        {
+            "name": "HorizontalOrientable"
+        }
+    ],
+    "sidesolid": {
+        "all": false
+    },
+    "sideopaque": {
+        "all": false
+    },
+    "creativeinventory": {
+        "general": []
+    },
+    "lightAbsorption": 1,
+    "maxStackSize": 8,
+    "collisionBoxes": [],
+    "selectionBoxes": [
+        {
+            "x1": 0,
+            "y1": 0,
+            "z1": 0,
+            "x2": 1,
+            "y2": 0.2,
+            "z2": 1
+        }
+    ]
+}

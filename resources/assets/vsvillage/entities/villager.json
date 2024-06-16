@@ -3,11 +3,11 @@
 	"class": "EntityVillager",
 	"canClimb": true,
 	"eyeHeight": 1.4,
-	"hitboxSize": { "x": 0.6, "y": 1.75 },
+	"hitboxSize": { "x": 0.5, "y": 1.75 },
 	"deadHitboxSize": { "x": 0.75, "y": 0.5 },
 	"attributesByType": {
 		"*-soldier": {
-			"profession": "soldier",
+			"poulticeRevive": true,
 			"validGear": {
 				"arms": ["armor", "armor-hallowcroft", "armor", "armor-hallowcroft", "bandage-left", "bandage-right"],
 				"back": [],
@@ -22,7 +22,7 @@
 			}
 		},
 		"*-archer": {
-			"profession": "soldier",
+			"poulticeRevive": true,
 			"validGear": {
 				"arms": ["armor", "armor-hallowcroft", "armor"],
 				"back": [],
@@ -37,7 +37,7 @@
 			}
 		},
 		"*-smith": {
-			"profession": "smith",
+			"poulticeRevive": true,
 			"validGear": {
 				"arms": ["gloves"],
 				"back": ["pickaxe"],
@@ -52,7 +52,7 @@
 			}
 		},
 		"*-farmer": {
-			"profession": "farmer",
+			"poulticeRevive": true,
 			"validGear": {
 				"arms": ["jewelry-left-bracelet", "jewelry-right-bracelet", "jewelry-left-bracelet-copper", "jewelry-right-bracelet-copper", "jewelry-left-bracelet-gold", "jewelry-right-bracelet-gold", "jewelry-left-rings", "jewelry-right-rings", "jewelry-left-rings-copper", "jewelry-right-rings-copper", "jewelry-left-rings-gold", "jewelry-right-rings-gold","gloves"],
 				"back": [],
@@ -67,7 +67,7 @@
 			}
 		},
 		"*-shepherd": {
-			"profession": "shepherd",
+			"poulticeRevive": true,
 			"validGear": {
 				"arms": ["jewelry-left-bracelet", "jewelry-right-bracelet", "jewelry-left-bracelet-copper", "jewelry-right-bracelet-copper", "jewelry-left-bracelet-gold", "jewelry-right-bracelet-gold", "jewelry-left-rings", "jewelry-right-rings", "jewelry-left-rings-copper", "jewelry-right-rings-copper", "jewelry-left-rings-gold", "jewelry-right-rings-gold","gloves"],
 				"back": [],
@@ -82,7 +82,7 @@
 			}
 		},
 		"*-herbalist": {
-			"profession": "herbalist",
+			"poulticeRevive": true,
 			"validGear": {
 				"arms": [],
 				"back": ["backpack"],
@@ -97,7 +97,7 @@
 			}
 		},
 		"*-mayor": {
-			"profession": "mayor",
+			"poulticeRevive": true,
 			"validGear": {
 				"arms": ["jewelry-left-bracelet", "jewelry-right-bracelet", "jewelry-left-bracelet-copper", "jewelry-right-bracelet-copper", "jewelry-left-bracelet-gold", "jewelry-right-bracelet-gold", "jewelry-left-rings", "jewelry-right-rings", "jewelry-left-rings-copper", "jewelry-right-rings-copper", "jewelry-left-rings-gold", "jewelry-right-rings-gold"],
 				"back": [],
@@ -130,7 +130,14 @@
 			{ "code": "nametag", "showtagonlywhentargeted": true },
 			{ "code": "repulseagents" },
 			{ "code": "controlledphysics", "stepHeight": 1.01 },
-			{ "code": "interpolateposition" }
+			{ "code": "interpolateposition" },
+			{
+				"code": "Villager",
+				"professionByType": {
+					"*-archer": "soldier",
+					"*": "{profession}"
+				}
+			}		
 		],
 		"animations": [
 			{
@@ -171,8 +178,14 @@
 					{ "code": "fleeondamage", "duration": 10, "chance": 0.4, "slot": 0, "priority": 1, "whenHealthRelBelow": 0.3, "accumType": "max" }
 				]
 			},
-			{ "code": "AlternatePathTraverser" },
-            {
+			{
+				"code": "Villager",
+				"professionByType": {
+					"*-archer": "soldier",
+					"*": "{profession}"
+				}
+			},
+			{
                 "code": "deaddecay",
                 "hoursToDecay": 96,
                 "decayedBlock": "drycarcass-humanoid1"
@@ -213,7 +226,7 @@
 						"priority": 1.6,
 						"mincooldown": 1000,
 						"maxcooldown": 1500,
-						"seekingRange": 20,
+						"seekingRange": 12,
 						"minRangeByType": { "*-archer": 8, "*": 0 },
 						"movespeed": 0.035,
 						"animation": "RowdyRun",
@@ -227,8 +240,8 @@
 						},
 						"priority": 1.5,
 						"movespeed": 0.035,
-						"seekingRangeByType": { "*-archer": 7, "*": 12 },
-						"animationByType": { "*-archer": "BalancedRun", "*": "FormalRun" },
+						"seekingRange": 4,
+						"animationByType": { "*-archer": "BalancedRun", "*-soldier": "BalancedRun", "*": "FormalRun" },
 						"animationSpeed": 1.75
 					},
 					{

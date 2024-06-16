@@ -3,7 +3,7 @@
     "class": "EntityTrader",
     "canClimb": true,
     "hitboxSize": {
-        "x": 0.6,
+        "x": 0.5,
         "y": 1.75
     },
     "deadHitboxSize": {
@@ -68,6 +68,10 @@
             {
                 "code": "conversable",
                 "dialogue": "vsvillage:config/dialogue/trader"
+            },
+            {
+                "code": "Villager",
+                "profession": "trader"
             }
         ],
         "animations": [
@@ -102,7 +106,7 @@
         ]
     },
     "attributes": {
-        "profession": "trader",
+        "poulticeRevive": true,
         "tradeProps": {
             "money": {
                 "avg": 30,
@@ -214,6 +218,58 @@
                             "avg": 8,
                             "var": 2
                         }
+                    },
+                    {
+                        "code": "vsvillage:waypoint",
+                        "type": "block",
+                        "stacksize": 8,
+                        "stock": {
+                            "avg": 2,
+                            "var": 1
+                        },
+                        "price": {
+                            "avg": 6,
+                            "var": 2
+                        }
+                    },
+                    {
+                        "code": "vsvillage:villagebed-blueplaid-east",
+                        "type": "block",
+                        "stacksize": 1,
+                        "stock": {
+                            "avg": 8,
+                            "var": 2
+                        },
+                        "price": {
+                            "avg": 2,
+                            "var": 1
+                        }
+                    },
+                    {
+                        "code": "vsvillage:villagebed-whiteplaid-east",
+                        "type": "block",
+                        "stacksize": 1,
+                        "stock": {
+                            "avg": 8,
+                            "var": 2
+                        },
+                        "price": {
+                            "avg": 2,
+                            "var": 1
+                        }
+                    },
+                    {
+                        "code": "vsvillage:villagebed-pine-east",
+                        "type": "block",
+                        "stacksize": 1,
+                        "stock": {
+                            "avg": 8,
+                            "var": 2
+                        },
+                        "price": {
+                            "avg": 2,
+                            "var": 1
+                        }
                     }
                 ]
             },
@@ -221,7 +277,7 @@
                 "maxItems": 14,
                 "list": [
                     {
-                        "code": "bread-spelt-perfect",
+                        "code": "game:bread-spelt-perfect",
                         "type": "item",
                         "stacksize": 8,
                         "stock": {
@@ -234,7 +290,7 @@
                         }
                     },
                     {
-                        "code": "bread-rye-perfect",
+                        "code": "game:bread-rye-perfect",
                         "type": "item",
                         "stacksize": 8,
                         "stock": {
@@ -247,7 +303,7 @@
                         }
                     },
                     {
-                        "code": "bread-flax-perfect",
+                        "code": "game:bread-flax-perfect",
                         "type": "item",
                         "stacksize": 8,
                         "stock": {
@@ -260,7 +316,7 @@
                         }
                     },
                     {
-                        "code": "bread-rice-perfect",
+                        "code": "game:bread-rice-perfect",
                         "type": "item",
                         "stacksize": 8,
                         "stock": {
@@ -273,7 +329,7 @@
                         }
                     },
                     {
-                        "code": "redmeat-cooked",
+                        "code": "game:redmeat-cooked",
                         "type": "item",
                         "stacksize": 8,
                         "stock": {
@@ -286,7 +342,7 @@
                         }
                     },
                     {
-                        "code": "poultry-cooked",
+                        "code": "game:poultry-cooked",
                         "type": "item",
                         "stacksize": 8,
                         "stock": {
@@ -299,7 +355,7 @@
                         }
                     },
                     {
-                        "code": "bushmeat-cooked",
+                        "code": "game:bushmeat-cooked",
                         "type": "item",
                         "stacksize": 8,
                         "stock": {
@@ -312,7 +368,7 @@
                         }
                     },
                     {
-                        "code": "fat",
+                        "code": "game:fat",
                         "type": "item",
                         "stacksize": 3,
                         "stock": {
@@ -415,7 +471,13 @@
                 "stepHeight": 1.01
             },
             {
-                "code": "AlternatePathTraverser"
+                "code": "Villager",
+                "profession": "trader"
+            },
+            {
+                "code": "deaddecay",
+                "hoursToDecay": 96,
+                "decayedBlock": "drycarcass-humanoid1"
             },
             {
                 "code": "health",
@@ -447,9 +509,9 @@
                 "code": "taskai",
                 "aitasks": [
                     {
-                        "code": "meleeattack",
+                        "code": "villagermeleeattack",
                         "entityCodes": [
-                            "player"
+                            "dont attack by yourself"
                         ],
                         "priority": 2,
                         "damage": 5,
@@ -458,13 +520,12 @@
                         "attackDurationMs": 900,
                         "damagePlayerAtMs": 300,
                         "animation": "Attack",
-                        "animationSpeed": 2,
-                        "whenInEmotionState": "aggressiveondamage"
+                        "animationSpeed": 2
                     },
                     {
-                        "code": "seekentity",
+                        "code": "villagerseekentity",
                         "entityCodes": [
-                            "player"
+                            "dont attack by yourself"
                         ],
                         "priority": 1.5,
                         "mincooldown": 1000,
@@ -472,20 +533,27 @@
                         "seekingRange": 20,
                         "movespeed": 0.035,
                         "animation": "Run",
-                        "animationSpeed": 1.75,
-                        "whenInEmotionState": "aggressiveondamage"
+                        "animationSpeed": 1.75
                     },
                     {
                         "code": "fleeentity",
                         "entityCodes": [
-                            "player"
+                            "drifter-*",
+                            "locust-*",
+                            "bear-*",
+                            "wolf-male",
+                            "wolf-female",
+                            "looter",
+                            "hound-*",
+                            "bandit-*",
+                            "poacher-*",
+                            "yeoman-archer"
                         ],
                         "priority": 1.5,
                         "movespeed": 0.035,
-                        "seekingRange": 12,
+                        "seekingRange": 4,
                         "animation": "Run",
-                        "animationSpeed": 1.75,
-                        "whenInEmotionState": "fleeondamage"
+                        "animationSpeed": 1.75
                     },
                     {
                         "code": "idle",

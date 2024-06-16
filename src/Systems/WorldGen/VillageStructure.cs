@@ -22,14 +22,14 @@ namespace VsVillage
 
         public BlockSchematicStructure[] Schematics;
 
-        public void Init(ICoreServerAPI api)
+        public WorldGenVillageStructure Init(ICoreServerAPI api, string modId)
         {
-            var asset = api.Assets.Get(new AssetLocation("vsvillage", "worldgen/schematics/vsvillage/" + Code + ".json"));
+            var asset = api.Assets.Get(new AssetLocation(modId, "worldgen/schematics/vsvillage/" + Code + ".json"));
             var schematic = asset?.ToObject<BlockSchematicStructure>();
             if (schematic == null)
             {
                 api.World.Logger.Warning("Could not load VillageStruce {0}", Code);
-                return;
+                return this;
             }
             Schematics = new BlockSchematicStructure[4];
             schematic.FromFileName = asset.Name;
@@ -48,11 +48,12 @@ namespace VsVillage
             // while in the VS World +z coordinate equals south, in the grid worl it equals north, so we have to invert here
             Schematics[0].TransformWhilePacked(api.World, EnumOrigin.BottomCenter, 180);
             Schematics[2].TransformWhilePacked(api.World, EnumOrigin.BottomCenter, 180);
+            return this;
         }
 
         public void Generate(IBlockAccessor blockAccessor, IWorldAccessor worldForCollectibleResolve, BlockPos pos, int orientation)
         {
-            Schematics[orientation].PlaceReplacingBlocks(blockAccessor, worldForCollectibleResolve, pos, EnumReplaceMode.ReplaceAllNoAir, new Dictionary<int, Dictionary<int, int>>());
+            Schematics[orientation].PlaceReplacingBlocks(blockAccessor, worldForCollectibleResolve, pos, EnumReplaceMode.ReplaceAllNoAir, new Dictionary<int, Dictionary<int, int>>(), null);
             if (orientation % 2 == 0)
             {
                 orientation = (orientation + 2) % 4; // has something to do with the rotation by 180° a couple lines earlier, needs to be done for some reason...
