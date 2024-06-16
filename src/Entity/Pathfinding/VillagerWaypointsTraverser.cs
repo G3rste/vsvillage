@@ -112,32 +112,40 @@ namespace VsVillage
                 || IsNearTarget(offset++, ref nearHorizontally)
             ;
 
+            EntityControls controls = entity.MountedOn == null ? entity.Controls : entity.MountedOn.Controls;
+            if (controls == null) return;
+
             if (nearAllDirs)
             {
                 waypointToReachIndex += offset;
+                if (waypointToReachIndex >= waypoints.Count - targetDistance)
+                {
+                    Stop();
+                    OnGoalReached?.Invoke();
+                    return;
+                }
+
+                target = waypoints[Math.Min(waypoints.Count - 1, waypointToReachIndex)];
                 toggleDoor(waypoints[waypointToReachIndex].AsBlockPos, false);
+                toggleDoor(waypoints[waypointToReachIndex - 1].AsBlockPos, false);
                 if (waypointToReachIndex > 2)
                 {
                     toggleDoor(waypoints[waypointToReachIndex - 3].AsBlockPos, true);
                 }
+                if (target.Y < entity.ServerPos.Y && target.X == entity.ServerPos.X && target.Z == entity.ServerPos.Z)
+                {
+                    controls.Sneak = true;
+                }
+                else
+                {
+                    controls.Sneak = false;
+                }
             }
 
-            target = waypoints[Math.Min(waypoints.Count - 1, waypointToReachIndex)];
-
-            if (waypointToReachIndex >= waypoints.Count - targetDistance)
-            {
-                Stop();
-                OnGoalReached?.Invoke();
-                return;
-            }
 
             double distsq = prevPos.SquareDistanceTo(prevPos);
             bool stuck = distsq < 0.01 * 0.01;
             stuckCounter = stuck ? (stuckCounter + 1) : 0;
-
-
-            EntityControls controls = entity.MountedOn == null ? entity.Controls : entity.MountedOn.Controls;
-            if (controls == null) return;
 
             targetVec.Set(
                 (float)(target.X - entity.ServerPos.X),
