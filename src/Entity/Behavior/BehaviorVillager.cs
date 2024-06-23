@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using Vintagestory.API.Common;
@@ -6,7 +7,9 @@ using Vintagestory.API.Common.Entities;
 using Vintagestory.API.Config;
 using Vintagestory.API.Datastructures;
 using Vintagestory.API.MathTools;
+using Vintagestory.API.Util;
 using Vintagestory.GameContent;
+using Vintagestory.ServerMods.NoObf;
 
 namespace VsVillage
 {
@@ -84,7 +87,8 @@ namespace VsVillage
             // when this method is called, the chunk might not be loaded, therefor the village blocks might not have initialized the village, so we have to wait a short time
             entity.World.RegisterCallback(dt => InitVillageAfterChunkLoading(), 5000);
             Profession = Enum.Parse<EnumVillagerProfession>(attributes["profession"].AsString());
-            if(Profession == EnumVillagerProfession.soldier){
+            if (Profession == EnumVillagerProfession.soldier)
+            {
                 (entity as EntityVillager).Personality = entity.World.Rand.Next(2) == 0 ? "balanced" : "rowdy";
             }
         }
@@ -125,6 +129,17 @@ namespace VsVillage
 
         public override void OnEntityDeath(DamageSource damageSourceForDeath)
         {
+            Village?.VillagerSaveData.Values
+                .Where(villager => villager.Profession == EnumVillagerProfession.herbalist)
+                .Foreach(villager =>
+                {
+                    var healtask = entity.World
+                        .GetEntityById(villager.Id)?
+                        .GetBehavior<EntityBehaviorTaskAI>()?
+                        .TaskManager
+                        .GetTask<AiTaskHealWounded>();
+                    if (healtask != null) healtask.woundedEntity = entity;
+                });
             Village?.RemoveVillager(entity.EntityId);
         }
 
