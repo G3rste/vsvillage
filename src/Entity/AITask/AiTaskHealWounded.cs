@@ -9,14 +9,13 @@ namespace VsVillage
     public class AiTaskHealWounded : AiTaskGotoAndInteract
     {
 
-        Entity woundedEntity;
+        public Entity woundedEntity;
         public AiTaskHealWounded(EntityAgent entity) : base(entity)
         {
         }
 
         protected override Vec3d GetTargetPos()
-        {
-            woundedEntity = null;
+        {        
             var villagers = entity.World.GetEntitiesAround(entity.ServerPos.XYZ, maxDistance, 5, entity => entity is EntityVillager || entity is EntityPlayer);
             int maxHpLossIndex = 0;
             float maxHpLoss = 0;
@@ -42,7 +41,8 @@ namespace VsVillage
         }
 
         protected override void ApplyInteractionEffect()
-        {if (woundedEntity.Alive)
+        {
+            if (woundedEntity.Alive)
             {
                 woundedEntity.ReceiveDamage(new DamageSource()
                 {
@@ -67,9 +67,10 @@ namespace VsVillage
                     0.5f,
                     3f,
                     EnumParticleModel.Quad
-                );
-
-            smoke.MinPos = woundedEntity.ServerPos.XYZ.AddCopy(-1.5, -0.5, -1.5);
+                )
+            {
+                MinPos = woundedEntity.ServerPos.XYZ.AddCopy(-1.5, -0.5, -1.5)
+            };
             entity.World.SpawnParticles(smoke);
             woundedEntity = null;
         }

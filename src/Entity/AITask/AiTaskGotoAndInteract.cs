@@ -45,7 +45,7 @@ namespace VsVillage
         public override bool ShouldExecute()
         {
             var elapsedMs = entity.World.ElapsedMilliseconds;
-            if (5000 + lastSearch < elapsedMs)
+            if (5000 + lastSearch < elapsedMs && cooldownUntilMs + lastExecution < elapsedMs)
             {
                 lastSearch = elapsedMs;
                 targetPos = GetTargetPos();
@@ -57,7 +57,7 @@ namespace VsVillage
 
         public override void StartExecute()
         {
-            stuck = !villagerPathTraverser.NavigateTo(targetPos, moveSpeed, 0.5f, () => { }, () => stuck = true, true, 10000);
+            stuck = !villagerPathTraverser.NavigateTo(targetPos, moveSpeed, 0.5f, () => stuck = true, () => stuck = true, true, 10000);
             targetReached = false;
             base.StartExecute();
         }

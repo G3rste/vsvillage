@@ -74,7 +74,7 @@ namespace VsVillage
             bedReached = false;
             if (bedEntity != null)
             {
-                villagerPathTraverser.NavigateTo(bedEntity.Pos.ToVec3d(), moveSpeed, 0.5f, tryGoingToBed, tryGoingToBed, true, 10000);
+                villagerPathTraverser.NavigateTo(bedEntity.Pos.ToVec3d(), moveSpeed, 0.5f, tryGoingToBed, tryGoingToBed, true);
                 tryGoingToBed();
             }
         }
@@ -127,7 +127,7 @@ namespace VsVillage
                 village.Beds.TryGetValue(bedPos, out var bed);
                 if (bed == null || bed.OwnerId != entity.EntityId)
                 {
-                    bedPos = null; 
+                    bedPos = null;
                     villager.Bed = null;
                 }
             }
