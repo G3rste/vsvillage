@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using Vintagestory.API.Common;
@@ -15,8 +16,6 @@ namespace VsVillage
 {
     public class EntityBehaviorVillager : EntityBehavior
     {
-
-        public VillagerWaypointsTraverser villagerWaypointsTraverser { get; private set; }
 
         public EnumVillagerProfession Profession;
         public string VillageId
@@ -82,8 +81,13 @@ namespace VsVillage
         public override void Initialize(EntityProperties properties, JsonObject attributes)
         {
             if (entity.Api.Side == EnumAppSide.Client) return;
-
-            villagerWaypointsTraverser = new VillagerWaypointsTraverser(entity as EntityAgent);
+            var taskbehavior = entity.GetBehavior<EntityBehaviorTaskAI>();
+            var villagerPathTraverser = new VillagerWaypointsTraverser(entity as EntityAgent);
+            taskbehavior.PathTraverser = villagerPathTraverser;
+            taskbehavior.TaskManager.AllTasks.ForEach(task => 
+                typeof(AiTaskBase)
+                    .GetField("pathTraverser", BindingFlags.Instance | BindingFlags.NonPublic)
+                    .SetValue(task, villagerPathTraverser));
             // when this method is called, the chunk might not be loaded, therefor the village blocks might not have initialized the village, so we have to wait a short time
             entity.World.RegisterCallback(dt => InitVillageAfterChunkLoading(), 5000);
             Profession = Enum.Parse<EnumVillagerProfession>(attributes["profession"].AsString());
@@ -120,11 +124,6 @@ namespace VsVillage
                     Name = entity.GetBehavior<EntityBehaviorNameTag>()?.DisplayName ?? "S̷̡̪̦̮̜̮̳͑̅̀͛̓̋̌e̸̲̦̻̗͉̅̃ř̷͔̮̮̗̆͆̕͜v̵͈̥̩̳͊̄͘̕͠à̶̞̱̱̻́̀̈́͜͜n̷̫͕̣̓̇͘͜t̴̻̫̹̺̻͖͂̓ͅ"
                 };
             }
-        }
-
-        public override void OnGameTick(float deltaTime)
-        {
-            villagerWaypointsTraverser?.OnGameTick(deltaTime);
         }
 
         public override void OnEntityDeath(DamageSource damageSourceForDeath)

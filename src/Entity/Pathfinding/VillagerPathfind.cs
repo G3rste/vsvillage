@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Vintagestory.API.MathTools;
 using Vintagestory.API.Server;
@@ -10,18 +11,16 @@ namespace VsVillage
         private ICoreServerAPI sapi;
         private VillagerAStar villagerAStar;
         private WaypointAStar waypointAStar;
-        private Village village;
         public int NodesChecked => villagerAStar.NodesChecked + waypointAStar.NodesChecked;
 
-        public VillagerPathfind(ICoreServerAPI sapi, Village village)
+        public VillagerPathfind(ICoreServerAPI sapi)
         {
             this.sapi = sapi;
-            this.village = village;
             villagerAStar = new VillagerAStar(sapi);
             waypointAStar = new WaypointAStar(sapi);
         }
 
-        public List<PathNode> FindPath(BlockPos start, BlockPos end, int maxFallHeight, float stepHeight)
+        public List<PathNode> FindPath(BlockPos start, BlockPos end, int maxFallHeight, float stepHeight, Village village)
         {
             var path = villagerAStar.FindPath(start, end, maxFallHeight, stepHeight, 4999);
             if (path == null && village != null && village.Waypoints.Count > 0)
@@ -37,19 +36,19 @@ namespace VsVillage
                 for (int i = 0; i < stops.Count - 1; i++)
                 {
                     var nextPath = waypointAStar.FindPath(stops[i].Pos, stops[i + 1].Pos, maxFallHeight, stepHeight);
-                    if (nextPath == null) return null;
+                    if (nextPath == null) return path;
                     path.AddRange(nextPath);
                 }
                 var lastPath = villagerAStar.FindPath(endWaypoint.Pos, end, maxFallHeight, stepHeight, 4999);
-                if (lastPath == null) return null;
+                if (lastPath == null) return path;
                 path.AddRange(lastPath);
             }
             return path;
         }
 
-        public List<Vec3d> FindPathAsWaypoints(BlockPos start, BlockPos end, int maxFallHeight, float stepHeight)
+        public List<Vec3d> FindPathAsWaypoints(BlockPos start, BlockPos end, int maxFallHeight, float stepHeight, Village village)
         {
-            List<PathNode> nodes = FindPath(start, end, maxFallHeight, stepHeight);
+            List<PathNode> nodes = FindPath(start, end, maxFallHeight, stepHeight, village);
             return nodes == null ? null : ToWaypoints(nodes);
         }
         public List<Vec3d> ToWaypoints(List<PathNode> path)

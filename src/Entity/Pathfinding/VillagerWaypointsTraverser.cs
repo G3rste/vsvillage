@@ -19,7 +19,6 @@ namespace VsVillage
         float sqDistToTarget;
         Vec3d prevPos = new();
         Vec3d targetVec = new();
-
         public override Vec3d CurrentTarget
         {
             get
@@ -41,7 +40,7 @@ namespace VsVillage
                 maxTurnAnglePerSec = 450;
             }
 
-            villagerPathfind = new VillagerPathfind(entity.Api as ICoreServerAPI, entity.GetBehavior<EntityBehaviorVillager>()?.Village);
+            villagerPathfind = new VillagerPathfind(entity.Api as ICoreServerAPI);
         }
 
         public override bool NavigateTo(Vec3d target, float movingSpeed, float targetDistance, Action OnGoalReached, Action OnStuck, bool giveUpWhenNoPath = false, int searchDepth = 999, int mhdistanceTolerance = 0)
@@ -50,40 +49,42 @@ namespace VsVillage
             waypointToReachIndex = 0;
 
             var bh = entity.GetBehavior<EntityBehaviorControlledPhysics>();
-            float stepHeight = bh == null ? 0.6f : bh.stepHeight;
+            float stepHeight = bh?.stepHeight ?? 1.01f;
             bool canFallDamage = entity.Properties.FallDamage;
 
-            if (!entity.World.BlockAccessor.IsNotTraversable(startBlockPos))
-            {
-                waypoints = villagerPathfind.FindPathAsWaypoints(startBlockPos, target.AsBlockPos, canFallDamage ? 8 : 4, stepHeight);
-            }
 
-            bool nopath = false;
+            waypoints = villagerPathfind.FindPathAsWaypoints(startBlockPos, target.AsBlockPos, canFallDamage ? 8 : 4, stepHeight, entity.GetBehavior<EntityBehaviorVillager>()?.Village);
 
             if (waypoints == null)
             {
+                if (giveUpWhenNoPath)
+                {
+                    return false;
+                }
+
                 waypoints = new List<Vec3d>();
-                nopath = true;
 
                 entity.OnNoPath(target);
 
-            }
-            else
-            {
             }
 
             waypoints.Add(target);
 
 
-            bool ok = base.WalkTowards(target, movingSpeed, targetDistance, OnGoalReached, OnStuck);
+            return WalkTowards(target, movingSpeed, targetDistance, OnGoalReached, OnStuck);
+        }
 
-            if (nopath && giveUpWhenNoPath)
+
+        public override bool WalkTowards(Vec3d target, float movingSpeed, float targetDistance, Action OnGoalReached, Action OnStuck)
+        {
+            if (waypoints == null || waypoints.Count == 0)
             {
-                Active = false;
-                return false;
+                waypoints = new List<Vec3d>() { target };
             }
 
-            return ok;
+            // entity.World.HighlightBlocks(entity.World.GetPlayersAround(entity.ServerPos.XYZ, 50, 50)[0], (int)entity.EntityId, waypoints.ConvertAll(waypoint=>waypoint.AsBlockPos).ToList());
+
+            return base.WalkTowards(target, movingSpeed, targetDistance, OnGoalReached, OnStuck);
         }
 
         protected override bool BeginGo()
@@ -95,6 +96,10 @@ namespace VsVillage
 
             stuckCounter = 0;
             waypointToReachIndex = 0;
+
+            // very important (otherwise the target is set to the last waypoint which can fuck stuff up)
+            target = waypoints[0]; 
+            
             prevPos.Set(entity.ServerPos);
 
             return true;
@@ -130,6 +135,7 @@ namespace VsVillage
                 toggleDoor(waypoints[waypointToReachIndex - 1].AsBlockPos, false);
                 if (waypointToReachIndex > 2)
                 {
+                    toggleDoor(waypoints[waypointToReachIndex - 2].AsBlockPos, false);
                     toggleDoor(waypoints[waypointToReachIndex - 3].AsBlockPos, true);
                 }
                 if (target.Y < entity.ServerPos.Y && target.X == entity.ServerPos.X && target.Z == entity.ServerPos.Z)
@@ -143,9 +149,16 @@ namespace VsVillage
             }
 
 
-            double distsq = prevPos.SquareDistanceTo(prevPos);
+            double distsq = entity.ServerPos.SquareDistanceTo(prevPos);
             bool stuck = distsq < 0.01 * 0.01;
-            stuckCounter = stuck ? (stuckCounter + 1) : 0;
+            stuckCounter = stuck ? stuckCounter + 1 : 0;
+            if (stuckCounter > 40)
+            {
+                //entity.World.SpawnParticles(10, ColorUtil.WhiteArgb, prevPos, prevPos, new Vec3f(0, 0, 0), new Vec3f(0, -1, 0), 1, 1);
+                Stop();
+                OnStuck?.Invoke();
+                return;
+            }
 
             targetVec.Set(
                 (float)(target.X - entity.ServerPos.X),
@@ -164,7 +177,8 @@ namespace VsVillage
 
 
             float yawDist = GameMath.AngleRadDistance(entity.ServerPos.Yaw, desiredYaw);
-            entity.ServerPos.Yaw += GameMath.Clamp(yawDist, -curTurnRadPerSec * dt * GlobalConstants.OverallSpeedMultiplier, curTurnRadPerSec * dt * GlobalConstants.OverallSpeedMultiplier);
+            float turnSpeed = curTurnRadPerSec * dt * GlobalConstants.OverallSpeedMultiplier;
+            entity.ServerPos.Yaw += GameMath.Clamp(yawDist, -turnSpeed, turnSpeed);
             entity.ServerPos.Yaw = entity.ServerPos.Yaw % GameMath.TWOPI;
 
 
@@ -236,8 +250,13 @@ namespace VsVillage
                 {
                     controls.FlyVector.Y = 0.05f;
                 }
-                prevPos.Set(entity.ServerPos);
             }
+            prevPos.Set(entity.ServerPos);
+        }
+
+        public override bool NavigateTo_Async(Vec3d target, float movingSpeed, float targetDistance, Action OnGoalReached, Action OnStuck, Action OnNoPath = null, int searchDepth = 10000, int mhdistanceTolerance = 0)
+        {
+            return NavigateTo(target, movingSpeed, targetDistance, OnGoalReached, OnStuck, true, searchDepth, mhdistanceTolerance);
         }
 
         private bool toggleDoor(BlockPos pos, bool shouldBeOpen)
@@ -279,7 +298,15 @@ namespace VsVillage
             entity.Controls.Forward = false;
             entity.ServerControls.Forward = false;
             entity.Controls.WalkVector.Set(0, 0, 0);
+            entity.Controls.Sneak = false;
             stuckCounter = 0;
+        }
+
+        public override void Retarget()
+        {
+            Active = true;
+
+            waypointToReachIndex = waypoints.Count - 1;
         }
     }
 }

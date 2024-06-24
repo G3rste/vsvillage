@@ -471,10 +471,6 @@
                 "stepHeight": 1.01
             },
             {
-                "code": "Villager",
-                "profession": "trader"
-            },
-            {
                 "code": "deaddecay",
                 "hoursToDecay": 96,
                 "decayedBlock": "drycarcass-humanoid1"
@@ -635,6 +631,10 @@
                         "priority": 0.5
                     }
                 ]
+            },
+            {
+                "code": "Villager",
+                "profession": "trader"
             },
             {
                 "code": "conversable",

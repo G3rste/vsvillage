@@ -221,7 +221,7 @@ namespace VsVillage
             var player = args.Caller.Player;
 
             BlockPos plrPos = player.Entity.ServerPos.XYZ.AsBlockPos;
-            VillagerPathfind villagerAStar = new VillagerPathfind(sapi, sapi.ModLoader.GetModSystem<VillageManager>().GetVillage(plrPos));
+            VillagerPathfind villagerPathfind = new VillagerPathfind(sapi);
 
 
             Cuboidf narrow = new Cuboidf(-0.4f, 0, -0.4f, 0.4f, 1.5f, 0.4f);
@@ -229,8 +229,8 @@ namespace VsVillage
             Cuboidf wide = new Cuboidf(-0.6f, 0, -0.6f, 0.6f, 1.5f, 0.6f);
 
             Cuboidf collbox = narrow;
-            int maxFallHeight = 3;
-            float stepHeight = 1.01f;
+            const int maxFallHeight = 4;
+            const float stepHeight = 1.01f;
 
 
             switch (subcmd)
@@ -251,7 +251,7 @@ namespace VsVillage
 
                     for (int i = 0; i < 15; i++)
                     {
-                        List<PathNode> nodes = waypointAStar?.FindPath(start, end, maxFallHeight, stepHeight) ?? villagerAStar.FindPath(start, end, maxFallHeight, stepHeight);
+                        List<PathNode> nodes = villagerPathfind.FindPath(start, end, maxFallHeight, stepHeight, sapi.ModLoader.GetModSystem<VillageManager>().GetVillage(plrPos));
                     }
 
                     sw.Stop();
@@ -289,7 +289,7 @@ namespace VsVillage
                 Stopwatch sw = new Stopwatch();
                 sw.Start();
 
-                List<PathNode> nodes = waypointAStar?.FindPath(start, end, maxFallHeight, stepHeight) ?? villagerAStar.FindPath(start, end, maxFallHeight, stepHeight);
+                List<PathNode> nodes = villagerPathfind.FindPath(start, end, maxFallHeight, stepHeight, sapi.ModLoader.GetModSystem<VillageManager>().GetVillage(plrPos));
 
                 sw.Stop();
                 int timeMs = (int)sw.ElapsedMilliseconds;
@@ -311,7 +311,7 @@ namespace VsVillage
                 sapi.World.HighlightBlocks(player, 2, poses, new List<int>() { ColorUtil.ColorFromRgba(128, 128, 128, 30) }, EnumHighlightBlocksMode.Absolute, EnumHighlightShape.Arbitrary);
 
 
-                List<Vec3d> wps = villagerAStar.ToWaypoints(nodes);
+                List<Vec3d> wps = villagerPathfind.ToWaypoints(nodes);
                 poses = new List<BlockPos>();
                 foreach (var node in wps)
                 {
@@ -320,7 +320,7 @@ namespace VsVillage
 
                 sapi.World.HighlightBlocks(player, 3, poses, new List<int>() { ColorUtil.ColorFromRgba(128, 0, 0, 100) }, EnumHighlightBlocksMode.Absolute, EnumHighlightShape.Arbitrary);
 
-                return TextCommandResult.Success(string.Format("Search took {0} ms, {1} nodes checked", timeMs, waypointAStar?.NodesChecked ?? villagerAStar.NodesChecked));
+                return TextCommandResult.Success(string.Format("Search took {0} ms, {1} nodes checked", timeMs, waypointAStar?.NodesChecked ?? villagerPathfind.NodesChecked));
             }
             return TextCommandResult.Deferred;
         }

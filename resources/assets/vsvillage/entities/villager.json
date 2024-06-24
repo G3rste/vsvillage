@@ -179,13 +179,6 @@
 				]
 			},
 			{
-				"code": "Villager",
-				"professionByType": {
-					"*-archer": "soldier",
-					"*": "{profession}"
-				}
-			},
-			{
                 "code": "deaddecay",
                 "hoursToDecay": 96,
                 "decayedBlock": "drycarcass-humanoid1"
@@ -327,6 +320,13 @@
 						"movespeedByType": { "@.*-(soldier|archer)": 0.035, "*": 0.01 }
 					}
 				]
+			},
+			{
+				"code": "Villager",
+				"professionByType": {
+					"*-archer": "soldier",
+					"*": "{profession}"
+				}
 			}
 		]
 	},

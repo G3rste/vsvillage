@@ -17,7 +17,6 @@ namespace VsVillage
 
         float offset;
         DayTimeFrame[] duringDayTimeFrames;
-        VillagerWaypointsTraverser villagerPathTraverser;
         AnimationMetaData sleepAnimMeta;
 
         public AiTaskVillagerSleep(EntityAgent entity) : base(entity)
@@ -49,7 +48,6 @@ namespace VsVillage
                 }
             }
 
-            villagerPathTraverser = entity.GetBehavior<EntityBehaviorVillager>().villagerWaypointsTraverser;
             bedReached = false;
         }
 
@@ -74,7 +72,7 @@ namespace VsVillage
             bedReached = false;
             if (bedEntity != null)
             {
-                villagerPathTraverser.NavigateTo(bedEntity.Pos.ToVec3d(), moveSpeed, 0.5f, tryGoingToBed, tryGoingToBed, true);
+                pathTraverser.NavigateTo(bedEntity.Pos.ToVec3d(), moveSpeed, 0.5f, tryGoingToBed, tryGoingToBed, true);
                 tryGoingToBed();
             }
         }
@@ -86,12 +84,12 @@ namespace VsVillage
                 lastCheck = entity.World.ElapsedMilliseconds;
                 tryGoingToBed();
             }
-            return IntervalUtil.matchesCurrentTime(duringDayTimeFrames, entity.World) && (bedReached || villagerPathTraverser.Active);
+            return IntervalUtil.matchesCurrentTime(duringDayTimeFrames, entity.World) && (bedReached || pathTraverser.Active);
         }
 
         public override void FinishExecute(bool cancelled)
         {
-            villagerPathTraverser.Stop();
+            pathTraverser.Stop();
             base.FinishExecute(cancelled);
             entity.AnimManager.StopAnimation(sleepAnimMeta.Code);
         }
@@ -105,7 +103,7 @@ namespace VsVillage
                 entity.AnimManager.StopAnimation(animMeta.Code);
                 entity.AnimManager.StartAnimation(sleepAnimMeta);
                 bedReached = true;
-                villagerPathTraverser.Stop();
+                pathTraverser.Stop();
             }
         }
 

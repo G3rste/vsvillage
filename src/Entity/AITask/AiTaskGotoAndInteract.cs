@@ -1,6 +1,7 @@
 using Vintagestory.API.Common;
 using Vintagestory.API.Datastructures;
 using Vintagestory.API.MathTools;
+using Vintagestory.GameContent;
 
 namespace VsVillage
 {
@@ -9,7 +10,6 @@ namespace VsVillage
         protected float maxDistance { get; set; }
 
         protected float moveSpeed;
-        protected VillagerWaypointsTraverser villagerPathTraverser;
         protected long lastSearch;
         protected long lastExecution;
         protected bool stuck;
@@ -39,7 +39,6 @@ namespace VsVillage
             }.Init();
 
 
-            villagerPathTraverser = entity.GetBehavior<EntityBehaviorVillager>().villagerWaypointsTraverser;
         }
 
         public override bool ShouldExecute()
@@ -57,7 +56,7 @@ namespace VsVillage
 
         public override void StartExecute()
         {
-            stuck = !villagerPathTraverser.NavigateTo(targetPos, moveSpeed, 0.5f, () => stuck = true, () => stuck = true, true, 10000);
+            stuck = !pathTraverser.NavigateTo(targetPos, moveSpeed, 0.5f, () => stuck = true, () => stuck = true, true, 10000);
             targetReached = false;
             base.StartExecute();
         }
@@ -72,11 +71,11 @@ namespace VsVillage
             {
                 entity.AnimManager.StopAnimation(animMeta.Code);
                 entity.AnimManager.StartAnimation(interactAnim);
-                entity.GetBehavior<EntityBehaviorVillager>()?.villagerWaypointsTraverser.Stop();
+                pathTraverser.Stop();
                 targetReached = true;
                 return true;
             }
-            return !stuck && villagerPathTraverser.Active;
+            return !stuck && pathTraverser.Active;
         }
 
         protected virtual bool InteractionPossible() => entity.ServerPos.SquareDistanceTo(targetPos) < 1.5f * 1.5f;
@@ -84,7 +83,7 @@ namespace VsVillage
         public override void FinishExecute(bool cancelled)
         {
             base.FinishExecute(cancelled);
-            villagerPathTraverser.Stop();
+            pathTraverser.Stop();
             if (targetReached)
             {
                 ApplyInteractionEffect();

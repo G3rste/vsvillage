@@ -3,6 +3,7 @@ using Vintagestory.API.Common;
 using Vintagestory.API.MathTools;
 using Vintagestory.API.Datastructures;
 using Vintagestory.API.Server;
+using Vintagestory.GameContent;
 
 namespace VsVillage
 {
@@ -16,7 +17,7 @@ namespace VsVillage
 
         int searchDepth = 5000;
 
-        protected VillagerWaypointsTraverser villagerPathTraverser;
+        protected PathTraverserBase villagerPathTraverser;
 
         public AiTaskVillagerGoto(EntityAgent entity) : base(entity)
         {
@@ -30,7 +31,7 @@ namespace VsVillage
             {
                 moveSpeed = taskConfig["movespeed"].AsFloat(0.03f);
             }
-            villagerPathTraverser = entity.GetBehavior<EntityBehaviorVillager>().villagerWaypointsTraverser;
+            villagerPathTraverser = entity.GetBehavior<EntityBehaviorTaskAI>().PathTraverser;
         }
 
         private double moveDownToFloor(int x, double y, int z)
