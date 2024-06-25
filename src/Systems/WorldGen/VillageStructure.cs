@@ -24,7 +24,7 @@ namespace VsVillage
 
         public WorldGenVillageStructure Init(ICoreServerAPI api, string modId)
         {
-            var asset = api.Assets.Get(new AssetLocation(modId, "worldgen/schematics/vsvillage/" + Code + ".json"));
+            var asset = api.Assets.Get(new AssetLocation(modId, "worldgen/vsvillage/" + Code + ".json"));
             var schematic = asset?.ToObject<BlockSchematicStructure>();
             if (schematic == null)
             {
