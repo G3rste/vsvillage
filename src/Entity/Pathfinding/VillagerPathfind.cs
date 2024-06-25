@@ -27,9 +27,9 @@ namespace VsVillage
             {
                 var startWaypoint = village.FindNearesWaypoint(start);
                 var endWaypoint = startWaypoint?.FindNearestReachableWaypoint(end);
-                var stops = startWaypoint.FindPath(endWaypoint, village.Waypoints.Count);
 
                 if (startWaypoint == null || endWaypoint == null) return null;
+                var stops = startWaypoint.FindPath(endWaypoint, village.Waypoints.Count);
                 endWaypoint = stops[stops.Count - 1];
                 path = villagerAStar.FindPath(start, startWaypoint.Pos, maxFallHeight, stepHeight, 4999);
                 if (path == null || stops == null) return null;
