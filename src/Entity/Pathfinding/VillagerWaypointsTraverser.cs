@@ -23,6 +23,10 @@ namespace VsVillage
         {
             get
             {
+                if (waypoints == null)
+                {
+                    waypoints = new List<Vec3d>() { entity.ServerPos.XYZ };
+                }
                 return waypoints[waypoints.Count - 1];
             }
         }
@@ -98,8 +102,8 @@ namespace VsVillage
             waypointToReachIndex = 0;
 
             // very important (otherwise the target is set to the last waypoint which can fuck stuff up)
-            target = waypoints[0]; 
-            
+            target = waypoints[0];
+
             prevPos.Set(entity.ServerPos);
 
             return true;
