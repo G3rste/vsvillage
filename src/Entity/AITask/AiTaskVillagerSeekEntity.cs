@@ -82,17 +82,25 @@ namespace VsVillage
 
         public override void OnEntityHurt(DamageSource source, float damage)
         {
-            base.OnEntityHurt(source, damage);
-            (entity as EntityVillager)?.DrawWeapon();
-            if (source.Type != EnumDamageType.Heal && lastCallForHelp + 5000 < entity.World.ElapsedMilliseconds)
+            if (source.CauseEntity?.HasBehavior<EntityBehaviorVillager>() == true ||
+                source.SourceEntity?.HasBehavior<EntityBehaviorVillager>() == true)
             {
-                lastCallForHelp = entity.World.ElapsedMilliseconds;
-                foreach (var villager in entity.World.GetEntitiesAround(entity.ServerPos.XYZ, 15, 4, entity => entity.GetBehavior<EntityBehaviorVillager>()?.Profession == EnumVillagerProfession.soldier))
+                return;
+            }
+            base.OnEntityHurt(source, damage);
+            if (source.Type != EnumDamageType.Heal && (source.CauseEntity != null || source.SourceEntity != null))
+            {
+                (entity as EntityVillager)?.DrawWeapon();
+                if (lastCallForHelp + 5000 < entity.World.ElapsedMilliseconds)
                 {
-                    var taskManager = villager.GetBehavior<EntityBehaviorTaskAI>().TaskManager;
-                    taskManager.GetTask<AiTaskVillagerSeekEntity>()?.OnAllyAttacked(source.SourceEntity);
-                    taskManager.GetTask<AiTaskVillagerMeleeAttack>()?.OnAllyAttacked(source.SourceEntity);
-                    taskManager.GetTask<AiTaskVillagerRangedAttack>()?.OnAllyAttacked(source.SourceEntity);
+                    lastCallForHelp = entity.World.ElapsedMilliseconds;
+                    foreach (var villager in entity.World.GetEntitiesAround(entity.ServerPos.XYZ, 15, 4, entity => entity.GetBehavior<EntityBehaviorVillager>()?.Profession == EnumVillagerProfession.soldier))
+                    {
+                        var taskManager = villager.GetBehavior<EntityBehaviorTaskAI>().TaskManager;
+                        taskManager.GetTask<AiTaskVillagerSeekEntity>()?.OnAllyAttacked(source.SourceEntity);
+                        taskManager.GetTask<AiTaskVillagerMeleeAttack>()?.OnAllyAttacked(source.SourceEntity);
+                        taskManager.GetTask<AiTaskVillagerRangedAttack>()?.OnAllyAttacked(source.SourceEntity);
+                    }
                 }
             }
         }

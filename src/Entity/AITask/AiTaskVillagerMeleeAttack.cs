@@ -75,8 +75,20 @@ namespace VsVillage
             base.StartExecute();
         }
 
-        public void OnAllyAttacked(Entity byEntity){
-            if(targetEntity == null || !targetEntity.Alive){
+        public override void OnEntityHurt(DamageSource source, float damage)
+        {
+            if (source.CauseEntity?.HasBehavior<EntityBehaviorVillager>() == true ||
+                source.SourceEntity?.HasBehavior<EntityBehaviorVillager>() == true)
+            {
+                return;
+            }
+            base.OnEntityHurt(source, damage);
+        }
+
+        public void OnAllyAttacked(Entity byEntity)
+        {
+            if (targetEntity == null || !targetEntity.Alive)
+            {
                 targetEntity = byEntity;
             }
         }

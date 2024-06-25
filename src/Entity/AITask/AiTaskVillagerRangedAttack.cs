@@ -218,6 +218,16 @@ namespace VsVillage
             }
         }
 
+        public override void OnEntityHurt(DamageSource source, float damage)
+        {
+            if (source.CauseEntity?.HasBehavior<EntityBehaviorVillager>() == true ||
+                source.SourceEntity?.HasBehavior<EntityBehaviorVillager>() == true)
+            {
+                return;
+            }
+            base.OnEntityHurt(source, damage);
+        }
+
 
 
         public override bool IsTargetableEntity(Entity e, float range, bool ignoreEntityCode = false)
