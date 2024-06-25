@@ -128,17 +128,6 @@ namespace VsVillage
 
         public override void OnEntityDeath(DamageSource damageSourceForDeath)
         {
-            Village?.VillagerSaveData.Values
-                .Where(villager => villager.Profession == EnumVillagerProfession.herbalist)
-                .Foreach(villager =>
-                {
-                    var healtask = entity.World
-                        .GetEntityById(villager.Id)?
-                        .GetBehavior<EntityBehaviorTaskAI>()?
-                        .TaskManager
-                        .GetTask<AiTaskHealWounded>();
-                    if (healtask != null) healtask.woundedEntity = entity;
-                });
             Village?.RemoveVillager(entity.EntityId);
         }
 

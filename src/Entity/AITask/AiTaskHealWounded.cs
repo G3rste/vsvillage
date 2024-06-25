@@ -1,3 +1,5 @@
+using System.Linq;
+using HarmonyLib;
 using Vintagestory.API.Common;
 using Vintagestory.API.Common.Entities;
 using Vintagestory.API.Datastructures;
@@ -15,8 +17,12 @@ namespace VsVillage
         }
 
         protected override Vec3d GetTargetPos()
-        {        
-            var villagers = entity.World.GetEntitiesAround(entity.ServerPos.XYZ, maxDistance, 5, entity => entity is EntityVillager || entity is EntityPlayer);
+        {
+            var villagers = entity.World.GetEntitiesAround(entity.ServerPos.XYZ, maxDistance, 5, entity => entity is EntityVillager || entity is EntityTrader || entity is EntityPlayer);
+            if (entity.GetBehavior<EntityBehaviorVillager>()?.Village != null)
+            {
+                villagers = villagers.Concat(entity.GetBehavior<EntityBehaviorVillager>().Village.Villagers.ConvertAll(villager => villager.entity).ToArray()).ToArray();
+            }
             int maxHpLossIndex = 0;
             float maxHpLoss = 0;
             for (int i = 0; i < villagers.Length; i++)
@@ -25,6 +31,12 @@ namespace VsVillage
                 if (health != null && maxHpLoss < health.MaxHealth - health.Health)
                 {
                     maxHpLoss = health.MaxHealth - health.Health;
+                    maxHpLossIndex = i;
+                }
+                // prefer dead targets
+                if (health != null && health.Health <= 0)
+                {
+                    maxHpLoss = int.MaxValue;
                     maxHpLossIndex = i;
                 }
             }
