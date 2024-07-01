@@ -91,29 +91,36 @@ namespace VsVillage
             var closestVillager = sapi.World.GetNearestEntity(plrPos.ToVec3d(), 10, 10, candidate => candidate is EntityVillager);
             var closestWorkstation = village.Workstations.Values.MinBy(candidate => candidate.Pos.DistanceTo(plrPos));
             var closestBed = village.Beds.Values.MinBy(candidate => candidate.Pos.DistanceTo(plrPos));
-            var villagerDistance = closestVillager!= null ? closestVillager.Pos.AsBlockPos.DistanceTo(plrPos) : float.MaxValue;
-            var workstationDistance = closestWorkstation!= null ? closestWorkstation.Pos.DistanceTo(plrPos) : float.MaxValue;
-            var bedDistance = closestBed!= null ? closestBed.Pos.DistanceTo(plrPos) : float.MaxValue;
+            var villagerDistance = closestVillager != null ? closestVillager.Pos.AsBlockPos.DistanceTo(plrPos) : float.MaxValue;
+            var workstationDistance = closestWorkstation != null ? closestWorkstation.Pos.DistanceTo(plrPos) : float.MaxValue;
+            var bedDistance = closestBed != null ? closestBed.Pos.DistanceTo(plrPos) : float.MaxValue;
 
-            if(villagerDistance < bedDistance && villagerDistance < workstationDistance){
+            if (villagerDistance < bedDistance && villagerDistance < workstationDistance)
+            {
                 closestWorkstation = village.Workstations.Values.FirstOrDefault(candidate => candidate.OwnerId == closestVillager.EntityId);
                 closestBed = village.Beds.Values.FirstOrDefault(candidate => candidate.OwnerId == closestVillager.EntityId);
-            } else if (workstationDistance < bedDistance && workstationDistance < villagerDistance){
+            }
+            else if (workstationDistance < bedDistance && workstationDistance < villagerDistance)
+            {
                 closestVillager = sapi.World.GetEntityById(closestWorkstation.OwnerId) as EntityVillager;
                 closestBed = village.Beds.Values.FirstOrDefault(candidate => candidate.OwnerId == closestVillager?.EntityId);
-            } else if (bedDistance < workstationDistance && bedDistance < villagerDistance){
+            }
+            else if (bedDistance < workstationDistance && bedDistance < villagerDistance)
+            {
                 closestVillager = sapi.World.GetEntityById(closestBed.OwnerId) as EntityVillager;
                 closestWorkstation = village.Workstations.Values.FirstOrDefault(candidate => candidate.OwnerId == closestVillager?.EntityId);
-            } else {
+            }
+            else
+            {
                 return TextCommandResult.Error("No villager/bed/workstation could be found closeby");
             }
 
             var pos = village.Pos.Copy();
             pos.Y = sapi.World.BlockAccessor.GetTerrainMapheightAt(village.Pos);
 
-            var workstation = closestWorkstation != null ? addBlockHeight(new List<BlockPos>{closestWorkstation.Pos}, 20) : new();
-            var bed = closestBed != null ? addBlockHeight(new List<BlockPos>{closestBed.Pos}, 20) : new();
-            var villager = closestVillager != null ? addBlockHeight(new List<BlockPos>{closestVillager.Pos.AsBlockPos}, 20) : new();
+            var workstation = closestWorkstation != null ? addBlockHeight(new List<BlockPos> { closestWorkstation.Pos }, 20) : new();
+            var bed = closestBed != null ? addBlockHeight(new List<BlockPos> { closestBed.Pos }, 20) : new();
+            var villager = closestVillager != null ? addBlockHeight(new List<BlockPos> { closestVillager.Pos.AsBlockPos }, 20) : new();
 
             villager = addBlockHeight(villager);
 
@@ -236,7 +243,7 @@ namespace VsVillage
             switch (subcmd)
             {
                 case "start":
-                    start = plrPos.Copy();
+                    start = villagerPathfind.GetStartPos(player.Entity.ServerPos.XYZ);
                     sapi.World.HighlightBlocks(player, 26, new List<BlockPos>() { start }, new List<int>() { ColorUtil.ColorFromRgba(255, 255, 0, 128) }, EnumHighlightBlocksMode.Absolute, EnumHighlightShape.Arbitrary);
                     break;
                 case "end":

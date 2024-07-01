@@ -49,7 +49,7 @@ namespace VsVillage
 
         public override bool NavigateTo(Vec3d target, float movingSpeed, float targetDistance, Action OnGoalReached, Action OnStuck, bool giveUpWhenNoPath = false, int searchDepth = 999, int mhdistanceTolerance = 0)
         {
-            BlockPos startBlockPos = entity.ServerPos.AsBlockPos;
+            BlockPos startBlockPos = villagerPathfind.GetStartPos(entity.ServerPos.XYZ);
             waypointToReachIndex = 0;
 
             var bh = entity.GetBehavior<EntityBehaviorControlledPhysics>();
@@ -100,6 +100,8 @@ namespace VsVillage
 
             stuckCounter = 0;
             waypointToReachIndex = 0;
+            toggleDoor(entity.ServerPos.AsBlockPos, false);
+            toggleDoor(waypoints[waypointToReachIndex].AsBlockPos, false);
 
             // very important (otherwise the target is set to the last waypoint which can fuck stuff up)
             target = waypoints[0];
@@ -265,6 +267,11 @@ namespace VsVillage
 
         private bool toggleDoor(BlockPos pos, bool shouldBeOpen)
         {
+            if (pos.HorizontalManhattenDistance(entity.ServerPos.AsBlockPos) > 3)
+            {
+                return false;
+            }
+
             var doorBehavior = BlockBehaviorDoor.getDoorAt(entity.World, pos);
             if (doorBehavior != null && doorBehavior.Opened == shouldBeOpen)
             {
@@ -298,6 +305,10 @@ namespace VsVillage
 
         public override void Stop()
         {
+            for (int i = waypoints.Count - 1; i >= 0 && i >= waypointToReachIndex - 1; i--)
+            {
+                toggleDoor(waypoints[i].AsBlockPos, true);
+            }
             Active = false;
             entity.Controls.Forward = false;
             entity.ServerControls.Forward = false;

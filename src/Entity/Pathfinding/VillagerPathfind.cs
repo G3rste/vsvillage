@@ -20,6 +20,10 @@ namespace VsVillage
             waypointAStar = new WaypointAStar(sapi);
         }
 
+        public BlockPos GetStartPos(Vec3d startPos){
+            return villagerAStar.GetStartPos(startPos);
+        }
+
         public List<PathNode> FindPath(BlockPos start, BlockPos end, int maxFallHeight, float stepHeight, Village village)
         {
             var path = villagerAStar.FindPath(start, end, maxFallHeight, stepHeight, 4999);

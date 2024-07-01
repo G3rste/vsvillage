@@ -176,6 +176,53 @@ namespace VsVillage
             return false;
         }
 
+        public BlockPos GetStartPos(Vec3d startPos)
+        {
+            var result = startPos.AsBlockPos;
+            var startBlock = blockAccess.GetBlock(result);
+            if (traversable(startBlock))
+            {
+                return result;
+            }
+
+            if (getDecimalPart(startPos.Z) < 0.5 && traversable(blockAccess.GetBlock(result.NorthCopy())))
+            {
+                return result.NorthCopy();
+            }
+
+            if (getDecimalPart(startPos.Z) > 0.5 && traversable(blockAccess.GetBlock(result.SouthCopy())))
+            {
+                return result.SouthCopy();
+            }
+
+            if (getDecimalPart(startPos.X) < 0.5 && traversable(blockAccess.GetBlock(result.West())))
+            {
+                return result;
+            }
+
+            if (getDecimalPart(startPos.X) > 0.5 && traversable(blockAccess.GetBlock(result.East())))
+            {
+                return result;
+            }
+
+            if (getDecimalPart(startPos.Z) < 0.5 && traversable(blockAccess.GetBlock(result.NorthCopy())))
+            {
+                return result.NorthCopy();
+            }
+
+            if (getDecimalPart(startPos.Z) > 0.5 && traversable(blockAccess.GetBlock(result.SouthCopy())))
+            {
+                return result.SouthCopy();
+            }
+
+            return startPos.AsBlockPos;
+        }
+
+        private double getDecimalPart(double number)
+        {
+            return number - Math.Truncate(number);
+        }
+
         protected virtual bool canStep(Block belowBlock)
         {
             return belowBlock.SideSolid[BlockFacing.UP.Index] || steppableCodes.Exists(code => belowBlock.Code.Path.Contains(code));
@@ -189,11 +236,11 @@ namespace VsVillage
         List<PathNode> retracePath(PathNode startNode, PathNode endNode)
         {
             int length = endNode.pathLength;
-            List<PathNode> path = new List<PathNode>(length);
-            for (int i = 0; i < length; i++) path.Add(null);  // pre-fill the path with dummy values to achieve the required Count, needed for assignment to path[i] later
+            List<PathNode> path = new List<PathNode>(length + 1);
+            for (int i = 0; i < length + 1; i++) path.Add(null);  // pre-fill the path with dummy values to achieve the required Count, needed for assignment to path[i] later
             PathNode currentNode = endNode;
 
-            for (int i = length - 1; i >= 0; i--)
+            for (int i = length; i >= 0; i--)
             {
                 path[i] = currentNode;
                 currentNode = currentNode.Parent;
