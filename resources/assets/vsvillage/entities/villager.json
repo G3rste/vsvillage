@@ -137,7 +137,7 @@
 					"*-archer": "soldier",
 					"*": "{profession}"
 				}
-			}		
+			}
 		],
 		"animations": [
 			{

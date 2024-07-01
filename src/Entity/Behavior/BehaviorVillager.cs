@@ -80,6 +80,7 @@ namespace VsVillage
 
         public override void Initialize(EntityProperties properties, JsonObject attributes)
         {
+            Profession = Enum.Parse<EnumVillagerProfession>(attributes["profession"].AsString());
             if (entity.Api.Side == EnumAppSide.Client) return;
             var taskbehavior = entity.GetBehavior<EntityBehaviorTaskAI>();
             var villagerPathTraverser = new VillagerWaypointsTraverser(entity as EntityAgent);
@@ -90,7 +91,6 @@ namespace VsVillage
                     .SetValue(task, villagerPathTraverser));
             // when this method is called, the chunk might not be loaded, therefor the village blocks might not have initialized the village, so we have to wait a short time
             entity.World.RegisterCallback(dt => InitVillageAfterChunkLoading(), 5000);
-            Profession = Enum.Parse<EnumVillagerProfession>(attributes["profession"].AsString());
             if (Profession == EnumVillagerProfession.soldier)
             {
                 (entity as EntityVillager).Personality = entity.World.Rand.Next(2) == 0 ? "balanced" : "rowdy";
@@ -113,7 +113,7 @@ namespace VsVillage
                 village = entity.Api.ModLoader.GetModSystem<VillageManager>()?.GetVillage(entity.ServerPos.AsBlockPos);
             }
 
-            if (village != null && (village.Id != VillageId || village.Name != VillageName || !village.VillagerSaveData.ContainsKey(entity.EntityId)))
+            if (village != null)
             {
                 VillageId = village.Id;
                 VillageName = village.Name;
