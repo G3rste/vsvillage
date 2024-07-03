@@ -305,7 +305,7 @@ namespace VsVillage
 
         public override void Stop()
         {
-            for (int i = waypoints.Count - 1; i >= 0 && i >= waypointToReachIndex - 1; i--)
+            for (int i = waypoints?.Count ?? 0 - 1; i >= 0 && i >= waypointToReachIndex - 1; i--)
             {
                 toggleDoor(waypoints[i].AsBlockPos, true);
             }
