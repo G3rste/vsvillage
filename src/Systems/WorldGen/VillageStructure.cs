@@ -46,18 +46,15 @@ namespace VsVillage
             }
 
             // while in the VS World +z coordinate equals south, in the grid worl it equals north, so we have to invert here
-            Schematics[0].TransformWhilePacked(api.World, EnumOrigin.BottomCenter, 180);
-            Schematics[2].TransformWhilePacked(api.World, EnumOrigin.BottomCenter, 180);
+            var swap = Schematics[0];
+            Schematics[0] = Schematics[2];
+            Schematics[2] = swap;
             return this;
         }
 
         public void Generate(IBlockAccessor blockAccessor, IWorldAccessor worldForCollectibleResolve, BlockPos pos, int orientation)
         {
             Schematics[orientation].PlaceReplacingBlocks(blockAccessor, worldForCollectibleResolve, pos, EnumReplaceMode.ReplaceAllNoAir, new Dictionary<int, Dictionary<int, int>>(), null);
-            if (orientation % 2 == 0)
-            {
-                orientation = (orientation + 2) % 4; // has something to do with the rotation by 180° a couple lines earlier, needs to be done for some reason...
-            }
             generateFoundation(blockAccessor, pos, Schematics[orientation], orientation);
         }
 
