@@ -300,7 +300,7 @@ namespace VsVillage
 
             nearHorizontally |= horsqDistToTarget < 1;
 
-            return sqDistToTarget < targetDistance * targetDistance;
+            return sqDistToTarget < Math.Min(0.3, targetDistance * targetDistance);
         }
 
         public override void Stop()
