@@ -17,6 +17,9 @@ namespace VsVillage
 
         public int waypointToReachIndex;
         public const int maxFallHeight = 4;
+
+        float position5SecondsAgoTs;
+        Vec3d position5SecondsAgo;
         float sqDistToTarget;
         Vec3d prevPos = new();
         Vec3d targetVec = new();
@@ -157,6 +160,16 @@ namespace VsVillage
             double distsq = entity.ServerPos.SquareDistanceTo(prevPos);
             bool stuck = distsq < 0.01 * 0.01;
             stuckCounter = stuck ? stuckCounter + 1 : 0;
+            if (position5SecondsAgoTs + 5 < entity.World.ElapsedMilliseconds)
+            {
+                var entityPos = entity.ServerPos.XYZ;
+                if (position5SecondsAgo != null && position5SecondsAgo.SquareDistanceTo(entityPos) < 1)
+                {
+                    stuckCounter += 20;
+                }
+                position5SecondsAgoTs = entity.World.ElapsedMilliseconds;
+                position5SecondsAgo = entityPos;
+            }
             if (stuckCounter > 40)
             {
                 //entity.World.SpawnParticles(10, ColorUtil.WhiteArgb, prevPos, prevPos, new Vec3f(0, 0, 0), new Vec3f(0, -1, 0), 1, 1);
