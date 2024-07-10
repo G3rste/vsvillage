@@ -16,6 +16,7 @@ namespace VsVillage
         public List<Vec3d> waypoints;
 
         public int waypointToReachIndex;
+        public const int maxFallHeight = 4;
         float sqDistToTarget;
         Vec3d prevPos = new();
         Vec3d targetVec = new();
@@ -54,10 +55,8 @@ namespace VsVillage
 
             var bh = entity.GetBehavior<EntityBehaviorControlledPhysics>();
             float stepHeight = bh?.stepHeight ?? 1.01f;
-            bool canFallDamage = entity.Properties.FallDamage;
 
-
-            waypoints = villagerPathfind.FindPathAsWaypoints(startBlockPos, target.AsBlockPos, canFallDamage ? 8 : 4, stepHeight, entity.GetBehavior<EntityBehaviorVillager>()?.Village);
+            waypoints = villagerPathfind.FindPathAsWaypoints(startBlockPos, target.AsBlockPos, maxFallHeight, stepHeight, entity.GetBehavior<EntityBehaviorVillager>()?.Village);
 
             if (waypoints == null)
             {

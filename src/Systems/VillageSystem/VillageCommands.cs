@@ -236,7 +236,6 @@ namespace VsVillage
             Cuboidf wide = new Cuboidf(-0.6f, 0, -0.6f, 0.6f, 1.5f, 0.6f);
 
             Cuboidf collbox = narrow;
-            const int maxFallHeight = 4;
             const float stepHeight = 1.01f;
 
 
@@ -258,7 +257,7 @@ namespace VsVillage
 
                     for (int i = 0; i < 15; i++)
                     {
-                        List<PathNode> nodes = villagerPathfind.FindPath(start, end, maxFallHeight, stepHeight, sapi.ModLoader.GetModSystem<VillageManager>().GetVillage(plrPos));
+                        List<PathNode> nodes = villagerPathfind.FindPath(start, end, VillagerWaypointsTraverser.maxFallHeight, stepHeight, sapi.ModLoader.GetModSystem<VillageManager>().GetVillage(plrPos));
                     }
 
                     sw.Stop();
@@ -296,7 +295,7 @@ namespace VsVillage
                 Stopwatch sw = new Stopwatch();
                 sw.Start();
 
-                List<PathNode> nodes = villagerPathfind.FindPath(start, end, maxFallHeight, stepHeight, sapi.ModLoader.GetModSystem<VillageManager>().GetVillage(plrPos));
+                List<PathNode> nodes = villagerPathfind.FindPath(start, end, VillagerWaypointsTraverser.maxFallHeight, stepHeight, sapi.ModLoader.GetModSystem<VillageManager>().GetVillage(plrPos));
 
                 sw.Stop();
                 int timeMs = (int)sw.ElapsedMilliseconds;
