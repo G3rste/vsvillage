@@ -3,6 +3,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
+using Vintagestory.API.Client;
 using Vintagestory.API.Common;
 using Vintagestory.API.Common.Entities;
 using Vintagestory.API.Config;
@@ -85,7 +86,7 @@ namespace VsVillage
             var taskbehavior = entity.GetBehavior<EntityBehaviorTaskAI>();
             var villagerPathTraverser = new VillagerWaypointsTraverser(entity as EntityAgent);
             taskbehavior.PathTraverser = villagerPathTraverser;
-            taskbehavior.TaskManager.AllTasks.ForEach(task => 
+            taskbehavior.TaskManager.AllTasks.ForEach(task =>
                 typeof(AiTaskBase)
                     .GetField("pathTraverser", BindingFlags.Instance | BindingFlags.NonPublic)
                     .SetValue(task, villagerPathTraverser));
@@ -153,7 +154,14 @@ namespace VsVillage
             base.GetInfoText(infotext);
             if (!string.IsNullOrEmpty(VillageName))
             {
-                infotext.AppendLine(Lang.Get("vsvillage:lives-in", Lang.Get(VillageName), Workstation != null ? ManagementGui.BlockPosToString(Workstation, entity.Api) : Lang.Get("vsvillage:nowhere"), Bed != null ? ManagementGui.BlockPosToString(Bed, entity.Api) : Lang.Get("vsvillage:nowhere")));
+                if (entity.Api is ICoreClientAPI capi && capi.Settings.Bool["showEntityDebugInfo"])
+                {
+                    infotext.AppendLine(Lang.Get("vsvillage:lives-in-debug", Lang.Get(VillageName), Workstation != null ? ManagementGui.BlockPosToString(Workstation, entity.Api) : Lang.Get("vsvillage:nowhere"), Bed != null ? ManagementGui.BlockPosToString(Bed, entity.Api) : Lang.Get("vsvillage:nowhere")));
+                }
+                else
+                {
+                    infotext.AppendLine(Lang.Get("vsvillage:lives-in", Lang.Get(VillageName)));
+                }
             }
         }
     }

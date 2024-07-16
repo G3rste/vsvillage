@@ -93,7 +93,8 @@
     "management-profession-herbalist": "herbalist",
     "management-profession-mayor": "mayor",
 
-    "lives-in": "Resident of {0}.\nWorks at: {1}\nSleeps at: {2}",
+    "lives-in": "Resident of {0}.",
+    "lives-in-debug": "Resident of {0}.\nWorks at: {1}\nSleeps at: {2}",
     "nowhere": "nowhere",
     "resides-in": "Belongs to {0}.",
     "owned-by": "Owned by {0}.",
