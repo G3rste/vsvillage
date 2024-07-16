@@ -17,9 +17,6 @@ namespace VsVillage
 
         public int waypointToReachIndex;
         public const int maxFallHeight = 4;
-
-        float position5SecondsAgoTs;
-        Vec3d position5SecondsAgo;
         float sqDistToTarget;
         Vec3d prevPos = new();
         Vec3d targetVec = new();
@@ -27,7 +24,7 @@ namespace VsVillage
         {
             get
             {
-                if (waypoints == null)
+                if (waypoints == null || waypoints.Count == 0)
                 {
                     waypoints = new List<Vec3d>() { entity.ServerPos.XYZ };
                 }
@@ -87,8 +84,11 @@ namespace VsVillage
             {
                 waypoints = new List<Vec3d>() { target };
             }
-
-            // entity.World.HighlightBlocks(entity.World.GetPlayersAround(entity.ServerPos.XYZ, 50, 50)[0], (int)entity.EntityId, waypoints.ConvertAll(waypoint=>waypoint.AsBlockPos).ToList());
+            var players = entity.World.GetPlayersAround(entity.ServerPos.XYZ, 50, 50);
+            //if (players.Length > 0)
+            //{
+            //    entity.World.HighlightBlocks(players[0], (int)entity.EntityId, waypoints.ConvertAll(waypoint => waypoint.AsBlockPos).ToList(), new List<int>() { ((int)entity.EntityId % 1000) * 1111111 });
+            //}
 
             return base.WalkTowards(target, movingSpeed, targetDistance, OnGoalReached, OnStuck);
         }
@@ -102,8 +102,6 @@ namespace VsVillage
 
             stuckCounter = 0;
             waypointToReachIndex = 0;
-            toggleDoor(entity.ServerPos.AsBlockPos, false);
-            toggleDoor(waypoints[waypointToReachIndex].AsBlockPos, false);
 
             // very important (otherwise the target is set to the last waypoint which can fuck stuff up)
             target = waypoints[0];
@@ -139,11 +137,8 @@ namespace VsVillage
                 }
 
                 target = waypoints[Math.Min(waypoints.Count - 1, waypointToReachIndex)];
-                toggleDoor(waypoints[waypointToReachIndex].AsBlockPos, false);
-                toggleDoor(waypoints[waypointToReachIndex - 1].AsBlockPos, false);
                 if (waypointToReachIndex > 2)
                 {
-                    toggleDoor(waypoints[waypointToReachIndex - 2].AsBlockPos, false);
                     toggleDoor(waypoints[waypointToReachIndex - 3].AsBlockPos, true);
                 }
                 if (target.Y < entity.ServerPos.Y && target.X == entity.ServerPos.X && target.Z == entity.ServerPos.Z)
@@ -160,15 +155,10 @@ namespace VsVillage
             double distsq = entity.ServerPos.SquareDistanceTo(prevPos);
             bool stuck = distsq < 0.01 * 0.01;
             stuckCounter = stuck ? stuckCounter + 1 : 0;
-            if (position5SecondsAgoTs + 5 < entity.World.ElapsedMilliseconds)
+            if (stuckCounter > 2)
             {
-                var entityPos = entity.ServerPos.XYZ;
-                if (position5SecondsAgo != null && position5SecondsAgo.SquareDistanceTo(entityPos) < 1)
-                {
-                    stuckCounter += 20;
-                }
-                position5SecondsAgoTs = entity.World.ElapsedMilliseconds;
-                position5SecondsAgo = entityPos;
+                toggleDoor(entity.ServerPos.AsBlockPos, false);
+                toggleDoor(waypoints[waypointToReachIndex].AsBlockPos, false);
             }
             if (stuckCounter > 40)
             {
@@ -312,7 +302,8 @@ namespace VsVillage
 
             nearHorizontally |= horsqDistToTarget < 1;
 
-            return sqDistToTarget < Math.Min(0.3, targetDistance * targetDistance);
+            return sqDistToTarget < targetDistance * targetDistance
+                || horsqDistToTarget < targetDistance * targetDistance && Math.Abs(entity.ServerPos.Y - target.Y) < 1.5;
         }
 
         public override void Stop()
