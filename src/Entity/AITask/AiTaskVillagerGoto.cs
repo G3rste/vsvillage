@@ -13,9 +13,9 @@ namespace VsVillage
 
         bool done;
         float moveSpeed = 0.03f;
-        float targetDistance = 0.5f;
+        //float targetDistance = 0.5f;
 
-        int searchDepth = 5000;
+        //int searchDepth = 5000;
 
         protected PathTraverserBase villagerPathTraverser;
 
@@ -58,8 +58,8 @@ namespace VsVillage
         {
             base.StartExecute();
 
-            done = false;
-            bool ok = villagerPathTraverser.NavigateTo(MainTarget, moveSpeed, targetDistance, OnGoalReached, OnStuck, true, searchDepth);
+            done = false; 
+            bool ok = villagerPathTraverser.NavigateTo(MainTarget, moveSpeed, OnGoalReached, OnStuck);
             
             var sapi = entity.Api as ICoreServerAPI;
             var stolentraverser = villagerPathTraverser as VillagerWaypointsTraverser;

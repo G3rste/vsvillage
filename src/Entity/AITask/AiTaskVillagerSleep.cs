@@ -1,6 +1,7 @@
 using System;
 using Vintagestory.API.Common;
 using Vintagestory.API.Datastructures;
+using Vintagestory.API.MathTools;
 using Vintagestory.API.Server;
 using Vintagestory.GameContent;
 
@@ -72,11 +73,10 @@ namespace VsVillage
             bedReached = false;
             if (bedEntity != null)
             {
-                pathTraverser.NavigateTo(bedEntity.Pos.ToVec3d(), moveSpeed, 0.5f, tryGoingToBed, tryGoingToBed, true);
+                pathTraverser.NavigateTo(bedEntity.Pos.ToVec3d(), moveSpeed, 0.5f, tryGoingToBed, tryGoingToBed, tryGoingToBed, true);
                 tryGoingToBed();
             }
         }
-
         public override bool ContinueExecute(float dt)
         {
             if (lastCheck + 500 < entity.World.ElapsedMilliseconds && !bedReached)

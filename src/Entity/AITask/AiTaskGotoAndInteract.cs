@@ -56,7 +56,7 @@ namespace VsVillage
 
         public override void StartExecute()
         {
-            stuck = !pathTraverser.NavigateTo(targetPos, moveSpeed, 0.5f, () => stuck = true, () => stuck = true, true, 10000);
+            stuck = !pathTraverser.NavigateTo(targetPos, moveSpeed, 0.5f, () => stuck = true, () => stuck = true, () => stuck = true, true, 10000);
             targetReached = false;
             base.StartExecute();
         }
