@@ -56,7 +56,7 @@
             "type": "talk",
             "text": [
                 {
-                    "value": "I am only trading stuff, but you can go ask one of the other people around, they usually can use a helping hand?",
+                    "value": "I am only trading stuff, but you can go ask one of the other people around. They usually can use a helping hand.",
                     "jumpTo": "main"
                 }
             ]

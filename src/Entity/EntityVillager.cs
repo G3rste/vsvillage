@@ -16,8 +16,6 @@ namespace VsVillage
    
     public class EntityVillager : EntityAgent
     {
-        
-
         public static OrderedDictionary<string, TraderPersonality> Personalities = new OrderedDictionary<string, TraderPersonality>()
         {
             { "formal", new TraderPersonality(1 * 1.5f, 1, 0.9f) },
@@ -25,10 +23,13 @@ namespace VsVillage
             { "lazy", new TraderPersonality(1.65f * 1.5f, 0.7f, 0.9f) },
             { "rowdy", new TraderPersonality(0.75f * 1.5f, 1f, 1.8f) }
         };
+        protected InventoryVillagerGear gearInv;
+        public IInventory GearInventory => gearInv;
+        public override ItemSlot LeftHandItemSlot { get => gearInv.leftHandSlot; set => gearInv.leftHandSlot = value; }
+        public override ItemSlot RightHandItemSlot { get => gearInv.rightHandSlot; set => gearInv.rightHandSlot = value; }
 
-        public EntityTalkUtil talkUtil;
-        EntityBehaviorConversable ConversableBh => GetBehavior<EntityBehaviorConversable>();
-        
+
+        public EntityTalkUtil talkUtil { get; set; }
         public string Personality
         {
             get { return WatchedAttributes.GetString("personality", "formal"); }
@@ -44,28 +45,9 @@ namespace VsVillage
             AnimManager = new PersonalizedAnimationManager();
         }
 
-        protected InventoryVillagerGear gearInv;
-
-        public override ItemSlot LeftHandItemSlot { get => gearInv.leftHandSlot; set => gearInv.leftHandSlot = value; }
-        public override ItemSlot RightHandItemSlot { get => gearInv.rightHandSlot; set => gearInv.rightHandSlot = value; }
-
-
         public override void Initialize(EntityProperties properties, ICoreAPI api, long InChunkIndex3d)
         {
             base.Initialize(properties, api, InChunkIndex3d);
-
-            if (api.Side == EnumAppSide.Client)
-            {
-                talkUtil = new EntityTalkUtil(api as ICoreClientAPI, this, false);
-            }
-
-            if (api is ICoreServerAPI sapi)
-            {
-                sapi.World.RegisterGameTickListener(dt => UndrawWeaponIfOutOfCombat(), 10000, 10000);
-            }
-
-
-
             if (gearInv == null) { gearInv = new InventoryVillagerGear(Code.Path, "villagerInv-" + EntityId, api); }
             else { gearInv.Api = api; }
             gearInv.SlotModified += gearInvSlotModified;
@@ -79,11 +61,13 @@ namespace VsVillage
             {
                 Personality = Personalities.GetKeyAtIndex(World.Rand.Next(EntityTrader.Personalities.Count));
             }
-
-
-            (AnimManager as PersonalizedAnimationManager).Personality = this.Personality;
+            (AnimManager as PersonalizedAnimationManager).Personality = Personality;
+            if (api is ICoreClientAPI capi) { talkUtil = new EntityTalkUtil(capi, this, false); }
             this.Personality = this.Personality; // to update the talkutil
-            
+            if (api is ICoreServerAPI sapi)
+            {
+                sapi.World.RegisterGameTickListener(dt => UndrawWeaponIfOutOfCombat(), 10000, 10000);
+            }
         }
 
 
@@ -125,7 +109,7 @@ namespace VsVillage
                 if (possibleGear.Length > 0)
                 {
                     var slot = new DummySlot(new ItemStack(Api.World.GetItem(new AssetLocation("vsvillage", String.Format("villagergear-{0}-{1}", gear.ToLower(), possibleGear[World.Rand.Next(0, possibleGear.Length)])))));
-                    slot.TryPutInto(World, slot, 1);
+                    slot.TryPutInto(World, GearInventory.GetBestSuitedSlot(slot).slot);
                 }
             }
         }
@@ -139,14 +123,14 @@ namespace VsVillage
             }
         }
 
-        public override void OnTesselation(ref Shape entityShape, string shapePathForLogging)
+        /*public override void OnTesselation(ref Shape entityShape, string shapePathForLogging)
         {
             base.OnTesselation(ref entityShape, shapePathForLogging);
-            foreach (var slot in gearInv)
+            foreach (var slot in GearInventory)
             {
-                //addGearToShape(slot, entityShape, shapePathForLogging);
+                addGearToShape(slot, entityShape, shapePathForLogging);
             }
-        }
+        }*/
 
         public override void OnReceivedServerPacket(int packetid, byte[] data)
         {

@@ -84,16 +84,13 @@ namespace VsVillage
             Profession = Enum.Parse<EnumVillagerProfession>(attributes["profession"].AsString());
             if (entity.Api.Side == EnumAppSide.Client) return;
             var taskbehavior = entity.GetBehavior<EntityBehaviorTaskAI>();
-            var pathTraverser = entity.GetBehavior<EntityBehaviorTaskAI>().PathTraverser;
             var villagerPathTraverser = new VillagerWaypointsTraverser(entity as EntityAgent);
-
-            //Need to see why Essentials.WaypointTraverser cannot map to villagerPathTraverser
             taskbehavior.PathTraverser = villagerPathTraverser;
             taskbehavior.TaskManager.AllTasks.ForEach(task =>
                 typeof(AiTaskBase)
                     .GetField("pathTraverser", BindingFlags.Instance | BindingFlags.NonPublic)
                     .SetValue(task, villagerPathTraverser));
-            // when this method is called, the chunk might not be loaded, therefore the village blocks might not have initialized the village, so we have to wait a short time
+            // when this method is called, the chunk might not be loaded, therefor the village blocks might not have initialized the village, so we have to wait a short time
             entity.World.RegisterCallback(dt => InitVillageAfterChunkLoading(), 5000);
             if (Profession == EnumVillagerProfession.soldier)
             {

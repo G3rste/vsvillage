@@ -4,11 +4,12 @@ using Vintagestory.API.Common;
 using Vintagestory.API.Config;
 using Vintagestory.API.MathTools;
 using Vintagestory.API.Server;
+using Vintagestory.Essentials;
 using Vintagestory.GameContent;
 
 namespace VsVillage
 {
-    public class VillagerWaypointsTraverser : PathTraverserBase
+    public class VillagerWaypointsTraverser : WaypointsTraverser
     {
         float minTurnAnglePerSec;
         float maxTurnAnglePerSec;
@@ -48,13 +49,13 @@ namespace VsVillage
             villagerPathfind = new VillagerPathfind(entity.Api as ICoreServerAPI);
         }
 
-        public override bool NavigateTo(Vec3d target, float movingSpeed, float targetDistance, Action OnGoalReached, Action OnStuck, bool giveUpWhenNoPath = false, int searchDepth = 999, int mhdistanceTolerance = 0)
+        public override bool NavigateTo(Vec3d target, float movingSpeed, float targetDistance, Action OnGoalReached, Action OnStuck, Action OnNoPath, bool giveUpWhenNoPath, int searchDepth = 999, int mhdistanceTolerance = 0, EnumAICreatureType? creatureType = null)
         {
             BlockPos startBlockPos = villagerPathfind.GetStartPos(entity.ServerPos.XYZ);
             waypointToReachIndex = 0;
 
             var bh = entity.GetBehavior<EntityBehaviorControlledPhysics>();
-            float stepHeight = bh?.stepHeight ?? 1.01f;
+            float stepHeight = bh?.StepHeight ?? 1.01f;
 
             waypoints = villagerPathfind.FindPathAsWaypoints(startBlockPos, target.AsBlockPos, maxFallHeight, stepHeight, entity.GetBehavior<EntityBehaviorVillager>()?.Village);
 
@@ -67,18 +68,18 @@ namespace VsVillage
 
                 waypoints = new List<Vec3d>();
 
-                entity.OnNoPath(target);
+                OnNoPath();
 
             }
 
             waypoints.Add(target);
 
 
-            return WalkTowards(target, movingSpeed, targetDistance, OnGoalReached, OnStuck);
+            return WalkTowards(target, movingSpeed, targetDistance, OnGoalReached, OnStuck, (EnumAICreatureType)creatureType);
         }
 
 
-        public override bool WalkTowards(Vec3d target, float movingSpeed, float targetDistance, Action OnGoalReached, Action OnStuck)
+        public override bool WalkTowards(Vec3d target, float movingSpeed, float targetDistance, Action OnGoalReached, Action OnStuck, EnumAICreatureType creatureType)
         {
             if (waypoints == null || waypoints.Count == 0)
             {
@@ -129,7 +130,7 @@ namespace VsVillage
             if (nearAllDirs)
             {
                 waypointToReachIndex += offset;
-                if (waypointToReachIndex >= waypoints.Count - targetDistance)
+                if (waypointToReachIndex >= waypoints.Count - TargetDistance)
                 {
                     Stop();
                     OnGoalReached?.Invoke();
@@ -262,9 +263,9 @@ namespace VsVillage
             prevPos.Set(entity.ServerPos);
         }
 
-        public override bool NavigateTo_Async(Vec3d target, float movingSpeed, float targetDistance, Action OnGoalReached, Action OnStuck, Action OnNoPath = null, int searchDepth = 10000, int mhdistanceTolerance = 0)
+        public override bool NavigateTo_Async(Vec3d target, float movingSpeed, float targetDistance, Action OnGoalReached, Action OnStuck, Action OnNoPath, int searchDepth = 10000, int mhdistanceTolerance = 0, EnumAICreatureType? creatureType = null)
         {
-            return NavigateTo(target, movingSpeed, targetDistance, OnGoalReached, OnStuck, true, searchDepth, mhdistanceTolerance);
+            return NavigateTo(target, movingSpeed, targetDistance, OnGoalReached, OnStuck, OnNoPath, true, searchDepth, mhdistanceTolerance, creatureType);
         }
 
         private bool toggleDoor(BlockPos pos, bool shouldBeOpen)
@@ -302,8 +303,8 @@ namespace VsVillage
 
             nearHorizontally |= horsqDistToTarget < 1;
 
-            return sqDistToTarget < targetDistance * targetDistance
-                || horsqDistToTarget < targetDistance * targetDistance && Math.Abs(entity.ServerPos.Y - target.Y) < 1.5;
+            return sqDistToTarget < TargetDistance * TargetDistance
+                || horsqDistToTarget < TargetDistance * TargetDistance && Math.Abs(entity.ServerPos.Y - target.Y) < 1.5;
         }
 
         public override void Stop()
