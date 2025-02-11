@@ -75,7 +75,7 @@ namespace VsVillage
             waypoints.Add(target);
 
 
-            return WalkTowards(target, movingSpeed, targetDistance, OnGoalReached, OnStuck, (EnumAICreatureType)creatureType);
+            return WalkTowards(target, movingSpeed, targetDistance, OnGoalReached, OnStuck, creatureType ?? EnumAICreatureType.Humanoid);
         }
 
 
@@ -265,7 +265,7 @@ namespace VsVillage
 
         public override bool NavigateTo_Async(Vec3d target, float movingSpeed, float targetDistance, Action OnGoalReached, Action OnStuck, Action OnNoPath, int searchDepth = 10000, int mhdistanceTolerance = 0, EnumAICreatureType? creatureType = null)
         {
-            return NavigateTo(target, movingSpeed, targetDistance, OnGoalReached, OnStuck, OnNoPath, true, searchDepth, mhdistanceTolerance, creatureType);
+            return NavigateTo(target, movingSpeed, targetDistance, OnGoalReached, OnStuck, OnNoPath, true, searchDepth, mhdistanceTolerance, creatureType ?? EnumAICreatureType.Humanoid);
         }
 
         private bool toggleDoor(BlockPos pos, bool shouldBeOpen)
