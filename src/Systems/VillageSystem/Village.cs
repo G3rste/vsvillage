@@ -3,7 +3,6 @@ using System.Linq;
 using ProtoBuf;
 using Vintagestory.API.Common;
 using Vintagestory.API.MathTools;
-using Vintagestory.GameContent;
 
 namespace VsVillage
 {
