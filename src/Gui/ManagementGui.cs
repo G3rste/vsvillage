@@ -162,7 +162,7 @@ namespace VsVillage
             if (villager != null)
             {
                 return Lang.Get("vsvillage:management-villager-note",
-                    entity.GetBehavior<EntityBehaviorNameTag>()?.DisplayName ??
+                    entity.GetBehavior<EntityBehaviorNameTag>().DisplayName,
                     Lang.Get("vsvillage:management-profession-" + villager.Profession.ToString()),
                     BlockPosToString(entity.Pos.AsBlockPos, capi),
                     BlockPosToString(villager.Workstation, capi),
