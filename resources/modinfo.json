@@ -4,10 +4,10 @@
     "name": "VS Village",
     "side": "universal",
     "authors": [
-        "G3rste","KarinB"
+        "G3rste","Kareener"
     ],
     "description": "Mod that focuses on implementing a Village System and Villagers.",
-    "version": "2.0.0",
+    "version": "2.0.2",
     "dependencies": {
         "game": "1.20.3"
     }

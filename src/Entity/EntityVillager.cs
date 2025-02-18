@@ -13,8 +13,8 @@ using Vintagestory.API.Config;
 
 namespace VsVillage
 {
-   
-    public class EntityVillager : EntityAgent
+
+    public class EntityVillager : EntityTradingHumanoid
     {
         public static OrderedDictionary<string, TraderPersonality> Personalities = new OrderedDictionary<string, TraderPersonality>()
         {
@@ -59,10 +59,15 @@ namespace VsVillage
             }
             if (!WatchedAttributes.HasAttribute("personality"))
             {
-                Personality = Personalities.GetKeyAtIndex(World.Rand.Next(EntityTrader.Personalities.Count));
+                Personality = Personalities.GetKeyAtIndex(World.Rand.Next(Personalities.Count));
             }
-            (AnimManager as PersonalizedAnimationManager).Personality = Personality;
-            if (api is ICoreClientAPI capi) { talkUtil = new EntityTalkUtil(capi, this, false); }
+            (AnimManager as PersonalizedAnimationManager).Personality = this.Personality;
+            if (api is ICoreClientAPI capi)
+            {
+                bool isMultiSoundVoice = true;
+                talkUtil = new EntityTalkUtil(capi, this, isMultiSoundVoice);
+ 
+            }
             this.Personality = this.Personality; // to update the talkutil
             if (api is ICoreServerAPI sapi)
             {
@@ -103,6 +108,13 @@ namespace VsVillage
         public override void OnEntitySpawn()
         {
             base.OnEntitySpawn();
+
+            if (World.Api.Side == EnumAppSide.Server)
+            {
+                Personality = Personalities.GetKeyAtIndex(World.Rand.Next(Personalities.Count));
+                (AnimManager as PersonalizedAnimationManager).Personality = this.Personality;
+            }
+
             foreach (var gear in Enum.GetNames(typeof(VillagerGearType)))
             {
                 var possibleGear = Properties.Attributes["validGear"][gear.ToLower()].AsArray<string>();
@@ -117,6 +129,13 @@ namespace VsVillage
         public override void OnGameTick(float dt)
         {
             base.OnGameTick(dt);
+
+            if (Alive && AnimManager.ActiveAnimationsByAnimCode.Count == 0)
+            {
+                AnimManager.StartAnimation(new AnimationMetaData() { Code = "idle", Animation = "idle", EaseOutSpeed = 10000, EaseInSpeed = 10000 });
+            }
+
+
             if (Api.Side == EnumAppSide.Client && !AnimManager.IsAnimationActive("sleep"))
             {
                 talkUtil?.OnGameTick(dt);
