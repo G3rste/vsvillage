@@ -1094,7 +1094,7 @@
 			"code": "swordhit",
 			"quantityframes": 20,
 			"onActivityStopped": "PlayTillEnd",
-			"onAnimationEnd": "Stop",
+			"onAnimationEnd": "Repeat",
 			"keyframes": [
 				{
 					"frame": 0,
@@ -1584,6 +1584,22 @@
 			"onActivityStopped": "PlayTillEnd",
 			"onAnimationEnd": "Stop",
 			"keyframes": [
+				{
+					"frame": 0,
+					"elements": {
+						"LowerTorso": { "offsetX": -5.0, "offsetY": 8.0, "offsetZ": -9.7, "rotationX": -90.0, "rotationY": 30.0, "rotationZ": -180.0 },
+						"UpperTorso": { "rotationX": 0.0, "rotationY": -22.5, "rotationZ": 0.0 },
+						"UpperArmR": { "offsetX": -1.0, "offsetY": 3.0, "offsetZ": 0.0, "rotationX": -28.0, "rotationY": -22.5, "rotationZ": -180.0 },
+						"LowerArmR": { "rotationX": -45.0, "rotationY": 67.5, "rotationZ": 30.0 },
+						"UpperArmL": { "rotationX": 0.0, "rotationY": 0.0, "rotationZ": -90.0 },
+						"LowerArmL": { "rotationX": -45.0, "rotationY": 0.0, "rotationZ": -112.5 },
+						"Head": { "offsetX": 0.0, "offsetY": 0.0, "offsetZ": 0.0, "rotationX": 0.0, "rotationY": 22.5, "rotationZ": 0.0 },
+						"UpperFootL": { "offsetX": -1.0, "offsetY": 1.0, "offsetZ": 0.0, "rotationX": 11.0, "rotationY": 0.0, "rotationZ": -80.0 },
+						"LowerFootL": { "offsetX": 0.2, "offsetY": 0.7, "offsetZ": 0.0, "rotationX": 0.0, "rotationY": 0.0, "rotationZ": 45.0 },
+						"UpperFootR": { "offsetX": -1.0, "offsetY": 0.0, "offsetZ": 0.5, "rotationX": 0.0, "rotationY": 22.5, "rotationZ": -22.5 },
+						"LowerFootR": { "offsetX": 0.2, "offsetY": 0.6, "offsetZ": 0.0, "rotationX": 0.0, "rotationY": 0.0, "rotationZ": 45.0 }
+					}
+				}
 
 			]
 		},
@@ -2400,8 +2416,8 @@
 		},
 
 		{
-			"name": "BalancedWalk",
-			"code": "balancedwalk",
+			"name": "Balanced-Walk",
+			"code": "balanced-walk",
 			"quantityframes": 25,
 			"onActivityStopped": "EaseOut",
 			"onAnimationEnd": "Repeat",
@@ -2498,8 +2514,8 @@
 		},
 
 		{
-			"name": "BalancedRun",
-			"code": "balancedrun",
+			"name": "Balanced-Run",
+			"code": "balanced-run",
 			"quantityframes": 24,
 			"onActivityStopped": "EaseOut",
 			"onAnimationEnd": "Repeat",
@@ -2630,7 +2646,7 @@
 					"frame": 20,
 					"elements": {
 						"LowerTorso": { "offsetX": 0.0, "offsetY": -0.3, "offsetZ": 0.0 },
-						"UpperFootL": { "offsetX": -0.3333333333333333, "offsetY": 0.0, "offsetZ": 0.0, "rotationX": 0.0, "rotationY": 0.0, "rotationZ": 22.5 },
+						"UpperFootL": { "offsetX": -0.3333, "offsetY": 0.0, "offsetZ": 0.0, "rotationX": 0.0, "rotationY": 0.0, "rotationZ": 22.5 },
 						"LowerFootL": { "rotationX": 0.0, "rotationY": 0.0, "rotationZ": 0.0 },
 						"UpperFootR": { "rotationX": 0.0, "rotationY": 0.0, "rotationZ": -67.5 },
 						"LowerFootR": { "offsetX": 0.3, "offsetY": 0.6, "offsetZ": 0.0, "rotationX": 0.0, "rotationY": 0.0, "rotationZ": 45.0 }
@@ -2648,8 +2664,8 @@
 		},
 
 		{
-			"name": "BalancedHurt",
-			"code": "balancedhurt",
+			"name": "Balanced-Hurt",
+			"code": "balanced-hurt",
 			"quantityframes": 30,
 			"onActivityStopped": "Rewind",
 			"onAnimationEnd": "Stop",
@@ -2690,8 +2706,8 @@
 		},
 
 		{
-			"name": "BalancedNod",
-			"code": "balancednod",
+			"name": "Balanced-Nod",
+			"code": "balanced-nod",
 			"quantityframes": 20,
 			"onActivityStopped": "EaseOut",
 			"onAnimationEnd": "Stop",
@@ -2734,11 +2750,11 @@
 		},
 
 		{
-			"name": "BalancedWelcome",
-			"code": "balancedwelcome",
+			"name": "Balanced-Welcome",
+			"code": "balanced-welcome",
 			"quantityframes": 45,
 			"onActivityStopped": "EaseOut",
-			"onAnimationEnd": "Stop",
+			"onAnimationEnd": "EaseOut",
 			"keyframes": [
 				{
 					"frame": 0,
@@ -2872,8 +2888,8 @@
 		},
 
 		{
-			"name": "BalancedAttack",
-			"code": "balancedattack",
+			"name": "Balanced-Attack",
+			"code": "balanced-attack",
 			"quantityframes": 40,
 			"onActivityStopped": "EaseOut",
 			"onAnimationEnd": "Stop",
@@ -2933,8 +2949,8 @@
 		},
 
 		{
-			"name": "BalancedIdle",
-			"code": "balancedidle",
+			"name": "Balanced-Idle",
+			"code": "balanced-idle",
 			"quantityframes": 50,
 			"onActivityStopped": "EaseOut",
 			"onAnimationEnd": "Repeat",
@@ -2955,8 +2971,8 @@
 		},
 
 		{
-			"name": "BalancedIdle2",
-			"code": "balancedidle2",
+			"name": "Balanced-Idle2",
+			"code": "balanced-idle2",
 			"quantityframes": 90,
 			"onActivityStopped": "EaseOut",
 			"onAnimationEnd": "Repeat",
@@ -3037,8 +3053,8 @@
 		},
 
 		{
-			"name": "BalancedLaugh",
-			"code": "balancedlaugh",
+			"name": "Balanced-Laugh",
+			"code": "balanced-laugh",
 			"quantityframes": 50,
 			"onActivityStopped": "EaseOut",
 			"onAnimationEnd": "Stop",
@@ -3132,11 +3148,11 @@
 		},
 
 		{
-			"name": "FormalWelcome",
-			"code": "formalwelcome",
+			"name": "Formal-Welcome",
+			"code": "formal-welcome",
 			"quantityframes": 70,
 			"onActivityStopped": "EaseOut",
-			"onAnimationEnd": "Stop",
+			"onAnimationEnd": "EaseOut",
 			"keyframes": [
 				{
 					"frame": 0,
@@ -3234,8 +3250,8 @@
 		},
 
 		{
-			"name": "FormalWalk",
-			"code": "formalwalk",
+			"name": "Formal-Walk",
+			"code": "formal-walk",
 			"quantityframes": 30,
 			"onActivityStopped": "EaseOut",
 			"onAnimationEnd": "Repeat",
@@ -3293,8 +3309,8 @@
 		},
 
 		{
-			"name": "FormalRun",
-			"code": "formalrun",
+			"name": "Formal-Run",
+			"code": "formal-run",
 			"quantityframes": 30,
 			"onActivityStopped": "EaseOut",
 			"onAnimationEnd": "Repeat",
@@ -3384,8 +3400,8 @@
 		},
 
 		{
-			"name": "FormalAttack",
-			"code": "formalattack",
+			"name": "Formal-Attack",
+			"code": "formal-attack",
 			"quantityframes": 30,
 			"onActivityStopped": "EaseOut",
 			"onAnimationEnd": "Stop",
@@ -3489,8 +3505,8 @@
 		},
 
 		{
-			"name": "FormalLaugh",
-			"code": "formallaugh",
+			"name": "Formal-Laugh",
+			"code": "formal-laugh",
 			"quantityframes": 40,
 			"onActivityStopped": "EaseOut",
 			"onAnimationEnd": "Stop",
@@ -3608,8 +3624,8 @@
 		},
 
 		{
-			"name": "FormalHurt",
-			"code": "formalhurt",
+			"name": "Formal-Hurt",
+			"code": "formal-hurt",
 			"quantityframes": 30,
 			"onActivityStopped": "EaseOut",
 			"onAnimationEnd": "Stop",
@@ -3653,8 +3669,8 @@
 		},
 
 		{
-			"name": "FormalNod",
-			"code": "formalnod",
+			"name": "Formal-Nod",
+			"code": "formal-nod",
 			"quantityframes": 30,
 			"onActivityStopped": "EaseOut",
 			"onAnimationEnd": "Stop",
@@ -3698,8 +3714,8 @@
 		},
 
 		{
-			"name": "FormalIdle",
-			"code": "formalidle",
+			"name": "Formal-Idle",
+			"code": "formal-idle",
 			"quantityframes": 30,
 			"onActivityStopped": "EaseOut",
 			"onAnimationEnd": "Repeat",
@@ -3748,8 +3764,8 @@
 		},
 
 		{
-			"name": "FormalIdle2",
-			"code": "formalidle2",
+			"name": "Formal-Idle2",
+			"code": "formal-idle2",
 			"quantityframes": 125,
 			"onActivityStopped": "EaseOut",
 			"onAnimationEnd": "Repeat",
@@ -3861,11 +3877,11 @@
 		},
 
 		{
-			"name": "RowdyWelcome",
-			"code": "rowdywelcome",
+			"name": "Rowdy-Welcome",
+			"code": "rowdy-welcome",
 			"quantityframes": 70,
 			"onActivityStopped": "EaseOut",
-			"onAnimationEnd": "Stop",
+			"onAnimationEnd": "EaseOut",
 			"keyframes": [
 				{
 					"frame": 0,
@@ -4015,8 +4031,8 @@
 		},
 
 		{
-			"name": "RowdyWalk",
-			"code": "rowdywalk",
+			"name": "Rowdy-Walk",
+			"code": "rowdy-walk",
 			"quantityframes": 30,
 			"onActivityStopped": "EaseOut",
 			"onAnimationEnd": "Repeat",
@@ -4077,8 +4093,8 @@
 		},
 
 		{
-			"name": "RowdyRun",
-			"code": "rowdyrun",
+			"name": "Rowdy-Run",
+			"code": "rowdy-run",
 			"quantityframes": 30,
 			"onActivityStopped": "EaseOut",
 			"onAnimationEnd": "Repeat",
@@ -4183,8 +4199,8 @@
 		},
 
 		{
-			"name": "RowdyAttack",
-			"code": "rowdyattack",
+			"name": "Rowdy-Attack",
+			"code": "rowdy-attack",
 			"quantityframes": 45,
 			"onActivityStopped": "EaseOut",
 			"onAnimationEnd": "Stop",
@@ -4285,8 +4301,8 @@
 		},
 
 		{
-			"name": "RowdyLaugh",
-			"code": "rowdylaugh",
+			"name": "Rowdy-Laugh",
+			"code": "rowdy-laugh",
 			"quantityframes": 60,
 			"onActivityStopped": "EaseOut",
 			"onAnimationEnd": "Stop",
@@ -4449,8 +4465,8 @@
 		},
 
 		{
-			"name": "RowdyHurt",
-			"code": "rowdyhurt",
+			"name": "Rowdy-Hurt",
+			"code": "rowdy-hurt",
 			"quantityframes": 20,
 			"onActivityStopped": "EaseOut",
 			"onAnimationEnd": "Stop",
@@ -4493,8 +4509,8 @@
 		},
 
 		{
-			"name": "RowdyIdle",
-			"code": "rowdyidle",
+			"name": "Rowdy-Idle",
+			"code": "rowdy-idle",
 			"quantityframes": 30,
 			"onActivityStopped": "EaseOut",
 			"onAnimationEnd": "Repeat",
@@ -4538,8 +4554,8 @@
 		},
 
 		{
-			"name": "RowdyIdle2",
-			"code": "rowdyidle2",
+			"name": "Rowdy-Idle2",
+			"code": "rowdy-idle2",
 			"quantityframes": 75,
 			"onActivityStopped": "EaseOut",
 			"onAnimationEnd": "Repeat",
@@ -4600,8 +4616,8 @@
 		},
 
 		{
-			"name": "RowdyNod",
-			"code": "rowdynod",
+			"name": "Rowdy-Nod",
+			"code": "rowdy-nod",
 			"quantityframes": 20,
 			"onActivityStopped": "EaseOut",
 			"onAnimationEnd": "Stop",
@@ -4650,11 +4666,11 @@
 		},
 
 		{
-			"name": "LazyWelcome",
-			"code": "lazywelcome",
+			"name": "Lazy-Welcome",
+			"code": "lazy-welcome",
 			"quantityframes": 90,
 			"onActivityStopped": "EaseOut",
-			"onAnimationEnd": "Stop",
+			"onAnimationEnd": "EaseOut",
 			"keyframes": [
 				{
 					"frame": 0,
@@ -4803,8 +4819,8 @@
 		},
 
 		{
-			"name": "LazyWalk",
-			"code": "lazywalk",
+			"name": "Lazy-Walk",
+			"code": "lazy-walk",
 			"quantityframes": 30,
 			"onActivityStopped": "EaseOut",
 			"onAnimationEnd": "Repeat",
@@ -4862,8 +4878,8 @@
 		},
 
 		{
-			"name": "LazyRun",
-			"code": "lazyrun",
+			"name": "Lazy-Run",
+			"code": "lazy-run",
 			"quantityframes": 24,
 			"onActivityStopped": "EaseOut",
 			"onAnimationEnd": "Repeat",
@@ -4938,8 +4954,8 @@
 		},
 
 		{
-			"name": "LazyAttack",
-			"code": "lazyattack",
+			"name": "Lazy-Attack",
+			"code": "lazy-attack",
 			"quantityframes": 40,
 			"onActivityStopped": "EaseOut",
 			"onAnimationEnd": "Stop",
@@ -4999,8 +5015,8 @@
 		},
 
 		{
-			"name": "LazyLaugh",
-			"code": "lazylaugh",
+			"name": "Lazy-Laugh",
+			"code": "lazy-laugh",
 			"quantityframes": 40,
 			"onActivityStopped": "EaseOut",
 			"onAnimationEnd": "Stop",
@@ -5112,8 +5128,8 @@
 		},
 
 		{
-			"name": "LazyHurt",
-			"code": "lazyhurt",
+			"name": "Lazy-Hurt",
+			"code": "lazy-hurt",
 			"quantityframes": 20,
 			"onActivityStopped": "EaseOut",
 			"onAnimationEnd": "Stop",
@@ -5157,8 +5173,8 @@
 		},
 
 		{
-			"name": "LazyIdle",
-			"code": "lazyidle",
+			"name": "Lazy-Idle",
+			"code": "lazy-idle",
 			"quantityframes": 30,
 			"onActivityStopped": "EaseOut",
 			"onAnimationEnd": "Repeat",
@@ -5202,8 +5218,8 @@
 		},
 
 		{
-			"name": "LazyIdle2",
-			"code": "lazyidle2",
+			"name": "Lazy-Idle2",
+			"code": "lazy-idle2",
 			"quantityframes": 60,
 			"onActivityStopped": "EaseOut",
 			"onAnimationEnd": "Repeat",
@@ -5306,8 +5322,8 @@
 		},
 
 		{
-			"name": "LazyNod",
-			"code": "lazynod",
+			"name": "Lazy-Nod",
+			"code": "lazy-nod",
 			"quantityframes": 20,
 			"onActivityStopped": "EaseOut",
 			"onAnimationEnd": "Stop",

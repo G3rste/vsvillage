@@ -10,6 +10,7 @@ using Vintagestory.API.Config;
 using Vintagestory.API.Datastructures;
 using Vintagestory.API.MathTools;
 using Vintagestory.API.Util;
+using Vintagestory.Essentials;
 using Vintagestory.GameContent;
 using Vintagestory.ServerMods.NoObf;
 
@@ -17,7 +18,7 @@ namespace VsVillage
 {
     public class EntityBehaviorVillager : EntityBehavior
     {
-
+        public WaypointsTraverser PathTraverser;
         public EnumVillagerProfession Profession;
         public string VillageId
         {
@@ -90,7 +91,7 @@ namespace VsVillage
                 typeof(AiTaskBase)
                     .GetField("pathTraverser", BindingFlags.Instance | BindingFlags.NonPublic)
                     .SetValue(task, villagerPathTraverser));
-            // when this method is called, the chunk might not be loaded, therefor the village blocks might not have initialized the village, so we have to wait a short time
+            // when this method is called, the chunk might not be loaded, therefore the village blocks might not have initialized the village, so we have to wait a short time
             entity.World.RegisterCallback(dt => InitVillageAfterChunkLoading(), 5000);
             if (Profession == EnumVillagerProfession.soldier)
             {

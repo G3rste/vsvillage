@@ -73,7 +73,7 @@ namespace VsVillage
             bedReached = false;
             if (bedEntity != null)
             {
-                pathTraverser.NavigateTo(bedEntity.Pos.ToVec3d(), moveSpeed, 0.5f, tryGoingToBed, tryGoingToBed, tryGoingToBed, true);
+                pathTraverser.NavigateTo(bedEntity.Pos.ToVec3d(), moveSpeed, 0.5f, tryGoingToBed, tryGoingToBed, null, true, 999, 0, null);
                 tryGoingToBed();
             }
         }
