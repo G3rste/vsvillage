@@ -45,6 +45,7 @@
     "block-brazier-*": "火鉢",
     "command-stay": "ここに居て！",
     "command-follow": "付いて来て！",
+    "management-village-name": "名前:",
     "quest-gatherMeatForSeed-title": "種の為にお肉を！",
     "quest-gatherMeatForSeed-desc": "食事にもうちょっとバリエーションが欲しいと思っているんだ。もし、25個の肉を持って来てくれるなら、お礼に種をあげるよ。",
     "quest-gatherMeatForSeed-obj": "集めた肉: {0}/25",

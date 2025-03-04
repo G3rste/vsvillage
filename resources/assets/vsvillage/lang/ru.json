@@ -85,6 +85,7 @@
     "management-profession-herbalist": "травник",
     "management-profession-mayor": "староста",
     "lives-in": "Место жительства: {0}.\nМесто работы: {1}\nМесто отдыха: {2}",
+    "lives-in-debug": "Место жительства: {0}.\nМесто работы: {1}\nМесто отдыха: {2}",
     "nowhere": "нигде",
     "resides-in": "Относится к: {0}.",
     "nobody": "никто",
