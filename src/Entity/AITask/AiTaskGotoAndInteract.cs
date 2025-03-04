@@ -1,3 +1,4 @@
+using System.Security.Principal;
 using Vintagestory.API.Common;
 using Vintagestory.API.Datastructures;
 using Vintagestory.API.MathTools;
@@ -56,7 +57,7 @@ namespace VsVillage
 
         public override void StartExecute()
         {
-            stuck = !pathTraverser.NavigateTo(targetPos, moveSpeed, 0.5f, () => stuck = true, () => stuck = true, true, 10000);
+            stuck = !pathTraverser.NavigateTo(targetPos, moveSpeed, 0.5f, () => stuck = true, () => stuck = true, null, true, 999, 0, null);
             targetReached = false;
             base.StartExecute();
         }

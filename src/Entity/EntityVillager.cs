@@ -13,20 +13,21 @@ using Vintagestory.API.Config;
 
 namespace VsVillage
 {
-    public class EntityVillager : EntityAgent
+
+    public class EntityVillager : EntityTradingHumanoid
     {
         public static OrderedDictionary<string, TraderPersonality> Personalities = new OrderedDictionary<string, TraderPersonality>()
         {
-            { "formal", new TraderPersonality(1, 1, 0.9f) },
-            { "balanced", new TraderPersonality(1.2f, 0.9f, 1.1f) },
-            { "lazy", new TraderPersonality(1.65f, 0.7f, 0.9f) },
-            { "rowdy", new TraderPersonality(0.75f, 1f, 1.8f) }
+            { "formal", new TraderPersonality(1 * 1.5f, 1, 0.9f) },
+            { "balanced", new TraderPersonality(1.2f * 1.5f, 0.9f, 1.1f) },
+            { "lazy", new TraderPersonality(1.65f * 1.5f, 0.7f, 0.9f) },
+            { "rowdy", new TraderPersonality(0.75f * 1.5f, 1f, 1.8f) }
         };
         protected InventoryVillagerGear gearInv;
-        public override IInventory GearInventory => gearInv;
-
+        public IInventory GearInventory => gearInv;
         public override ItemSlot LeftHandItemSlot { get => gearInv.leftHandSlot; set => gearInv.leftHandSlot = value; }
         public override ItemSlot RightHandItemSlot { get => gearInv.rightHandSlot; set => gearInv.rightHandSlot = value; }
+
 
         public EntityTalkUtil talkUtil { get; set; }
         public string Personality
@@ -35,14 +36,15 @@ namespace VsVillage
             set
             {
                 WatchedAttributes.SetString("personality", value);
-                talkUtil?.SetModifiers(Personalities[value].ChorldDelayMul, Personalities[value].PitchModifier, Personalities[value].VolumneModifier);
+                talkUtil?.SetModifiers(Personalities[value].ChordDelayMul, Personalities[value].PitchModifier, Personalities[value].VolumneModifier);
             }
         }
 
         public EntityVillager()
         {
-            AnimManager = new TraderAnimationManager();
+            AnimManager = new PersonalizedAnimationManager();
         }
+
         public override void Initialize(EntityProperties properties, ICoreAPI api, long InChunkIndex3d)
         {
             base.Initialize(properties, api, InChunkIndex3d);
@@ -57,16 +59,22 @@ namespace VsVillage
             }
             if (!WatchedAttributes.HasAttribute("personality"))
             {
-                Personality = Personalities.GetKeyAtIndex(World.Rand.Next(EntityTrader.Personalities.Count));
+                Personality = Personalities.GetKeyAtIndex(World.Rand.Next(Personalities.Count));
             }
-            (AnimManager as TraderAnimationManager).Personality = Personality;
-            if (api is ICoreClientAPI capi) { talkUtil = new EntityTalkUtil(capi, this); }
+            (AnimManager as PersonalizedAnimationManager).Personality = this.Personality;
+            if (api is ICoreClientAPI capi)
+            {
+                bool isMultiSoundVoice = true;
+                talkUtil = new EntityTalkUtil(capi, this, isMultiSoundVoice);
+ 
+            }
             this.Personality = this.Personality; // to update the talkutil
             if (api is ICoreServerAPI sapi)
             {
                 sapi.World.RegisterGameTickListener(dt => UndrawWeaponIfOutOfCombat(), 10000, 10000);
             }
         }
+
 
         public override void OnInteract(EntityAgent byEntity, ItemSlot slot, Vec3d hitPosition, EnumInteractMode mode)
         {
@@ -100,6 +108,13 @@ namespace VsVillage
         public override void OnEntitySpawn()
         {
             base.OnEntitySpawn();
+
+            if (World.Api.Side == EnumAppSide.Server)
+            {
+                Personality = Personalities.GetKeyAtIndex(World.Rand.Next(Personalities.Count));
+                (AnimManager as PersonalizedAnimationManager).Personality = this.Personality;
+            }
+
             foreach (var gear in Enum.GetNames(typeof(VillagerGearType)))
             {
                 var possibleGear = Properties.Attributes["validGear"][gear.ToLower()].AsArray<string>();
@@ -114,20 +129,27 @@ namespace VsVillage
         public override void OnGameTick(float dt)
         {
             base.OnGameTick(dt);
+
+            if (Alive && AnimManager.ActiveAnimationsByAnimCode.Count == 0)
+            {
+                AnimManager.StartAnimation(new AnimationMetaData() { Code = "idle", Animation = "idle", EaseOutSpeed = 10000, EaseInSpeed = 10000 });
+            }
+
+
             if (Api.Side == EnumAppSide.Client && !AnimManager.IsAnimationActive("sleep"))
             {
                 talkUtil?.OnGameTick(dt);
             }
         }
 
-        public override void OnTesselation(ref Shape entityShape, string shapePathForLogging)
+        /*public override void OnTesselation(ref Shape entityShape, string shapePathForLogging)
         {
             base.OnTesselation(ref entityShape, shapePathForLogging);
             foreach (var slot in GearInventory)
             {
                 addGearToShape(slot, entityShape, shapePathForLogging);
             }
-        }
+        }*/
 
         public override void OnReceivedServerPacket(int packetid, byte[] data)
         {
