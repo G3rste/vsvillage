@@ -290,7 +290,7 @@ namespace VsVillage
         }
         bool IsNearTarget(int waypointOffset, ref bool nearHorizontally)
         {
-            if (waypoints.Count - 1 < waypointToReachIndex + waypointOffset) return false;
+            if (waypoints == null || waypoints.Count - 1 < waypointToReachIndex + waypointOffset) return false;
 
             int wayPointIndex = Math.Min(waypoints.Count - 1, waypointToReachIndex + waypointOffset);
             Vec3d target = waypoints[wayPointIndex];
