@@ -24,14 +24,14 @@ namespace VsVillage
         {
             if (base.ShouldExecute())
             {
-                return (entity as EntityVillager).HasWeapon(value => value.Contains(weapon));
+                //return (entity as EntityVillager).HasWeapon(value => value.Contains(weapon));
             }
             return false;
         }
 
         public override void StartExecute()
         {
-            (entity as EntityVillager).DrawWeapon(value => value.Contains(weapon));
+            //(entity as EntityVillager).DrawWeapon(value => value.Contains(weapon));
             base.StartExecute();
         }
     }

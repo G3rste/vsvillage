@@ -17,8 +17,6 @@ namespace VsVillage
         {
             base.Start(api);
 
-            api.RegisterEntity("EntityVillager", typeof(EntityVillager));
-
             api.RegisterEntityBehaviorClass("Villager", typeof(EntityBehaviorVillager));
 
             api.RegisterItemClass("ItemVillagerGear", typeof(ItemVillagerGear));

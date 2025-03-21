@@ -88,7 +88,7 @@ namespace VsVillage
         {
             if (entity is EntityVillager villager)
             {
-                villager?.DrawWeapon();
+                //villager?.DrawWeapon();
                 villager.RightHandItemSlot?.Itemstack?.Attributes?.SetInt("renderVariant", 1);
                 villager.RightHandItemSlot.MarkDirty();
             }

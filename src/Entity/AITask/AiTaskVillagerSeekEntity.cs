@@ -71,7 +71,7 @@ namespace VsVillage
 
         public override void StartExecute()
         {
-            (entity as EntityVillager)?.DrawWeapon();
+            //(entity as EntityVillager)?.DrawWeapon();
             base.StartExecute();
         }
 
@@ -90,7 +90,7 @@ namespace VsVillage
             base.OnEntityHurt(source, damage);
             if (source.Type != EnumDamageType.Heal && (source.CauseEntity != null || source.SourceEntity != null))
             {
-                (entity as EntityVillager)?.DrawWeapon();
+                //(entity as EntityVillager)?.DrawWeapon();
                 if (lastCallForHelp + 5000 < entity.World.ElapsedMilliseconds)
                 {
                     lastCallForHelp = entity.World.ElapsedMilliseconds;
