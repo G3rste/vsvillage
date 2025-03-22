@@ -1,6 +1,7 @@
 {
     "code": "humanoid-villager",
     "class": "EntityTrader",
+    "enabled": false,
     "canClimb": true,
     "hitboxSize": {
         "x": 0.5,
