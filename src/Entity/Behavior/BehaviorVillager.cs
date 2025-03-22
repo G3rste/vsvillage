@@ -93,10 +93,6 @@ namespace VsVillage
                     .SetValue(task, villagerPathTraverser));
             // when this method is called, the chunk might not be loaded, therefore the village blocks might not have initialized the village, so we have to wait a short time
             entity.World.RegisterCallback(dt => InitVillageAfterChunkLoading(), 5000);
-            if (Profession == EnumVillagerProfession.soldier)
-            {
-                (entity as EntityVillager).Personality = entity.World.Rand.Next(2) == 0 ? "balanced" : "rowdy";
-            }
         }
 
         private void InitVillageAfterChunkLoading()
