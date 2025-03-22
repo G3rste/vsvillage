@@ -670,8 +670,8 @@
 						"maxcooldown": 2500,
 						"attackDurationMs": 900,
 						"damagePlayerAtMs": 300,
-						"animationByType": { "*-archer": "BowAim", "*": "Attack" },
-						"stabanimation": "SpearStab",
+						"animationByType": { "*-archer": "Bow-Draw", "*": "Melee-Attack" },
+						"stabanimation": "Spear-Attack",
 						"stabanimationspeed": 0.7,
 						"slashanimation": "SwordHit",
 						"slashanimationspeed": 0.7,
@@ -679,7 +679,7 @@
 						"durationMs": 1300,
 						"releaseAtMs": 1000,
 						"seekingRange": 25,
-						"animationRelase": "BowHit",
+						"animationRelase": "Bow-Fire",
 						"drawingsound": "game:sounds/bow-draw.ogg",
 						"shootingsound": "game:sounds/bow-release.ogg",
 						"projectile": "game:arrow-iron"
@@ -696,7 +696,7 @@
 						"seekingRange": 12,
 						"minRangeByType": { "*-archer": 8, "*": 0 },
 						"movespeed": 0.035,
-						"animation": "RowdyRun",
+						"animation": "Run",
 						"animationSpeed": 1.75
 					},
 					{
@@ -708,7 +708,7 @@
 						"priority": 1.5,
 						"movespeed": 0.035,
 						"seekingRange": 4,
-						"animationByType": { "*-archer": "BalancedRun", "*-soldier": "BalancedRun", "*": "FormalRun" },
+						"animation": "Run",
 						"animationSpeed": 1.75
 					},
 					{
@@ -718,7 +718,7 @@
 						"maxduration": 2500,
 						"mincooldown": 2000,
 						"maxcooldown": 10000,
-						"animation": "laugh"
+						"animation": "nod"
 					},
 					{
 						"code": "idle",
@@ -727,7 +727,7 @@
 						"maxduration": 2500,
 						"mincooldown": 5000,
 						"maxcooldown": 30000,
-						"animation": "idle2"
+						"animation": "watching"
 					},
 					{
 						"code": "wander",
@@ -774,7 +774,7 @@
 						"maxcooldown": 30000,
 						"movespeed": 0.01,
 						"animation": "Walk",
-						"interact": "welcome"
+						"interact": "greet"
 					},
 					{
 						"code": "lookaround",
@@ -788,7 +788,7 @@
 						"mincooldownByType": {"*-herbalist": 10000, "*": 60000},
 						"maxcooldownByType": {"*-herbalist": 20000, "*": 120000},
 						"maxdistanceByType": { "@.*-(soldier|archer)": 5, "*-herbalist": 25, "*": 10 },
-						"animationByType": { "*-shepherd": "walk", "*-farmer": "walk", "*-herbalist": "walk", "@.*-(soldier|archer)": "BalancedRun", "*": "hammerflip" },
+						"animationByType": { "*-shepherd": "walk", "*-farmer": "walk", "*-herbalist": "walk", "@.*-(soldier|archer)": "run", "*": "idleyawn" },
 						"animationSpeedByType": { "@.*-(soldier|archer)": 1.75, "*": 1 },
 						"priorityByType": { "@.*-(soldier|archer)": 1.5, "*": 1.4 },
 						"movespeedByType": { "@.*-(soldier|archer)": 0.035, "*": 0.01 }
