@@ -1,11 +1,10 @@
-using System.Collections.Generic;
 using Vintagestory.API.Common;
 using Vintagestory.API.Common.Entities;
-using Vintagestory.API.Datastructures;
 using Vintagestory.API.MathTools;
 using Vintagestory.API.Server;
 using Vintagestory.API.Util;
 using Vintagestory.GameContent;
+using static Vintagestory.API.Common.EntityAgent;
 
 namespace VsVillage
 {
@@ -34,19 +33,7 @@ namespace VsVillage
             bool closeEnough = entity.ServerPos.SquareDistanceTo(other.ServerPos) < 2 * 2;
             if (closeEnough)
             {
-                var message = new TalkUtilMessage
-                {
-                    entityId = entity.EntityId,
-                    talkType = EnumTalkType.Meet
-                };
-
-                IServerPlayer[] relevantPlayers = new List<Entity>(entity.World.GetEntitiesAround(entity.ServerPos.XYZ, 30, 10, player => player is EntityPlayer))
-                    .ConvertAll<IServerPlayer>(player => (player as EntityPlayer).Player as IServerPlayer).ToArray();
-
-                if (relevantPlayers.Length > 0)
-                {
-                    (entity.Api as ICoreServerAPI).Network.GetChannel("villagertalknetwork").SendPacket<TalkUtilMessage>(message, relevantPlayers);
-                }
+                (entity.Api as ICoreServerAPI).Network.BroadcastEntityPacket(entity.EntityId, (int)EntityServerPacketId.Talk, SerializerUtil.Serialize((int)EnumTalkType.Meet));
             }
             return closeEnough;
         }

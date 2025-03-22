@@ -1,18 +1,10 @@
-﻿using ProtoBuf;
-using Vintagestory.API.Client;
-using Vintagestory.API.Common;
-using Vintagestory.API.Server;
-using Vintagestory.API.Util;
+﻿using Vintagestory.API.Common;
 using Vintagestory.GameContent;
 
 namespace VsVillage
 {
     public class VsVillage : ModSystem
     {
-        private ICoreClientAPI clientAPI;
-
-        private ICoreServerAPI serverAPI;
-
         public override void Start(ICoreAPI api)
         {
             base.Start(api);
@@ -43,35 +35,5 @@ namespace VsVillage
             AiTaskRegistry.Register<AiTaskHealWounded>("villagerhealwounded");
             AiTaskRegistry.Register<AiTaskVillagerRangedAttack>("villagerrangedattack");
         }
-
-        public override void StartClientSide(ICoreClientAPI api)
-        {
-            base.StartClientSide(api);
-            this.clientAPI = api;
-
-            api.Network.RegisterChannel("villagertalknetwork")
-                .RegisterMessageType<TalkUtilMessage>().SetMessageHandler<TalkUtilMessage>(OnTalkMessageClient);
-        }
-
-        public override void StartServerSide(ICoreServerAPI api)
-        {
-            base.StartServerSide(api);
-            this.serverAPI = api;
-            api.Network.RegisterChannel("villagertalknetwork")
-                .RegisterMessageType<TalkUtilMessage>();
-        }
-
-        private void OnTalkMessageClient(TalkUtilMessage networkMessage)
-        {
-            (clientAPI.World.GetEntityById(networkMessage.entityId) as EntityVillager)?.talkUtil.Talk(networkMessage.talkType);
-        }
-    }
-
-    [ProtoContract(ImplicitFields = ImplicitFields.AllPublic)]
-    public class TalkUtilMessage
-    {
-        public long entityId;
-
-        public EnumTalkType talkType;
     }
 }
