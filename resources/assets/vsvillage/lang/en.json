@@ -199,5 +199,12 @@
     "quest-healplayersetup-obj": "Gathered horsetail: {0}/12\nGathered stone: {1}/1\nGathered stick: {2}/1\nGathered honeycomb: {3}/2\nGathered cattails: {0}/12",
     "quest-healplayer-title": "A visit at the doc",
     "quest-healplayer-desc": "If you ever take a beating, I am able to take a look at your wounds.",
-    "quest-healplayer-obj": ""
+    "quest-healplayer-obj": "",
+
+    "dialogue-greet": "Haven't seen you around before. What are you up to?",
+    "dialogue-welcomeback": "Welcome back {playername}! What can I do for you?",
+    "dialogue-opentrade": "Got anything to trade, {npcname}?",
+    "dialogue-openquests": "Got anything you need help with, {npcname}?",
+    "dialogue-no-trading": "I got nothing to trade.",
+    "dialogue-no-quests": "I am fine, but thanks for offering help in these daring times."
 }

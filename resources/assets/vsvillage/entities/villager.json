@@ -6,6 +6,9 @@
 	"hitboxSize": { "x": 0.5, "y": 1.75 },
 	"deadHitboxSize": { "x": 0.75, "y": 0.5 },
 	"attributes": {
+        "tradePropsFileByType": {
+			"*-trader": "vsvillage:config/tradelists/villager-trader"
+        },
 		"voiceSoundsByType": {
 			"*-male-*":
 				[
@@ -210,7 +213,14 @@
 					"*-archer": "soldier",
 					"*": "{profession}"
 				}
-			}
+			},
+            {
+                "code": "conversable",
+                "dialogueByType": {
+					"*-trader": "vsvillage:config/dialogue/trader",
+					"*": "vsvillage:config/dialogue/other"
+				}
+            }
 		],
 		"animations": [
 			{
@@ -801,7 +811,14 @@
 					"*-archer": "soldier",
 					"*": "{profession}"
 				}
-			}
+			},
+            {
+                "code": "conversable",
+                "dialogueByType": {
+					"*-trader": "vsvillage:config/dialogue/trader",
+					"*": "vsvillage:config/dialogue/other"
+				}
+            }
 		]
 	},
 	"sounds": {
