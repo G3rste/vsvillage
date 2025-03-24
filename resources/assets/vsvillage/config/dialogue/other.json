@@ -50,17 +50,17 @@
             ]
         },
         {
-            "code": "opentrade",
+            "code": "openquests",
             "owner": "trader",
-            "trigger": "opentrade"
+            "trigger": "openquests"
         },
         {
-            "code": "openquests",
+            "code": "opentrade",
             "owner": "trader",
             "type": "talk",
             "text": [
                 {
-                    "value": "vsvillage:dialogue-no-quests",
+                    "value": "vsvillage:dialogue-no-trading",
                     "jumpTo": "main"
                 }
             ]

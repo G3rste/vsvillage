@@ -1,7 +1,7 @@
 [
     {
         "op": "addeach",
-        "path": "/attributes/tradeProps/selling/list/-",
+        "path": "/selling/list/-",
         "value": [
             {
                 "code": "wolftaming:creature-dog-wolf-pup",
@@ -41,7 +41,19 @@
                     "avg": 6,
                     "var": 2
                 }
-            },
+            }
+        ],
+        "file": "vsvillage:config/tradelists/villager-trader.json",
+        "dependsOn": [
+            {
+                "modid": "wolftaming"
+            }
+        ]
+    },
+    {
+        "op": "addeach",
+        "path": "/selling/list/-",
+        "value": [
             {
                 "code": "cats:creature-cat-kitten",
                 "type": "item",
@@ -56,10 +68,10 @@
                 }
             }
         ],
-        "file": "vsvillage:entities/villagertrader.json",
+        "file": "vsvillage:config/tradelists/villager-trader.json",
         "dependsOn": [
             {
-                "modid": "wolftaming"
+                "modid": "cats"
             }
         ]
     }
