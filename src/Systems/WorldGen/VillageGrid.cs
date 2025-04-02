@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Microsoft.Win32.SafeHandles;
 using Vintagestory.API.Common;
 using Vintagestory.API.MathTools;
 
@@ -30,7 +31,7 @@ namespace VsVillage
             this.capacity = (this.width / 2) * (this.height / 2);
         }
 
-        public void Init(VillageType type, LCGRandom rand)
+        public void Init(VillageType type, LCGRandom rand, ICoreAPI api)
         {
             grid = new EnumgGridSlot[this.width, this.height];
             for (int i = 0; i < this.width; i++)
@@ -44,6 +45,10 @@ namespace VsVillage
             VillageType = type;
             foreach (var group in type.StructureGroups)
             {
+                if(group.MatchingStructures.Count == 0){
+                    api.Logger.Error("Could not find any matching structures for group {0}!", group.Code);
+                    continue;
+                }
                 int amount = rand.NextInt(group.MaxStructuresPerVillage + 1 - group.MinStructuresPerVillage) + group.MinStructuresPerVillage;
                 for (int i = 0; i < amount; i++)
                 {

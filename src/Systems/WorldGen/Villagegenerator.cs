@@ -71,7 +71,7 @@ namespace VsVillage
             }
 
             var grid = new VillageGrid(villageType.Length, villageType.Height);
-            grid.Init(villageType, rand);
+            grid.Init(villageType, rand, sapi);
             var start = args.Caller.Player.Entity.ServerPos.XYZInt.ToBlockPos();
             if (args.ArgCount > 1 && (string)args[1] == "probeTerrain" && !probeTerrain(start, grid, sapi.World.BlockAccessor, villageType))
             {
@@ -202,7 +202,7 @@ namespace VsVillage
             worldgenBlockAccessor.BeginColumn();
             if (probeTerrain(start, grid, worldgenBlockAccessor, villageType))
             {
-                grid.Init(villageType, rand);
+                grid.Init(villageType, rand, sapi);
                 region.GeneratedStructures.Add(new GeneratedStructure() { Code = grid.VillageType.Code, Group = "village", Location = new Cuboidi(start, end) });
                 grid.connectStreets();
                 Village village = new()
