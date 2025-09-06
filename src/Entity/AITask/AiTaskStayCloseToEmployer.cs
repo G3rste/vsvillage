@@ -9,16 +9,11 @@ namespace VsVillage
     {
         public double employedSince => entity.WatchedAttributes.GetDouble("employedSince");
         public double employedForHours { get; set; }
-        public AiTaskStayCloseToEmployer(EntityAgent entity) : base(entity)
+        public AiTaskStayCloseToEmployer(EntityAgent entity, JsonObject taskConfig, JsonObject aiConfig) : base(entity, taskConfig, aiConfig)
         {
+          employedForHours = aiConfig["employedForHours"].AsDouble(24);
         }
-
-        public override void LoadConfig(JsonObject taskConfig, JsonObject aiConfig)
-        {
-            base.LoadConfig(taskConfig, aiConfig);
-            employedForHours = aiConfig["employedForHours"].AsDouble(24);
-        }
-
+        
         public override bool ShouldExecute()
         {
             if (employedSince + employedForHours < entity.World.Calendar.TotalHours && employedSince > 0)

@@ -8,15 +8,8 @@ namespace VsVillage
     {
         private string weapon;
 
-        public AiTraskVillagerFlipWeapon(EntityAgent entity) : base(entity)
+        public AiTraskVillagerFlipWeapon(EntityAgent entity, JsonObject taskConfig, JsonObject aiConfig) : base(entity, taskConfig, aiConfig)
         {
-        }
-
-
-        public override void LoadConfig(JsonObject taskConfig, JsonObject aiConfig)
-        {
-            base.LoadConfig(taskConfig, aiConfig);
-
             weapon = taskConfig["weapon"].AsString("sword");
         }
 

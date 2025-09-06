@@ -35,13 +35,8 @@ namespace VsVillage
 
         bool animStarted = false;
         float damage;
-        public AiTaskVillagerRangedAttack(EntityAgent entity) : base(entity)
+        public AiTaskVillagerRangedAttack(EntityAgent entity, JsonObject taskConfig, JsonObject aiConfig) : base(entity, taskConfig, aiConfig)
         {
-        }
-        public override void LoadConfig(JsonObject taskConfig, JsonObject aiConfig)
-        {
-            base.LoadConfig(taskConfig, aiConfig);
-
             durationMs = taskConfig["durationMs"].AsInt(1500);
             releaseAtMs = taskConfig["releaseAtMs"].AsInt(1000);
             minDist = taskConfig["minDist"].AsFloat(3f);

@@ -1,34 +1,16 @@
 using Vintagestory.API.Common;
 using Vintagestory.API.Datastructures;
 using Vintagestory.API.MathTools;
-using Vintagestory.GameContent;
 
 namespace VsVillage
 {
     public class AiTaskVillagerGotoWork : AiTaskGotoAndInteract
     {
-
         float offset;
-        DayTimeFrame[] duringDayTimeFrames;
 
-        public AiTaskVillagerGotoWork(EntityAgent entity) : base(entity)
+        public AiTaskVillagerGotoWork(EntityAgent entity, JsonObject taskConfig, JsonObject aiConfig) : base(entity, taskConfig, aiConfig)
         {
-        }
-
-        public override void LoadConfig(JsonObject taskConfig, JsonObject aiConfig)
-        {
-            base.LoadConfig(taskConfig, aiConfig);
             offset = ((float)entity.World.Rand.Next(taskConfig["minoffset"].AsInt(-50), taskConfig["maxoffset"].AsInt(50))) / 100;
-            duringDayTimeFrames = taskConfig["duringDayTimeFrames"].AsObject<DayTimeFrame[]>(null);
-
-            if (duringDayTimeFrames != null)
-            {
-                foreach (var frame in duringDayTimeFrames)
-                {
-                    frame.FromHour += offset;
-                    frame.ToHour += offset;
-                }
-            }
         }
 
         protected override void ApplyInteractionEffect()
@@ -62,7 +44,7 @@ namespace VsVillage
 
         public override bool ShouldExecute()
         {
-            return base.ShouldExecute() && IntervalUtil.matchesCurrentTime(duringDayTimeFrames, entity.World);
+            return base.ShouldExecute() && IntervalUtil.matchesCurrentTime(duringDayTimeFrames, entity.World, offset);
         }
         private Vec3d getRandomPosNearby(Vec3d middle)
         {
