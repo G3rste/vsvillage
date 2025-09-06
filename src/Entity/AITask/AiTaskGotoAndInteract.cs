@@ -21,25 +21,16 @@ namespace VsVillage
 
         protected bool targetReached;
 
-        public AiTaskGotoAndInteract(EntityAgent entity) : base(entity)
-        {
-        }
+        public AiTaskGotoAndInteract(EntityAgent entity, JsonObject taskConfig, JsonObject aiConfig) : base(entity, taskConfig, aiConfig)
+      {
+          maxDistance = taskConfig["maxdistance"].AsFloat(5);
+          moveSpeed = taskConfig["movespeed"].AsFloat(0.03f);
 
-
-        public override void LoadConfig(JsonObject taskConfig, JsonObject aiConfig)
-        {
-            base.LoadConfig(taskConfig, aiConfig);
-
-            maxDistance = taskConfig["maxdistance"].AsFloat(5);
-            moveSpeed = taskConfig["movespeed"].AsFloat(0.03f);
-
-            interactAnim = new AnimationMetaData
-            {
-                Code = "interact",
-                Animation = taskConfig["interact"].AsString("interact")
-            }.Init();
-
-
+          interactAnim = new AnimationMetaData
+          {
+            Code = "interact",
+            Animation = taskConfig["interact"].AsString("interact")
+          }.Init();
         }
 
         public override bool ShouldExecute()

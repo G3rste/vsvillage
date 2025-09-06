@@ -14,14 +14,8 @@ namespace VsVillage
         public AnimationMetaData slashAnimMeta { get; set; }
         public float unarmedDamage { get; set; }
         public float armedDamageMultiplier { get; set; }
-        public AiTaskVillagerMeleeAttack(EntityAgent entity) : base(entity)
+        public AiTaskVillagerMeleeAttack(EntityAgent entity, JsonObject taskConfig, JsonObject aiConfig) : base(entity, taskConfig, aiConfig)
         {
-        }
-
-        public override void LoadConfig(JsonObject taskConfig, JsonObject aiConfig)
-        {
-            base.LoadConfig(taskConfig, aiConfig);
-
             baseAnimMeta = animMeta;
             unarmedDamage = damage;
             armedDamageMultiplier = taskConfig["armedDamageMultiplier"].AsFloat(4);

@@ -9,7 +9,7 @@ namespace VsVillage
     {
         BlockEntityTrough nearestTrough;
 
-        public AiTraskVillagerFillTrough(EntityAgent entity) : base(entity)
+        public AiTraskVillagerFillTrough(EntityAgent entity, JsonObject taskConfig, JsonObject aiConfig) : base(entity, taskConfig, aiConfig)
         {
         }
 

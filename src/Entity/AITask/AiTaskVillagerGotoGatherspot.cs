@@ -10,28 +10,14 @@ namespace VsVillage
     {
 
         float offset;
-        DayTimeFrame[] duringDayTimeFrames;
+        Vintagestory.GameContent.DayTimeFrame[] duringDayTimeFrames;
 
         BlockEntityVillagerBrazier brazier;
 
-        public AiTaskVillagerGotoGatherspot(EntityAgent entity) : base(entity)
+        public AiTaskVillagerGotoGatherspot(EntityAgent entity, JsonObject taskConfig, JsonObject aiConfig) : base(entity, taskConfig, aiConfig )
         {
-        }
-
-        public override void LoadConfig(JsonObject taskConfig, JsonObject aiConfig)
-        {
-            base.LoadConfig(taskConfig, aiConfig);
+            // create random offset from -50 to 50 / 100 to add some variation to when AI tasks can be run
             offset = ((float)entity.World.Rand.Next(taskConfig["minoffset"].AsInt(-50), taskConfig["maxoffset"].AsInt(50))) / 100;
-            duringDayTimeFrames = taskConfig["duringDayTimeFrames"].AsObject<DayTimeFrame[]>(null);
-
-            if (duringDayTimeFrames != null)
-            {
-                foreach (var frame in duringDayTimeFrames)
-                {
-                    frame.FromHour += offset;
-                    frame.ToHour += offset;
-                }
-            }
         }
 
         protected override void ApplyInteractionEffect()
@@ -51,7 +37,7 @@ namespace VsVillage
 
         public override bool ShouldExecute()
         {
-            return base.ShouldExecute() && IntervalUtil.matchesCurrentTime(duringDayTimeFrames, entity.World);
+            return base.ShouldExecute() && IntervalUtil.matchesCurrentTime(duringDayTimeFrames, entity.World, offset);
         }
 
         private Vec3d getRandomPosNearby(Vec3d middle)

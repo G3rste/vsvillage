@@ -19,14 +19,8 @@ namespace VsVillage
 
         protected PathTraverserBase villagerPathTraverser;
 
-        public AiTaskVillagerGoto(EntityAgent entity) : base(entity)
+        public AiTaskVillagerGoto(EntityAgent entity, JsonObject taskConfig, JsonObject aiConfig) : base(entity, taskConfig, aiConfig)
         {
-        }
-
-        public override void LoadConfig(JsonObject taskConfig, JsonObject aiConfig)
-        {
-            base.LoadConfig(taskConfig, aiConfig);
-
             if (taskConfig["movespeed"] != null)
             {
                 moveSpeed = taskConfig["movespeed"].AsFloat(0.03f);
