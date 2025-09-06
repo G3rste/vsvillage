@@ -1,0 +1,17 @@
+{
+    "item-creature-humanoid-villager-male-soldier": "Voják (muž)",
+    "item-creature-humanoid-villager-female-soldier": "Voják (žena)",
+    "item-creature-humanoid-villager-male-archer": "Lukostřelec (muž)",
+    "item-creature-humanoid-villager-female-archer": "Lukostřelec (žena)",
+    "item-creature-humanoid-villager-male-smith": "Kovář (muž)",
+    "item-creature-humanoid-villager-female-smith": "Kovář (žena)",
+    "item-creature-humanoid-villager-male-farmer": "Farmář (muž)",
+    "item-creature-humanoid-villager-female-farmer": "Farmář (žena)",
+    "item-creature-humanoid-villager-male-shepherd": "Pastýř (muž)",
+    "item-creature-humanoid-villager-female-shepherd": "Pastýř (žena)",
+    "command-stay": "Zůstaň tady!",
+    "command-follow": "Následuj mě!",
+    "manage-village": "Spravovat Vesnici",
+    "tab-management-stats": "Statistiky",
+    "management-village-name": "Jméno:"
+}

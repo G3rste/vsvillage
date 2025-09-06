@@ -13,13 +13,8 @@ namespace VsVillage
         protected long lastCallForHelp { get; set; }
 
         protected float minRange;
-        public AiTaskVillagerSeekEntity(EntityAgent entity) : base(entity)
+        public AiTaskVillagerSeekEntity(EntityAgent entity, JsonObject taskConfig, JsonObject aiConfig) : base(entity, taskConfig, aiConfig)
         {
-        }
-
-        public override void LoadConfig(JsonObject taskConfig, JsonObject aiConfig)
-        {
-            base.LoadConfig(taskConfig, aiConfig);
             minRange = taskConfig["minRange"].AsFloat(0);
         }
 

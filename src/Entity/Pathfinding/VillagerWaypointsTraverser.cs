@@ -104,6 +104,13 @@ namespace VsVillage
             stuckCounter = 0;
             waypointToReachIndex = 0;
 
+
+            // Add quick check to fix null waypoints on mayor spawn
+            if (waypoints == null || waypoints.Count == 0)
+            {
+              waypoints = new List<Vec3d>() { entity.ServerPos.XYZ };
+            }
+
             // very important (otherwise the target is set to the last waypoint which can fuck stuff up)
             target = waypoints[0];
 

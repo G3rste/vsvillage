@@ -9,8 +9,8 @@ namespace VsVillage
     {
         BlockEntityFarmland nearestFarmland;
 
-        public AiTraskVillagerCultivateCrops(EntityAgent entity) : base(entity)
-        {
+        public AiTraskVillagerCultivateCrops(EntityAgent entity, JsonObject taskConfig, JsonObject aiConfig) : base(entity, taskConfig, aiConfig)
+    {
         }
 
         protected override Vec3d GetTargetPos()

@@ -14,7 +14,7 @@ namespace VsVillage
 
         public Entity other { get; set; }
 
-        public AiTaskVillagerSocialize(EntityAgent entity) : base(entity)
+        public AiTaskVillagerSocialize(EntityAgent entity, JsonObject taskConfig, JsonObject aiConfig) : base(entity, taskConfig, aiConfig)
         {
         }
 

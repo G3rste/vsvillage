@@ -2,3 +2,4 @@ lib
 obj
 bin
 vsvillage.sln
+/.vs/*

@@ -12,8 +12,8 @@ namespace VsVillage
     {
 
         public Entity woundedEntity;
-        public AiTaskHealWounded(EntityAgent entity) : base(entity)
-        {
+        public AiTaskHealWounded(EntityAgent entity, JsonObject taskConfig, JsonObject aiConfig) : base(entity, taskConfig, aiConfig)
+    {
         }
 
         protected override Vec3d GetTargetPos()
