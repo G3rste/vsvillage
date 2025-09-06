@@ -9,6 +9,6 @@
     "description": "Mod that focuses on implementing a Village System and Villagers.",
     "version": "3.0.0",
     "dependencies": {
-        "game": "1.21"
+        "game": "1.21.0"
     }
 }
