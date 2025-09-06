@@ -4,7 +4,7 @@ namespace VsVillage
 {
     public class IntervalUtil
     {
-        public static bool matchesCurrentTime(Vintagestory.GameContent.DayTimeFrame[] dayTimeFrames, IWorldAccessor world, float offset = 0)
+        public static bool matchesCurrentTime(DayTimeFrame[] dayTimeFrames, IWorldAccessor world, float offset = 0)
         {
             bool match = false;
             if (dayTimeFrames != null)

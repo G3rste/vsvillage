@@ -8,10 +8,7 @@ namespace VsVillage
 {
     public class AiTaskVillagerGotoGatherspot : AiTaskGotoAndInteract
     {
-
         float offset;
-        Vintagestory.GameContent.DayTimeFrame[] duringDayTimeFrames;
-
         BlockEntityVillagerBrazier brazier;
 
         public AiTaskVillagerGotoGatherspot(EntityAgent entity, JsonObject taskConfig, JsonObject aiConfig) : base(entity, taskConfig, aiConfig )

@@ -6,23 +6,11 @@ namespace VsVillage
 {
     public class AiTaskVillagerGotoWork : AiTaskGotoAndInteract
     {
-
         float offset;
-        Vintagestory.GameContent.DayTimeFrame[] duringDayTimeFrames;  // override read only base type
 
         public AiTaskVillagerGotoWork(EntityAgent entity, JsonObject taskConfig, JsonObject aiConfig) : base(entity, taskConfig, aiConfig)
         {
             offset = ((float)entity.World.Rand.Next(taskConfig["minoffset"].AsInt(-50), taskConfig["maxoffset"].AsInt(50))) / 100;
-            duringDayTimeFrames = taskConfig["duringDayTimeFrames"].AsObject<Vintagestory.GameContent.DayTimeFrame[]>(null);
-
-            if (duringDayTimeFrames != null)
-            {
-                foreach (var frame in duringDayTimeFrames)
-                {
-                    frame.FromHour += offset;
-                    frame.ToHour += offset;
-                }
-            }
         }
 
         protected override void ApplyInteractionEffect()
@@ -56,7 +44,7 @@ namespace VsVillage
 
         public override bool ShouldExecute()
         {
-            return base.ShouldExecute() && IntervalUtil.matchesCurrentTime(duringDayTimeFrames, entity.World);
+            return base.ShouldExecute() && IntervalUtil.matchesCurrentTime(duringDayTimeFrames, entity.World, offset);
         }
         private Vec3d getRandomPosNearby(Vec3d middle)
         {

@@ -17,7 +17,6 @@ namespace VsVillage
         long lastCheck;
 
         float offset;
-        Vintagestory.GameContent.DayTimeFrame[] duringDayTimeFrames;
         AnimationMetaData sleepAnimMeta;
 
         public AiTaskVillagerSleep(EntityAgent entity, JsonObject taskConfig, JsonObject aiConfig) : base(entity, taskConfig, aiConfig)
@@ -33,15 +32,6 @@ namespace VsVillage
                 AnimationSpeed = taskConfig["sleepAnimationSpeed"].AsFloat(1f)
             }.Init();
             offset = ((float)entity.World.Rand.Next(taskConfig["minoffset"].AsInt(-50), taskConfig["maxoffset"].AsInt(50))) / 100;
-            duringDayTimeFrames = taskConfig["duringDayTimeFrames"].AsObject<Vintagestory.GameContent.DayTimeFrame[]>(null);
-            if (duringDayTimeFrames != null)
-            {
-                foreach (var frame in duringDayTimeFrames)
-                {
-                    frame.FromHour += offset;
-                    frame.ToHour += offset;
-                }
-            }
 
             bedReached = false;
         }
@@ -52,7 +42,7 @@ namespace VsVillage
             {
                 lastCheck = entity.World.ElapsedMilliseconds;
                 retrieveBed();
-                return bedEntity != null && IntervalUtil.matchesCurrentTime(duringDayTimeFrames, entity.World);
+                return bedEntity != null && IntervalUtil.matchesCurrentTime(duringDayTimeFrames, entity.World, offset);
             }
             else
             {
