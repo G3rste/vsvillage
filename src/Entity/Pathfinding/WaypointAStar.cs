@@ -4,13 +4,13 @@ using Vintagestory.API.Server;
 
 namespace VsVillage
 {
-    public class WaypointAStar : VillagerAStar
+    public class WaypointAStar : VillagerAStarNew
     {
-        public WaypointAStar(ICoreAPI api) : base(api)
+        public WaypointAStar(ICachingBlockAccessor blockAccessor) : base(blockAccessor)
         {
-            traversableCodes = new List<string>() { "door", "gate", "multiblock" };
-            climbableCodes = new List<string>();
-            steppableCodes = new List<string>() { "stair", "path", "packed", "plank" };
+            traversableCodes = ["door", "gate", "multiblock"];
+            climbableCodes = [];
+            steppableCodes = ["stair", "path", "packed", "plank"];
         }
 
         protected override bool canStep(Block belowBlock)

@@ -667,57 +667,56 @@
                 "hoursToDecay": 96,
                 "decayedBlock": "drycarcass-humanoid1"
             },
+            {
+				"code": "activitydriven",
+				"activityCollectionPathByType": {
+					"*": "working-villager"
+				}
+			},
 			{
 				"code": "taskai",
 				"aitasks": [
 					{
-						"codeByType": { "*-archer": "villagerrangedattack", "*": "villagermeleeattack" },
-						"entityCodes": ["drifter-*", "locust-*", "bear-*", "wolf-male", "wolf-female", "looter", "hound-*", "bandit-*", "poacher-*", "yeoman-archer"],
+						"code": "meleeattack",
+						"entityCodes": ["player"],
 						"priority": 2,
-						"damageByType": { "*-soldier": 12, "*-archer": 6, "*": 1 },
-						"damageTier": 3,
-						"mincooldown": 1500,
-						"maxcooldown": 2500,
+						"damage": 5,
+						"mincooldown": 2500,
+						"maxcooldown": 3500,
 						"attackDurationMs": 900,
 						"damagePlayerAtMs": 300,
-						"animationByType": { "*-archer": "Bow-Draw", "*": "Melee-Attack" },
-						"stabanimation": "Spear-Attack",
-						"stabanimationspeed": 0.7,
-						"slashanimation": "SwordHit",
-						"slashanimationspeed": 0.7,
-						"animationSpeedByType": { "*-archer": 1, "*":  2 },
-						"durationMs": 1300,
-						"releaseAtMs": 1000,
-						"seekingRange": 25,
-						"animationRelase": "Bow-Fire",
-						"drawingsound": "game:sounds/bow-draw.ogg",
-						"shootingsound": "game:sounds/bow-release.ogg",
-						"projectile": "game:arrow-iron"
+						"animation": "spear-attack",
+						"animationSpeed": 2,
+						"whenInEmotionState": "aggressiveondamage"
 					},
 					{
-						"code": "villagerseekentity",
-						"entityCodesByType": {
-							"*-soldier": ["drifter-*", "locust-*", "bear-*", "wolf-male", "wolf-female", "looter", "hound-*", "bandit-*", "poacher-*", "yeoman-archer"],
-							"*": ["dont attack by yourself"]
-						},
-						"priority": 1.6,
+						"code": "seekentity",
+						"entityCodes": ["player"],
+						"priority": 1.5,
 						"mincooldown": 1000,
 						"maxcooldown": 1500,
-						"seekingRange": 12,
-						"minRangeByType": { "*-archer": 8, "*": 0 },
+						"seekingRange": 20,
 						"movespeed": 0.035,
 						"animation": "Run",
-						"animationSpeed": 1.75
+						"animationSpeed": 1.75,
+						"whenInEmotionState": "aggressiveondamage"
 					},
 					{
 						"code": "fleeentity",
-						"entityCodesByType": {
-							"*-soldier": [],
-							"*": ["drifter-*", "locust-*", "bear-*", "wolf-male", "wolf-female", "looter", "hound-*", "bandit-*", "poacher-*", "yeoman-archer"]
-						},
+						"entityCodes": ["player"],
 						"priority": 1.5,
 						"movespeed": 0.035,
-						"seekingRange": 4,
+						"seekingRange": 12,
+						"animation": "Run",
+						"animationSpeed": 1.75,
+						"whenInEmotionState": "fleeondamage"
+					},
+					{
+						"code": "fleeentity",
+						"entityCodes": ["drifter-*", "shiver-*", "bowtorn-*"],
+						"priority": 1.49,
+						"movespeed": 0.035,
+						"seekingRange": 6,
 						"animation": "Run",
 						"animationSpeed": 1.75
 					},
@@ -728,7 +727,7 @@
 						"maxduration": 2500,
 						"mincooldown": 2000,
 						"maxcooldown": 10000,
-						"animation": "nod"
+						"animation": "laugh"
 					},
 					{
 						"code": "idle",
@@ -737,7 +736,7 @@
 						"maxduration": 2500,
 						"mincooldown": 5000,
 						"maxcooldown": 30000,
-						"animation": "watching"
+						"animation": "idle2"
 					},
 					{
 						"code": "wander",
@@ -745,63 +744,13 @@
 						"movespeed": 0.01,
 						"animation": "Walk",
 						"wanderChance": 0.005,
+						"maxDistanceToSpawn": 15,
 						"wanderRangeMin": 1,
-						"wanderRangeMax": 3,
-						"teleportWhenOutOfRange": false,
-						"teleportInGameHours": 1
-					},
-					{
-						"code": "villagergotowork",
-						"priority": 1.4,
-						"movespeed": 0.01,
-						"animation": "Walk",
-						"mincooldown": 30000,
-						"maxcooldown": 60000,
-						"duringDayTimeFrames": [ { "fromHour": 7, "toHour": 16 } ],
-						"maxdistance": 75
-					},
-					{
-						"code": "villagergotogather",
-						"priority": 1.4,
-						"movespeed": 0.01,
-						"animation": "Walk",
-						"mincooldown": 30000,
-						"maxcooldown": 60000,
-						"duringDayTimeFrames": [ { "fromHour": 17, "toHour": 21 } ],
-						"maxdistance": 75
-					},
-					{
-						"code": "villagersleep",
-						"priority": 1.4,
-						"movespeed": 0.01,
-						"animation": "Walk",
-						"duringDayTimeFrames": [ { "fromHour": 22, "toHour": 25 }, { "fromHour": -1, "toHour": 6 } ]
-					},
-					{
-						"code": "villagersocialize",
-						"priority": 1.3,
-						"mincooldown": 10000,
-						"maxcooldown": 30000,
-						"movespeed": 0.01,
-						"animation": "Walk",
-						"interact": "greet"
+						"wanderRangeMax": 3
 					},
 					{
 						"code": "lookaround",
 						"priority": 0.5
-					},
-					{
-						"codeByType":{ "*-shepherd": "villagerfilltrough", "*-farmer": "villagercultivatecrops", "@.*-(soldier|archer)": "villagerstayclose", "*-herbalist": "villagerhealwounded", "*": "villagerflipweapon"},
-						"weaponByType":{ "*-smith": "hammer", "*": "sword" },
-						"minduration": 3500,
-						"maxduration": 3500,
-						"mincooldownByType": {"*-herbalist": 10000, "*": 60000},
-						"maxcooldownByType": {"*-herbalist": 20000, "*": 120000},
-						"maxdistanceByType": { "@.*-(soldier|archer)": 5, "*-herbalist": 25, "*": 10 },
-						"animationByType": { "*-shepherd": "walk", "*-farmer": "walk", "*-herbalist": "walk", "@.*-(soldier|archer)": "run", "*": "idleyawn" },
-						"animationSpeedByType": { "@.*-(soldier|archer)": 1.75, "*": 1 },
-						"priorityByType": { "@.*-(soldier|archer)": 1.5, "*": 1.4 },
-						"movespeedByType": { "@.*-(soldier|archer)": 0.035, "*": 0.01 }
 					}
 				]
 			},

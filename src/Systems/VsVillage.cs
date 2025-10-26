@@ -1,4 +1,6 @@
-﻿using Vintagestory.API.Common;
+﻿using System.Collections.Generic;
+using Vintagestory.API.Common;
+using Vintagestory.API.Server;
 using Vintagestory.GameContent;
 
 namespace VsVillage
@@ -34,6 +36,11 @@ namespace VsVillage
             AiTaskRegistry.Register<AiTaskStayCloseToEmployer>("villagerstayclose");
             AiTaskRegistry.Register<AiTaskHealWounded>("villagerhealwounded");
             AiTaskRegistry.Register<AiTaskVillagerRangedAttack>("villagerrangedattack");
+
+            ActivityModSystem.ActionTypes.TryAdd(GotoPointOfInterestAction.ActionType, typeof(GotoPointOfInterestAction));
+            ActivityModSystem.ActionTypes.TryAdd(SleepAction.ActionType, typeof(SleepAction));
+            
+            ActivityModSystem.ConditionTypes.TryAdd(CloseToPointOfInterestCondition.ConditionType, typeof(CloseToPointOfInterestCondition));
         }
     }
 }

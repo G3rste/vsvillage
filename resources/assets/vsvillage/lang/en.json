@@ -84,6 +84,7 @@
     "management-hire-mayor": "Hire mayor",
     "management-hire-archer": "Hire archer",
     "management-poi-stats": "This village has a total of <strong>{0} beds</strong>, <strong>{1} workstations</strong> and <strong>{2} gatherplaces</strong>.\nIt's the residence of <strong>{3} villagers</strong>.\nThe villagers and workstations are split up the following way:\n",
+    "management-profession": "Profession: {0}",
     "management-profession-stats": "Profession: <strong>{0}</strong>\t Villagers: {1}\t Workstations: {2}\n",
     "management-profession-farmer": "farmer",
     "management-profession-shepherd": "shepherd",

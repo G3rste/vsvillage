@@ -50,7 +50,7 @@ namespace VsVillage
                 .WithArgs(parsers.WordRange("stage", "start", "end"))
                 .RequiresPrivilege(Privilege.root)
                 .WithExamples("waypointpath start", "waypointpath end")
-                .HandleWith(args => onCmdAStar(args, new WaypointAStar(sapi)));
+                .HandleWith(args => onCmdAStar(args, new WaypointAStar(sapi.World.GetCachingBlockAccessor(true, true))));
             cmdApi
                 .Create("highlightvillagewaypoints")
                 .WithAlias("hvw")
@@ -202,7 +202,7 @@ namespace VsVillage
                 sapi.World.HighlightBlocks(player, 3, new List<BlockPos>(), new List<int>() { ColorUtil.ColorFromRgba(128, 0, 0, 100) }, EnumHighlightBlocksMode.Absolute, EnumHighlightShape.Arbitrary);
                 return TextCommandResult.Success("Highlighted paths have been unhighlighted");
             }
-            var waypointAStar = new WaypointAStar(sapi);
+            var waypointAStar = new WaypointAStar(sapi.World.GetCachingBlockAccessor(true, true));
             BlockPos plrPos = player.Entity.ServerPos.XYZ.AsBlockPos;
             HashSet<BlockPos> allPaths = new();
             var village = sapi.ModLoader.GetModSystem<VillageManager>().GetVillage(plrPos);
@@ -213,8 +213,8 @@ namespace VsVillage
                 var waypointPath = root.FindPath(waypoint, village.Waypoints.Count);
                 for (int i = 0; i < waypointPath.Count - 1; i++)
                 {
-                    var path = waypointAStar.FindPath(waypointPath[i].Pos, waypointPath[i + 1].Pos, 1, 1.01f);
-                    if (path != null) path.ForEach(x => allPaths.Add(x));
+                    var path = waypointAStar.FindPath(waypointPath[i].Pos, waypointPath[i + 1].Pos);
+                    if (path != null) path.ForEach(x => allPaths.Add(x.BlockPos));
                 }
             }
 
@@ -228,7 +228,7 @@ namespace VsVillage
             var player = args.Caller.Player;
 
             BlockPos plrPos = player.Entity.ServerPos.XYZ.AsBlockPos;
-            VillagerPathfind villagerPathfind = new VillagerPathfind(sapi);
+            VillagerAStarNew villagerPathfind = new VillagerAStarNew(sapi.World.GetCachingBlockAccessor(true, true));
 
 
             Cuboidf narrow = new Cuboidf(-0.4f, 0, -0.4f, 0.4f, 1.5f, 0.4f);
@@ -257,7 +257,7 @@ namespace VsVillage
 
                     for (int i = 0; i < 15; i++)
                     {
-                        List<PathNode> nodes = villagerPathfind.FindPath(start, end, VillagerWaypointsTraverser.maxFallHeight, stepHeight, sapi.ModLoader.GetModSystem<VillageManager>().GetVillage(plrPos));
+                        List<VillagerPathNode> nodes = villagerPathfind.FindPath(start, end);
                     }
 
                     sw.Stop();
@@ -295,7 +295,7 @@ namespace VsVillage
                 Stopwatch sw = new Stopwatch();
                 sw.Start();
 
-                List<PathNode> nodes = villagerPathfind.FindPath(start, end, VillagerWaypointsTraverser.maxFallHeight, stepHeight, sapi.ModLoader.GetModSystem<VillageManager>().GetVillage(plrPos));
+                List<VillagerPathNode> nodes = villagerPathfind.FindPath(start, end);
 
                 sw.Stop();
                 int timeMs = (int)sw.ElapsedMilliseconds;
@@ -311,13 +311,13 @@ namespace VsVillage
                 List<BlockPos> poses = new List<BlockPos>();
                 foreach (var node in nodes)
                 {
-                    poses.Add(node);
+                    poses.Add(node.BlockPos);
                 }
 
                 sapi.World.HighlightBlocks(player, 2, poses, new List<int>() { ColorUtil.ColorFromRgba(128, 128, 128, 30) }, EnumHighlightBlocksMode.Absolute, EnumHighlightShape.Arbitrary);
 
 
-                List<Vec3d> wps = villagerPathfind.ToWaypoints(nodes);
+                List<Vec3d> wps = nodes.ConvertAll(node => node.BlockPos.ToVec3d());
                 poses = new List<BlockPos>();
                 foreach (var node in wps)
                 {
@@ -326,7 +326,7 @@ namespace VsVillage
 
                 sapi.World.HighlightBlocks(player, 3, poses, new List<int>() { ColorUtil.ColorFromRgba(128, 0, 0, 100) }, EnumHighlightBlocksMode.Absolute, EnumHighlightShape.Arbitrary);
 
-                return TextCommandResult.Success(string.Format("Search took {0} ms, {1} nodes checked", timeMs, waypointAStar?.NodesChecked ?? villagerPathfind.NodesChecked));
+                return TextCommandResult.Success(string.Format("Search took {0} ms, {1} nodes checked", timeMs, 0));
             }
             return TextCommandResult.Deferred;
         }
