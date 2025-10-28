@@ -7,6 +7,54 @@
       {
         "$type": "Vintagestory.GameContent.EntityActivity, VSSurvivalMod",
         "Slot": 0,
+        "Priority": 20.0,
+        "Name": "onattacked",
+        "Code": "onattacked",
+        "Conditions": {
+          "$type": "Vintagestory.GameContent.IActionCondition[], VSSurvivalMod",
+          "$values": [
+            {
+              "$type": "Vintagestory.GameContent.EmotionStateCondition, VSSurvivalMod",
+              "emotionState": "aggressiveondamage",
+              "Invert": false
+            }
+          ]
+        },
+        "Actions": {
+          "$type": "Vintagestory.GameContent.IEntityAction[], VSSurvivalMod",
+          "$values": [
+            {
+              "$type": "Vintagestory.GameContent.UndressAction, VSSurvivalMod",
+              "Slot": "heldl"
+            },
+            {
+              "$type": "Vintagestory.GameContent.UndressAction, VSSurvivalMod",
+              "Slot": "heldr"
+            },
+            {
+              "$type": "Vintagestory.GameContent.UnequipAction, VSSurvivalMod",
+              "Target": "righthand"
+            },
+            {
+              "$type": "Vintagestory.GameContent.UnequipAction, VSSurvivalMod",
+              "Target": "lefthand"
+            },
+            {
+              "$type": "Vintagestory.GameContent.EquipAction, VSSurvivalMod",
+              "Target": "righthand",
+              "Value": "{ type: \"item\", code: \"spear-generic-blackbronze\" }"
+            },
+            {
+              "$type": "Vintagestory.GameContent.StandardAIAction, VSSurvivalMod",
+              "durationSeconds": 60.0
+            }
+          ]
+        },
+        "ConditionsOp": 1
+      },
+      {
+        "$type": "Vintagestory.GameContent.EntityActivity, VSSurvivalMod",
+        "Slot": 0,
         "Priority": 1.0,
         "Name": "GotoWork",
         "Code": "GotoWork",

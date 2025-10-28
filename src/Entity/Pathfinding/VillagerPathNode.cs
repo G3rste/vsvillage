@@ -14,11 +14,11 @@ namespace VsVillage
         public PathNode ToPathNode() => new PathNode(BlockPos);
         public Vec3d ToWaypoint() => new Vec3d(BlockPos.X + 0.5, BlockPos.Y, BlockPos.Z + 0.5);
 
-        public VillagerPathNode(BlockPos blockPos, BlockPos target)
+        public VillagerPathNode(BlockPos blockPos, BlockPos target, bool isDoor)
         {
             BlockPos = blockPos;
             Cost = blockPos.DistanceSqTo(target.X, target.Y, target.Z);
-            IsDoor = false;
+            IsDoor = isDoor;
         }
 
         public VillagerPathNode(VillagerPathNode parent, Cardinal cardinal)

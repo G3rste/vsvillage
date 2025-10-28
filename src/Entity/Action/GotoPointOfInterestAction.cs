@@ -5,6 +5,7 @@ using System.Linq;
 using Newtonsoft.Json;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
+using Vintagestory.API.Datastructures;
 using Vintagestory.API.MathTools;
 using Vintagestory.GameContent;
 
@@ -25,9 +26,39 @@ namespace VsVillage
         public string AnimCode = "walk";
 
         private bool isFinished = true;
+        private List<VillagerPathNode> path = null;
+        private int index = 0;
         public override void OnTick(float dt)
         {
-            base.OnTick(dt);
+            var entityPos = vas.Entity.ServerPos;
+            if (index < path?.Count - 1)
+            {
+                var distance = path[index].BlockPos.DistanceSqTo(entityPos.X, entityPos.Y, entityPos.Z);
+                if (distance > 1)
+                {
+                    for (int i = index; i < path.Count; i++)
+                    {
+                        if (path[i].BlockPos.DistanceSqTo(entityPos.X, entityPos.Y, entityPos.Z) < distance)
+                        {
+                            index = i;
+                            break;
+                        }
+                    }
+                }
+                if (index > 0 && path[index - 1].IsDoor)
+                {
+                    toggleDoor(false, path[index - 1].BlockPos);
+
+                }
+                if (path[index].IsDoor)
+                {
+                    toggleDoor(true, path[index].BlockPos);
+                }
+                if (path[index + 1].IsDoor)
+                {
+                    toggleDoor(true, path[index + 1].BlockPos);
+                }
+            }
         }
 
         public override void Start(EntityActivity entityActivity)
@@ -44,8 +75,8 @@ namespace VsVillage
                     VillagePointOfInterest.gatherplace => village.Gatherplaces.ElementAt(villager.entity.World.Rand.Next() % village.Gatherplaces.Count),
                     _ => null
                 };
-
-                var path = villager.Pathfind.FindPath(startPos, endPos, villager.Village);
+                index = 0;
+                path = villager.Pathfind.FindPath(startPos, endPos, villager.Village);
 
                 if (path != null)
                 {
@@ -57,7 +88,7 @@ namespace VsVillage
                         AnimationSpeed = AnimSpeed,
                         BlendMode = EnumAnimationBlendMode.Average
                     }.Init());
-                    vas.wppathTraverser.FollowRoute(villager.Pathfind.ToWaypoints(path), WalkSpeed, 2, () => isFinished = true, () => isFinished = true);
+                    vas.wppathTraverser.FollowRoute(villager.Pathfind.ToWaypoints(path), WalkSpeed, 1f, () => isFinished = true, () => isFinished = true);
                 }
             }
             base.Start(entityActivity);
@@ -134,6 +165,22 @@ namespace VsVillage
         public override string ToString()
         {
             return string.Format("Goto {0}, Walkspeed {1}, Animation {2}, AnimSpeed {3}", Target, WalkSpeed, AnimCode, AnimSpeed);
+        }
+
+        private void toggleDoor(bool opened, BlockPos target)
+        {
+            var block = vas.Entity.Api.World.BlockAccessor.GetBlock(target);
+            var blockSel = new BlockSelection()
+            {
+                Block = block,
+                Position = target,
+                HitPosition = new Vec3d(0.5, 0.5, 0.5),
+                Face = BlockFacing.NORTH
+            };
+            var args = new TreeAttribute();
+            args.SetBool("opened", opened);
+
+            block.Activate(vas.Entity.World, new Caller() { Entity = vas.Entity, Type = EnumCallerType.Entity, Pos = vas.Entity.Pos.XYZ }, blockSel, args);
         }
     }
 }

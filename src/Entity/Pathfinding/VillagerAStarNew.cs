@@ -26,7 +26,7 @@ namespace VsVillage
         public List<VillagerPathNode> FindPath(BlockPos start, BlockPos end, int searchDepth = 1000)
         {
             if (start == null || end == null) return null;
-            var reachableNodes = new SortedSet<VillagerPathNode>([new VillagerPathNode(start, end)]);
+            var reachableNodes = new SortedSet<VillagerPathNode>([new VillagerPathNode(start, end, isDoor(blockAccessor.GetBlock(start)))]);
             var visitedNodes = new HashSet<VillagerPathNode>();
             for (int i = 0; i < searchDepth && reachableNodes.Count > 0; i++)
             {

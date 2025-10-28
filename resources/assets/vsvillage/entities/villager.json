@@ -28,8 +28,7 @@
 		},
 		"personality": "balanced",
 		"personalities": {
-			"balanced": { "chordDelayMul": 1.3, "pitchModifier": 0.7, "volumneModifier": 1.1 },
-			"elderbalanced": { "chordDelayMul": 1.8, "pitchModifier": 0.6, "volumneModifier": 1 }
+			"balanced": { "chordDelayMul": 1.3, "pitchModifier": 0.7, "volumneModifier": 1.1 }
 		},
 		"shouldSwivelFromMotion": false,
         "outfitConfigFileName": "villageraccessories-{sex}",
@@ -203,6 +202,7 @@
 		"renderer": "Shape",
 		"shape": { "base": "game:entity/humanoid/villager-{sex}" },
 		"behaviors": [
+			{ "code": "villagerinventory" },
 			{ "code": "nametag", "showtagonlywhentargeted": true },
 			{ "code": "repulseagents" },
 			{ "code": "controlledphysics", "stepHeight": 1.01 },
@@ -651,6 +651,7 @@
 
 		},
 		"behaviors": [
+			{ "code": "villagerinventory" },
 			{ "code": "nametag", "showtagonlywhentargeted": true, "selectFromRandomNameByType": {"*-male-*": ["Aphid", "Erik", "Adachi", "Farhad", "Pegalesharro", "Floyd", "Temper", "En Repos", "Alanus", "Baldrich", "Cuno", "Dominicus", "Ludwig", "Lambert", "Geralt", "Richard", "Wolfram", "Zachäus", "Pippin", "Frodo", "Baggins", "Rudolf", "Marcus", "Benjamin", "Cronos", "Timoleon", "Leonidas", "Xerxes", "Brutus", "William", "Maurinus", "Hubertus"], "*-female-*": ["Anne", "Agnes", "Adachi", "Farhad", "Bianca", "Hedwig", "Demud", "Imagina", "Johanna", "Judith", "Magdalena", "Philippa", "Methild", "Violante", "Walpurga", "Josephine", "Joana", "Yvonne", "Lisbeth", "Dione", "Diana", "Olivia", "Hermine", "Triss", "Yennefer", "Lucia", "Mirella", "Bernadetta", "Tacia"]}},
 			{ "code": "repulseagents" },
 			{ "code": "controlledphysics", "stepHeight": 1.01 },
