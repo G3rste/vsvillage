@@ -32,7 +32,7 @@ namespace VsVillage
                 if (bed != null)
                 {
                     vas.Entity.ServerPos.SetPos(getPos(bed));
-                  vas.Entity.ServerPos.Yaw = bed.Yaw;
+                    vas.Entity.ServerPos.Yaw = bed.Yaw;
                     vas.Entity.AnimManager.StartAnimation(new AnimationMetaData()
                     {
                         Code = AnimCode,

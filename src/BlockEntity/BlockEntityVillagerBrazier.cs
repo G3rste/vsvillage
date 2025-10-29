@@ -26,6 +26,12 @@ namespace VsVillage
                 && village.Gatherplaces.Contains(Pos);
         }
 
+        public void Toggle(bool ignite)
+        {
+            if (ignite) Ignite();
+            else Extinguish();
+        }
+
         public void Extinguish()
         {
             if (Block.Variant["burnstate"] != "extinct")

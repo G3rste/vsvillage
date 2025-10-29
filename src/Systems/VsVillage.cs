@@ -39,6 +39,7 @@ namespace VsVillage
 
             ActivityModSystem.ActionTypes.TryAdd(GotoPointOfInterestAction.ActionType, typeof(GotoPointOfInterestAction));
             ActivityModSystem.ActionTypes.TryAdd(SleepAction.ActionType, typeof(SleepAction));
+            ActivityModSystem.ActionTypes.TryAdd(ToggleBrazierFireAction.ActionType, typeof(ToggleBrazierFireAction));
             
             ActivityModSystem.ConditionTypes.TryAdd(CloseToPointOfInterestCondition.ConditionType, typeof(CloseToPointOfInterestCondition));
         }

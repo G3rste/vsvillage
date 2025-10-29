@@ -55,6 +55,42 @@
       {
         "$type": "Vintagestory.GameContent.EntityActivity, VSSurvivalMod",
         "Slot": 0,
+        "Priority": 20.0,
+        "Name": "notaggressive",
+        "Code": "notaggressive",
+        "Conditions": {
+          "$type": "Vintagestory.GameContent.IActionCondition[], VSSurvivalMod",
+          "$values": [
+            {
+              "$type": "Vintagestory.GameContent.EmotionStateCondition, VSSurvivalMod",
+              "emotionState": "aggressiveondamage",
+              "Invert": true
+            },
+            {
+              "$type": "Vintagestory.GameContent.HeldCondition, VSSurvivalMod",
+              "Code": "game:spear-generic-blackbronze",
+              "Invert": false
+            },
+            {
+              "$type": "Vintagestory.GameContent.TemporalStormCondition, VSSurvivalMod",
+              "Invert": true
+            }
+          ]
+        },
+        "Actions": {
+          "$type": "Vintagestory.GameContent.IEntityAction[], VSSurvivalMod",
+          "$values": [
+            {
+              "$type": "Vintagestory.GameContent.UnequipAction, VSSurvivalMod",
+              "Target": "righthand"
+            }
+          ]
+        },
+        "ConditionsOp": 1
+      },
+      {
+        "$type": "Vintagestory.GameContent.EntityActivity, VSSurvivalMod",
+        "Slot": 0,
         "Priority": 1.0,
         "Name": "GotoWork",
         "Code": "GotoWork",
@@ -116,6 +152,11 @@
           "$type": "Vintagestory.GameContent.IEntityAction[], VSSurvivalMod",
           "$values": [
             {
+              "$type": "VsVillage.ToggleBrazierFireAction, vsvillage",
+              "MaxDistance": 3.0,
+              "Ignite": false
+            },
+            {
               "$type": "VsVillage.GotoPointOfInterestAction, vsvillage",
               "Target": 0,
               "AnimSpeed": 1.0,
@@ -158,6 +199,11 @@
               "AnimSpeed": 1.0,
               "WalkSpeed": 0.02,
               "AnimCode": "walk"
+            },
+            {
+              "$type": "VsVillage.ToggleBrazierFireAction, vsvillage",
+              "MaxDistance": 3.0,
+              "Ignite": true
             }
           ]
         },
