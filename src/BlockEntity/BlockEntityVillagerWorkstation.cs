@@ -6,11 +6,11 @@ namespace VsVillage
     public class BlockEntityVillagerWorkstation : BlockEntityVillagerPOI
     {
 
-        public EnumVillagerProfession Type => Enum.Parse<EnumVillagerProfession>(Block.Variant["profession"]);
+        public EnumVillagerProfession Profession => Enum.Parse<EnumVillagerProfession>(Block.Variant["profession"]);
 
         public override void AddToVillage(Village village)
         {
-            village.Workstations[Pos]= new() { OwnerId = -1, Pos = Pos, Profession = Type };
+            village.Workstations[Pos]= new() { OwnerId = -1, Pos = Pos, Profession = Profession };
         }
 
         public override void RemoveFromVillage(Village village)

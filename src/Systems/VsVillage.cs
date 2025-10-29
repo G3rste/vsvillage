@@ -1,23 +1,15 @@
-﻿using ProtoBuf;
-using Vintagestory.API.Client;
+﻿using System.Collections.Generic;
 using Vintagestory.API.Common;
 using Vintagestory.API.Server;
-using Vintagestory.API.Util;
 using Vintagestory.GameContent;
 
 namespace VsVillage
 {
     public class VsVillage : ModSystem
     {
-        private ICoreClientAPI clientAPI;
-
-        private ICoreServerAPI serverAPI;
-
         public override void Start(ICoreAPI api)
         {
             base.Start(api);
-
-            api.RegisterEntity("EntityVillager", typeof(EntityVillager));
 
             api.RegisterEntityBehaviorClass("Villager", typeof(EntityBehaviorVillager));
 
@@ -44,36 +36,12 @@ namespace VsVillage
             AiTaskRegistry.Register<AiTaskStayCloseToEmployer>("villagerstayclose");
             AiTaskRegistry.Register<AiTaskHealWounded>("villagerhealwounded");
             AiTaskRegistry.Register<AiTaskVillagerRangedAttack>("villagerrangedattack");
+
+            ActivityModSystem.ActionTypes.TryAdd(GotoPointOfInterestAction.ActionType, typeof(GotoPointOfInterestAction));
+            ActivityModSystem.ActionTypes.TryAdd(SleepAction.ActionType, typeof(SleepAction));
+            ActivityModSystem.ActionTypes.TryAdd(ToggleBrazierFireAction.ActionType, typeof(ToggleBrazierFireAction));
+            
+            ActivityModSystem.ConditionTypes.TryAdd(CloseToPointOfInterestCondition.ConditionType, typeof(CloseToPointOfInterestCondition));
         }
-
-        public override void StartClientSide(ICoreClientAPI api)
-        {
-            base.StartClientSide(api);
-            this.clientAPI = api;
-
-            api.Network.RegisterChannel("villagertalknetwork")
-                .RegisterMessageType<TalkUtilMessage>().SetMessageHandler<TalkUtilMessage>(OnTalkMessageClient);
-        }
-
-        public override void StartServerSide(ICoreServerAPI api)
-        {
-            base.StartServerSide(api);
-            this.serverAPI = api;
-            api.Network.RegisterChannel("villagertalknetwork")
-                .RegisterMessageType<TalkUtilMessage>();
-        }
-
-        private void OnTalkMessageClient(TalkUtilMessage networkMessage)
-        {
-            (clientAPI.World.GetEntityById(networkMessage.entityId) as EntityVillager)?.talkUtil.Talk(networkMessage.talkType);
-        }
-    }
-
-    [ProtoContract(ImplicitFields = ImplicitFields.AllPublic)]
-    public class TalkUtilMessage
-    {
-        public long entityId;
-
-        public EnumTalkType talkType;
     }
 }

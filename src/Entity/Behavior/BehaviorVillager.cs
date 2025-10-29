@@ -9,34 +9,22 @@ using Vintagestory.API.Common.Entities;
 using Vintagestory.API.Config;
 using Vintagestory.API.Datastructures;
 using Vintagestory.API.MathTools;
-using Vintagestory.API.Util;
-using Vintagestory.Essentials;
+using Vintagestory.API.Server;
 using Vintagestory.GameContent;
-using Vintagestory.ServerMods.NoObf;
 
 namespace VsVillage
 {
     public class EntityBehaviorVillager : EntityBehavior
     {
-        public WaypointsTraverser PathTraverser;
+        public VillagerPathfind Pathfind;
         public EnumVillagerProfession Profession;
         public string VillageId
         {
             get => entity.WatchedAttributes.GetString("villageId");
-            set
-            {
-                entity.WatchedAttributes.SetString("villageId", value);
-                entity.WatchedAttributes.MarkPathDirty("villageId");
-            }
         }
         public string VillageName
         {
             get => entity.WatchedAttributes.GetString("villageName");
-            set
-            {
-                entity.WatchedAttributes.SetString("villageName", value);
-                entity.WatchedAttributes.MarkPathDirty("villageName");
-            }
         }
         public BlockPos Workstation
         {
@@ -74,6 +62,14 @@ namespace VsVillage
                 }
                 return _village;
             }
+            set
+            {
+                _village = value;
+                entity.WatchedAttributes.SetString("villageId", value?.Id);
+                entity.WatchedAttributes.MarkPathDirty("villageId");
+                entity.WatchedAttributes.SetString("villageName", value?.Name);
+                entity.WatchedAttributes.MarkPathDirty("villageName");
+            }
         }
 
         public EntityBehaviorVillager(Entity entity) : base(entity)
@@ -83,19 +79,11 @@ namespace VsVillage
         public override void Initialize(EntityProperties properties, JsonObject attributes)
         {
             Profession = Enum.Parse<EnumVillagerProfession>(attributes["profession"].AsString());
-            if (entity.Api.Side == EnumAppSide.Client) return;
-            var taskbehavior = entity.GetBehavior<EntityBehaviorTaskAI>();
-            var villagerPathTraverser = new VillagerWaypointsTraverser(entity as EntityAgent);
-            taskbehavior.PathTraverser = villagerPathTraverser;
-            taskbehavior.TaskManager.AllTasks.ForEach(task =>
-                typeof(AiTaskBase)
-                    .GetField("pathTraverser", BindingFlags.Instance | BindingFlags.NonPublic)
-                    .SetValue(task, villagerPathTraverser));
-            // when this method is called, the chunk might not be loaded, therefore the village blocks might not have initialized the village, so we have to wait a short time
-            entity.World.RegisterCallback(dt => InitVillageAfterChunkLoading(), 5000);
-            if (Profession == EnumVillagerProfession.soldier)
+            if (entity.Api is ICoreServerAPI sapi)
             {
-                (entity as EntityVillager).Personality = entity.World.Rand.Next(2) == 0 ? "balanced" : "rowdy";
+                Pathfind = new VillagerPathfind(entity.Api as ICoreServerAPI);
+                // when this method is called, the chunk might not be loaded, therefore the village blocks might not have initialized the village, so we have to wait a short time
+                entity.World.RegisterCallback(dt => InitVillageAfterChunkLoading(), 5000);
             }
         }
 
@@ -117,8 +105,7 @@ namespace VsVillage
 
             if (village != null)
             {
-                VillageId = village.Id;
-                VillageName = village.Name;
+                Village = village;
                 village.VillagerSaveData[entity.EntityId] = new()
                 {
                     Id = entity.EntityId,
@@ -140,9 +127,7 @@ namespace VsVillage
 
         public void RemoveVillage()
         {
-            VillageId = null;
-            VillageName = null;
-            _village = null;
+            Village = null;
         }
 
         public override string PropertyName()
@@ -164,6 +149,7 @@ namespace VsVillage
                     infotext.AppendLine(Lang.Get("vsvillage:lives-in", Lang.Get(VillageName)));
                 }
             }
+            infotext.AppendLine(Lang.Get("vsvillage:management-profession", Lang.Get("vsvillage:management-profession-" + Profession.ToString())));
         }
     }
 }

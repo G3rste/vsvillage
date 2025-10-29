@@ -136,7 +136,7 @@ namespace VsVillage
                     workstation.VillageId = village.Id;
                     workstation.VillageName = village.Name;
                     workstation.MarkDirty();
-                    village.Workstations.Add(message.Pos, new() { OwnerId = -1, Pos = message.Pos, Profession = workstation.Type });
+                    village.Workstations.Add(message.Pos, new() { OwnerId = -1, Pos = message.Pos, Profession = workstation.Profession });
                     Villages.TryAdd(village.Id, village);
                     break;
                 case EnumVillageManagementOperation.destroy:

@@ -29,7 +29,7 @@ namespace VsVillage
 
         private void UpdateWaypoints(VillageWaypoint thisWaypoint, Village village, float dt)
         {
-            var waypointAStar = new WaypointAStar(Api);
+            var waypointAStar = new WaypointAStar(Api.World.GetCachingBlockAccessor(true, true));
             thisWaypoint.Neighbours.Keys.Where(neighbour => !village.Waypoints.ContainsKey(neighbour.Pos))
                  .ToList()
                  .ForEach(thisWaypoint.RemoveNeighbour);
@@ -39,7 +39,7 @@ namespace VsVillage
                 .ToList();
             foreach (var candidate in potentialNeighbours)
             {
-                var path = waypointAStar.FindPath(Pos, candidate.Pos, 1, 1.01f, 200);
+                var path = waypointAStar.FindPath(Pos, candidate.Pos, 200);
                 if (path != null)
                 {
                     thisWaypoint.SetNeighbour(candidate, path.Count);

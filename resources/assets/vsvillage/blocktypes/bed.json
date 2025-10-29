@@ -8,10 +8,10 @@
             ]
         },
         "yawByType": {
-            "*-north": 1.5708,
-            "*-east": 0,
-            "*-south": 4.71239,
-            "*-west": 3.14159
+            "*-north": 0,
+            "*-east": 4.71239,
+            "*-south": 3.14159,
+            "*-west": 1.5708
         }
     },
     "shape": {
@@ -129,13 +129,13 @@
     },
     "lightAbsorption": 1,
     "blockmaterial": "Cloth",
-	"resistance": 0.45,
-	"sounds": {
-		"place": "game:block/cloth",
-		"break": "game:block/cloth",
-		"hit": "game:block/cloth",
-		"walk": "game:walk/cloth"
-	},
+    "resistance": 0.45,
+    "sounds": {
+        "place": "game:block/cloth",
+        "break": "game:block/cloth",
+        "hit": "game:block/cloth",
+        "walk": "game:walk/cloth"
+    },
     "maxStackSize": 8,
     "collisionBoxes": [],
     "selectionBoxes": [
