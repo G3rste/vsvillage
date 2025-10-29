@@ -25,7 +25,7 @@ namespace VsVillage
         public List<VillagerPathNode> FindPath(BlockPos start, BlockPos end, Village village)
         {
             var path = villagerAStar.FindPath(start, end);
-            if (path == null && village != null && village.Waypoints.Count > 0)
+            if (path == null && village != null && village.Waypoints.Count > 0 && end!= null)
             {
                 var startWaypoint = village.FindNearesWaypoint(start);
                 var endWaypoint = startWaypoint?.FindNearestReachableWaypoint(end);

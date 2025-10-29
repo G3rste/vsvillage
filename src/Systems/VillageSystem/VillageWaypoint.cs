@@ -14,6 +14,7 @@ namespace VsVillage
         [ProtoMember(3)]
         public Dictionary<BlockPos, VillageWaypointPath> _ReachableNodes = new();
         public Dictionary<VillageWaypoint, int> Neighbours = new();
+        public Dictionary<VillageWaypoint, VillageWaypointPath> ReachableNodes = new();
 
         public void SetNeighbour(VillageWaypoint newNeighbour, int distance)
         {
@@ -25,7 +26,6 @@ namespace VsVillage
             Neighbours.Remove(waypoint);
             _Neighbours.Remove(waypoint.Pos);
         }
-        public Dictionary<VillageWaypoint, VillageWaypointPath> ReachableNodes = new();
         public void SetReachableNode(VillageWaypoint waypoint, VillageWaypointPath path)
         {
             ReachableNodes[waypoint] = path;
@@ -100,6 +100,7 @@ namespace VsVillage
         }
 
         public VillageWaypoint FindNearestReachableWaypoint(BlockPos pos){
+            if (pos == null) return null;
             VillageWaypoint result = null;
             foreach (var waypoint in Neighbours.Keys)
             {

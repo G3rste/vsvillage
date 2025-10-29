@@ -45,16 +45,16 @@ namespace VsVillage
                         }
                     }
                 }
-                if (index > 0 && path[index - 1].IsDoor)
+                if (path.Count >= index && index > 0 && path[index - 1].IsDoor)
                 {
                     toggleDoor(false, path[index - 1].BlockPos);
 
                 }
-                if (path[index].IsDoor)
+                if (path.Count > index && path[index].IsDoor)
                 {
                     toggleDoor(true, path[index].BlockPos);
                 }
-                if (path[index + 1].IsDoor)
+                if (path.Count > index + 1 && path[index + 1].IsDoor)
                 {
                     toggleDoor(true, path[index + 1].BlockPos);
                 }
@@ -72,7 +72,7 @@ namespace VsVillage
                 {
                     VillagePointOfInterest.workstation => villager.Workstation,
                     VillagePointOfInterest.bed => villager.Bed,
-                    VillagePointOfInterest.gatherplace => village.Gatherplaces.ElementAt(villager.entity.World.Rand.Next() % village.Gatherplaces.Count),
+                    VillagePointOfInterest.gatherplace => village.Gatherplaces.Count > 0 ? village.Gatherplaces.ElementAt(villager.entity.World.Rand.Next() % village.Gatherplaces.Count) : null,
                     _ => null
                 };
                 index = 0;
