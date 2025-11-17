@@ -1,5 +1,5 @@
 {
-	"code": "humanoid-villager",
+	"code": "villager",
 	"class": "EntityVillager",
 	"canClimb": true,
 	"eyeHeight": 1.4,

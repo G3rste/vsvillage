@@ -32,7 +32,7 @@ namespace VsVillage
         {
             string villagerId;
             var sapi = byEntity.Api;
-            villagerId = sapi.World.Rand.Next(2) == 0 ? "vsvillage:humanoid-villager-male-trader" : "vsvillage:humanoid-villager-female-trader";
+            villagerId = sapi.World.Rand.Next(2) == 0 ? "vsvillage:villager-male-trader" : "vsvillage:villager-female-trader";
 
 
             AssetLocation location = new AssetLocation(villagerId);

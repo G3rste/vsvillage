@@ -24,12 +24,12 @@ namespace VsVillage
 
         public override WorldInteraction[] GetPlacedBlockInteractionHelp(IWorldAccessor world, BlockSelection selection, IPlayer forPlayer)
         {
-            return new WorldInteraction[]{
+            return [
                 new WorldInteraction(){
                     ActionLangCode = "vsvillage:manage-village",
                     MouseButton = EnumMouseButton.Right
                 }
-            };
+            ];
         }
     }
 }

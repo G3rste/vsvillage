@@ -12,6 +12,7 @@ namespace VsVillage
             base.Start(api);
 
             api.RegisterEntityBehaviorClass("Villager", typeof(EntityBehaviorVillager));
+            api.RegisterEntityBehaviorClass("replacewithentity", typeof(EntityBehaviorReplaceWithEntity));
 
             api.RegisterItemClass("ItemVillagerGear", typeof(ItemVillagerGear));
             api.RegisterItemClass("ItemVillagerHorn", typeof(ItemVillagerHorn));
@@ -40,7 +41,7 @@ namespace VsVillage
             ActivityModSystem.ActionTypes.TryAdd(GotoPointOfInterestAction.ActionType, typeof(GotoPointOfInterestAction));
             ActivityModSystem.ActionTypes.TryAdd(SleepAction.ActionType, typeof(SleepAction));
             ActivityModSystem.ActionTypes.TryAdd(ToggleBrazierFireAction.ActionType, typeof(ToggleBrazierFireAction));
-            
+
             ActivityModSystem.ConditionTypes.TryAdd(CloseToPointOfInterestCondition.ConditionType, typeof(CloseToPointOfInterestCondition));
         }
     }

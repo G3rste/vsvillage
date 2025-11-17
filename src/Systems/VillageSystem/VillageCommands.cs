@@ -228,7 +228,7 @@ namespace VsVillage
             var player = args.Caller.Player;
 
             BlockPos plrPos = player.Entity.ServerPos.XYZ.AsBlockPos;
-            VillagerAStarNew villagerPathfind = new VillagerAStarNew(sapi.World.GetCachingBlockAccessor(true, true));
+            VillagerAStarNew villagerPathfind = waypointAStar ?? new VillagerAStarNew(sapi.World.GetCachingBlockAccessor(true, true));
 
 
             Cuboidf narrow = new Cuboidf(-0.4f, 0, -0.4f, 0.4f, 1.5f, 0.4f);
