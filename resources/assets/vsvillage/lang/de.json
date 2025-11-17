@@ -78,6 +78,7 @@
     "management-hire-mayor": "Bürgermeister einstellen",
     "management-hire-archer": "Bogenschütze einstellen",
     "management-poi-stats": "Das Dorf hat insgesamt <strong>{0} Betten</strong>, <strong>{1} Arbeitsstationen</strong> und <strong>{2} Sammelplätze</strong>.\nEs ist die Heimat von <strong>{3} Dorfbewohnern</strong>.\nDie Dorfbewohner und Arbeitsstationen sind wie folgt aufgeteilt:\n",
+    "management-profession": "Beruf: {0}",
     "management-profession-stats": "Beruf: <strong>{0}</strong>\t Dorfbewohner: {1}\t Werkbank: {2}\n",
     "management-profession-farmer": "Bauer",
     "management-profession-shepherd": "Hirte",
@@ -185,5 +186,11 @@
     "quest-healplayersetup-desc": "Um als dein Heiler fungieren zu können, benötige ich einige grundlegende Dinge: Material für Verbände, einen Stein und einen Stock zum Zerquetschen von Kräutern sowie Bienenwaben zur Behandlung von Wunden. Nachdem du mir diese Startmaterialien besorgt hast, kann ich selbstständig werden.",
     "quest-healplayersetup-obj": "Gesammelter Schachtelhalm: {0}/12\nGesammelter Stein: {1}/1\nGesammelter Stock: {2}/1\nGesammelte Bienenwaben: {3}/2\nGesammelte Rohrkolben: {4}/12",
     "quest-healplayer-title": "Ein Besuch beim Arzt",
-    "quest-healplayer-desc": "Wenn du jemals verletzt wirst, kann ich mir deine Wunden ansehen."
+    "quest-healplayer-desc": "Wenn du jemals verletzt wirst, kann ich mir deine Wunden ansehen.",
+    "dialogue-greet": "Hab dich hier noch nicht gesehen. Was machst du so?",
+    "dialogue-welcomeback": "Willkommen zurück, {playername}! Wie kann ich dir helfen?",
+    "dialogue-opentrade": "Hast du etwas zum Handeln, {npcname}?",
+    "dialogue-openquests": "Gibt es etwas, wobei du Hilfe brauchst, {npcname}?",
+    "dialogue-no-trading": "Ich habe nichts zum Handeln.",
+    "dialogue-no-quests": "Mir geht es gut, aber danke für das Hilfsangebot in diesen schwierigen Zeiten."
 }

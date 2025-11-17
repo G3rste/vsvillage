@@ -78,6 +78,7 @@
     "management-hire-mayor": "Найняти мера",
     "management-hire-archer": "Найняти лучника",
     "management-poi-stats": "Це село має загалом <strong>{0} ліжок</strong>, <strong>{1} робочих місць</strong> та <strong>{2} місць для зборів</strong>.\nТут проживає <strong>{3} селян</strong>.\nСеляни та робочі місця розподілені наступним чином:\n",
+    "management-profession": "Професія: {0}",
     "management-profession-stats": "Професія: <strong>{0}</strong> Селяни: {1} Робочі місця: {2}\n",
     "management-profession-farmer": "фермер",
     "management-profession-shepherd": "пастух",
@@ -185,5 +186,11 @@
     "quest-healplayersetup-desc": "Щоб я міг вас лікувати, мені потрібні деякі базові речі. Матеріали для бинтів, камінь і палиця для подрібнення трав, а також стільники для обробки ран. Я зможу забезпечувати себе сам, коли ви принесете мені ці базові речі.",
     "quest-healplayersetup-obj": "Зібрано хвоща: {0}/12\nЗібрано каміння: {1}/1\nЗібрано палиць: {2}/1\nЗібрано стільників: {3}/2\nЗібрано рогозу: {0}/12",
     "quest-healplayer-title": "Візит до лікаря",
-    "quest-healplayer-desc": "Якщо вас добряче поб'ють, я можу оглянути ваші рани."
+    "quest-healplayer-desc": "Якщо вас добряче поб'ють, я можу оглянути ваші рани.",
+    "dialogue-greet": "Не бачив раніше тебе тут. Чим займаєшся?",
+    "dialogue-welcomeback": "З поверненням {playername}! Чим я можу тобі допомогти?",
+    "dialogue-opentrade": "Є щось на продаж, {npcname}?",
+    "dialogue-openquests": "Треба з чимось допомогти, {npcname}?",
+    "dialogue-no-trading": "Немає нічого на продаж.",
+    "dialogue-no-quests": "Я в порядку, але дякую за пропозицію допомоги у ці важкі часи."
 }

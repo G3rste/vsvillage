@@ -78,6 +78,7 @@
     "management-hire-mayor": "Najmout starostu",
     "management-hire-archer": "Najmout lukostřelce",
     "management-poi-stats": "Tato vesnice má celkem <strong>{0} lůžka</strong>, <strong>{1} pracovní stanice</strong> a <strong>{2} shromaždiště</strong>.\nJe to sídlo <strong>{3} vesničanů</strong>.\nObyvatelé vesnice a pracovní stanice jsou rozděleni následujícím způsobem:\n",
+    "management-profession": "Profese: {0}",
     "management-profession-stats": "Profese: <strong>{0}</strong>\t Vesničané: {1}\t Pracovní stanice: {2}\n",
     "management-profession-farmer": "farmář",
     "management-profession-shepherd": "pastýř",
@@ -185,5 +186,11 @@
     "quest-healplayersetup-desc": "Abych mohl působit jako váš léčitel, potřebuji několik základních věcí. Materiál na obvazy, kámen a tyč na drcení bylin a medovou plástev k ošetření ran. Jakmile mi tyto základní věci seženete, budu schopen se o sebe postarat sám.",
     "quest-healplayersetup-obj": "Shromážděné přesličky: {0}/12\nShromážděný kamen: {1}/1\nShromážděný klacek: {2}/1\nShromážděný med: {3}/2\nShromážděné orobince: {0}/12",
     "quest-healplayer-title": "Návštěva u doktora",
-    "quest-healplayer-desc": "Pokud někdy dostaneš nakládačku, můžu se podívat na tvé zranění."
+    "quest-healplayer-desc": "Pokud někdy dostaneš nakládačku, můžu se podívat na tvé zranění.",
+    "dialogue-greet": "Ještě jsem tě tu neviděl. Co tu děláš?",
+    "dialogue-welcomeback": "Vítej zpět, {playername}! Co pro tebe mohu udělat?",
+    "dialogue-opentrade": "Máš něco na výměnu, {npcname}?",
+    "dialogue-openquests": "Potřebujete s něčím pomoci, {npcname}?",
+    "dialogue-no-trading": "Nemám co vyměnit.",
+    "dialogue-no-quests": "Jsem v pořádku, ale děkuji za nabídku, pomoc v těchto nejistých časech."
 }
