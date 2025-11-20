@@ -14,8 +14,8 @@ namespace VsVillage
         [JsonProperty]
         public bool Invert { get; set; }
         [JsonProperty]
-        public float CooldownInSeconds = 30;
-        public float LastSuccessfulCheck = float.MinValue;
+        public long CooldownInSeconds = 30;
+        public long LastSuccessfulCheck = long.MinValue;
 
         public void AddGuiEditFields(ICoreClientAPI capi, GuiComposer singleComposer)
         {
@@ -27,7 +27,7 @@ namespace VsVillage
 
         public void StoreGuiEditFields(ICoreClientAPI capi, GuiComposer singleComposer)
         {
-            CooldownInSeconds = singleComposer.GetNumberInput("CooldownInSeconds").GetValue();
+            CooldownInSeconds = (long)singleComposer.GetNumberInput("CooldownInSeconds").GetValue();
         }
 
         public bool ConditionSatisfied(Entity entity)
@@ -43,7 +43,7 @@ namespace VsVillage
 
         public void LoadState(ITreeAttribute tree)
         {
-            LastSuccessfulCheck = tree.GetFloat("LastSuccessfulCheck", float.MinValue);
+            LastSuccessfulCheck = tree.GetLong("LastSuccessfulCheck", long.MinValue);
         }
 
         public void OnLoaded(EntityActivitySystem vas)

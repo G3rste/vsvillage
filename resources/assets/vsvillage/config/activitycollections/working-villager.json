@@ -111,7 +111,7 @@
             },
             {
               "$type": "VsVillage.CooldownCondition, vsvillage",
-              "CooldownInSeconds": 30.0,
+              "CooldownInSeconds": 30,
               "LastSuccessfulCheck": -3.4028235E+38,
               "Type": "CooldownCondition",
               "Invert": false
@@ -155,7 +155,7 @@
             },
             {
               "$type": "VsVillage.CooldownCondition, vsvillage",
-              "CooldownInSeconds": 30.0,
+              "CooldownInSeconds": 30,
               "LastSuccessfulCheck": -3.4028235E+38,
               "Type": "CooldownCondition",
               "Invert": false
@@ -204,7 +204,7 @@
             },
             {
               "$type": "VsVillage.CooldownCondition, vsvillage",
-              "CooldownInSeconds": 30.0,
+              "CooldownInSeconds": 30,
               "LastSuccessfulCheck": -3.4028235E+38,
               "Type": "CooldownCondition",
               "Invert": false
