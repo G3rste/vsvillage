@@ -155,7 +155,7 @@ namespace VsVillage
             var workstations = addBlockHeight(village.Workstations.Keys.ToList(), 10);
             var beds = addBlockHeight(village.Beds.Keys.ToList(), 10);
             var gatherplaces = addBlockHeight(village.Gatherplaces.ToList(), 10);
-            var waypoints = addBlockHeight(village.Waypoints.Keys.ToList());
+            var waypoints = addBlockHeight(village.Waypoints.ToList());
             var border = addBlockHeight(new List<BlockPos>());
 
             for (var i = -village.Radius; i <= village.Radius; i++)
@@ -207,16 +207,6 @@ namespace VsVillage
             HashSet<BlockPos> allPaths = new();
             var village = sapi.ModLoader.GetModSystem<VillageManager>().GetVillage(plrPos);
             if (village == null) return TextCommandResult.Error("No village found");
-            var root = village.FindNearesWaypoint(plrPos);
-            foreach (var waypoint in root.ReachableNodes.Keys)
-            {
-                var waypointPath = root.FindPath(waypoint, village.Waypoints.Count);
-                for (int i = 0; i < waypointPath.Count - 1; i++)
-                {
-                    var path = waypointAStar.FindPath(waypointPath[i].Pos, waypointPath[i + 1].Pos);
-                    if (path != null) path.ForEach(x => allPaths.Add(x.BlockPos));
-                }
-            }
 
             sapi.World.HighlightBlocks(player, 3, new List<BlockPos>(allPaths), new List<int>() { ColorUtil.ColorFromRgba(128, 0, 0, 100) }, EnumHighlightBlocksMode.Absolute, EnumHighlightShape.Arbitrary);
             return TextCommandResult.Success("All paths have been highlighted");
@@ -272,17 +262,6 @@ namespace VsVillage
                     sapi.World.HighlightBlocks(player, 2, new List<BlockPos>(), EnumHighlightBlocksMode.Absolute, EnumHighlightShape.Arbitrary);
                     sapi.World.HighlightBlocks(player, 26, new List<BlockPos>(), EnumHighlightBlocksMode.Absolute, EnumHighlightShape.Arbitrary);
                     sapi.World.HighlightBlocks(player, 27, new List<BlockPos>(), EnumHighlightBlocksMode.Absolute, EnumHighlightShape.Arbitrary);
-                    break;
-                case "command":
-                    var entities = sapi.World.GetEntitiesAround(player.Entity.ServerPos.XYZ, 30, 5);
-                    foreach (var entity in entities)
-                    {
-                        var gotoTask = entity.GetBehavior<EntityBehaviorTaskAI>()?.TaskManager.GetTask<AiTaskVillagerGoto>();
-                        if (gotoTask != null)
-                        {
-                            gotoTask.MainTarget = player.Entity.ServerPos.XYZ;
-                        }
-                    }
                     break;
             }
 

@@ -14,8 +14,6 @@ namespace VsVillage
     public class CloseToPointOfInterestCondition : IActionCondition
     {
         public const string ConditionType = "CloseToPointOfInterest";
-        public EntityActivitySystem vas { get; set; }
-
         public string Type => ConditionType;
         [JsonProperty]
         public bool Invert { get; set; }

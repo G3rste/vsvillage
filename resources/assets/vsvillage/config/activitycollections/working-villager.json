@@ -108,6 +108,13 @@
               "Invert": true,
               "Target": 1,
               "MaxDistance": 6.0
+            },
+            {
+              "$type": "VsVillage.CooldownCondition, vsvillage",
+              "CooldownInSeconds": 30.0,
+              "LastSuccessfulCheck": -3.4028235E+38,
+              "Type": "CooldownCondition",
+              "Invert": false
             }
           ]
         },
@@ -145,6 +152,13 @@
               "Invert": true,
               "Target": 0,
               "MaxDistance": 2.0
+            },
+            {
+              "$type": "VsVillage.CooldownCondition, vsvillage",
+              "CooldownInSeconds": 30.0,
+              "LastSuccessfulCheck": -3.4028235E+38,
+              "Type": "CooldownCondition",
+              "Invert": false
             }
           ]
         },
@@ -187,6 +201,13 @@
               "Invert": true,
               "Target": 2,
               "MaxDistance": 6.0
+            },
+            {
+              "$type": "VsVillage.CooldownCondition, vsvillage",
+              "CooldownInSeconds": 30.0,
+              "LastSuccessfulCheck": -3.4028235E+38,
+              "Type": "CooldownCondition",
+              "Invert": false
             }
           ]
         },

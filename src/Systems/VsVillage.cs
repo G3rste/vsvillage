@@ -26,7 +26,6 @@ namespace VsVillage
 
             AiTaskRegistry.Register<AiTaskVillagerMeleeAttack>("villagermeleeattack");
             AiTaskRegistry.Register<AiTaskVillagerSeekEntity>("villagerseekentity");
-            AiTaskRegistry.Register<AiTaskVillagerGoto>("villagergoto");
             AiTaskRegistry.Register<AiTaskVillagerSleep>("villagersleep");
             AiTaskRegistry.Register<AiTaskVillagerSocialize>("villagersocialize");
             AiTaskRegistry.Register<AiTaskVillagerGotoWork>("villagergotowork");
@@ -43,6 +42,7 @@ namespace VsVillage
             ActivityModSystem.ActionTypes.TryAdd(ToggleBrazierFireAction.ActionType, typeof(ToggleBrazierFireAction));
 
             ActivityModSystem.ConditionTypes.TryAdd(CloseToPointOfInterestCondition.ConditionType, typeof(CloseToPointOfInterestCondition));
+            ActivityModSystem.ConditionTypes.TryAdd(CooldownCondition.ConditionType, typeof(CooldownCondition));
         }
     }
 }

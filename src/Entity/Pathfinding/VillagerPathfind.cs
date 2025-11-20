@@ -18,33 +18,14 @@ namespace VsVillage
             waypointAStar = new WaypointAStar(blockAccessor);
         }
 
-        public BlockPos GetStartPos(Vec3d startPos){
+        public BlockPos GetStartPos(Vec3d startPos)
+        {
             return villagerAStar.GetStartPos(startPos);
         }
 
         public List<VillagerPathNode> FindPath(BlockPos start, BlockPos end, Village village)
         {
-            var path = villagerAStar.FindPath(start, end);
-            if (path == null && village != null && village.Waypoints.Count > 0 && end!= null)
-            {
-                var startWaypoint = village.FindNearesWaypoint(start);
-                var endWaypoint = startWaypoint?.FindNearestReachableWaypoint(end);
-
-                if (startWaypoint == null || endWaypoint == null) return null;
-                var stops = startWaypoint.FindPath(endWaypoint, village.Waypoints.Count);
-                endWaypoint = stops[stops.Count - 1];
-                path = villagerAStar.FindPath(start, startWaypoint.Pos, 4999);
-                if (path == null || stops == null) return null;
-                for (int i = 0; i < stops.Count - 1; i++)
-                {
-                    var nextPath = waypointAStar.FindPath(stops[i].Pos, stops[i + 1].Pos);
-                    if (nextPath == null) return path;
-                    path.AddRange(nextPath);
-                }
-                var lastPath = villagerAStar.FindPath(endWaypoint.Pos, end, 4999);
-                if (lastPath == null) return path;
-                path.AddRange(lastPath);
-            }
+            var path = villagerAStar.FindPath(start, end, 5000);
             return path;
         }
 

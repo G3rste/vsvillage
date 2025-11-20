@@ -4,7 +4,6 @@ using System.Linq;
 using Vintagestory.API.Common;
 using Vintagestory.API.MathTools;
 using Vintagestory.API.Util;
-using Vintagestory.Essentials;
 
 namespace VsVillage
 {

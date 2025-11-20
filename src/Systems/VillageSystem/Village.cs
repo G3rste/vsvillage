@@ -26,7 +26,7 @@ namespace VsVillage
         [ProtoMember(7)]
         public Dictionary<long, VillagerData> VillagerSaveData = new();
         [ProtoMember(8)]
-        public Dictionary<BlockPos, VillageWaypoint> Waypoints = new();
+        public HashSet<BlockPos> Waypoints = new();
 
         public ICoreAPI Api;
         public List<EntityBehaviorVillager> Villagers => VillagerSaveData.Values.ToList().ConvertAll(data => Api.World.GetEntityById(data.Id)?.GetBehavior<EntityBehaviorVillager>());
@@ -34,7 +34,6 @@ namespace VsVillage
         public void Init(ICoreAPI api)
         {
             Api = api;
-            InitWayPoints();
         }
 
         public BlockPos FindFreeBed(long villagerId)
@@ -117,12 +116,12 @@ namespace VsVillage
             }
         }
 
-        public VillageWaypoint FindNearesWaypoint(BlockPos pos)
+        public BlockPos FindNearesWaypoint(BlockPos pos)
         {
-            VillageWaypoint result = null;
-            foreach (var waypoint in Waypoints.Values)
+            BlockPos result = null;
+            foreach (var waypoint in Waypoints)
             {
-                if (result == null || waypoint.Pos.ManhattenDistance(pos) < result.Pos.ManhattenDistance(pos))
+                if (result == null || Pos.ManhattenDistance(pos) < result.ManhattenDistance(pos))
                 {
                     result = waypoint;
                 }
@@ -130,47 +129,9 @@ namespace VsVillage
             return result;
         }
 
-        public void InitWayPoints()
-        {
-            var waypointDict = new Dictionary<BlockPos, VillageWaypoint>();
-            foreach (var waypoint in Waypoints.Values)
-            {
-                waypointDict.TryAdd(waypoint.Pos, waypoint);
-            }
-            foreach (var waypoint in Waypoints.Values)
-            {
-                foreach (var neighbour in waypoint._Neighbours)
-                {
-                    if (waypointDict.TryGetValue(neighbour.Key, out var node))
-                    {
-                        waypoint.SetNeighbour(node, neighbour.Value);
-                    }
-                    else { waypoint._Neighbours.Remove(neighbour.Key); }
-                }
-                foreach (var reachable in waypoint._ReachableNodes)
-                {
-                    reachable.Value.NextWaypoint = waypointDict[reachable.Value._NextWaypoint];
-                    waypoint.SetReachableNode(waypointDict[reachable.Key], reachable.Value);
-                }
-            }
-        }
-
-        public void RemoveWaypoint(VillageWaypoint waypoint)
-        {
-            foreach (var element in Waypoints.Values)
-            {
-                element.RemoveNeighbour(waypoint);
-                element.RemoveReachableNode(waypoint);
-            }
-        }
-
         public void RemoveWaypoint(BlockPos pos)
         {
-            if (Waypoints.TryGetValue(pos, out var waypoint))
-            {
-                RemoveWaypoint(waypoint);
-                Waypoints.Remove(waypoint.Pos);
-            }
+            Waypoints.Remove(pos);
         }
     }
 }

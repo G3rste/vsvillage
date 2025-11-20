@@ -88,7 +88,7 @@ namespace VsVillage
                         AnimationSpeed = AnimSpeed,
                         BlendMode = EnumAnimationBlendMode.Average
                     }.Init());
-                    vas.wppathTraverser.FollowRoute(villager.Pathfind.ToWaypoints(path), WalkSpeed, 1f, () => isFinished = true, () => isFinished = true);
+                    vas.wppathTraverser.FollowRoute(villager.Pathfind.ToWaypoints(path), WalkSpeed, 0.2f, () => isFinished = true, () => isFinished = true);
                 }
             }
             base.Start(entityActivity);
