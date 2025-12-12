@@ -1,0 +1,275 @@
+{
+  "$type": "Vintagestory.GameContent.EntityActivityCollection, VSSurvivalMod",
+  "Name": "working-villager",
+  "Activities": {
+    "$type": "System.Collections.Generic.List`1[[Vintagestory.GameContent.EntityActivity, VSSurvivalMod]], System.Private.CoreLib",
+    "$values": [
+      {
+        "$type": "Vintagestory.GameContent.EntityActivity, VSSurvivalMod",
+        "Slot": 0,
+        "Priority": 20.0,
+        "Name": "onattacked",
+        "Code": "onattacked",
+        "Conditions": {
+          "$type": "Vintagestory.GameContent.IActionCondition[], VSSurvivalMod",
+          "$values": [
+            {
+              "$type": "Vintagestory.GameContent.EmotionStateCondition, VSSurvivalMod",
+              "emotionState": "aggressiveondamage",
+              "Invert": false
+            }
+          ]
+        },
+        "Actions": {
+          "$type": "Vintagestory.GameContent.IEntityAction[], VSSurvivalMod",
+          "$values": [
+            {
+              "$type": "Vintagestory.GameContent.UndressAction, VSSurvivalMod",
+              "Slot": "heldl"
+            },
+            {
+              "$type": "Vintagestory.GameContent.UndressAction, VSSurvivalMod",
+              "Slot": "heldr"
+            },
+            {
+              "$type": "Vintagestory.GameContent.UnequipAction, VSSurvivalMod",
+              "Target": "righthand"
+            },
+            {
+              "$type": "Vintagestory.GameContent.UnequipAction, VSSurvivalMod",
+              "Target": "lefthand"
+            },
+            {
+              "$type": "Vintagestory.GameContent.EquipAction, VSSurvivalMod",
+              "Target": "righthand",
+              "Value": "{ type: \"item\", code: \"spear-generic-blackbronze\" }"
+            },
+            {
+              "$type": "Vintagestory.GameContent.StandardAIAction, VSSurvivalMod",
+              "durationSeconds": 60.0
+            }
+          ]
+        },
+        "ConditionsOp": 1
+      },
+      {
+        "$type": "Vintagestory.GameContent.EntityActivity, VSSurvivalMod",
+        "Slot": 0,
+        "Priority": 20.0,
+        "Name": "notaggressive",
+        "Code": "notaggressive",
+        "Conditions": {
+          "$type": "Vintagestory.GameContent.IActionCondition[], VSSurvivalMod",
+          "$values": [
+            {
+              "$type": "Vintagestory.GameContent.EmotionStateCondition, VSSurvivalMod",
+              "emotionState": "aggressiveondamage",
+              "Invert": true
+            },
+            {
+              "$type": "Vintagestory.GameContent.HeldCondition, VSSurvivalMod",
+              "Code": "game:spear-generic-blackbronze",
+              "Invert": false
+            },
+            {
+              "$type": "Vintagestory.GameContent.TemporalStormCondition, VSSurvivalMod",
+              "Invert": true
+            }
+          ]
+        },
+        "Actions": {
+          "$type": "Vintagestory.GameContent.IEntityAction[], VSSurvivalMod",
+          "$values": [
+            {
+              "$type": "Vintagestory.GameContent.UnequipAction, VSSurvivalMod",
+              "Target": "righthand"
+            }
+          ]
+        },
+        "ConditionsOp": 1
+      },
+      {
+        "$type": "Vintagestory.GameContent.EntityActivity, VSSurvivalMod",
+        "Slot": 0,
+        "Priority": 1.0,
+        "Name": "GotoWork",
+        "Code": "GotoWork",
+        "Conditions": {
+          "$type": "Vintagestory.GameContent.IActionCondition[], VSSurvivalMod",
+          "$values": [
+            {
+              "$type": "Vintagestory.GameContent.TimeOfDayCondition, VSSurvivalMod",
+              "minHour": 7.0,
+              "maxHour": 16.0,
+              "Invert": false
+            },
+            {
+              "$type": "VsVillage.CloseToPointOfInterestCondition, vsvillage",
+              "Invert": true,
+              "Target": 1,
+              "MaxDistance": 6.0
+            },
+            {
+              "$type": "VsVillage.CooldownCondition, vsvillage",
+              "CooldownInSeconds": 30,
+              "LastSuccessfulCheck": -3.4028235E+38,
+              "Type": "CooldownCondition",
+              "Invert": false
+            }
+          ]
+        },
+        "Actions": {
+          "$type": "Vintagestory.GameContent.IEntityAction[], VSSurvivalMod",
+          "$values": [
+            {
+              "$type": "VsVillage.GotoPointOfInterestAction, vsvillage",
+              "Target": 1,
+              "AnimSpeed": 1.0,
+              "WalkSpeed": 0.02,
+              "AnimCode": "walk"
+            }
+          ]
+        },
+        "ConditionsOp": 1
+      },
+      {
+        "$type": "Vintagestory.GameContent.EntityActivity, VSSurvivalMod",
+        "Slot": 0,
+        "Priority": 1.0,
+        "Name": "GotoBed",
+        "Code": "GotoBed",
+        "Conditions": {
+          "$type": "Vintagestory.GameContent.IActionCondition[], VSSurvivalMod",
+          "$values": [
+            {
+              "$type": "Vintagestory.GameContent.TimeOfDayCondition, VSSurvivalMod",
+              "minHour": 22.0,
+              "maxHour": 6.0,
+              "Invert": false
+            },
+            {
+              "$type": "VsVillage.CloseToPointOfInterestCondition, vsvillage",
+              "Invert": true,
+              "Target": 0,
+              "MaxDistance": 2.0
+            },
+            {
+              "$type": "VsVillage.CooldownCondition, vsvillage",
+              "CooldownInSeconds": 30,
+              "LastSuccessfulCheck": -3.4028235E+38,
+              "Type": "CooldownCondition",
+              "Invert": false
+            }
+          ]
+        },
+        "Actions": {
+          "$type": "Vintagestory.GameContent.IEntityAction[], VSSurvivalMod",
+          "$values": [
+            {
+              "$type": "VsVillage.ToggleBrazierFireAction, vsvillage",
+              "MaxDistance": 3.0,
+              "Ignite": false
+            },
+            {
+              "$type": "VsVillage.GotoPointOfInterestAction, vsvillage",
+              "Target": 0,
+              "AnimSpeed": 1.0,
+              "WalkSpeed": 0.02,
+              "AnimCode": "walk"
+            }
+          ]
+        },
+        "ConditionsOp": 1
+      },
+      {
+        "$type": "Vintagestory.GameContent.EntityActivity, VSSurvivalMod",
+        "Slot": 0,
+        "Priority": 1.0,
+        "Name": "GotoGatherplace",
+        "Code": "GotoGatherplace",
+        "Conditions": {
+          "$type": "Vintagestory.GameContent.IActionCondition[], VSSurvivalMod",
+          "$values": [
+            {
+              "$type": "Vintagestory.GameContent.TimeOfDayCondition, VSSurvivalMod",
+              "minHour": 18.0,
+              "maxHour": 21.0,
+              "Invert": false
+            },
+            {
+              "$type": "VsVillage.CloseToPointOfInterestCondition, vsvillage",
+              "Invert": true,
+              "Target": 2,
+              "MaxDistance": 6.0
+            },
+            {
+              "$type": "VsVillage.CooldownCondition, vsvillage",
+              "CooldownInSeconds": 30,
+              "LastSuccessfulCheck": -3.4028235E+38,
+              "Type": "CooldownCondition",
+              "Invert": false
+            }
+          ]
+        },
+        "Actions": {
+          "$type": "Vintagestory.GameContent.IEntityAction[], VSSurvivalMod",
+          "$values": [
+            {
+              "$type": "VsVillage.GotoPointOfInterestAction, vsvillage",
+              "Target": 2,
+              "AnimSpeed": 1.0,
+              "WalkSpeed": 0.02,
+              "AnimCode": "walk"
+            },
+            {
+              "$type": "VsVillage.ToggleBrazierFireAction, vsvillage",
+              "MaxDistance": 3.0,
+              "Ignite": true
+            }
+          ]
+        },
+        "ConditionsOp": 1
+      },
+      {
+        "$type": "Vintagestory.GameContent.EntityActivity, VSSurvivalMod",
+        "Slot": 0,
+        "Priority": 1.0,
+        "Name": "Sleep",
+        "Code": "Sleep",
+        "Conditions": {
+          "$type": "Vintagestory.GameContent.IActionCondition[], VSSurvivalMod",
+          "$values": [
+            {
+              "$type": "Vintagestory.GameContent.AnimationCondition, VSSurvivalMod",
+              "animCode": "sleep",
+              "Invert": true
+            },
+            {
+              "$type": "Vintagestory.GameContent.TimeOfDayCondition, VSSurvivalMod",
+              "minHour": 22.0,
+              "maxHour": 6.0,
+              "Invert": false
+            },
+            {
+              "$type": "VsVillage.CloseToPointOfInterestCondition, vsvillage",
+              "Invert": false,
+              "Target": 0,
+              "MaxDistance": 3.0
+            }
+          ]
+        },
+        "Actions": {
+          "$type": "Vintagestory.GameContent.IEntityAction[], VSSurvivalMod",
+          "$values": [
+            {
+              "$type": "VsVillage.SleepAction, vsvillage",
+              "AnimSpeed": 1.0,
+              "AnimCode": "Lie"
+            }
+          ]
+        },
+        "ConditionsOp": 1
+      }
+    ]
+  }
+}

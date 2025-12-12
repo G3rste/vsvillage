@@ -1,0 +1,69 @@
+{
+    "components": [
+        {
+            "code": "testhasmet",
+            "owner": "trader",
+            "type": "condition",
+            "variable": "entity.hasmet",
+            "isNotValue": "true",
+            "thenJumpTo": "firstmeet",
+            "elseJumpTo": "welcomeback"
+        },
+        {
+            "code": "firstmeet",
+            "owner": "trader",
+            "type": "talk",
+            "setVariables": {
+                "entity.hasmet": "true"
+            },
+            "text": [
+                {
+                    "value": "vsvillage:dialogue-greet",
+                    "jumpTo": "main"
+                }
+            ]
+        },
+        {
+            "code": "welcomeback",
+            "owner": "trader",
+            "type": "talk",
+            "text": [
+                {
+                    "value": "vsvillage:dialogue-welcomeback",
+                    "jumpTo": "main"
+                }
+            ]
+        },
+        {
+            "code": "main",
+            "owner": "player",
+            "type": "talk",
+            "text": [
+                {
+                    "value": "vsvillage:dialogue-opentrade",
+                    "jumpTo": "opentrade"
+                },
+                {
+                    "value": "vsvillage:dialogue-openquests",
+                    "jumpTo": "openquests"
+                }
+            ]
+        },
+        {
+            "code": "opentrade",
+            "owner": "trader",
+            "trigger": "opentrade"
+        },
+        {
+            "code": "openquests",
+            "owner": "trader",
+            "type": "talk",
+            "text": [
+                {
+                    "value": "vsvillage:dialogue-no-quests",
+                    "jumpTo": "main"
+                }
+            ]
+        }
+    ]
+}

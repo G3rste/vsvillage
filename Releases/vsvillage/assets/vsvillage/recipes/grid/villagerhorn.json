@@ -1,0 +1,26 @@
+[
+    {
+        "ingredientPattern": "BBB,BGB,BBB",
+        "ingredients": {
+            "G": {
+                "type": "item",
+                "code": "game:gear-temporal",
+                "allowedVariants": [
+                    "redmeat-raw",
+                    "bushmeat-raw",
+                    "poultry-raw"
+                ]
+            },
+            "B": {
+                "type": "item",
+                "code": "game:bone"
+            }
+        },
+        "width": 3,
+        "height": 3,
+        "output": {
+            "type": "item",
+            "code": "villagerhorn"
+        }
+    }
+]

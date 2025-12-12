@@ -1,0 +1,776 @@
+{
+	"code": "villager",
+	"class": "EntityVillager",
+	"canClimb": true,
+	"eyeHeight": 1.4,
+	"hitboxSize": { "x": 0.5, "y": 1.75 },
+	"deadHitboxSize": { "x": 0.75, "y": 0.5 },
+	"attributes": {
+        "tradePropsFileByType": {
+			"*-trader": "vsvillage:config/tradelists/villager-trader"
+        },
+		"voiceSoundsByType": {
+			"*-male-*":
+				[
+					"game:sounds/voice/duduk/",
+					"game:sounds/voice/harp/",
+					"game:sounds/voice/oboe/",
+					"game:sounds/voice/ocarina/",
+					"game:sounds/voice/trumpet/",
+					"game:sounds/voice/tuba/"
+				],
+			"*-female-*":
+				[
+					"game:sounds/voice/altoflute/",
+					"game:sounds/voice/harp/",
+					"game:sounds/voice/oboe/"
+				]
+		},
+		"personality": "balanced",
+		"personalities": {
+			"balanced": { "chordDelayMul": 1.3, "pitchModifier": 0.7, "volumneModifier": 1.1 }
+		},
+		"shouldSwivelFromMotion": false,
+        "outfitConfigFileName": "villageraccessories-{sex}",
+		"partialRandomOutfits": 
+		{
+			"skin-faceByType": 
+			{
+				"*-soldier": [{"Code": "skin-face-guard"}],
+				"*-male-smith": [{"Code": "skin-face-blacksmith"}],
+				"*-male-*":[{"Code": "skin-face-innkeeper2"}, {"Code": "skin-face-normal1"}, {"Code": "skin-face-normal2"}, {"Code": "skin-face-normal3"}, {"Code": "skin-face-normal4"}, {"Code": "skin-face-normal5"}, {"Code": "skin-face-normal6"}, {"Code": "skin-face-normal7"}, {"Code": "skin-face-oldman1"}, {"Code": "skin-face-oldman2"}, {"Code": "skin-face-oldman3"}, {"Code": "skin-face-young1"}, {"Code": "skin-face-young2"}, {"Code": "skin-face-young3"}, {"Code": "skin-face-young4"}],
+				"*-female-*":[{"Code": "skin-face-normal1"}, {"Code": "skin-face-normal2"}, {"Code": "skin-face-normal3"}, {"Code": "skin-face-normal4"}, {"Code": "skin-face-normal5"}, {"Code": "skin-face-normal6"}, {"Code": "skin-face-normal7"}, {"Code": "skin-face-old1"}, {"Code": "skin-face-old2"}, {"Code": "skin-face-old3"}]
+			},
+			"eyebrowsByType": 
+			{
+				"*-male-*": [{"Code":"eyebrows-normal1"},{"Code":"eyebrows-normal2"},{"Code":"eyebrows-normal3"},{"Code":"eyebrows-normal4"},{"Code":"eyebrows-normal5"}],
+				"*-female-*": [{"Code": "eyebrows-normal1"}, {"Code": "eyebrows-normal2"}, {"Code": "eyebrows-normal3"}, {"Code": "eyebrows-normal4"}, {"Code": "eyebrows-normal5"}, {"Code": "eyebrows-normal6"}, {"Code": "eyebrows-normal7"}, {"Code": "eyebrows-normal8"}, {"Code": "eyebrows-normal9"}]
+			},
+			"eyelashes":[{"Code":"eyelashes-normal1"},{"Code":"eyelashes-normal2"}],
+			"faceextra":[{"Code": "nothing-w10"}, {"Code": "faceextra-freckles1"}, {"Code": "faceextra-freckles2"}, {"Code": "faceextra-freckles3"}, {"Code": "faceextra-notenoughsleep1"}],
+			"bodyskin":[{"Code":"bodyskin-1"},{"Code":"bodyskin-2"},{"Code":"bodyskin-3"},{"Code":"bodyskin-4"},{"Code":"bodyskin-5"},{"Code":"bodyskin-6"},{"Code":"bodyskin-7"},{"Code":"bodyskin-8"},{"Code":"bodyskin-9"},{"Code":"bodyskin-10"},{"Code":"bodyskin-11"},{"Code":"bodyskin-12"},{"Code":"bodyskin-13"},{"Code":"bodyskin-14"},{"Code":"bodyskin-15"},{"Code":"bodyskin-16"},{"Code":"bodyskin-17"},{"Code":"bodyskin-18"},{"Code":"bodyskin-19"},{"Code":"bodyskin-20"},{"Code":"bodyskin-21"},{"Code":"bodyskin-22"},{"Code":"bodyskin-23"}],
+			"iris":[{"Code":"iris-1"},{"Code":"iris-2"},{"Code":"iris-3"},{"Code":"iris-4"},{"Code":"iris-5"},{"Code":"iris-6"},{"Code":"iris-7"},{"Code":"iris-8"},{"Code":"iris-9"},{"Code":"iris-10"},{"Code":"iris-11"},{"Code":"iris-12"},{"Code":"iris-13"},{"Code":"iris-14"},{"Code":"iris-15"},{"Code":"iris-16"},{"Code":"iris-17"},{"Code":"iris-18"},{"Code":"iris-19"},{"Code":"iris-20"},{"Code":"iris-21"},{"Code":"iris-22"},{"Code":"iris-23"},{"Code":"iris-24"},{"Code":"iris-25"}],
+			"lips":[{"Code":"lips-normal1"},{"Code":"lips-normal2"},{"Code":"lips-normal3"},{"Code":"lips-normal4"},{"Code":"lips-normal5"},{"Code":"lips-normal6"},{"Code":"lips-normal7"},{"Code":"lips-normal8"},{"Code":"lips-normal9"},{"Code":"lips-normal10"},{"Code":"lips-normal11"}],
+			"scar":[{"Code": "nothing-w10","Weight":40.0}, {"Code": "scar-normal1","Weight":1.0}],
+			"sclera":[{"Code":"sclera-normal1"},{"Code":"sclera-normal2"},{"Code":"sclera-normal3"}],
+			"tatoo":[{"Code":"nothing","Weight":40.0},{"Code":"tatoo-normal1","Weight":1.0},{"Code":"tatoo-normal2","Weight":1.0},{"Code":"tatoo-normal3","Weight":1.0},{"Code":"tatoo-normal4","Weight":1.0}],
+			"hair-baseByType":
+			{
+				"*-male-*": [ {"Code": "hair-00"}, {"Code": "hair-01"}, {"Code": "hair-12"}, {"Code": "hair-13"}, {"Code": "hair-14"}, {"Code": "hair-15"}, {"Code": "hair-16"}, {"Code": "hair-18"}, {"Code": "hair-21"}, {"Code": "hair-23"}, {"Code": "hair-bald-horseshoe"}, {"Code": "hair-bald-none"}, {"Code": "hair-bald-tonsure"}, {"Code": "hair-medium-afro"}, {"Code": "hair-medium-basic"}, {"Code": "hair-medium-layered"}, {"Code": "hair-medium-ponytail"}, {"Code": "hair-short-indigenousbalding"}, {"Code": "hair-short-sideshave"}, {"Code": "hair-short-trimmed"} ],
+				"*-female-*": [ {"Code": "hair-00"}, {"Code": "hair-04"}, {"Code": "hair-06"}, {"Code": "hair-08"}, {"Code": "hair-10"}, {"Code": "hair-13"}, {"Code": "hair-14"}, {"Code": "hair-15"}, {"Code": "hair-16"}, {"Code": "hair-18"}, {"Code": "hair-19"}, {"Code": "hair-20"}, {"Code": "hair-21"}, {"Code": "hair-22"}, {"Code": "hair-long-braid1"}, {"Code": "hair-long-braid2"}, {"Code": "hair-long-combed"}, {"Code": "hair-long-dreads2"}, {"Code": "hair-long-loose"}, {"Code": "hair-long-strands"}, {"Code": "hair-medium-ponytail"}, {"Code": "hair-short-bangs"}, {"Code": "hair-short-sidebraids1"}]
+			},
+			"hair-base2":[],
+			"hair-base3":[],
+			"haircolor":[{"Code": "aged"}, {"Code": "cordovan"}, {"Code": "darkpurple"}, {"Code": "ecru"}, {"Code": "eerieblack"}, {"Code": "harvestgold"}, {"Code": "heliotropegray"}, {"Code": "indigodye"}, {"Code": "lightgray"}, {"Code": "liver"}, {"Code": "mossgreen"}, {"Code": "oldburgundy"}, {"Code": "palatinatepurple"}, {"Code": "rosewood"}, {"Code": "russet"}, {"Code": "sanddune"}, {"Code": "silverchalice"}, {"Code": "slategray"}, {"Code": "wheat"}],
+			"beardByType":
+			{
+				"*-male-*": [ {"Code": "nothing","Weight":20.0}, {"Code": "beard-1","Weight":1.0}, {"Code": "beard-2","Weight":1.0}, {"Code": "beard-3","Weight":1.0}, {"Code": "beard-4","Weight":1.0}, {"Code": "beard-5","Weight":1.0}, {"Code": "beard-6","Weight":1.0}, {"Code": "beard-7","Weight":1.0}, {"Code": "beard-8","Weight":1.0}, {"Code": "beard-full1","Weight":1.0}, {"Code": "beard-full2","Weight":1.0}, {"Code": "beard-full3","Weight":1.0}, {"Code": "beard-full4","Weight":1.0}, {"Code": "beard-full5","Weight":1.0}, {"Code": "beard-full6","Weight":1.0}, {"Code": "beard-full7","Weight":1.0}, {"Code": "beard-full8","Weight":1.0} ],
+				"*-female-*": []
+			},
+			"mustacheByType":
+			{
+				"*-male-*": [ {"Code": "nothing","Weight":10.0}, {"Code": "mustache-1","Weight":1.0}, {"Code": "mustache-2","Weight":1.0}, {"Code": "mustache-3","Weight":1.0}, {"Code": "mustache-4","Weight":1.0}, {"Code": "mustache-5","Weight":1.0} ],
+				"*-female-*": []
+			},
+
+			"armByType":
+			{
+				"*-soldier": [{"Code": "arm-guard-bracers"}],
+				"*-archer": [{"Code": "nothing"}, {"Code": "arm-guard-bracers"}],
+				"*-smith": [{"Code": "nothing"}, {"Code": "arm-copper-armlet"}],
+				"*-farmer": [{"Code": "nothing"}, {"Code": "arm-peasant-bracer"}],
+				"*-shepherd": [{"Code": "nothing"}, {"Code": "arm-peasant-bracer"}],
+				"*-herbalist": [{"Code": "arm-armlet-teeth"}, {"Code": "arm-barber-pouch"}],
+				"*-mayor": [{"Code": "arm-copper-lapis-bracelet"}, {"Code": "arm-coral-bracelet"}, {"Code": "arm-seashell-bracelet"}],
+				"*-trader": [{"Code": "arm-copper-lapis-bracelet"}, {"Code": "arm-coral-bracelet"}, {"Code": "arm-seashell-bracelet"}]
+			},
+			"faceByType":
+			{
+				"*-soldier": [],
+				"*-archer": [],
+				"*-smith": [],
+				"*-farmer": [],
+				"*-shepherd": [],
+				"*-herbalist": [],
+				"*-mayor": [],
+				"*-trader": []
+			},
+			"footByType":
+			{
+				"*-soldier": [{"Code": "foot-guard"}],
+				"*-archer": [{"Code": "foot-guard"}, {"Code": "foot-hunter"}],
+				"*-smith": [{"Code": "foot-blacksmith"}],
+				"*-farmer": [{"Code": "foot-peasant1"}, {"Code": "foot-peasant2"}],
+				"*-shepherd": [{"Code": "foot-shepherd"}],
+				"*-herbalist": [{"Code": "foot-alchemist"}],
+				"*-mayor": [{"Code": "foot-innkeeper"}],
+				"*-trader": [{"Code": "foot-tailor"}]
+			},
+			"handByType":
+			{
+				"*-soldier": [{"Code": "hand-gloves"}],
+				"*-archer": [{"Code": "nothing"}, {"Code": "hand-gloves"}],
+				"*-smith": [{"Code": "hand-blacksmith"}],
+				"*-farmer": [{"Code": "hand-peasant1"}, {"Code": "hand-peasant2"}],
+				"*-shepherd": [{"Code": "hand-shepherd"}],
+				"*-herbalist": [{"Code": "hand-alchemist"}],
+				"*-mayor": [],
+				"*-trader": []
+			},
+			"headByType":
+			{
+				"*-soldier": [{"Code": "head-guard"}],
+				"*-archer": [{"Code": "head-guard"}, {"Code": "head-hunter"}],
+				"*-smith": [{"Code": "head-blacksmith"}],
+				"*-farmer": [{"Code": "nothing"}, {"Code": "head-peasant1"}, {"Code": "head-peasant2"}, {"Code": "head-straw"}],
+				"*-shepherd": [{"Code": "nothing"}, {"Code": "head-shepherd"}],
+				"*-herbalist": [{"Code": "head-alchemist"}],
+				"*-mayor": [],
+				"*-trader": [{"Code": "head-tailor"}]
+			},
+			"lowerbodyByType":
+			{
+				"*-soldier": [{"Code": "lowerbody-pants-guard"}],
+				"*-archer": [{"Code": "lowerbody-pants-guard"},{"Code": "lowerbody-pants-hunter"}],
+				"*-smith": [{"Code": "lowerbody-pants-blacksmith"}],
+				"*-male-farmer": [{"Code": "lowerbody-pants-peasant1"},{"Code": "lowerbody-pants-peasant2"},{"Code": "lowerbody-pants-peasant3"}],
+				"*-female-farmer": [{"Code": "lowerbody-skirt-peasant-skirt1"},{"Code": "lowerbody-skirt-peasant-skirt2"},{"Code": "lowerbody-skirt-peasant-skirt3"}],
+				"*-shepherd": [{"Code": "lowerbody-pants-shepherd"}],
+				"*-herbalist": [{"Code": "lowerbody-pants-alchemist"}],
+				"*-mayor": [{"Code": "lowerbody-pants-innkeeper"}],
+				"*-trader": [{"Code": "lowerbody-pants-innkeeper"}]
+			},
+			"neckByType":
+			{
+				"*-soldier": [],
+				"*-archer": [{"Code": "nothing"}, {"Code": "neck-necklace-teeth"}],
+				"*-smith": [],
+				"*-farmer": [],
+				"*-shepherd": [],
+				"*-herbalist": [{"Code": "neck-acacia-amulet"}, {"Code": "neck-bamboo-seed-amulet"}, {"Code": "neck-birch-amulet"}, {"Code": "neck-cattail-root-amulet"}, {"Code": "neck-ebony-amulet"}, {"Code": "neck-feather-amulet"}, {"Code": "neck-flint-amulet"}],
+				"*-mayor": [{"Code": "neck-papyrus-root-amulet"}, {"Code": "neck-purpleheart-amulet"}, {"Code": "neck-tule-root-amulet"}],
+				"*-trader": []
+			},
+			"shoulderByType":
+			{
+				"*-soldier": [{"Code": "shoulder-{sex}-shortsleeve-guard"}],
+				"*-archer": [{"Code": "shoulder-{sex}-shortsleeve-guard"}, {"Code": "shoulder-{sex}-longsleeve-hunter"}],
+				"*-smith": [{"Code": "shoulder-{sex}-blacksmith-apron-blacksmith"}],
+				"*-farmer": [{"Code": "shoulder-{sex}-shortsleeve-peasant1"},{"Code": "shoulder-{sex}-shortsleeve-peasant2"},{"Code": "shoulder-{sex}-shortsleeve-peasant3"}],
+				"*-shepherd": [{"Code": "shoulder-{sex}-longsleeve-shepherd"}],
+				"*-herbalist": [],
+				"*-mayor": [{"Code": "shoulder-{sex}-innkeeper-apron-innkeeper"}],
+				"*-trader": [{"Code": "shoulder-{sex}-innkeeper-apron-innkeeper"}]
+			},
+			"upperbodyByType":
+			{
+				"*-soldier": [{"Code": "upperbody-{sex}-shortsleeve-guard"}],
+				"*-archer": [{"Code": "upperbody-{sex}-shortsleeve-guard"},{"Code": "upperbody-{sex}-shortsleeve-hunter"}],
+				"*-smith": [{"Code": "upperbody-{sex}-shortsleeve-blacksmith"}],
+				"*-farmer": [{"Code": "upperbody-{sex}-shortsleeve-peasant1"},{"Code": "upperbody-{sex}-shortsleeve-peasant2"},{"Code": "upperbody-{sex}-shortsleeve-peasant3"},{"Code": "upperbody-{sex}-shortsleeve-peasant4"}],
+				"*-shepherd": [{"Code": "upperbody-{sex}-longsleeve-shepherd"}],
+				"*-herbalist": [{"Code": "upperbody-{sex}-longsleeve-extended-alchemist"}],
+				"*-mayor": [{"Code": "upperbody-{sex}-longsleeve-beekeeper"}],
+				"*-trader": [{"Code": "upperbody-{sex}-longsleeve-beekeeper"}]
+			},
+			"upperbodyoverByType":
+			{
+				"*-soldier": [],
+				"*-archer": [],
+				"*-smith": [],
+				"*-farmer": [{"Code": "nothing"},{"Code": "upperbodyover-{sex}-longsleeve-extended-coat-verylong"},{"Code": "upperbodyover-{sex}-longsleeve-coat-long"},{"Code": "upperbodyover-{sex}-shortsleeve-coat-short"}],
+				"*-shepherd": [],
+				"*-herbalist": [{"Code": "nothing"}, {"Code": "upperbodyover-{sex}-capelet-alchemist"}],
+				"*-mayor": [],
+				"*-trader": [{"Code": "nothing"},{"Code": "upperbodyover-{sex}-longsleeve-extended-coat-verylong"},{"Code": "upperbodyover-{sex}-longsleeve-coat-long"},{"Code": "upperbodyover-{sex}-shortsleeve-coat-short"}]
+			},
+			"waistByType":
+			{
+				"*-soldier": [{"Code": "waist-guard"}],
+				"*-archer": [{"Code": "waist-guard"},{"Code": "waist-hunter"}],
+				"*-smith": [],
+				"*-farmer": [{"Code": "waist-peasant1"}, {"Code": "waist-peasant2"}],
+				"*-shepherd": [ {"Code": "waist-shepherd"}],
+				"*-herbalist": [{"Code": "waist-alchemist"}],
+				"*-mayor": [{"Code": "waist-innkeeper-accessories"}],
+				"*-trader": [{"Code": "waist-innkeeper"}]
+			}
+		}
+	},
+	"variantGroups": [{"code": "sex", "states": ["male", "female"]}, {"code": "profession", "states": ["soldier", "smith", "farmer", "shepherd", "herbalist", "mayor", "archer", "trader"]}],
+	"client": {
+		"renderer": "Shape",
+		"shape": { "base": "game:entity/humanoid/villager-{sex}" },
+		"behaviors": [
+			{ "code": "villagerinventory" },
+			{ "code": "nametag", "showtagonlywhentargeted": true },
+			{ "code": "repulseagents" },
+			{ "code": "controlledphysics", "stepHeight": 1.01 },
+			{ "code": "interpolateposition" },
+			{
+				"code": "Villager",
+				"professionByType": {
+					"*-archer": "soldier",
+					"*": "{profession}"
+				}
+			},
+            {
+                "code": "conversable",
+                "dialogueByType": {
+					"*-trader": "vsvillage:config/dialogue/trader",
+					"*": "vsvillage:config/dialogue/other"
+				}
+            }
+		],
+		"animations": [
+			{
+				"code": "idle",
+				"animation": "idle",
+				"blendMode": "average", 
+				"triggeredBy": { "defaultAnim": true }
+			},
+			{
+				"code": "sleep",
+				"animation": "lie",
+				"blendMode": "add"
+			},
+			{
+				"code": "die",
+				"animation": "die",
+				"animationSpeed": 1.75,
+				"weight": 10,
+				"blendMode": "addAverage"
+			},
+			{
+				"code": "hurt",
+				"animation": "hurt",
+				"animationSpeed": 2,
+				"blendMode": "addAverage"
+			},
+			{
+				"animation": "balanced-walk",
+				"blendMode": "average"
+			},
+			{
+				"animation": "balanced-hit",
+				"blendMode": "addAverage",
+				"animationSpeed": 0.7,
+				"animationSound": {
+					"frame": 5,
+					"location": "effect/anvilhit*"
+				}
+			},			
+			{
+				"animation": "balanced-run",
+				"blendMode": "average"
+			},
+			{
+				"animation": "balanced-walk",
+				"blendMode": "average"
+			},
+			{
+				"animation": "balanced-hoe-till",
+				"blendMode": "average"
+			},
+			{
+				"animation": "balanced-sitfloor",
+				"blendMode": "average"
+			},
+			{
+				"animation": "balanced-sitedge",
+				"blendMode": "average"
+			},
+			{
+				"animation": "balanced-sitchair",
+				"blendMode": "average"
+			},
+			{
+				"animation": "balanced-sitchairtable",
+				"blendMode": "average"
+			},
+			{
+				"animation": "balanced-lie",
+				"blendMode": "average"
+			},
+			{
+				"animation": "balanced-sitfloor",
+				"blendMode": "average"
+			},
+			{
+				"animation": "balanced-spindle-spinsit",
+				"blendMode": "add",
+				"elementWeight": {
+					"UpperArmR": 100,
+					"LowerArmR": 100,
+					"UpperArmL": 100,
+					"LowerArmL": 100
+				},
+				"elementBlendMode": {
+					"UpperArmR": "addAverage",
+					"LowerArmR": "addAverage",
+					"UpperArmL": "addAverage",
+					"LowerArmL": "addAverage"
+				}
+			},	
+			{
+				"animation": "balanced-holdbothhands",
+				"blendMode": "add",
+				"elementWeight": {
+					"UpperArmRHelper": 100,
+					"UpperArmR": 100,
+					"LowerArmRHelper": 100,
+					"LowerArmR": 100,
+					"UpperArmLHelper": 100,
+					"UpperArmL": 100,
+					"LowerArmLHelper": 100,
+					"LowerArmL": 100
+				},
+				"elementBlendMode": {
+					"UpperArmRHelper": "addAverage",
+					"LowerArmRHelper": "addAverage",
+					"UpperArmR": "addAverage",
+					"LowerArmR": "addAverage",
+					"UpperArmLHelper": "addAverage",
+					"LowerArmLHelper": "addAverage",
+					"UpperArmL": "addAverage",
+					"LowerArmL": "addAverage"
+				}
+			},
+			{
+				"animation": "balanced-bowl-eatsittable",
+				"blendMode": "add",
+				"elementWeight": {
+					"LowerTorso": 100,
+					"UpperTorso": 100,
+					"UpperArmRHelper": 100,
+					"UpperArmR": 100,
+					"LowerArmRHelper": 100,
+					"LowerArmR": 100,
+					"UpperArmLHelper": 100,
+					"UpperArmL": 100,
+					"LowerArmLHelper": 100,
+					"LowerArmL": 100
+				},
+				"elementBlendMode": {
+					"LowerTorso": "addAverage",
+					"UpperTorso": "addAverage",
+					"UpperArmRHelper": "addAverage",
+					"LowerArmRHelper": "addAverage",
+					"UpperArmR": "addAverage",
+					"LowerArmR": "addAverage",
+					"UpperArmLHelper": "addAverage",
+					"LowerArmLHelper": "addAverage",
+					"UpperArmL": "addAverage",
+					"LowerArmL": "addAverage"
+				}
+			},
+			{
+				"animation": "balanced-mug-stand",
+				"blendMode": "add",
+				"elementWeight": {
+					"Origin": 100,
+					"LowerTorso": 100,
+					"UpperTorso": 100,
+					"UpperArmRHelper": 100,
+					"UpperArmR": 100,
+					"LowerArmRHelper": 100,
+					"LowerArmR": 100,
+					"UpperArmLHelper": 100,
+					"UpperArmL": 100,
+					"LowerArmLHelper": 100,
+					"LowerArmL": 100
+				},
+				"elementBlendMode": {
+					"Origin": "addAverage",
+					"LowerTorso": "addAverage",
+					"UpperTorso": "addAverage",
+					"UpperArmRHelper": "addAverage",
+					"LowerArmRHelper": "addAverage",
+					"UpperArmR": "addAverage",
+					"LowerArmR": "addAverage",
+					"UpperArmLHelper": "addAverage",
+					"LowerArmLHelper": "addAverage",
+					"UpperArmL": "addAverage",
+					"LowerArmL": "addAverage"
+				}
+			},
+			{
+				"animation": "balanced-mug-standdrink",
+				"blendMode": "add",
+				"elementWeight": {
+					"Origin": 100,
+					"LowerTorso": 100,
+					"UpperTorso": 100,
+					"UpperArmRHelper": 100,
+					"UpperArmR": 100,
+					"LowerArmRHelper": 100,
+					"LowerArmR": 100,
+					"UpperArmLHelper": 100,
+					"UpperArmL": 100,
+					"LowerArmLHelper": 100,
+					"LowerArmL": 100
+				},
+				"elementBlendMode": {
+					"Origin": "addAverage",
+					"LowerTorso": "addAverage",
+					"UpperTorso": "addAverage",
+					"UpperArmRHelper": "addAverage",
+					"LowerArmRHelper": "addAverage",
+					"UpperArmR": "addAverage",
+					"LowerArmR": "addAverage",
+					"UpperArmLHelper": "addAverage",
+					"LowerArmLHelper": "addAverage",
+					"UpperArmL": "addAverage",
+					"LowerArmL": "addAverage"
+				}
+			},
+			{
+				"animation": "balanced-mug-tablesit",
+				"blendMode": "add",
+				"elementWeight": {
+					"Origin": 100,
+					"LowerTorso": 100,
+					"UpperTorso": 100,
+					"UpperArmRHelper": 100,
+					"UpperArmR": 100,
+					"LowerArmRHelper": 100,
+					"LowerArmR": 100,
+					"UpperArmLHelper": 100,
+					"UpperArmL": 100,
+					"LowerArmLHelper": 100,
+					"LowerArmL": 100
+				},
+				"elementBlendMode": {
+					"Origin": "addAverage",
+					"LowerTorso": "addAverage",
+					"UpperTorso": "addAverage",
+					"UpperArmRHelper": "addAverage",
+					"LowerArmRHelper": "addAverage",
+					"UpperArmR": "addAverage",
+					"LowerArmR": "addAverage",
+					"UpperArmLHelper": "addAverage",
+					"LowerArmLHelper": "addAverage",
+					"UpperArmL": "addAverage",
+					"LowerArmL": "addAverage"
+				}
+			},
+			{
+				"animation": "balanced-mug-tablesitdrink",
+				"blendMode": "add",
+				"elementWeight": {
+					"UpperTorso": 200,
+					"UpperArmRHelper": 200,
+					"UpperArmR": 200,
+					"LowerArmRHelper": 200,
+					"LowerArmR": 200,
+					"UpperArmLHelper": 200,
+					"UpperArmL": 200,
+					"LowerArmLHelper": 200,
+					"LowerArmL": 200
+				},
+				"elementBlendMode": {
+					"UpperTorso": "addAverage",
+					"UpperArmRHelper": "addAverage",
+					"LowerArmRHelper": "addAverage",
+					"UpperArmR": "addAverage",
+					"LowerArmR": "addAverage",
+					"UpperArmLHelper": "addAverage",
+					"LowerArmLHelper": "addAverage",
+					"UpperArmL": "addAverage",
+					"LowerArmL": "addAverage"
+				}
+			},
+			{
+				"animation": "balanced-pipe-sitchair",
+				"blendMode": "add",
+				"elementWeight": {
+					"LowerTorso": 100,
+					"UpperTorso": 100,
+					"UpperArmRHelper": 100,
+					"UpperArmR": 100,
+					"LowerArmRHelper": 100,
+					"LowerArmR": 100,
+					"UpperArmLHelper": 100,
+					"UpperArmL": 100,
+					"LowerArmLHelper": 100,
+					"LowerArmL": 100
+				},
+				"elementBlendMode": {
+					"LowerTorso": "addAverage",
+					"UpperTorso": "addAverage",
+					"UpperArmRHelper": "addAverage",
+					"LowerArmRHelper": "addAverage",
+					"UpperArmR": "addAverage",
+					"LowerArmR": "addAverage",
+					"UpperArmLHelper": "addAverage",
+					"LowerArmLHelper": "addAverage",
+					"UpperArmL": "addAverage",
+					"LowerArmL": "addAverage"
+				}
+			},
+			{
+				"animation": "balanced-jugglingballs-juggle",
+				"blendMode": "add",
+				"elementWeight": {
+					"BallRblueORIGIN": 200,
+					"BallRredORIGIN": 200,
+					"BallLyellowORIGIN": 200,
+					"UpperTorso": 200,
+					"UpperArmRHelper": 200,
+					"UpperArmR": 200,
+					"LowerArmRHelper": 200,
+					"LowerArmR": 200,
+					"UpperArmLHelper": 200,
+					"UpperArmL": 200,
+					"LowerArmLHelper": 200,
+					"LowerArmL": 200
+				},
+				"elementBlendMode": {
+					"BallRblueORIGIN": "addAverage",
+					"BallRredORIGIN": "addAverage",
+					"BallLyellowORIGIN": "addAverage",
+					"UpperTorso": "addAverage",
+					"UpperArmRHelper": "addAverage",
+					"LowerArmRHelper": "addAverage",
+					"UpperArmR": "addAverage",
+					"LowerArmR": "addAverage",
+					"UpperArmLHelper": "addAverage",
+					"LowerArmLHelper": "addAverage",
+					"UpperArmL": "addAverage",
+					"LowerArmL": "addAverage"
+				}
+			},
+			{
+				"animation": "balanced-torch-hold",
+				"blendMode": "add",
+				"elementWeight": {
+					"UpperArmLHelper": 90,
+					"UpperArmL": 90,
+					"LowerArmLHelper": 90
+				},
+				"elementBlendMode": {
+					"UpperArmLHelper": "addAverage",
+					"UpperArmL": "addAverage",
+					"LowerArmLHelper": "addAverage"
+				}
+			},		
+			{
+				"animation": "hurdygurdy-bow",
+				"blendMode": "add",
+				"elementWeight": {
+					"BeltAttachment": 100
+				},
+				"elementBlendMode": {
+					"BeltAttachment": "addAverage"
+				}
+			},	
+			{
+				"animation": "balanced-hoe-till",
+				"blendMode": "average",
+				"animationSound": {
+					"frame": 19,
+					"location": "block/dirt*"
+				}
+			},
+			{
+				"animation": "elderbalanced-walk",
+				"blendMode": "average"
+			},
+			{
+				"animation": "elderbalanced-run",
+				"blendMode": "average"
+			},
+			{
+				"animation": "elderbalanced-walk",
+				"blendMode": "average"
+			},
+			{
+				"animation": "elderbalanced-sitfloor",
+				"blendMode": "average"
+			},
+			{
+				"animation": "elderbalanced-sitedge",
+				"blendMode": "average"
+			},
+			{
+				"animation": "elderbalanced-sitchair",
+				"blendMode": "average"
+			},
+			{
+				"animation": "elderbalanced-sitchairtable",
+				"blendMode": "average"
+			},
+			{
+				"animation": "elderbalanced-lie",
+				"blendMode": "average"
+			},
+			{
+				"animation": "elderbalanced-sitfloor",
+				"blendMode": "average"
+			},
+			{
+				"animation": "balanced-hammer-forge",
+				"blendMode": "add",
+				"animationSound": {
+					"frame": 10,
+					"location": "effect/anvilhit*"
+				},
+				"elementWeight": {
+					"LowerTorso": 100,
+					"UpperTorso": 100,
+					"UpperArmRHelper": 100,
+					"UpperArmR": 100,
+					"LowerArmRHelper": 100,
+					"LowerArmR": 100,
+					"UpperArmLHelper": 100,
+					"UpperArmL": 100,
+					"LowerArmLHelper": 100,
+					"LowerArmL": 100
+				},
+				"elementBlendMode": {
+					"LowerTorso": "addAverage",
+					"UpperTorso": "addAverage",
+					"UpperArmRHelper": "addAverage",
+					"LowerArmRHelper": "addAverage",
+					"UpperArmR": "addAverage",
+					"LowerArmR": "addAverage",
+					"UpperArmLHelper": "addAverage",
+					"LowerArmLHelper": "addAverage",
+					"UpperArmL": "addAverage",
+					"LowerArmL": "addAverage"
+				}
+			}
+		]
+	},
+	"server": {
+		"attributes": {
+			"pathfinder": {
+				"minTurnAnglePerSec": 720,
+				"maxTurnAnglePerSec": 1440
+			}
+
+		},
+		"behaviors": [
+			{ "code": "villagerinventory" },
+			{ "code": "nametag", "showtagonlywhentargeted": true, "selectFromRandomNameByType": {"*-male-*": ["Aphid", "Erik", "Adachi", "Farhad", "Pegalesharro", "Floyd", "Temper", "En Repos", "Alanus", "Baldrich", "Cuno", "Dominicus", "Ludwig", "Lambert", "Geralt", "Richard", "Wolfram", "Zachäus", "Pippin", "Frodo", "Baggins", "Rudolf", "Marcus", "Benjamin", "Cronos", "Timoleon", "Leonidas", "Xerxes", "Brutus", "William", "Maurinus", "Hubertus"], "*-female-*": ["Anne", "Agnes", "Adachi", "Farhad", "Bianca", "Hedwig", "Demud", "Imagina", "Johanna", "Judith", "Magdalena", "Philippa", "Methild", "Violante", "Walpurga", "Josephine", "Joana", "Yvonne", "Lisbeth", "Dione", "Diana", "Olivia", "Hermine", "Triss", "Yennefer", "Lucia", "Mirella", "Bernadetta", "Tacia"]}},
+			{ "code": "repulseagents" },
+			{ "code": "controlledphysics", "stepHeight": 1.01 },
+			{ "code": "health", "currenthealthByType": {"*-smith": 30, "*-soldier": 40, "*": 20 }, "maxhealthByType": {"*-smith": 30, "*-soldier": 40, "*": 20}},
+			{
+				"code": "emotionstates",
+				"states": [
+					{ "code": "aggressiveondamage", "duration": 6, "chance": 0.6, "slot": 0, "priority": 2, "accumType": "noaccum" },
+					{ "code": "fleeondamage", "duration": 10, "chance": 0.4, "slot": 0, "priority": 1, "whenHealthRelBelow": 0.3, "accumType": "max" }
+				]
+			},
+			{
+                "code": "deaddecay",
+                "hoursToDecay": 96,
+                "decayedBlock": "drycarcass-humanoid1"
+            },
+            {
+				"code": "activitydriven",
+				"activityCollectionPathByType": {
+					"*": "working-villager"
+				}
+			},
+			{
+				"code": "taskai",
+				"aitasks": [
+					{
+						"code": "meleeattack",
+						"entityCodes": ["player"],
+						"priority": 2,
+						"damage": 5,
+						"mincooldown": 2500,
+						"maxcooldown": 3500,
+						"attackDurationMs": 900,
+						"damagePlayerAtMs": 300,
+						"animation": "spear-attack",
+						"animationSpeed": 2,
+						"whenInEmotionState": "aggressiveondamage"
+					},
+					{
+						"code": "seekentity",
+						"entityCodes": ["player"],
+						"priority": 1.5,
+						"mincooldown": 1000,
+						"maxcooldown": 1500,
+						"seekingRange": 20,
+						"movespeed": 0.035,
+						"animation": "Run",
+						"animationSpeed": 1.75,
+						"whenInEmotionState": "aggressiveondamage"
+					},
+					{
+						"code": "fleeentity",
+						"entityCodes": ["player"],
+						"priority": 1.5,
+						"movespeed": 0.035,
+						"seekingRange": 12,
+						"animation": "Run",
+						"animationSpeed": 1.75,
+						"whenInEmotionState": "fleeondamage"
+					},
+					{
+						"code": "fleeentity",
+						"entityCodes": ["drifter-*", "shiver-*", "bowtorn-*"],
+						"priority": 1.49,
+						"movespeed": 0.035,
+						"seekingRange": 6,
+						"animation": "Run",
+						"animationSpeed": 1.75
+					},
+					{
+						"code": "idle",
+						"priority": 1.2,
+						"minduration": 2500,
+						"maxduration": 2500,
+						"mincooldown": 2000,
+						"maxcooldown": 10000,
+						"animation": "laugh"
+					},
+					{
+						"code": "idle",
+						"priority": 1.2,
+						"minduration": 2500,
+						"maxduration": 2500,
+						"mincooldown": 5000,
+						"maxcooldown": 30000,
+						"animation": "idle2"
+					},
+					{
+						"code": "wander",
+						"priority": 1.0,
+						"movespeed": 0.01,
+						"animation": "Walk",
+						"wanderChance": 0.005,
+						"maxDistanceToSpawn": 15,
+						"wanderRangeMin": 1,
+						"wanderRangeMax": 3
+					},
+					{
+						"code": "lookaround",
+						"priority": 0.5
+					}
+				]
+			},
+			{
+				"code": "Villager",
+				"professionByType": {
+					"*-archer": "soldier",
+					"*": "{profession}"
+				}
+			},
+            {
+                "code": "conversable",
+                "dialogueByType": {
+					"*-trader": "vsvillage:config/dialogue/trader",
+					"*": "vsvillage:config/dialogue/other"
+				}
+            }
+		]
+	},
+	"sounds": {
+	}
+}

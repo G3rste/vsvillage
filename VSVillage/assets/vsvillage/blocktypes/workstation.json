@@ -1,0 +1,60 @@
+{
+    "code": "workstation",
+    "classByType": {
+        "workstation-mayor-*": "MayorWorkstation",
+        "*": "Block"
+    },
+    "entityClass": "VillagerWorkstation",
+    "behaviors": [
+        {
+            "name": "HorizontalOrientable"
+        }
+    ],
+    "variantgroups": [
+        {
+            "code": "profession",
+            "states": [
+                "smith",
+                "farmer",
+                "shepherd",
+                "mayor",
+                "soldier",
+                "herbalist",
+                "trader"
+            ]
+        },
+        {
+            "code": "side",
+            "loadFromProperties": "abstract/horizontalorientation"
+        }
+    ],
+    "creativeinventory": {
+        "general": [
+            "*-east"
+        ]
+    },
+    "shape": {
+        "base": "workstations/{profession}",
+        "rotateYByType": {
+            "*-north": 0,
+            "*-east": 270,
+            "*-south": 180,
+            "*-west": 90
+        }
+    },
+    "blockmaterial": "Wood",
+	"sounds": {
+		"place": "game:block/planks",
+		"hit": "game:block/planks",
+		"break": "game:block/planks",
+		"walk": "game:walk/wood"
+	},
+    "sidesolid": {
+        "all": false
+    },
+    "sideopaque": {
+        "all": false
+    },
+    "lightAbsorption": 1,
+    "maxStackSize": 8
+}

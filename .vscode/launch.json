@@ -1,18 +1,60 @@
 {
-	"version": "0.2.0",
-	"configurations": [
-		{
-			"name": "Launch Client (Core .NET8)",
-			"type": "coreclr",
-			"request": "launch",
-			"preLaunchTask": "Build (Debug)",
-			"program": "${env:VINTAGE_STORY}/Vintagestory.exe",
-			"args": [
-				"--addModPath",
-				"${workspaceFolder}/bin/vsdebug",
-			],
-			"console": "internalConsole",
-			"internalConsoleOptions": "openOnSessionStart",
-		}
-	]
+    "version": "2.0.0",
+    "configurations": [
+        {
+            "name": "Launch Client (Debug)",
+            "type": "coreclr",
+            "request": "launch",
+            "program": "${env:VINTAGE_STORY}/Vintagestory.exe",
+            "linux": {
+                "program": "${env:VINTAGE_STORY}/Vintagestory.dll"
+            },
+            "osx": {
+                "program": "${env:VINTAGE_STORY}/Vintagestory"
+            },
+            "preLaunchTask": "build",
+            "args": [
+                "--tracelog",
+                "--addModPath",
+                "${workspaceFolder}/VSVillage/bin/Debug/Mods",
+                "--addOrigin",
+                "${workspaceFolder}/VSVillage/assets"
+            ],
+            "console": "internalConsole",
+            "stopAtEntry": false
+        },
+        {
+            "name": "Launch Server",
+            "type": "coreclr",
+            "request": "launch",
+            "program": "${env:VINTAGE_STORY}/VintagestoryServer.exe",
+            "linux": {
+                "program": "${env:VINTAGE_STORY}/VintagestoryServer.dll"
+            },
+            "osx": {
+                "program": "${env:VINTAGE_STORY}/VintagestoryServer"
+            },
+            "preLaunchTask": "build",
+            "args": [
+                "--tracelog",
+                "--addModPath",
+                "${workspaceFolder}/VSVillage/bin/Debug/Mods",
+                 "--addOrigin",
+                 "${workspaceFolder}/VSVillage/assets"
+            ],
+            "console": "internalConsole",
+            "stopAtEntry": false
+        },
+        {
+            "name": "CakeBuild",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build (Cake)",
+            "program": "${workspaceFolder}/CakeBuild/bin/Debug/net8.0/CakeBuild.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/CakeBuild",
+            "stopAtEntry": false,
+            "console": "internalConsole"
+        }
+    ]
 }
