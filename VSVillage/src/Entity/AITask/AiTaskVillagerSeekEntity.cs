@@ -234,7 +234,7 @@ public class AiTaskVillagerSeekEntity : AiTaskGotoAndInteract
         Village village = entity.GetBehavior<EntityBehaviorVillager>()?.Village;
         if (village?.Pos == null) return true;
         double radiusSq = village.Radius * (double)village.Radius;
-        return village.Pos.DistanceSqTo(target.Pos.X, target.Pos.Y, target.Pos.Z) <= radiusSq;
+        return village.EffectiveCenter().DistanceSqTo(target.Pos.X, target.Pos.Y, target.Pos.Z) <= radiusSq;
     }
 
     private bool MatchesCode(Entity e)

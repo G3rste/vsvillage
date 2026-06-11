@@ -99,7 +99,7 @@ public class EntityBehaviorTravellingGuard : EntityBehavior
 			Village village = entity.Api.ModLoader.GetModSystem<VillageManager>()?.GetVillage(villageId);
 			if (village != null)
 			{
-				double dist = entity.Pos.XYZ.DistanceTo(village.Pos.ToVec3d());
+				double dist = entity.Pos.XYZ.DistanceTo(village.EffectiveCenter().ToVec3d());
 				if (dist > village.Radius + 10.0)
 				{
 					Log($"Outside village area ({dist:F0}) - despawning guard.");

@@ -90,9 +90,14 @@ public class VillageGenerator : ModStdWorldGen
 			return TextCommandResult.Error("Terrain is too steep/ damp for generating a village");
 		}
 		villageGrid.connectStreets();
+		// getMiddle() carries start.Y + a flat 20 - anchor the centre on the terrain
+		// instead so radius/Y-pad scans (farmland counts etc.) cover the actual village.
+		BlockPos debugMiddle = villageGrid.getMiddle(start);
+		int debugTerrainY = sapi.World.BlockAccessor.GetTerrainMapheightAt(debugMiddle);
+		if (debugTerrainY > 0) debugMiddle.Y = debugTerrainY;
 		Village village = new Village
 		{
-			Pos = villageGrid.getMiddle(start),
+			Pos = debugMiddle,
 			Name = VillageNames[villageType.Names][rand.NextInt(villageType.Names.Length)],
 			Api = sapi,
 			Gatherplaces = new HashSet<BlockPos>(),
@@ -234,9 +239,17 @@ public class VillageGenerator : ModStdWorldGen
 					Location = new Cuboidi(blockPos, end)
 				});
 				villageGrid.connectStreets();
+				// blockPos is the chunk-column corner with Y=0, and getMiddle() only adds
+				// a flat +20, which put the saved village centre ~90 blocks underground on
+				// default worlds. Every radius-based scan (farmland counting, market stall
+				// detection, livestock queries) is vertically anchored on Pos.Y, so anchor
+				// it on the terrain surface at the centre column.
+				BlockPos middle = villageGrid.getMiddle(blockPos);
+				int terrainY = worldgenBlockAccessor.GetTerrainMapheightAt(middle);
+				if (terrainY > 0) middle.Y = terrainY;
 				Village village = new Village
 				{
-					Pos = villageGrid.getMiddle(blockPos),
+					Pos = middle,
 					Name = VillageNames[villageType.Names][rand.NextInt(villageType.Names.Length)],
 					Api = sapi,
 					Gatherplaces = new HashSet<BlockPos>(),

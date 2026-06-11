@@ -313,7 +313,9 @@ public static class VillagerHireRequirementChecker
         float searchRadius = (village?.Radius ?? MaxPenRadius) + 2f;
         float searchHeight = PenYScan + 14f;
 
-        Vec3d centerVec = new Vec3d(searchCenter.X + 0.5, searchCenter.Y + 0.5, searchCenter.Z + 0.5);
+        // Anchor the query vertically on the workstation - the count filter below is
+        // wsPos.Y-relative, and village.Pos.Y is unreliable (worldgen stores ~20).
+        Vec3d centerVec = new Vec3d(searchCenter.X + 0.5, wsPos.Y + 0.5, searchCenter.Z + 0.5);
         Entity[] nearby = api.World.GetEntitiesAround(centerVec, searchRadius, searchHeight);
 
         int count = 0;
@@ -383,6 +385,9 @@ public static class VillagerHireRequirementChecker
         // Y-pad scales with village radius capped at 75. Matches marketstall scan.
         // Prior hardcoded 10 missed terraced fields and mountain villages.
         int yPad = Math.Min(village.Radius, 75);
+        // Worldgen villages store Pos.Y ~20 (see Village.EffectiveCenterY) - anchoring
+        // the Y band there scans bedrock instead of the fields.
+        int centerY = village.EffectiveCenterY();
         IBlockAccessor ba = api.World.BlockAccessor;
         BlockPos tmp = new BlockPos(0);
         BlockPos above = new BlockPos(0);
@@ -396,7 +401,7 @@ public static class VillagerHireRequirementChecker
             {
                 int dz = z - center.Z;
                 if (dx * dx + dz * dz > r * r) continue;
-                for (int y = center.Y - yPad; y <= center.Y + yPad; y++)
+                for (int y = centerY - yPad; y <= centerY + yPad; y++)
                 {
                     tmp.Set(x, y, z);
                     Block b = ba.GetBlock(tmp);
@@ -453,10 +458,12 @@ public static class VillagerHireRequirementChecker
         if (mergedCells.Count == 0 || anyWsPos == null)
             return (0, new List<string>(), new List<int>());
 
-        // Single entity query over the village boundary.
+        // Single entity query over the village boundary. Anchored vertically on a real
+        // pen workstation - the count filter below is anyWsPos.Y-relative, and
+        // village.Pos.Y is unreliable (worldgen stores ~20).
         float searchRadius = village.Radius + 2f;
         float searchHeight = VillageScanYPad + 14f;
-        Vec3d centerVec = new Vec3d(village.Pos.X + 0.5, village.Pos.Y + 0.5, village.Pos.Z + 0.5);
+        Vec3d centerVec = new Vec3d(village.Pos.X + 0.5, anyWsPos.Y + 0.5, village.Pos.Z + 0.5);
         Entity[] nearby = api.World.GetEntitiesAround(centerVec, searchRadius, searchHeight);
 
         var animalCounts = new Dictionary<string, int>();
@@ -767,6 +774,9 @@ public static class VillagerHireRequirementChecker
         // Y-pad scales with village radius capped at 75. Matches marketstall scan.
         // Prior hardcoded 10 missed terraced fields and mountain villages.
         int yPad = Math.Min(village.Radius, 75);
+        // Worldgen villages store Pos.Y ~20 (see Village.EffectiveCenterY) - anchoring
+        // the Y band there scans bedrock instead of the fields.
+        int centerY = village.EffectiveCenterY();
         IBlockAccessor ba = world.BlockAccessor;
         BlockPos tmp = new BlockPos(0);
         int count = 0;
@@ -778,7 +788,7 @@ public static class VillagerHireRequirementChecker
             {
                 int dz = z - center.Z;
                 if (dx * dx + dz * dz > r * r) continue;
-                for (int y = center.Y - yPad; y <= center.Y + yPad; y++)
+                for (int y = centerY - yPad; y <= centerY + yPad; y++)
                 {
                     tmp.Set(x, y, z);
                     Block b = ba.GetBlock(tmp);

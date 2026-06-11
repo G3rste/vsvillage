@@ -141,7 +141,11 @@ public class VillageManager : ModSystem
 		foreach (Village v in Villages.Values)
 		{
 			if (v.Pos == null) continue;
-			double dist = v.Pos.DistanceTo(playerPos);
+			// Horizontal distance only - matches GetVillage(BlockPos). A 3D distance
+			// here made the check fail for worldgen villages whose Pos.Y is ~20.
+			int dx = v.Pos.X - playerPos.X;
+			int dz = v.Pos.Z - playerPos.Z;
+			double dist = Math.Sqrt((double)dx * dx + (double)dz * dz);
 			if (dist <= v.Radius && dist < closestDist)
 			{
 				closestDist = dist;
@@ -165,7 +169,7 @@ public class VillageManager : ModSystem
 
 		if (teleport)
 		{
-			Vec3d centre = v.Pos.ToVec3d().Add(0.5, 1.0, 0.5);
+			Vec3d centre = v.EffectiveCenter().ToVec3d().Add(0.5, 1.0, 0.5);
 			foreach (EntityBehaviorVillager beh in v.Villagers)
 			{
 				if (beh?.entity == null || !beh.entity.Alive) continue;
@@ -501,7 +505,7 @@ public class VillageManager : ModSystem
 			// Look in a 60-block radius around the mayor workstation - same scope the
 			// Villager Horn uses when checking for an existing keeper, so the GUI and
 			// the horn agree on which mechhelper "belongs" to this village.
-			Vec3d centre = dmv.Pos.ToVec3d().Add(0.5, 0.5, 0.5);
+			Vec3d centre = dmv.EffectiveCenter().ToVec3d().Add(0.5, 0.5, 0.5);
 			Entity[] keepers = api.World.GetEntitiesAround(centre, 60f, 20f,
 				e => e.Code?.Domain == "vsvillage" && e.Code?.Path == "village-mechhelper" && e.Alive);
 
@@ -533,7 +537,7 @@ public class VillageManager : ModSystem
 			Village rv = GetVillage(message.Id);
 			if (rv == null) { Api.Logger.Error("[VsVillage] recoverOrphanedVillagers: village '" + message.Id + "' not found."); break; }
 
-			Vec3d rvCenter = rv.Pos.ToVec3d().Add(0.5, 0.5, 0.5);
+			Vec3d rvCenter = rv.EffectiveCenter().ToVec3d().Add(0.5, 0.5, 0.5);
 			float rvRadius = (float)rv.Radius;
 			Entity[] candidates = api.World.GetEntitiesAround(rvCenter, rvRadius, rvRadius, e =>
 			{
@@ -577,9 +581,10 @@ public class VillageManager : ModSystem
 			int recovered = 0;
 			int r = rfv.Radius;
 			int dim = rfv.Pos.dimension;
+			int rfvCenterY = rfv.EffectiveCenterY();
 			IBlockAccessor ba = api.World.BlockAccessor;
-			BlockPos minPos = new BlockPos(rfv.Pos.X - r, rfv.Pos.Y - r, rfv.Pos.Z - r, dim);
-			BlockPos maxPos = new BlockPos(rfv.Pos.X + r, rfv.Pos.Y + r, rfv.Pos.Z + r, dim);
+			BlockPos minPos = new BlockPos(rfv.Pos.X - r, rfvCenterY - r, rfv.Pos.Z - r, dim);
+			BlockPos maxPos = new BlockPos(rfv.Pos.X + r, rfvCenterY + r, rfv.Pos.Z + r, dim);
 			BlockPos tmp = new BlockPos(0, 0, 0, dim);
 
 			ba.WalkBlocks(minPos, maxPos, (block, x, y, z) =>

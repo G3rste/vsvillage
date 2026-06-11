@@ -48,6 +48,73 @@ public class Village
 
     public string Id => "village-" + Pos.ToString();
 
+    // Cached EffectiveCenterY result. Structure positions barely move, but the helper
+    // is called from per-tick AI code, so recompute at most every few seconds.
+    private int effectiveCenterYCache;
+    private long effectiveCenterYCacheMs = -1;
+
+    // Naturally generated villages were saved with a bogus centre Y: worldgen passed a
+    // chunk-column corner with Y=0 into getMiddle(), which adds a flat +20, so the stored
+    // centre of every worldgen village sits ~90 blocks underground on default worlds.
+    // Pos cannot be repaired in place because Id derives from it (and Id is persisted in
+    // block entities and as the savegame data key), so vertical scans and 3D distance
+    // checks must anchor on this instead: the average Y of registered structures, falling
+    // back to the terrain height at the centre column, then to Pos.Y itself.
+    public int EffectiveCenterY()
+    {
+        long now = Api?.World?.ElapsedMilliseconds ?? -1;
+        if (now != -1 && effectiveCenterYCacheMs != -1 && now - effectiveCenterYCacheMs < 5000)
+        {
+            return effectiveCenterYCache;
+        }
+
+        long sum = 0;
+        int count = 0;
+        foreach (BlockPos pos in Workstations.Keys)
+        {
+            if (pos == null) continue;
+            sum += pos.Y;
+            count++;
+        }
+        foreach (BlockPos pos in Beds.Keys)
+        {
+            if (pos == null) continue;
+            sum += pos.Y;
+            count++;
+        }
+
+        int result;
+        if (count > 0)
+        {
+            result = (int)(sum / count);
+        }
+        else
+        {
+            int terrainY = 0;
+            if (Api != null && Pos != null)
+            {
+                terrainY = Api.World.BlockAccessor.GetTerrainMapheightAt(Pos);
+            }
+            result = terrainY > 0 ? terrainY : (Pos?.Y ?? 0);
+        }
+
+        if (now != -1)
+        {
+            effectiveCenterYCache = result;
+            effectiveCenterYCacheMs = now;
+        }
+        return result;
+    }
+
+    // Copy of Pos with the Y replaced by EffectiveCenterY. Use for 3D distance checks
+    // and goto targets; never as a dictionary key and never to derive Id.
+    public BlockPos EffectiveCenter()
+    {
+        BlockPos center = Pos.Copy();
+        center.Y = EffectiveCenterY();
+        return center;
+    }
+
     // Hot path. One list alloc instead of the prior chain (ToList -> ConvertAll -> Where -> ToList = 3 lists + enumerator).
     public List<EntityBehaviorVillager> Villagers
     {

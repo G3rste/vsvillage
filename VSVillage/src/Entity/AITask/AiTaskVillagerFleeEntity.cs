@@ -275,7 +275,7 @@ public class AiTaskVillagerFleeEntity : AiTaskBase
 
         // 2. Mayor station as the central village fallback. Almost always present.
         if (shelterPos == null && village?.Pos != null)
-            shelterPos = FindStandingPosNear(village.Pos.ToVec3d());
+            shelterPos = FindStandingPosNear(village.EffectiveCenter().ToVec3d());
 
         // 3. Bed room (a standing tile next to the villager's bed).
         if (shelterPos == null && vb?.Bed != null)
@@ -424,7 +424,7 @@ public class AiTaskVillagerFleeEntity : AiTaskBase
                 (int)(myPos.Z + fdz * legDist));
 
             // Stay inside village radius. Skip any angle that lands outside.
-            if (village?.Pos != null && village.Pos.DistanceSqTo(dest.X, dest.Y, dest.Z) > villageRadiusSq) continue;
+            if (village?.Pos != null && village.EffectiveCenter().DistanceSqTo(dest.X, dest.Y, dest.Z) > villageRadiusSq) continue;
 
             List<VillagerPathNode> path = pathfinder.FindPath(startPos, dest, 1200);
             if (path != null && path.Count > 1)

@@ -199,7 +199,7 @@ public class EntityBehaviorTravellingTrader : EntityBehavior
         Village village = entity.Api.ModLoader.GetModSystem<VillageManager>()?.GetVillage(villageId);
         if (village == null) { DespawnSelf(); return; }
 
-        double dist = entity.Pos.XYZ.DistanceTo(village.Pos.ToVec3d());
+        double dist = entity.Pos.XYZ.DistanceTo(village.EffectiveCenter().ToVec3d());
         if (dist > DespawnDist)
         {
             Log($"Path complete and outside village ({dist:F0} > {DespawnDist}) - despawning.");
@@ -265,7 +265,7 @@ public class EntityBehaviorTravellingTrader : EntityBehavior
         Village village = entity.Api.ModLoader.GetModSystem<VillageManager>()?.GetVillage(villageId);
         if (village != null)
         {
-            double distToVillage = entity.Pos.XYZ.DistanceTo(village.Pos.ToVec3d());
+            double distToVillage = entity.Pos.XYZ.DistanceTo(village.EffectiveCenter().ToVec3d());
             if (distToVillage > DespawnDist)
             {
                 Log($"Left village area ({distToVillage:F0} > {DespawnDist}) - despawning.");

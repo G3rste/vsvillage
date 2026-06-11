@@ -405,7 +405,7 @@ public class ManagementGui : GuiDialog
 	private static bool HasMechhelper(Village village, ICoreClientAPI capi)
 	{
 		if (village?.Pos == null) return false;
-		Vec3d centre = village.Pos.ToVec3d().Add(0.5, 0.5, 0.5);
+		Vec3d centre = village.EffectiveCenter().ToVec3d().Add(0.5, 0.5, 0.5);
 		Entity[] keepers = capi.World.GetEntitiesAround(centre, 60f, 20f,
 			e => e.Code?.Domain == "vsvillage" && e.Code?.Path == "village-mechhelper" && e.Alive);
 		return keepers != null && keepers.Length > 0;
@@ -421,7 +421,8 @@ public class ManagementGui : GuiDialog
 		// Must match TravellingTraderManager.ScanForMarketStallBlock or the GUI lies about placement.
 		int r = Math.Min(village.Radius, 75);
 		int dyMax = Math.Min(village.Radius, 75);
-		int cy = village.Pos.Y;
+		// Worldgen villages store Pos.Y ~20 (see Village.EffectiveCenterY).
+		int cy = village.EffectiveCenterY();
 		BlockPos tmp = new BlockPos(0);
 		for (int dx = -r; dx <= r; dx++)
 		{

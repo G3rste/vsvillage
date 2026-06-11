@@ -59,11 +59,14 @@ public class AiTaskMechHelperReturnToBase : AiTaskGotoAndInteract
         foreach (Village v in vm.Villages.Values)
         {
             if (v.Pos == null) continue;
-            double d = selfPos.SquareDistanceTo(v.Pos.ToVec3d());
+            // EffectiveCenter: worldgen villages store Pos.Y ~20, which would push
+            // every village past SearchRadius and send the helper underground.
+            BlockPos centre = v.EffectiveCenter();
+            double d = selfPos.SquareDistanceTo(centre.ToVec3d());
             if (d < bestD)
             {
                 bestD = d;
-                best  = v.Pos;
+                best  = centre;
             }
         }
         return best;

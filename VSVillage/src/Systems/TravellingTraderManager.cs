@@ -353,7 +353,8 @@ public class TravellingTraderManager : ModSystem
     {
         int r = Math.Min(village.Radius, MarketStallScanRadius);
         int dyMax = Math.Min(village.Radius, MarketStallScanRadius);
-        int cy = village.Pos.Y;
+        // Worldgen villages store Pos.Y ~20 (see Village.EffectiveCenterY).
+        int cy = village.EffectiveCenterY();
         BlockPos tmp = new BlockPos(0);
         for (int dx = -r; dx <= r; dx++)
         {
@@ -381,13 +382,16 @@ public class TravellingTraderManager : ModSystem
     {
         IBlockAccessor ba = _sapi.World.BlockAccessor;
         const double baseRadius = 55.0;
+        int centerY = village.EffectiveCenterY();
         for (int attempt = 0; attempt < 20; attempt++)
         {
             double angle = _sapi.World.Rand.NextDouble() * Math.PI * 2.0;
             double dist = baseRadius + (_sapi.World.Rand.NextDouble() * 4.0 - 2.0);
             int x = village.Pos.X + (int)(Math.Cos(angle) * dist);
             int z = village.Pos.Z + (int)(Math.Sin(angle) * dist);
-            BlockPos candidate = new BlockPos(x, village.Pos.Y, z, 0);
+            // FindSurface only probes +/-5 blocks, so it must start near the actual
+            // surface - village.Pos.Y is unreliable (worldgen stores ~20).
+            BlockPos candidate = new BlockPos(x, centerY, z, 0);
             candidate = FindSurface(ba, candidate);
             if (candidate != null)
             {

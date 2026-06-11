@@ -52,7 +52,7 @@ public class AiTaskVillagerFarmerHelp : AiTaskGotoAndInteract
         // No waypoints - wander within village radius.
         double angle = entity.World.Rand.NextDouble() * Math.PI * 2;
         double dist  = entity.World.Rand.NextDouble() * village.Radius * 0.8;
-        return village.Pos.ToVec3d().Add(Math.Cos(angle) * dist, 0, Math.Sin(angle) * dist);
+        return village.EffectiveCenter().ToVec3d().Add(Math.Cos(angle) * dist, 0, Math.Sin(angle) * dist);
     }
 
     private bool IsFarmer() => entity?.Code?.Path?.EndsWith("-farmer") == true;

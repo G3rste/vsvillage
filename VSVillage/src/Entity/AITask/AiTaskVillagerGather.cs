@@ -53,7 +53,7 @@ public class AiTaskVillagerGather : AiTaskBase
 		Village village = beh?.Village;
 		if (village?.Pos == null) { stuck = true; return; }
 
-		targetPos = FindStandingPosNear(village.Pos.ToVec3d());
+		targetPos = FindStandingPosNear(village.EffectiveCenter().ToVec3d());
 
 		// Already close enough - skip pathfinding and idle immediately.
 		if (entity.Pos.SquareDistanceTo(targetPos) < ArrivalDistanceSq)

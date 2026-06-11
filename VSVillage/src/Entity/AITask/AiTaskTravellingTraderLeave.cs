@@ -91,7 +91,9 @@ public class AiTaskTravellingTraderLeave : AiTaskBase
         }
 
         // If already outside 55 blocks of village centre, just despawn now.
-        double currentDist = entity.Pos.XYZ.DistanceTo(village.Pos.ToVec3d());
+        // EffectiveCenter: village.Pos.Y is unreliable (worldgen stores ~20), which
+        // would inflate this 3D distance by ~90 blocks and trip the check instantly.
+        double currentDist = entity.Pos.XYZ.DistanceTo(village.EffectiveCenter().ToVec3d());
         if (currentDist > ExitDist)
         {
             entity.World.Logger.Debug($"[TravellingTraderLeave:{entity.EntityId}] Already outside village - notifying behavior.");
@@ -190,6 +192,9 @@ public class AiTaskTravellingTraderLeave : AiTaskBase
         IBlockAccessor ba = entity.World.BlockAccessor;
         Vec3d myPos = entity.Pos.XYZ;
         Vec3d centre = village.Pos.ToVec3d();
+        // FindSurface only probes +/-5 blocks, so it must start near the actual
+        // surface - village.Pos.Y is unreliable (worldgen stores ~20).
+        int centerY = village.EffectiveCenterY();
         double baseAngle = Math.Atan2(myPos.Z - centre.Z, myPos.X - centre.X);
         for (int attempt = 0; attempt < 10; attempt++)
         {
@@ -198,7 +203,7 @@ public class AiTaskTravellingTraderLeave : AiTaskBase
             double angle = baseAngle + sign * spread;
             int tx = village.Pos.X + (int)(Math.Cos(angle) * ExitDist);
             int tz = village.Pos.Z + (int)(Math.Sin(angle) * ExitDist);
-            BlockPos surface = FindSurface(ba, new BlockPos(tx, village.Pos.Y, tz, 0));
+            BlockPos surface = FindSurface(ba, new BlockPos(tx, centerY, tz, 0));
             if (surface != null)
             {
                 return surface;

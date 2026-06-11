@@ -89,7 +89,7 @@ public class AiTaskVillagerStormShelter : AiTaskBase
 					ArriveAtShelter();
 					return;
 				}
-				Vec3d mayorStand = village?.Pos != null ? FindStandingPosNear(village.Pos.ToVec3d()) : null;
+				Vec3d mayorStand = village?.Pos != null ? FindStandingPosNear(village.EffectiveCenter().ToVec3d()) : null;
 				if (mayorStand != null && IsPositionSafe(mayorStand))
 				{
 					entity.TeleportTo(mayorStand);

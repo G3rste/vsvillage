@@ -236,7 +236,9 @@ public class AiTaskVillagerDrinkWater : AiTaskGotoAndInteract
 
     private BlockPos ScanForWaterSource(Village village)
     {
-        BlockPos center = village.Pos;
+        // EffectiveCenter: worldgen villages store Pos.Y ~20, and a 10-block Y pad
+        // around that would scan for water far below the surface.
+        BlockPos center = village.EffectiveCenter();
         int r = village.Radius;
         const int yPad = 10;
         IBlockAccessor ba = entity.World.BlockAccessor;

@@ -626,10 +626,13 @@ public abstract class AiTaskGotoAndInteract : AiTaskBase
 
         // Only fire when villager is outside the village. Targets unreachable from
         // inside (walled-off bed) don't benefit from a mid-village teleport.
+        // EffectiveCenter: worldgen villages store Pos.Y ~20, which would both fail
+        // the radius check and teleport the villager underground.
+        BlockPos centre = village.EffectiveCenter();
         double radiusSq = village.Radius * (double)village.Radius;
-        if (village.Pos.DistanceSqTo(entity.Pos.X, entity.Pos.Y, entity.Pos.Z) < radiusSq) return false;
+        if (centre.DistanceSqTo(entity.Pos.X, entity.Pos.Y, entity.Pos.Z) < radiusSq) return false;
 
-        Vec3d dest = FindStandingPosNearMayor(village.Pos.ToVec3d());
+        Vec3d dest = FindStandingPosNearMayor(centre.ToVec3d());
         if (dest == null) return false;
 
         entity.TeleportTo(dest);
