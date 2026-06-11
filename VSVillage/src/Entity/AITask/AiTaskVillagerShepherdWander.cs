@@ -48,7 +48,7 @@ public class AiTaskVillagerShepherdWander : AiTaskBase
 		{
 			wanderRange = taskConfig["wanderRange"].AsFloat(25f);
 		}
-		pathfinder = new VillagerAStarNew(entity.World.GetCachingBlockAccessor(synchronize: false, relight: false));
+		pathfinder = new VillagerAStarNew(entity.World.GetCachingBlockAccessor(synchronize: false, relight: false), entity.World, entity);
 	}
 
 	public override bool ShouldExecute()
